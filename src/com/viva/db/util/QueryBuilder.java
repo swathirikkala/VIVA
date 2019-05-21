@@ -6,6 +6,7 @@ import com.viva.dto.Epic;
 import com.viva.dto.Project;
 import com.viva.dto.Sprint;
 import com.viva.dto.User;
+import com.viva.dto.UserStory;
 
 public class QueryBuilder {
 
@@ -82,5 +83,22 @@ public class QueryBuilder {
 				+ epic.getStartDate() + "','" + epic.getEndDate() + "','" + epic.getDescription() + "','"
 				+ epic.getLmb() + "')";
 		return query;
+	}
+
+	public static String getAllEpicsQuery() {
+		String query = "select * from epic";
+		return query;
+	}
+
+	public static String getAddUserStoryQuery(UserStory us) {
+		String query ="insert into user_story (project,sprint,epic,name,priority,start_date,end_date,manager,assign_to,	description,lmb) values("+
+				us.getProject()+","+us.getSprint()+","+us.getEpic()+",'"+us.getName()+"','"+us.getPrioroty()+"','"+
+				us.getStartDate()+"','"+us.getEndDate()+"','"+us.getManager()+"','"+us.getAssignTo()+"','"+us.getDescription()+"','"+
+				us.getLmb()+"')";
+		return query;
+	}
+
+	public static String getAllUserStoriesQuery() {
+		return "select * from user_story";
 	}
 }

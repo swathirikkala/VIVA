@@ -1,3 +1,5 @@
+<%@page import="com.viva.dto.Epic"%>
+<%@page import="com.viva.dao.EpicDao"%>
 <%@page import="com.viva.dao.SprintDao"%>
 <%@page import="com.viva.dto.Sprint"%>
 <%@page import="com.viva.dto.Project"%>
@@ -13,32 +15,17 @@
 <%
 	Response resp = (Response)request.getSession().getAttribute("response");
 	String message = resp.getResponseMessage();
+	EpicDao epicDao = new EpicDao();
 	
-	String projectId = String.valueOf(request.getSession().getAttribute("projectId"));
-	
-	List<User> managers = (List<User>)request.getSession().getAttribute("managers");
-	if(managers == null){
-		managers = new ArrayList();
-	}
-	
+
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
 	
-	
-	List<Project> projectsByManagerId = (List<Project>)request.getSession().getAttribute("projectsByManagerId");
-	if(null == projectsByManagerId){
-		projectsByManagerId = new ArrayList<>();
+	List<Epic>  epics = epicDao.getEpics();
+	if(null == epics){
+		epics = new ArrayList<>();
 	}
-	if(projectId != null){
-		if("null".endsWith(projectId));
-		projectId = "1";
-	}else{
-		projectId = "1";
-	}
-	List<Sprint> sprintsByProjectId = new SprintDao().getSpintsByProject(projectId);
-	if(null == sprintsByProjectId){
-		sprintsByProjectId = new ArrayList<>();
-	}
+
 %>
 
 
@@ -108,22 +95,22 @@
 							</tr>
 						</thead>
 						<tbody id="projectsBody">
-							
+							<%for(Epic epic: epics) {%>
 								<tr class="row100 head">
-									<td class="column100 width50" data-column="column1"></td>
-									<td class="column100 width100" data-column="column2"></td>
-									<td class="column100 width50" data-column="column1"></td>
-									<td class="column100 width75" data-column="column1"></td>
-									<td class="column100 width75" data-column="column1"></td>
-									<td class="column100 width50" data-column="column6"></td>
-									<td class="column100 width100" data-column="column7"></td>
+									<td class="column100 width50" data-column="column1">EP<%= epic.getId()%></td>
+									<td class="column100 width100" data-column="column2"><%=epic.getName() %></td>
+									<td class="column100 width50" data-column="column1"><%= epic.getStartDate()%></td>
+									<td class="column100 width75" data-column="column1"><%= epic.getEndDate()%></td>
+									<td class="column100 width75" data-column="column1"><%= epic.getSeverity()%></td>
+									<td class="column100 width50" data-column="column6"><%= epic.getStatus()%></td>
+									<td class="column100 width100" data-column="column7"><%= epic.getManager()%></td>
 									<td class="column100 width50" data-column="column6"></td>
 									<td class="column100 width100" data-column="column7">
-<!-- 										<a href="#">view</a>&nbsp; -->
-<!-- 										<a href="#">edit</a> -->
+										<a href="#">view</a>&nbsp;
+										<a href="#">edit</a>
 									</td>
 								</tr>
-							
+							<%} %>
 						</tbody>
 					</table>
 				</div>

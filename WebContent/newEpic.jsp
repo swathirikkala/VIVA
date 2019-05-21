@@ -1,3 +1,6 @@
+<%@page import="com.viva.dao.SprintDao"%>
+<%@page import="com.viva.dao.ProjectDao"%>
+<%@page import="com.viva.dao.UserDao"%>
 <%@page import="com.viva.dto.Sprint"%>
 <%@page import="com.viva.dto.Project"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -10,30 +13,39 @@
 <%
 	Response resp = (Response)request.getSession().getAttribute("response");
 	String message = resp.getResponseMessage();
-	
-	String projectId = String.valueOf(request.getSession().getAttribute("projectId"));
-	
-	List<User> managers = (List<User>)request.getSession().getAttribute("managers");
-	if(managers == null){
-		managers = new ArrayList();
-	}
-	
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
+	String projectId = String.valueOf(request.getSession().getAttribute("projectId"));
 	
-	List<Project> lastUpdatedProjectsList = (List<Project>)request.getSession().getAttribute("lastUpdatedProjectsList");
+	
+	UserDao userDao = new UserDao();
+	ProjectDao projectDao = new ProjectDao();
+	SprintDao sprintDao = new SprintDao();
+	
+	List<User> managers = userDao.getManagers();
+	if(managers == null){
+		managers = new ArrayList<User>();
+	}
+	
+	
+	List<Project> lastUpdatedProjectsList = projectDao.lastUpdatedProjectsListByManagerId(userId);
 	if(null == lastUpdatedProjectsList){
 		lastUpdatedProjectsList = new ArrayList<>();
 	}
 	
-	List<Project> projectsByManagerId = (List<Project>)request.getSession().getAttribute("projectsByManagerId");
+	List<Project> projectsByManagerId = projectDao.getProjectsByAssignedManager(userId);
 	if(null == projectsByManagerId){
-		projectsByManagerId = new ArrayList<>();
+		projectsByManagerId = new ArrayList<Project>();
 	}
 	
-	List<Sprint> sprintsByProjectId = (List<Sprint>)request.getSession().getAttribute("sprintsByProjectId");
+	List<Sprint> sprintsByProjectId = sprintDao.getSpintsByProject(projectId);
 	if(null == sprintsByProjectId){
-		sprintsByProjectId = new ArrayList<>();
+		sprintsByProjectId = new ArrayList<Sprint>();
+	}
+	
+	List<User> listOfUsers =  new UserDao().getAllUsers();
+	if(null == listOfUsers){
+		listOfUsers = new ArrayList<User>();
 	}
 %>
 <!DOCTYPE html>
@@ -42,19 +54,22 @@
 		  <span onclick="javascript:closePopup()" class="close" title="Close Sprint">&times;</span>
 			<form class="modal-content" method="post" action="./addEpic">
 		    <div class="container">
+		    <input type="hidden" id="createdBy" name="createdBy" value="<%=userId%>">
 		      <h1 style="color:green">Add Epic</h1>
 		      <p style="color:red">Please fill in the form to add the Epic</p>
 		      <hr>
 		      
-			   <label for="projectName"><b>Project Name</b></label><label style="color: red;">&nbsp;*</label>
-			   <select id="projectName" name = "projectName" required>
+			   <label for="projectName"><b>Project Name</b></label>
+			   <select id="projectName" name = "projectName" >
+		       <option value="" selected="selected">--Select Project--</option>
 		      <%for(Project p : projectsByManagerId){%>
 		      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
 		      <%}%>
 		      </select>
 		      		   
-		      <label for="sprintName"><b>Sprint Name</b></label><label style="color: red;">&nbsp;*</label>
-		       <select id="sprintName" name = "sprintName" required>
+		      <label for="sprintName"><b>Sprint Name</b></label>
+		       <select id="sprintName" name = "sprintName" >
+		       <option value="" selected="selected">--Select Sprint--</option>
 		      <%for(Sprint s : sprintsByProjectId){%>
 		      		<option value="<%= s.getSprintId()%>"><%= s.getSprintName()%></option>
 		      <%}%>
@@ -86,11 +101,11 @@
 		      <%}%>
 		      </select>
 			   
-		      <label for="departmentDescription"><b>Assign to</b></label><label style="color: red;">&nbsp;*</label>
-		      <select id="projectManager" name = "projectManager" required>
-<%-- 		      <%for(User user : managers){%> --%>
-<%-- 		      		<option value="<%= userId%>"><%= userName%></option> --%>
-<%-- 		      <%}%> --%>
+		      <label for="assignTo"><b>Assign to</b></label><label style="color: red;">&nbsp;*</label>
+		      <select id="assignTo" name = "assignTo" required>
+		      <%for(User user : listOfUsers){%>
+		      		<option value="<%= userId%>"><%= userName%></option>
+		      <%}%>
 		      </select>
 		      <label for="projectManager"><b>Project Manager</b></label><label style="color: red;">&nbsp;*</label>
 		      <select id="projectManager" name = "projectManager" required>

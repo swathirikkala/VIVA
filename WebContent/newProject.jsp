@@ -1,3 +1,5 @@
+<%@page import="com.viva.dao.ProjectDao"%>
+<%@page import="com.viva.dao.UserDao"%>
 <%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="com.viva.dto.Project"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -10,14 +12,19 @@
 <%
 	Response resp = (Response)request.getSession().getAttribute("response");
 	String message = resp.getResponseMessage();
-	List<User> managers = (List<User>)request.getSession().getAttribute("managers");
-	if(managers == null)
-		managers = new ArrayList();
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
-	List<Project> lastUpdatedProjectsList = (List<Project>)request.getSession().getAttribute("lastUpdatedProjectsList");
+	
+	UserDao userDao = new UserDao();
+	ProjectDao projectDao = new ProjectDao();
+	
+	List<User> managers = userDao.getManagers();
+	if(managers == null){
+		managers = new ArrayList<User>();
+	}
+	List<Project> lastUpdatedProjectsList = projectDao.lastUpdatedProjectsListByManagerId(userId);
 	if(null == lastUpdatedProjectsList){
-		lastUpdatedProjectsList = new ArrayList<>();
+		lastUpdatedProjectsList = new ArrayList<Project>();
 	}
 %>
 <!DOCTYPE html>
@@ -66,10 +73,11 @@
 			   <label for="projectEndDate"><b>Project End Date</b></label><label style="color: red;">&nbsp;*</label>
 			   <input type="date" placeholder="Project End Date" name="projectEndDate" id="projectEndDate" required>
 			   
-			   
-			   <label for="createdBy"><b>Created By</b></label><label style="color: red;">&nbsp;*</label>
-			   <input type="hidden" placeholder="Created By" name="createdBy" id="createdBy" required value="<%= userId %>">
-			   <input type="text" placeholder="Created By" name="createdByName" id="createdByName" required value="<%= userName %>" disabled="disabled">
+			   <div id="createdByDiv" style="display: none;">
+				   <label for="createdBy"><b>Created By</b></label><label style="color: red;">&nbsp;*</label>
+				   <input type="hidden" placeholder="Created By" name="createdBy" id="createdBy" required value="<%= userId %>">
+				   <input type="text" placeholder="Created By" name="createdByName" id="createdByName" required value="<%= userName %>" disabled="disabled">
+			   </div>
 			   
 		      <label for="departmentDescription"><b>Project Manager</b></label><label style="color: red;">&nbsp;*</label>
 		      <select id="projectManager" name = "projectManager" required>

@@ -29,9 +29,9 @@ public class UserDao {
 		return ResponseBuilder.getResponse(userLoginReponse.size(), "Login", loginUser);
 	}
 
-	public Response getAllUsers(User user) {
-		List<User> allUsesReponse = parseUsers(DBConnectionUtil.getData(QueryBuilder.getAllUsers()));
-		return ResponseBuilder.getResponse(allUsesReponse.size(), "List Of All Users", allUsesReponse);
+	public List<User> getAllUsers() {
+		return parseUsers(DBConnectionUtil.getData(QueryBuilder.getAllUsers()));
+		 
 	}
 
 	private List<User> parseUsers(ResultSet rs) {

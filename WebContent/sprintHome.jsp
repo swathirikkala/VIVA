@@ -3,7 +3,8 @@
 <script type="text/javascript">
 	function openModal(){
 		console.log("newSprint Open modal got called");
-		$("#addSprintDiv").load("newSprint.jsp");
+		$("#addSprintDiv").load("./newSprint.jsp");
+		
 	}
 	</script>
 </head>

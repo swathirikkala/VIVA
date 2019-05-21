@@ -1,3 +1,7 @@
+<%@page import="com.viva.dao.UserStoryDao"%>
+<%@page import="com.viva.dto.UserStory"%>
+<%@page import="com.viva.dto.Epic"%>
+<%@page import="com.viva.dao.EpicDao"%>
 <%@page import="com.viva.dao.SprintDao"%>
 <%@page import="com.viva.dto.Sprint"%>
 <%@page import="com.viva.dto.Project"%>
@@ -12,33 +16,18 @@
 
 <%
 	Response resp = (Response)request.getSession().getAttribute("response");
-	String message = resp.getResponseMessage();
+// 	String message = resp.getResponseMessage();
+	UserStoryDao userStoryDao = new UserStoryDao();
 	
-	String projectId = String.valueOf(request.getSession().getAttribute("projectId"));
-	
-	List<User> managers = (List<User>)request.getSession().getAttribute("managers");
-	if(managers == null){
-		managers = new ArrayList();
-	}
-	
+
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
 	
-	
-	List<Project> projectsByManagerId = (List<Project>)request.getSession().getAttribute("projectsByManagerId");
-	if(null == projectsByManagerId){
-		projectsByManagerId = new ArrayList<>();
+	List<UserStory>  uss = userStoryDao.getAllUserStories();
+	if(null == uss){
+		uss = new ArrayList<UserStory>();
 	}
-	if(projectId != null){
-		if("null".endsWith(projectId));
-		projectId = "1";
-	}else{
-		projectId = "1";
-	}
-	List<Sprint> sprintsByProjectId = new SprintDao().getSpintsByProject(projectId);
-	if(null == sprintsByProjectId){
-		sprintsByProjectId = new ArrayList<>();
-	}
+
 %>
 
 
@@ -90,14 +79,14 @@
 	</head>
 	<body>
 			
-		<!-- Projects Table -->
+		<!-- User stories Table -->
 			<div class="limiter">
 				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:500px; min-height:0px; overflow-x: none;">
 					<table data-vertable="ver2">
 						<thead>
 							<tr class="row100 head">
-								<th class="column100 width50" data-column="column1">User Story ID</th>
-								<th class="column100 width100" data-column="column2">User Story Name</th>
+								<th class="column100 width50" data-column="column1">US ID</th>
+								<th class="column100 width100" data-column="column2">US Name</th>
 								<th class="column100 width75" data-column="column1">Start Date</th>
 								<th class="column100 width75" data-column="column1">End Date</th>
 								<th class="column100 width50" data-column="column1">Severity</th>
@@ -108,22 +97,22 @@
 							</tr>
 						</thead>
 						<tbody id="projectsBody">
-							
+							<%for(UserStory us: uss) {%>
 								<tr class="row100 head">
-									<td class="column100 width50" data-column="column1"></td>
-									<td class="column100 width100" data-column="column2"></td>
-									<td class="column100 width50" data-column="column1"></td>
-									<td class="column100 width75" data-column="column1"></td>
-									<td class="column100 width75" data-column="column1"></td>
-									<td class="column100 width50" data-column="column6"></td>
-									<td class="column100 width100" data-column="column7"></td>
+									<td class="column100 width50" data-column="column1">US<%= us.getId()%></td>
+									<td class="column100 width100" data-column="column2"><%=us.getName() %></td>
+									<td class="column100 width50" data-column="column1"><%= us.getStartDate()%></td>
+									<td class="column100 width75" data-column="column1"><%= us.getEndDate()%></td>
+									<td class="column100 width75" data-column="column1"><%= us.getPrioroty()%></td>
+									<td class="column100 width50" data-column="column6"><%= us.getPrioroty()%></td>
+									<td class="column100 width100" data-column="column7"><%= us.getManager()%></td>
 									<td class="column100 width50" data-column="column6"></td>
 									<td class="column100 width100" data-column="column7">
-<!-- 										<a href="#">view</a>&nbsp; -->
-<!-- 										<a href="#">edit</a> -->
+										<a href="#">view</a>&nbsp;
+										<a href="#">edit</a>
 									</td>
 								</tr>
-							
+							<%} %>
 						</tbody>
 					</table>
 				</div>
