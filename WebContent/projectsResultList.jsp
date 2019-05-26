@@ -1,3 +1,5 @@
+<%@page import="java.util.Map"%>
+<%@page import="com.viva.dao.UserDao"%>
 <%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="com.viva.dto.Project"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -12,6 +14,8 @@
 	if(projects == null){
 		projects = new ArrayList<Project>();
 	}
+	UserDao userDao = new UserDao();
+	Map<String, User> allUsers = userDao.getAllUsers();
 %>
 <!DOCTYPE html>
 <html>
@@ -59,8 +63,26 @@
 				width: 100px;
 			}
 		</style>
+		<script type="text/javascript">
+			function loadProject(projectId) {
+				console.log("Load project function got called : projectId -> " +projectId );
+			}
+		</script>
+		<script type="text/javascript">
+			function openModal(){
+				console.log("Open Project modal got called");
+				$("#addPrjDiv").load("./newProject.jsp");
+			}
+		</script>
 	</head>
 	<body>
+	<button onclick="openModal();" style="width:auto;">Create New Project</button>
+		
+		<!-- Project Creation Div -->
+		<div id="addPrjDiv">
+<%-- 		  <%@include file="newProject.jsp" %> --%>
+		</div>
+		<!-- Project Creation Div ended -->
 	<!-- Projects Table -->
 			<div class="limiter">
 				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:500px; min-height:0px; overflow-x: none;">
@@ -80,10 +102,10 @@
 							<% for(Project p : projects){ %>
 								<tr class="row100 head">
 									<td class="column100 width50" data-column="column1">
-										<a href="#" onclick="loadProject('+<%=p.getId()%>+')">PRJ<%=p.getId()%></a> 
+										<a href="javascript:void(0);" onclick="loadProject('<%=p.getId()%>')">PRJ<%=p.getId()%></a> 
 									</td>
 									<td class="column100 width100" data-column="column2"><%=p.getName() %></ttdh>
-									<td class="column100 width50" data-column="column1"><%=LookUp.getUserName(p.getManager()) %></td>
+									<td class="column100 width50" data-column="column1"><%=LookUp.getUserName(p.getManager(),allUsers) %></td>
 									<td class="column100 width75" data-column="column1"><%=p.getStartDate() %></td>
 									<td class="column100 width75" data-column="column1"><%=p.getEndDate() %></td>
 									<td class="column100 width50" data-column="column6"><%=LookUp.getStatusName(p.getSeverity()) %></td>

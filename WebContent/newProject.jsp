@@ -13,7 +13,9 @@
 
 <%
 	Response resp = (Response)request.getSession().getAttribute("response");
-	String message = resp.getResponseMessage();
+	if(resp != null){
+		String message = resp.getResponseMessage();
+	}
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
 	
@@ -24,10 +26,7 @@
 	if(managers == null){
 		managers = new HashMap<String,User>();
 	}
-	List<Project> lastUpdatedProjectsList = projectDao.lastUpdatedProjectsListByManagerId(userId);
-	if(null == lastUpdatedProjectsList){
-		lastUpdatedProjectsList = new ArrayList<Project>();
-	}
+
 %>
 <!DOCTYPE html>
 <html>
@@ -62,40 +61,37 @@
 			   <input type="text" placeholder="Project Name" name="projectName" id="projectName" required>
 		      
 		      
-			   <label for="projectSeverity"><b>Project Severity</b></label><label style="color: red;">&nbsp;*</label>
-			     <select id="projectSeverity" name = "projectSeverity" required>
-		      		<option value="1">High</option>
-			      	<option value="2">Medium</option>
-			      	<option value="3">Low</option>
-			      	<option value="4">No Severity</option>
+			   <label for="projectSeverity"><b>Project Priority</b></label>
+			     <select id="projectPriority" name = "projectPriority">
+		      		<option value="0">--Select--</option>
+		      		<% for(String p : LookUp.getPriorities()){ %>
+		      			<option value="<%= p%>"><%= p%></option>
+			      	<%} %>
 		     	 </select>
-			   <label for="projectStartDate"><b>Project Start Date</b></label><label style="color: red;">&nbsp;*</label>
-			   <input type="date" placeholder="Project Start Date" name="projectStartDate" id="projectStartDate" required>
+			   <label for="projectStartDate"><b>Project Start Date</b></label>
+			   <input type="date" placeholder="Project Start Date" name="projectStartDate" id="projectStartDate">
 			   
-			   <label for="projectEndDate"><b>Project End Date</b></label><label style="color: red;">&nbsp;*</label>
-			   <input type="date" placeholder="Project End Date" name="projectEndDate" id="projectEndDate" required>
+			   <label for="projectEndDate"><b>Project End Date</b></label>
+			   <input type="date" placeholder="Project End Date" name="projectEndDate" id="projectEndDate">
 			   
-			   <div id="createdByDiv" style="display: none;">
-				   <label for="createdBy"><b>Created By</b></label><label style="color: red;">&nbsp;*</label>
-				   <input type="hidden" placeholder="Created By" name="createdBy" id="createdBy" required value="<%= userId %>">
-				   <input type="text" placeholder="Created By" name="createdByName" id="createdByName" required value="<%= userName %>" disabled="disabled">
-			   </div>
+			   <input type="hidden" placeholder="Created By" name="createdBy" id="createdBy" required value="<%= userId %>">
 			   
-		      <label for="departmentDescription"><b>Project Manager</b></label><label style="color: red;">&nbsp;*</label>
-		      <select id="projectManager" name = "projectManager" required>
-		      <%for(String managerId : managers.keySet()){
-		    	  String managerName = "";
-		    	  User manager = managers.get(managerId);
-		    	  if(manager != null){
-		    		  managerName = manager.getFirstName() +" " + manager.getLastName();
-		    	  }
-		      %>
+		      <label for="departmentDescription"><b>Project Manager</b></label>
+		      <select id="projectManager" name = "projectManager">
+		      <option value="">--Select--</option>
+			      <%for(String managerId : managers.keySet()){
+			    	  String managerName = "";
+			    	  User manager = managers.get(managerId);
+			    	  if(manager != null){
+			    		  managerName = manager.getFirstName() +" " + manager.getLastName();
+			    	  }
+			      %>
 		      		<option value="<%= managerId%>"><%= managerName%></option>
-		      <%}%>
+		     	 <%}%>
 		      </select>
 		      
 		      <label for="projectDescription"><b>Project Description</b></label><label style="color: red;">&nbsp;*</label>
-		      <textarea rows="4" cols="50" placeholder="Project Description" name="projectDescription" id="projectDescription" style="height: 100px;">
+		      <textarea rows="4" cols="50" placeholder="Project Description" name="projectDescription" id="projectDescription" style="height: 100px;" required="required">
 		      </textarea>
 		      
 		      <div class="clearfix">

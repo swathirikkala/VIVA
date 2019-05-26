@@ -1,5 +1,6 @@
 package com.viva.dao.util;
 
+import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
@@ -11,11 +12,10 @@ public class LookUp {
 
 	private static UserDao userDao = new UserDao();
 	
-	public static String getUserName(String userId) {
+	public static String getUserName(String userId ,Map<String, User> allUsers ) {
 		String userName ="";
 
 		try {
-			Map<String, User> allUsers = userDao.getAllUsers();
 			 User user = allUsers.get(userId);
 			 if(user!=null) {
 				 userName = user.getFirstName() +" "+ user.getLastName();
@@ -66,5 +66,12 @@ public class LookUp {
 		case 4: return "Completed";
 		}
 		return "";
+	}
+	public static List<String> getPriorities(){
+		List<String> priorities = new ArrayList<String>();
+		for(int i=1;i<=20;i++) {
+			priorities.add(String.valueOf(i));
+		}
+		return priorities;
 	}
 }

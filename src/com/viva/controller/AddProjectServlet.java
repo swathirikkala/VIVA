@@ -38,13 +38,24 @@ public class AddProjectServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		Project project = new Project();
 		project.setName(String.valueOf(request.getParameter("projectName")));
-		project.setSeverity(Integer.valueOf(request.getParameter("projectSeverity")));
+		try {
+			project.setSeverity(Integer.valueOf(request.getParameter("projectSeverity")));
+		} catch (NumberFormatException e) {
+			System.out.println(e.getMessage());
+		}
 		project.setStartDate(String.valueOf(request.getParameter("projectStartDate")));
+		if(project.getStartDate().isEmpty()) {
+			project.setStartDate("2000-01-01");
+		}
 		project.setEndDate(String.valueOf(request.getParameter("projectEndDate")));
-		project.setCreatedBy(String.valueOf(request.getParameter("createdBy")));
+
+		if(project.getEndDate().isEmpty()) {
+			project.setEndDate("2000-01-01");
+		}
+		project.setCreatedBy(String.valueOf(request.getSession().getAttribute("userId")));
 		project.setManager(String.valueOf(request.getParameter("projectManager")));
 		project.setDescription(String.valueOf(request.getParameter("projectDescription")));
-		project.setLastModifiedBy(project.getCreatedBy());
+		project.setLastModifiedBy(String.valueOf(request.getSession().getAttribute("userId")));
 		
 		Response addProjectResponse = dao.addProject(project);
 		

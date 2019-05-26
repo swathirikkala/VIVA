@@ -40,7 +40,7 @@
                 success: function (response) {
                    console.log("Search completed..... " + response);
                    if(response === "success"){
-                	   $("#homeDiv").load("projectsResultList.jsp");
+                	   $("#projectsDiv").load("projectsResultList.jsp");
                    }else{
                 	   alert("No Data Found with search criteria");
                    }

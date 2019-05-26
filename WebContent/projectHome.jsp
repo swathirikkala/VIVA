@@ -12,22 +12,9 @@
 				width: 100px;
 			}
 		</style>
-		<script type="text/javascript">
-	function openModal(){
-		console.log("Open modal got called");
-		$("#projectsDiv").load("projectsResultList.jsp");
-		$("#addPrjDiv").load("newProject.jsp");
-	}
-	</script>
+
 	</head>
 	<body>
-	    	<button onclick="openModal();" style="width:auto;">Create New Project</button>
-		
-		<!-- Project Creation Div -->
-		<div id="addPrjDiv">
-		  
-		</div>
-		<!-- Project Creation Div ended -->
 		
 		<!-- Projects Table -->
 			<div class="projectsDiv">
@@ -39,8 +26,6 @@
 	
 	<script type="text/javascript">
 	$(document).ready(function() {
-// 		$("#projectsDiv").load("sprintsResultList.jsp");
-// 		$("#projectsDiv").load("projectsResultList.jsp");
     	setTimeout(function(){
         	console.log("Loding projects");
     		
