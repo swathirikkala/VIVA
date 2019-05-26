@@ -2,8 +2,9 @@ package com.viva.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.viva.dao.util.ResponseBuilder;
 import com.viva.db.util.DBConnectionUtil;
@@ -21,21 +22,21 @@ public class UserDao {
 
 	public Response login(User user) {
 
-		List<User> userLoginReponse = parseUsers(DBConnectionUtil.getData(QueryBuilder.getUserLoginQuery(user)));
+		Map<String, User> userLoginReponse = parseUsers(DBConnectionUtil.getData(QueryBuilder.getUserLoginQuery(user)));
 		User loginUser = user;
 		if (userLoginReponse != null && !userLoginReponse.isEmpty()) {
-			loginUser = userLoginReponse.get(0);
+			loginUser = userLoginReponse.get(user.getEmailId());
 		}
 		return ResponseBuilder.getResponse(userLoginReponse.size(), "Login", loginUser);
 	}
 
-	public List<User> getAllUsers() {
+	public Map<String, User> getAllUsers() {
 		return parseUsers(DBConnectionUtil.getData(QueryBuilder.getAllUsers()));
 		 
 	}
 
-	private List<User> parseUsers(ResultSet rs) {
-		List<User> users = new ArrayList<User>();
+	private Map<String,User> parseUsers(ResultSet rs) {
+		Map<String,User> users = new HashMap<String,User>();
 		try {
 			while (null != rs && rs.next()) {
 				User user = new User();
@@ -48,7 +49,7 @@ public class UserDao {
 				user.setPassword(rs.getString(7));
 				user.setSecurityQuestion(rs.getString(8));
 				user.setSecurityAnswer(rs.getString(9));
-				users.add(user);
+				users.put(user.getEmailId(),user);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -56,8 +57,8 @@ public class UserDao {
 		return users;
 	}
 
-	public List<User> getManagers() {
-		List<User> managersList = parseUsers(DBConnectionUtil.getData(QueryBuilder.getManagersQuery()));
+	public Map<String, User> getManagers() {
+		Map<String, User> managersList = parseUsers(DBConnectionUtil.getData(QueryBuilder.getManagersQuery()));
 		return managersList;
 	}
 }

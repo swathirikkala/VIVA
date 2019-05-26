@@ -1,6 +1,6 @@
 package com.viva.util;
 
-import java.util.List;
+import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
@@ -17,7 +17,7 @@ public class DataUtil {
 	}
 	public void loadData() {
 		UserDao userDao = new UserDao();
-		List<User> managers = userDao.getManagers();
+		Map<String, User> managers = userDao.getManagers();
 		System.out.println("List of Managers : " + managers);
 		this.request.getSession().setAttribute("managers", managers);
 		

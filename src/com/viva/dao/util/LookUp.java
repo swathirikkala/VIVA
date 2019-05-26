@@ -1,12 +1,31 @@
 package com.viva.dao.util;
 
 import java.util.List;
+import java.util.Map;
 
+import com.viva.dao.UserDao;
 import com.viva.dto.Project;
 import com.viva.dto.User;
 
 public class LookUp {
 
+	private static UserDao userDao = new UserDao();
+	
+	public static String getUserName(String userId) {
+		String userName ="";
+
+		try {
+			Map<String, User> allUsers = userDao.getAllUsers();
+			 User user = allUsers.get(userId);
+			 if(user!=null) {
+				 userName = user.getFirstName() +" "+ user.getLastName();
+			 }
+		}catch(Exception e) {
+			System.out.println(e.getMessage());
+		}
+		
+		return userName;
+	}
 	public static String getUserName(String userId, List<User> users) {
 		String userName = "";
 		for (User u : users) {

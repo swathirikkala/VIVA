@@ -53,9 +53,9 @@
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
-	<div class="w3-container" style="margin-top:50px;text-align: right;">
-    	<h1 class="w3-xxxlarge" style="color: blue;"><b>Welcome <%= userName%></b></h1>
-	</div>
+<!-- 	<div class="w3-container" style="margin-top:50px;text-align: right;"> -->
+<%--     	<h1 class="w3-xxxlarge" style="color: blue;"><b>Welcome <%= userName%></b></h1> --%>
+<!-- 	</div> -->
 	<!-- Search form -->
 	<div class="w3-container" id="projectSearchDiv" style="margin-top:5px">
 		<h1 class="w3-xxxlarge" style="color: green;"><b>Projects</b></h1>

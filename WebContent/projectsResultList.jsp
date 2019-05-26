@@ -8,16 +8,9 @@
 <%@page import="com.viva.dao.Response"%>
 
 <%
-	Response resp = (Response)request.getSession().getAttribute("response");
-	String message = resp.getResponseMessage();
-	List<User> managers = (List<User>)request.getSession().getAttribute("managers");
-	if(managers == null)
-		managers = new ArrayList();
-	String userId = String.valueOf(request.getSession().getAttribute("userId"));
-	String userName = String.valueOf(request.getSession().getAttribute("userName"));
-	List<Project> lastUpdatedProjectsList = (List<Project>)request.getSession().getAttribute("lastUpdatedProjectsList");
-	if(null == lastUpdatedProjectsList){
-		lastUpdatedProjectsList = new ArrayList<>();
+	List<Project> projects = (List<Project>)request.getSession().getAttribute("projects");
+	if(projects == null){
+		projects = new ArrayList<Project>();
 	}
 %>
 <!DOCTYPE html>
@@ -76,28 +69,25 @@
 							<tr class="row100 head">
 								<th class="column100 width50" data-column="column1">ID</th>
 								<th class="column100 width100" data-column="column2">Project</th>
-								<th class="column100 width50" data-column="column1">Severity</th>
+								<th class="column100 width50" data-column="column1">Manager</th>
 								<th class="column100 width75" data-column="column1">Start Date</th>
 								<th class="column100 width75" data-column="column1">End Date</th>
 								<th class="column100 width50" data-column="column6">Status</th>
-								<th class="column100 width100" data-column="column7">Created By</th>
-								<th class="column100 width100" data-column="column7">Actions</th>
+								<th class="column100 width100" data-column="column7">VIVA</th>
 							</tr>
 						</thead>
 						<tbody id="projectsBody">
-							<% for(Project p : lastUpdatedProjectsList){ %>
+							<% for(Project p : projects){ %>
 								<tr class="row100 head">
-									<td class="column100 width50" data-column="column1">PRJ<%=p.getId()%></td>
+									<td class="column100 width50" data-column="column1">
+										<a href="#" onclick="loadProject('+<%=p.getId()%>+')">PRJ<%=p.getId()%></a> 
+									</td>
 									<td class="column100 width100" data-column="column2"><%=p.getName() %></ttdh>
-									<td class="column100 width50" data-column="column1"><%=LookUp.getSeverityName(p.getSeverity()) %></td>
+									<td class="column100 width50" data-column="column1"><%=LookUp.getUserName(p.getManager()) %></td>
 									<td class="column100 width75" data-column="column1"><%=p.getStartDate() %></td>
 									<td class="column100 width75" data-column="column1"><%=p.getEndDate() %></td>
 									<td class="column100 width50" data-column="column6"><%=LookUp.getStatusName(p.getSeverity()) %></td>
-									<td class="column100 width100" data-column="column7"><%=LookUp.getUserName(p.getCreatedBy(), managers)%></td>
-									<td class="column100 width100" data-column="column7">
-										<a href="./sprintHome?projectId=<%=p.getId()%>">view</a><br>
-										<a href="#">edit</a>
-									</td>
+									<td class="column100 width100" data-column="column7"><%=p.getViva() %></td>
 								</tr>
 							<%} %>
 						</tbody>

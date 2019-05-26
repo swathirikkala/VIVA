@@ -22,11 +22,56 @@
 			padding-right: 25px;
 		}
 	</style>
+	<script type="text/javascript">
+		function clearProjectSearchValues() {
+			console.log("clearProjectSearchValues got called");
+			$("#projectId").val("0");
+			$("#projectStatus").val("0");
+			$("#projectViva").val("0");
+			$("#projectStartDate").val("");
+			$("#projectEndDate").val("");
+		}
+		function searchProjects() {
+			console.log("searchProjects got called");
+            $.ajax({
+                type: 'post',
+                url: './searchProjects',
+                data: $('form').serialize(),
+                success: function (response) {
+                   console.log("Search completed..... " + response);
+                   if(response === "success"){
+                	   $("#homeDiv").load("projectsResultList.jsp");
+                   }else{
+                	   alert("No Data Found with search criteria");
+                   }
+                }
+            });
+			
+		}
+		$("#projectStartDate").change(function() {
+
+			 if($("#projectStartDate").val() !== ""){
+				 if (Date.parse($("#projectStartDate").val()) > Date.parse($("#projectEndDate").val())) {
+		               alert('Project Start Date should not greater than End Date.');
+		               $("#projectStartDate").val("");
+		           }
+			 }
+		});
+		
+		$("#projectEndDate").change(function() {
+			 if($("#projectEndDate").val() !== ""){
+				 if (Date.parse($("#projectStartDate").val()) > Date.parse($("#projectEndDate").val())) {
+		               alert('Project End Date should not lesser than Start Date.');
+		               $("#projectEndDate").val("");
+		           }
+			 }
+		});
+	</script>
 </head>
 <body>
 		<h1 class="w3-xxxlarge w3-text-red"><b>Manager Home</b></h1>
 		<hr>
-		<form method="post" action="./addProject">
+		<form method="post">
 		    <div class="divClass">
 		    
 		    	<table>
@@ -35,7 +80,8 @@
 		    				<label>Project Name</label>
 		    			</th>
 		    			<td class="cellClass">
-		    				<select id="projectManager" name = "projectManager" class="">
+		    				<select id="projectId" name = "projectId" class="">
+						      <option value="0">--Select--</option>
 						      <%for(Project p : projects){%>
 						      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
 						      <%}%>
@@ -52,7 +98,7 @@
 						      	<option value="3">On Hold</option>
 						      	<option value="4">Closed</option>
 						      	<option value="5">InActive</option>
-						      	<option value="5">Not Started</option>
+						      	<option value="6">Not Started</option>
 					     	 </select>
 		    			</td>
 		    		</tr>
@@ -61,7 +107,8 @@
 		    				<label>Project VIVA%</label>
 		    			</th>
 		    			<td class="cellClass">
-		    				<select id="viva" name = "viva" required>
+		    				<select id="projectViva" name = "projectViva" required>
+					      		<option value="0">--Select--</option>
 					      		<option value="10">10</option>
 						      	<option value="20">20</option>
 						      	<option value="30">30</option>
@@ -95,14 +142,14 @@
 					    	<input type="date" placeholder="Project End Date" name="projectEndDate" id="projectEndDate"  class="">
 		    			</td>
 		    		</tr>
-		    		<tr>
-		    			<th class="cellClass"></th>
-		    			<td class="cellClass" style="text-align:right"><button type="submit" class="signupbtn" id="saveDepartmentDiv" style="text-align:right">Search</button></td>
-		    			<th class="cellClass" style="text-align: left;"><button type="button" onclick="clearValues();" class="cancelbtn" style="text-align: left;">Clear</button></th>
-		    			<td class="cellClass" style="text-align: left;"></td>
-		    		</tr>
 		    	</table>
 		    </div>
+		    
+		    <div style="margin-left: 35%;">
+			    	<button type="button" class="signupbtn" style="text-align: centre; width:100px;" onclick="searchProjects()">Search</button>
+			    	&nbsp;
+			    	<button type="button" onclick="clearProjectSearchValues();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
+		   	</div>
 		  </form>
 </body>
 </html>

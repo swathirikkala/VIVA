@@ -12,6 +12,7 @@ public class Project {
 	private String lastModifiedBy;
 	private String lastModifiedDateTime;
 	private String status;
+	private int viva;
 	public int getId() {
 		return id;
 	}
@@ -79,14 +80,19 @@ public class Project {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	
+	public int getViva() {
+		return viva;
+	}
+	public void setViva(int viva) {
+		this.viva = viva;
+	}
 	@Override
 	public String toString() {
 		return "Project [id=" + id + ", name=" + name + ", severity=" + severity + ", startDate=" + startDate
 				+ ", endDate=" + endDate + ", manager=" + manager + ", createdBy=" + createdBy + ", description="
 				+ description + ", lastModifiedBy=" + lastModifiedBy + ", lastModifiedDateTime=" + lastModifiedDateTime
-				+ ", status=" + status + "]";
+				+ ", status=" + status + ", viva=" + viva + "]";
 	}
 
-	
-	
 }

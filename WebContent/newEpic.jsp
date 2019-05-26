@@ -22,10 +22,10 @@
 	ProjectDao projectDao = new ProjectDao();
 	SprintDao sprintDao = new SprintDao();
 	
-	List<User> managers = userDao.getManagers();
-	if(managers == null){
-		managers = new ArrayList<User>();
-	}
+// 	List<User> managers = userDao.getManagers();
+// 	if(managers == null){
+// 		managers = new ArrayList<User>();
+// 	}
 	
 	
 	List<Project> lastUpdatedProjectsList = projectDao.lastUpdatedProjectsListByManagerId(userId);
@@ -43,10 +43,10 @@
 		sprintsByProjectId = new ArrayList<Sprint>();
 	}
 	
-	List<User> listOfUsers =  new UserDao().getAllUsers();
-	if(null == listOfUsers){
-		listOfUsers = new ArrayList<User>();
-	}
+// 	List<User> listOfUsers =  new UserDao().getAllUsers();
+// 	if(null == listOfUsers){
+// 		listOfUsers = new ArrayList<User>();
+// 	}
 %>
 <!DOCTYPE html>
 <!-- Project Creation Div -->
@@ -103,15 +103,15 @@
 			   
 		      <label for="assignTo"><b>Assign to</b></label><label style="color: red;">&nbsp;*</label>
 		      <select id="assignTo" name = "assignTo" required>
-		      <%for(User user : listOfUsers){%>
-		      		<option value="<%= userId%>"><%= userName%></option>
-		      <%}%>
+<%-- 		      <%for(User user : listOfUsers){%> --%>
+<%-- 		      		<option value="<%= userId%>"><%= userName%></option> --%>
+<%-- 		      <%}%> --%>
 		      </select>
 		      <label for="projectManager"><b>Project Manager</b></label><label style="color: red;">&nbsp;*</label>
 		      <select id="projectManager" name = "projectManager" required>
-			      <%for(User u : managers){%>
-			      		<option value="<%= u.getEmailId()%>"><%= u.getFirstName() + " " + u.getLastName()%></option>
-			      <%}%>
+<%-- 			      <%for(User u : managers){%> --%>
+<%-- 			      		<option value="<%= u.getEmailId()%>"><%= u.getFirstName() + " " + u.getLastName()%></option> --%>
+<%-- 			      <%}%> --%>
 		      </select>
 		      <label for="description"><b>Epic Description</b></label><label style="color: red;">&nbsp;*</label>
 		      <textarea rows="4" cols="50" placeholder="Description" name="description" id="description" style="height: 100px;">

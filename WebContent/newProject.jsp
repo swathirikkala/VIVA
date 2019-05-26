@@ -1,3 +1,5 @@
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
 <%@page import="com.viva.dao.ProjectDao"%>
 <%@page import="com.viva.dao.UserDao"%>
 <%@page import="com.viva.dao.util.LookUp"%>
@@ -18,9 +20,9 @@
 	UserDao userDao = new UserDao();
 	ProjectDao projectDao = new ProjectDao();
 	
-	List<User> managers = userDao.getManagers();
+	Map<String,User> managers = userDao.getManagers();
 	if(managers == null){
-		managers = new ArrayList<User>();
+		managers = new HashMap<String,User>();
 	}
 	List<Project> lastUpdatedProjectsList = projectDao.lastUpdatedProjectsListByManagerId(userId);
 	if(null == lastUpdatedProjectsList){
@@ -81,8 +83,14 @@
 			   
 		      <label for="departmentDescription"><b>Project Manager</b></label><label style="color: red;">&nbsp;*</label>
 		      <select id="projectManager" name = "projectManager" required>
-		      <%for(User user : managers){%>
-		      		<option value="<%= userId%>"><%= userName%></option>
+		      <%for(String managerId : managers.keySet()){
+		    	  String managerName = "";
+		    	  User manager = managers.get(managerId);
+		    	  if(manager != null){
+		    		  managerName = manager.getFirstName() +" " + manager.getLastName();
+		    	  }
+		      %>
+		      		<option value="<%= managerId%>"><%= managerName%></option>
 		      <%}%>
 		      </select>
 		      

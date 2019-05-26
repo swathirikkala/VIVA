@@ -86,4 +86,11 @@ public class ProjectDao {
 		List<Project> assigendProjects = parseProjects(data);
 		return assigendProjects;
 	}
+
+	public List<Project> searchProjects(Project project) {
+		String searchProjectsQuery = QueryBuilder.getSearchProjectsQuery(project);
+		ResultSet data = DBConnectionUtil.getData(searchProjectsQuery);
+		List<Project> searchResultProjects = parseProjects(data);
+		return searchResultProjects;
+	}
 }

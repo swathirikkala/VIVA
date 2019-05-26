@@ -91,14 +91,62 @@ public class QueryBuilder {
 	}
 
 	public static String getAddUserStoryQuery(UserStory us) {
-		String query ="insert into user_story (project,sprint,epic,name,priority,start_date,end_date,manager,assign_to,	description,lmb) values("+
-				us.getProject()+","+us.getSprint()+","+us.getEpic()+",'"+us.getName()+"','"+us.getPrioroty()+"','"+
-				us.getStartDate()+"','"+us.getEndDate()+"','"+us.getManager()+"','"+us.getAssignTo()+"','"+us.getDescription()+"','"+
-				us.getLmb()+"')";
+		String query = "insert into user_story (project,sprint,epic,name,priority,start_date,end_date,manager,assign_to,	description,lmb) values("
+				+ us.getProject() + "," + us.getSprint() + "," + us.getEpic() + ",'" + us.getName() + "','"
+				+ us.getPrioroty() + "','" + us.getStartDate() + "','" + us.getEndDate() + "','" + us.getManager()
+				+ "','" + us.getAssignTo() + "','" + us.getDescription() + "','" + us.getLmb() + "')";
 		return query;
 	}
 
 	public static String getAllUserStoriesQuery() {
 		return "select * from user_story";
+	}
+
+	public static String getSearchProjectsQuery(Project project) {
+		boolean andNeeded = false;
+		String query = "select * from project where";
+
+		if (project.getId() != 0) {
+			if (andNeeded) {
+				query += " AND";
+			} else {
+				andNeeded = true;
+			}
+			query += " id = " + project.getId() + "";
+		}
+		if (!project.getStatus().equalsIgnoreCase("0")) {
+			if (andNeeded) {
+				query += " AND";
+			} else {
+				andNeeded = true;
+			}
+			query += " status = '" + project.getStatus() + "'";
+		}
+		if (!project.getStartDate().isEmpty()) {
+			if (andNeeded) {
+				query += " AND";
+			} else {
+				andNeeded = true;
+			}
+			query += " start_date >= '" + project.getStartDate() + "'";
+		}
+		if (!project.getEndDate().isEmpty()) {
+			if (andNeeded) {
+				query += " AND";
+			} else {
+				andNeeded = true;
+			}
+			query += " end_date <= '" + project.getEndDate() + "'";
+		}
+
+		if (project.getViva()!=0) {
+			if (andNeeded) {
+				query += " AND";
+			} else {
+				andNeeded = true;
+			}
+			query += " viva <= " + project.getViva() + "";
+		}
+		return query;
 	}
 }
