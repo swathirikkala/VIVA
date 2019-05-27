@@ -19,8 +19,12 @@ public class ProjectDao {
 		return ResponseBuilder.getResponse(addProjectResponse, "Project Creation", project);
 	}
 
-	public Response getProjects() {
-		return null;
+	public List<Project> getProjects() {
+		
+		String getAllProjectsQuery = QueryBuilder.getAllProjectsQuery();
+		ResultSet data = DBConnectionUtil.getData(getAllProjectsQuery);
+		List<Project> allProjects = parseProjects(data);
+		return allProjects;
 	}
 
 	public List<Project> getProjectsByAssignedManager(String managerId) {

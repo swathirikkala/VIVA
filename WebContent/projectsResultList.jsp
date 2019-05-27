@@ -119,7 +119,7 @@
 										<a href="javascript:void(0);" onclick="loadProject('<%=p.getId()%>')">PRJ<%=p.getId()%></a> 
 									</td>
 									<td class="column100 width100" data-column="column2"><%=p.getName() %></ttdh>
-									<td class="column100 width50" data-column="column1"><%=LookUp.getUserName(p.getManager(),allUsers) %></td>
+									<td class="column100 width50" data-column="column1"><%=LookUp.getUserName(p.getManager(),allUsers)%></td>
 									<td class="column100 width75" data-column="column1"><%=p.getStartDate() %></td>
 									<td class="column100 width75" data-column="column1"><%=p.getEndDate() %></td>
 									<td class="column100 width50" data-column="column6"><%=LookUp.getStatusName(p.getSeverity()) %></td>

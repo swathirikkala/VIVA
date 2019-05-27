@@ -34,6 +34,41 @@
 		}
 	</style>
 	<script type="text/javascript">
+	$("#projectStartDate").change(function() {
+	console.log("projectStartDate : " + $("#projectStartDate").val());
+		 if($("#projectStartDate").val() !== ""){
+			 if (Date.parse($("#projectStartDate").val()) > Date.parse($("#projectEndDate").val())) {
+	               alert('Project Start Date should not greater than End Date.');
+	               $("#projectStartDate").val("");
+	           }
+		 }
+	});
+	
+	$("#projectEndDate").change(function() {
+		console.log("projectEndDate : " + $("#projectEndDate").val());
+		 if($("#projectEndDate").val() !== ""){
+			 if (Date.parse($("#projectStartDate").val()) > Date.parse($("#projectEndDate").val())) {
+	               alert('Project End Date should not lesser than Start Date.');
+	               $("#projectEndDate").val("");
+	           }
+		 }
+	});
+	</script>
+	<script type="text/javascript">
+	$(document).ready(function() {
+    	setTimeout(function(){
+        	console.log("Project Edit Loading");
+    			$("#projectStatus").val("<%=project.getStatus()%>");
+    			$("#projectManager").val("<%=project.getManager()%>");
+    			$("#projectStartDate").val("<%=project.getStartDate()%>");
+    			$("#projectEndDate").val("<%=project.getEndDate()%>");
+    			$("#projectPriority").val("<%=project.getSeverity()%>");
+    			$("#projectStatus").val("<%=project.getStatus()%>");
+    			$("#projectDescription").val("<%=project.getDescription()%>");
+    		}, 2000);
+  	});
+	</script>
+	<script type="text/javascript">
 		function clearProjectEditFields() {
 			
 		}
@@ -55,7 +90,7 @@
 		    			</th>
 		    			<td class="cellClass">
 		    				<input type="hidden" name="projectId" id="projectId" required="required" value="<%=project.getId()%>">
-		    				<input type="text" name="projectName" id="projectName" required="required" value="<%=project.getName()%>">
+		    				<input type="text" name="editProjectName" id="editProjectName" required="required" value="<%=project.getName()%>">
 		    			</td>
 		    			<th class="cellClass">
 		    				<label>Created By</label>

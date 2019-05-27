@@ -14,6 +14,7 @@ public class Sprint {
 	private String lastModifiedBy;
 	private String lastModifiedDateTime;
 	private String status;
+	private int viva;
 	public int getSprintId() {
 		return sprintId;
 	}
@@ -87,12 +88,20 @@ public class Sprint {
 	public void setStatus(String status) {
 		this.status = status;
 	}
+	public int getViva() {
+		return viva;
+	}
+	public void setViva(int viva) {
+		this.viva = viva;
+	}
 	@Override
 	public String toString() {
 		return "Sprint [sprintId=" + sprintId + ", sprintName=" + sprintName + ", projectId=" + projectId
 				+ ", severity=" + severity + ", managerId=" + managerId + ", startDate=" + startDate + ", endDate="
 				+ endDate + ", createdBy=" + createdBy + ", description=" + description + ", lastModifiedBy="
-				+ lastModifiedBy + ", lastModifiedDateTime=" + lastModifiedDateTime + ", status=" + status + "]";
+				+ lastModifiedBy + ", lastModifiedDateTime=" + lastModifiedDateTime + ", status=" + status + ", viva="
+				+ viva + "]";
 	}
+
 	
 }

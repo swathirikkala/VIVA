@@ -1,3 +1,7 @@
+<%@page import="com.viva.dao.util.LookUp"%>
+<%@page import="java.util.HashMap"%>
+<%@page import="java.util.Map"%>
+<%@page import="com.viva.dao.UserDao"%>
 <%@page import="com.viva.dao.SprintDao"%>
 <%@page import="com.viva.dto.Sprint"%>
 <%@page import="com.viva.dto.Project"%>
@@ -15,7 +19,21 @@
 	if(sprints == null){
 		sprints = new ArrayList<Sprint>();
 	}
-
+	UserDao userDao = new UserDao();
+	Map<String, User> allUsers = userDao.getAllUsers();
+	if(allUsers == null){
+		allUsers = new HashMap<String,User>();
+	}
+	String userId = String.valueOf(request.getSession().getAttribute("userId"));
+	String userName = String.valueOf(request.getSession().getAttribute("userName"));
+	List<Project> allProjects = (List<Project>)request.getSession().getAttribute("allProjects");
+	if(allProjects == null){
+		allProjects = new ArrayList<Project>();
+	}
+	Project project = (Project)request.getSession().getAttribute("project");
+	if(project == null){
+		project = new Project();
+	}
 %>
 
 
@@ -72,15 +90,15 @@
 		<script type="text/javascript">
 			function openModal(){
 				console.log("newSprint Open modal got called");
-				$("#addSprintDiv").load("./newSprint.jsp");
+				displayPopup();
 			}
 		</script>
 	</head>
 	<body>
 		<p>
-			<button onclick="openModal();" style="width: auto;">Create New Sprint</button>
+			<button onclick="openModal()" style="width: auto;">Create New Sprint</button>
 		</p>
-		<div id="addSprintDiv"></div>
+
 		<!-- Projects Table -->
 			<div class="limiter">
 				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:500px; min-height:0px; overflow-x: none;">
@@ -106,8 +124,8 @@
 									<td class="column100 width50" data-column="column1"><%=s.getStartDate() %></td>
 									<td class="column100 width75" data-column="column1"><%=s.getEndDate() %></td>
 									<td class="column100 width75" data-column="column1"><%=s.getSeverity() %></td>
-									<td class="column100 width50" data-column="column6"><%=s.getSeverity() %></td>
-									<td class="column100 width100" data-column="column7"><%=s.getCreatedBy() %></td>
+									<td class="column100 width50" data-column="column6"><%=s.getViva() %></td>
+									<td class="column100 width100" data-column="column7"><%=LookUp.getUserName(s.getCreatedBy(),allUsers)%></td>
 								</tr>
 							<%} %>
 						</tbody>
@@ -115,5 +133,68 @@
 				</div>
 			</div>
 		<!-- Projects Table ended -->
+		<div id="addSprintDiv">
+		<!-- Project Creation Div -->
+		<div id="modalDiv" class="modal">
+		  <span onclick="javascript:closePopup()" class="close" title="Close Sprint">&times;</span>
+			<form class="modal-content" method="post" action="./addSprint">
+		    <div class="container">
+		      <h1 style="color:green">Add Sprint</h1>
+		      <p style="color:red">Please fill in the form to add the Sprint</p>
+		      <hr>
+		      
+			   <label for="projectName"><b>Project Name</b></label><label style="color: red;">&nbsp;*</label>
+			   <select id="projectName" name = "projectName" required>
+		      <%for(Project p : allProjects){%>
+		      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
+		      <%}%>
+		      </select>
+		      		   
+		      <label for="sprintName"><b>Sprint Name</b></label><label style="color: red;">&nbsp;*</label>
+		      <input type="text" id="sprintName" name = "sprintName" required placeholder="Sprint Name">
+		      		      
+			   <label for="projectSeverity"><b>Sprint Priority</b></label>
+			   
+			     <select id="sprintSeverity" name = "sprintSeverity">
+		      		<option value="0">--Select--</option>
+		      		<%for(String p:LookUp.getPriorities()){ %>
+			      		<option value="<%=p%>"><%=p%></option>
+			      	<%} %>
+		     	 </select>
+		     	 
+			   <label for="sprintStartDate"><b>Sprint Start Date</b></label><label style="color: red;">&nbsp;*</label>
+			   <input type="date" placeholder="Sprint Start Date" name="sprintStartDate" id="sprintStartDate" required>
+			   
+			   <label for="sprintEndDate"><b>Sprint End Date</b></label><label style="color: red;">&nbsp;*</label>
+			   <input type="date" placeholder="Sprint End Date" name="sprintEndDate" id="sprintEndDate" required>
+			   
+			   <input type="hidden" placeholder="Created By" name="createdBy" id="createdBy" required value="<%= userId %>">
+		      <label for="projectDescription"><b>Sprint Description</b></label><label style="color: red;">&nbsp;*</label>
+		      <textarea rows="4" cols="50" placeholder="Sprint Description" name="sprintDescription" id="sprintDescription" style="height: 100px;">
+		      </textarea>
+		      
+		      <div class="clearfix">
+		        <button type="button" onclick="javascript:closePopup()" class="cancelbtn">Cancel</button>
+		        <button type="submit" class="signupbtn" id="saveDepartmentDiv">Save</button>
+		      </div>
+		    </div>
+		  </form>
+		</div>
+		<!-- Project Creation Div ended -->
+		</div>
+		<script type="text/javascript">
+		function displayPopup(){
+			  document.getElementById('modalDiv').style.display='block';
+			}
+		function closePopup(){
+			  document.getElementById('modalDiv').style.display='none';
+			}
 		
+	    $(document).ready(function() {
+	    	//alert("Create new sprint got called");
+	    	$("#projectName").val("<%=project.getId()%>");
+	    	$("#sprintDescription").val("");
+	    	
+	      });
+		</script>
 	</body>
