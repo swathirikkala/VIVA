@@ -89,21 +89,21 @@ CREATE TABLE `project` (
   `id` int(11) NOT NULL AUTO_INCREMENT,
   `name` text NOT NULL,
   `severity` varchar(45) NOT NULL,
-  `start_date` date NOT NULL,
-  `end_date` date NOT NULL,
+  `start_date` date DEFAULT NULL,
+  `end_date` date DEFAULT NULL,
   `created_by` varchar(100) NOT NULL,
-  `manager` varchar(100) NOT NULL,
+  `manager` varchar(100) DEFAULT NULL,
   `description` text NOT NULL,
   `modified_by` varchar(100) DEFAULT NULL,
   `modified_on` datetime DEFAULT CURRENT_TIMESTAMP,
-  `status` varchar(50) DEFAULT 'Not Started',
+  `status` varchar(50) DEFAULT '0',
+  `viva` int(11) DEFAULT '0',
+  `created_date` date DEFAULT NULL,
   PRIMARY KEY (`id`),
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `created_by_fk_idx` (`created_by`),
-  KEY `manager_fk_idx` (`manager`),
-  CONSTRAINT `created_by_fk` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
-  CONSTRAINT `manager_fk` FOREIGN KEY (`manager`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=13 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  CONSTRAINT `created_by_fk` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`)
+) ENGINE=InnoDB AUTO_INCREMENT=16 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -112,7 +112,7 @@ CREATE TABLE `project` (
 
 LOCK TABLES `project` WRITE;
 /*!40000 ALTER TABLE `project` DISABLE KEYS */;
-INSERT INTO `project` VALUES (1,'demo project','1','2019-05-01','2019-05-13','manager1@mail.com','manager1@mail.com','sample project\r\n',NULL,'2019-05-12 21:48:59','Not Started'),(7,'sdf','1','2019-05-01','2019-05-13','manager1@mail.com','manager1@mail.com','sfdfg','manager1@mail.com','2019-05-13 17:08:28','Not Started'),(8,'saassasa','1','2019-05-06','2019-05-29','manager1@mail.com','manager1@mail.com','assaassa','manager1@mail.com','2019-05-13 17:13:32','Not Started'),(9,'saassasa','1','2019-05-06','2019-05-29','manager1@mail.com','manager1@mail.com','assaassa','manager1@mail.com','2019-05-13 17:37:16','Not Started'),(10,'project name asd','1','2019-05-13','2019-05-20','manager1@mail.com','manager1@mail.com','jsvkjsdkfvksjdjkvsdkjfvkjsdhfgkjhsdkfgkdsfgsdfg','manager1@mail.com','2019-05-20 22:57:54','Not Started'),(11,'project name asd','1','2019-05-13','2019-05-20','manager1@mail.com','manager1@mail.com','jsvkjsdkfvksjdjkvsdkjfvkjsdhfgkjhsdkfgkdsfgsdfg','manager1@mail.com','2019-05-20 23:03:40','Not Started'),(12,'project name asd','1','2019-05-13','2019-05-20','manager1@mail.com','manager1@mail.com','jsvkjsdkfvksjdjkvsdkjfvkjsdhfgkjhsdkfgkdsfgsdfg','manager1@mail.com','2019-05-20 23:05:10','Not Started');
+INSERT INTO `project` VALUES (1,'demo project','1','2019-05-01','2019-05-13','manager1@mail.com','manager1@mail.com','sample project\r\n',NULL,'2019-05-12 21:48:59','Not Started',0,NULL),(7,'sdf','1','2019-05-01','2019-05-13','manager1@mail.com','manager1@mail.com','sfdfg','manager1@mail.com','2019-05-13 17:08:28','Not Started',0,NULL),(8,'Project name edited','8','2019-05-01','2019-05-30','manager1@mail.com','manager1@mail.com','Project 8 description updated','manager1@mail.com','2019-05-13 17:13:32','Closed',0,NULL),(9,'saassasa','1','2019-05-06','2019-05-29','manager1@mail.com','manager1@mail.com','assaassa','manager1@mail.com','2019-05-13 17:37:16','Not Started',0,NULL),(10,'project name asd','1','2019-05-13','2019-05-20','manager1@mail.com','manager1@mail.com','jsvkjsdkfvksjdjkvsdkjfvkjsdhfgkjhsdkfgkdsfgsdfg','manager1@mail.com','2019-05-20 22:57:54','Not Started',0,NULL),(11,'project name asd','1','2019-05-13','2019-05-20','manager1@mail.com','manager1@mail.com','jsvkjsdkfvksjdjkvsdkjfvkjsdhfgkjhsdkfgkdsfgsdfg','manager1@mail.com','2019-05-20 23:03:40','Not Started',0,NULL),(12,'project name asd','1','2019-05-13','2019-05-20','manager1@mail.com','manager1@mail.com','jsvkjsdkfvksjdjkvsdkjfvkjsdhfgkjhsdkfgkdsfgsdfg','manager1@mail.com','2019-05-20 23:05:10','Not Started',0,NULL),(15,'project name asd','0','2000-01-01','2000-01-01','manager1@mail.com','','rsdfgdfgsdfg','manager1@mail.com','2019-05-26 22:29:59','0',0,NULL);
 /*!40000 ALTER TABLE `project` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -141,7 +141,7 @@ CREATE TABLE `sprint` (
   KEY `manager_fk_idx` (`manager`),
   KEY `created_fk_idx` (`created_by`),
   KEY `last_modified_fk_idx` (`last_modified_by`)
-) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -150,7 +150,7 @@ CREATE TABLE `sprint` (
 
 LOCK TABLES `sprint` WRITE;
 /*!40000 ALTER TABLE `sprint` DISABLE KEYS */;
-INSERT INTO `sprint` VALUES (1,'sample sprint 1',1,1,'manager1@mail.com','2019-05-01','2019-05-14','manager1@mail.com','asdfasdfasdf',NULL,'2019-05-14 07:01:02','Not Started'),(2,'sample sprint 1',1,1,'manager1@mail.com','2019-05-01','2019-05-14','manager1@mail.com','asdfasdfasdf',NULL,'2019-05-14 07:42:46','Not Started'),(3,'demo sprint',1,3,'manager1@mail.com','2019-05-14','2019-05-14','manager1@mail.com','',NULL,'2019-05-14 08:21:29','Not Started'),(4,'demo sprint',7,3,'manager1@mail.com','2019-05-14','2019-05-14','manager1@mail.com','',NULL,'2019-05-14 09:20:02','Not Started'),(5,'asd',1,1,'manager1@mail.com','2019-05-01','2019-05-21','manager1@mail.com','asdasdasd',NULL,'2019-05-20 23:06:13','Not Started'),(6,'asd',1,1,'manager1@mail.com','2019-05-01','2019-05-21','manager1@mail.com','asdasdasd',NULL,'2019-05-20 23:07:26','Not Started'),(7,'asd',1,1,'manager1@mail.com','2019-05-01','2019-05-21','manager1@mail.com','asdasdasd',NULL,'2019-05-20 23:38:30','Not Started');
+INSERT INTO `sprint` VALUES (1,'sample sprint 1',1,1,'manager1@mail.com','2019-05-01','2019-05-14','manager1@mail.com','asdfasdfasdf',NULL,'2019-05-14 07:01:02','Not Started'),(2,'sample sprint 1',1,1,'manager1@mail.com','2019-05-01','2019-05-14','manager1@mail.com','asdfasdfasdf',NULL,'2019-05-14 07:42:46','Not Started'),(3,'demo sprint',1,3,'manager1@mail.com','2019-05-14','2019-05-14','manager1@mail.com','',NULL,'2019-05-14 08:21:29','Not Started'),(4,'demo sprint',7,3,'manager1@mail.com','2019-05-14','2019-05-14','manager1@mail.com','',NULL,'2019-05-14 09:20:02','Not Started'),(5,'asd',1,1,'manager1@mail.com','2019-05-01','2019-05-21','manager1@mail.com','asdasdasd',NULL,'2019-05-20 23:06:13','Not Started'),(6,'asd',1,1,'manager1@mail.com','2019-05-01','2019-05-21','manager1@mail.com','asdasdasd',NULL,'2019-05-20 23:07:26','Not Started'),(7,'asd',1,1,'manager1@mail.com','2019-05-01','2019-05-21','manager1@mail.com','asdasdasd',NULL,'2019-05-20 23:38:30','Not Started'),(8,'sample sprint',15,20,'null','2019-05-01','2019-05-28','manager1@mail.com','sample sprint',NULL,'2019-05-27 08:19:05','Not Started'),(9,'Sample Sprint',1,8,'null','2019-05-01','2019-05-27','manager1@mail.com','sample description',NULL,'2019-05-27 08:22:41','Not Started'),(10,'sdf sprint',7,4,'null','2019-05-03','2019-05-28','manager1@mail.com','adasdfasd',NULL,'2019-05-27 08:28:10','Not Started'),(11,'sample sprint 2 edited',8,14,'null','2019-05-16','2019-06-06','manager1@mail.com','sample description',NULL,'2019-05-27 10:00:36','Not Started'),(12,'demo sprint 2',8,9,'null','2019-05-02','2019-05-17','manager1@mail.com','asdaf',NULL,'2019-05-27 10:03:07','Not Started'),(13,'sample sprint 2 edited',8,14,'null','2019-05-16','2019-06-06','manager1@mail.com','sample description',NULL,'2019-05-27 10:34:51','Not Started');
 /*!40000 ALTER TABLE `sprint` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -231,4 +231,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-21  9:27:05
+-- Dump completed on 2019-05-27 10:50:41
