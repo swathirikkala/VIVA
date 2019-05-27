@@ -59,4 +59,13 @@ public class EpicDao {
 		return epics;
 	}
 
+	public List<Epic> getEpicsBySprintId(String sprintId) {
+		String query = QueryBuilder.getEpicsBySprintIdQuery(sprintId);
+		ResultSet rs = DBConnectionUtil.getData(query);
+		List<Epic> epics = parseEpics(rs);
+		System.out.println("Epics by " + sprintId + " : " + epics);
+		return epics;
+
+	}
+
 }

@@ -1,6 +1,8 @@
 
 package com.viva.db.util;
 
+import java.sql.ResultSet;
+
 import com.viva.dto.Department;
 import com.viva.dto.Epic;
 import com.viva.dto.Project;
@@ -165,6 +167,17 @@ public class QueryBuilder {
 		String query = "update project set name ='"+project.getName()+"', start_date='"+project.getStartDate()+"' , end_date='"+project.getEndDate()+"', manager ='"+
 				project.getManager()+"', description = '"+project.getDescription()+"', status='"+project.getStatus()+"', severity='"+
 				project.getSeverity()+"' where id="+project.getId();
+		return query;
+	}
+
+	public static String getSpringByIdQuery(String sprintId) {
+		String query = "select * from sprint where id="+sprintId;
+		return query;
+	}
+
+	public static String getEpicsBySprintIdQuery(String sprintId) {
+		String query ="select * from epic where sprint = " + sprintId;
+		
 		return query;
 	}
 }

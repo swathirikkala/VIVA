@@ -83,8 +83,22 @@
 			}
 		</style>
 		<script type="text/javascript">
-			function loadSprint() {
+			function loadSprint(sprintId) {
 				console.log("loadSprint Loading");
+				 $.ajax({
+		                type: 'post',
+		                url: './loadSprint',
+		                data: {sprintId:sprintId},
+		                success: function (response) {
+		                   console.log("Sprint Loading completed..... " + response);
+		                   if(response === "success"){
+		                	   loadPage('sprintEditDiv','sprintHome.jsp')
+		                	   $("#epicsDiv").load("epicsResultList.jsp");
+		                   }else{
+		                	   alert("No Data Found with search criteria");
+		                   }
+		                }
+		            });
 			}
 		</script>
 		<script type="text/javascript">

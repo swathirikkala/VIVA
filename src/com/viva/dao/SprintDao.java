@@ -54,4 +54,16 @@ public class SprintDao {
 		}
 		return sprintsList;
 	}
+
+	public Sprint getSprintById(String sprintId) {
+		Sprint sprint  = null;
+		String query = QueryBuilder.getSpringByIdQuery(sprintId);
+		ResultSet rs = DBConnectionUtil.getData(query);
+		List<Sprint> parseSprints = parseSprints(rs);
+		if(parseSprints != null) {
+			sprint = parseSprints.get(0);
+		}
+		return sprint;
+		
+	}
 }

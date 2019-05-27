@@ -4,9 +4,9 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
-    	List<Project> projects = (List<Project>)request.getSession().getAttribute("projectsByManagerId");
-	    if(null == projects){
-	    	projects = new ArrayList<>();
+    	List<Project> allProjects = (List<Project>)request.getSession().getAttribute("allProjects");
+	    if(null == allProjects){
+	    	allProjects = new ArrayList<>();
 	    }
 		String userName = String.valueOf(request.getSession().getAttribute("userName"));
     %>
@@ -82,7 +82,7 @@
 		    			<td class="cellClass">
 		    				<select id="projectId" name = "projectId" class="">
 						      <option value="0">--Select--</option>
-						      <%for(Project p : projects){%>
+						      <%for(Project p : allProjects){%>
 						      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
 						      <%}%>
 						     </select>

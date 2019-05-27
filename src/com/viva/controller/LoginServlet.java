@@ -79,12 +79,8 @@ public class LoginServlet extends HttpServlet {
 		if("manager".equalsIgnoreCase(userType)) {
 			landingPage = "./managerHome.jsp";
 			ProjectDao projectDao = new ProjectDao();
-			List<Project> lastUpdatedProjectsList = projectDao.lastUpdatedProjectsListByManagerId(user.getEmailId());
-			request.getSession().setAttribute("lastUpdatedProjectsList", lastUpdatedProjectsList);
-			
-			
-			List<Project> projectsByManagerId = projectDao.getProjectsByAssignedManager(user.getEmailId());
-			request.getSession().setAttribute("projectsByManagerId", projectsByManagerId);
+			List<Project> allProjects = projectDao.getProjects();
+			request.getSession().setAttribute("allProjects", allProjects);
 			
 		}else if("admin".equalsIgnoreCase(userType)) {
 			landingPage = "./adminHome.jsp";
