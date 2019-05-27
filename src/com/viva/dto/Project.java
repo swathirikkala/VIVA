@@ -12,7 +12,7 @@ public class Project {
 	private String lastModifiedBy;
 	private String lastModifiedDateTime;
 	private String status;
-	private int viva;
+	private String viva;
 	public int getId() {
 		return id;
 	}
@@ -81,10 +81,10 @@ public class Project {
 		this.status = status;
 	}
 	
-	public int getViva() {
+	public String getViva() {
 		return viva;
 	}
-	public void setViva(int viva) {
+	public void setViva(String viva) {
 		this.viva = viva;
 	}
 	@Override

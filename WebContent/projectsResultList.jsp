@@ -122,8 +122,8 @@
 									<td class="column100 width50" data-column="column1"><%=LookUp.getUserName(p.getManager(),allUsers)%></td>
 									<td class="column100 width75" data-column="column1"><%=p.getStartDate() %></td>
 									<td class="column100 width75" data-column="column1"><%=p.getEndDate() %></td>
-									<td class="column100 width50" data-column="column6"><%=LookUp.getStatusName(p.getSeverity()) %></td>
-									<td class="column100 width100" data-column="column7"><%=p.getViva() %></td>
+									<td class="column100 width50" data-column="column6"><%=p.getStatus()%></td>
+									<td class="column100 width100" data-column="column7"><%=p.getViva()%></td>
 								</tr>
 							<%} %>
 						</tbody>

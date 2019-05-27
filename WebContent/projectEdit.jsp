@@ -58,14 +58,14 @@
 	$(document).ready(function() {
     	setTimeout(function(){
         	console.log("Project Edit Loading");
-    			$("#projectStatus").val("<%=project.getStatus()%>");
-    			$("#projectManager").val("<%=project.getManager()%>");
-    			$("#projectStartDate").val("<%=project.getStartDate()%>");
-    			$("#projectEndDate").val("<%=project.getEndDate()%>");
-    			$("#projectPriority").val("<%=project.getSeverity()%>");
-    			$("#projectStatus").val("<%=project.getStatus()%>");
-    			$("#projectDescription").val("<%=project.getDescription()%>");
-    		}, 2000);
+    			$("#editProjectStatus").val("<%=project.getStatus()%>");
+    			$("#editProjectManager").val("<%=project.getManager()%>");
+    			$("#editProjectStartDate").val("<%=project.getStartDate()%>");
+    			$("#editEndDate").val("<%=project.getEndDate()%>");
+    			$("#editProjectPriority").val("<%=project.getSeverity()%>");
+    			$("#editProjectStatus").val("<%=project.getStatus()%>");
+    			$("#editProjectDescription").val("<%=project.getDescription()%>");
+    		}, 1000);
   	});
 	</script>
 	<script type="text/javascript">
@@ -80,7 +80,7 @@
 <body>
 <h1 class="w3-xxxlarge w3-text-red"><b>Project View/Edit</b></h1>
 		<hr>
-		<form method="post">
+		<form method="post" action="./editProject">
 		    <div class="divClass">
 		    
 		    	<table>
@@ -103,7 +103,7 @@
 		    				<label>Start Date</label>
 		    			</th>
 		    			<td class="cellClass">
-		    				<input type="date" placeholder="Project Start Date" name="projectStartDate" id="projectStartDate"  class="">
+		    				<input type="date" placeholder="Project Start Date" name="editProjectStartDate" id="editProjectStartDate"  class="">
 		    			</td>
 		    		</tr>
 		    		<tr>
@@ -112,7 +112,7 @@
 		    				<label>Project Manager</label>
 		    			</th>
 		    			<td class="cellClass">
-					    	<select id="projectManager" name = "projectManager">
+					    	<select id="editProjectManager" name = "editProjectManager">
 					      <option value="">--Select--</option>
 						      <%for(String managerId : managers.keySet()){
 						    	  String managerName = "";
@@ -130,13 +130,13 @@
 		    				<label>Created Date</label>
 		    			</th>
 		    			<td class="cellClass">
-		    				<input type="text" placeholder="Created Date" name="createdDate" id="createdDate" required value="<%=project.getLastModifiedDateTime()%>" disabled="disabled"  class="">
+		    				<input type="text" placeholder="Created Date" name="editCreatedDate" id="editCreatedDate" required value="<%=project.getLastModifiedDateTime()%>" disabled="disabled"  class="">
 		    			</td>
 		    			<th class="cellClass">
 		    				<label>Project End date</label>
 		    			</th>
 		    			<td class="cellClass">
-					    	<input type="date" placeholder="Project End Date" name="projectEndDate" id="projectEndDate"  class="">
+					    	<input type="date" placeholder="Project End Date" name="editEndDate" id="editEndDate"  class="">
 		    			</td>
 		    		</tr>
 		    		<tr>
@@ -144,7 +144,7 @@
 		    			<label>Priority</label>
 		    			</th>
 		    			<td>
-		    				<select id="projectPriority" name = "projectPriority">
+		    				<select id="editProjectPriority" name = "editProjectPriority">
 					      		<option value="0">--Select--</option>
 					      		<% for(String p : LookUp.getPriorities()){ %>
 					      			<option value="<%=p%>"><%=p%></option>
@@ -161,7 +161,7 @@
 		    				<label>Status</label>
 		    			</th>
 		    			<td>
-		    				<select id="projectStatus" name = "projectStatus">
+		    				<select id="editProjectStatus" name = "editProjectStatus">
 					      		<option value="0">--Select--</option>
 					      		<% for(String s : LookUp.getStatuses()){ %>
 					      			<option value="<%= s%>"><%= s%></option>
@@ -174,7 +174,7 @@
 		    				<label>Project  Description</label>
 		    			</th>
 		    			<td colspan="5">
-		    				<textarea rows="4" cols="50" placeholder="Project Description" name="projectDescription" id="projectDescription" style="height: 100px;" required="required">
+		    				<textarea rows="4" cols="50" placeholder="Project Description" name="editProjectDescription" id="editProjectDescription" style="height: 100px;" required="required">
 		      				</textarea>
 		    			</td>
 		    		</tr>
@@ -182,7 +182,7 @@
 		    </div>
 		    
 		    <div style="margin-left: 35%;">
-			    	<button type="button" class="signupbtn" style="text-align: centre; width:100px;" onclick="updateProject()">Save</button>
+			    	<button type="submit" class="signupbtn" style="text-align: centre; width:100px;">Save</button>
 			    	&nbsp;
 			    	<button type="button" onclick="clearProjectEditFields();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
 		   	</div>

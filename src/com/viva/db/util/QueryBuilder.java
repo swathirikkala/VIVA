@@ -139,7 +139,7 @@ public class QueryBuilder {
 			query += " end_date <= '" + project.getEndDate() + "'";
 		}
 
-		if (project.getViva()!=0) {
+		if (!project.getViva().equalsIgnoreCase("0")) {
 			if (andNeeded) {
 				query += " AND";
 			} else {
@@ -157,6 +157,14 @@ public class QueryBuilder {
 
 	public static String getAllProjectsQuery() {
 		String query = "select * from project";
+		return query;
+	}
+
+	public static String getUpdateProjectQuery(Project project) {
+		System.out.println("Project is : " + project);
+		String query = "update project set name ='"+project.getName()+"', start_date='"+project.getStartDate()+"' , end_date='"+project.getEndDate()+"', manager ='"+
+				project.getManager()+"', description = '"+project.getDescription()+"', status='"+project.getStatus()+"', severity='"+
+				project.getSeverity()+"' where id="+project.getId();
 		return query;
 	}
 }

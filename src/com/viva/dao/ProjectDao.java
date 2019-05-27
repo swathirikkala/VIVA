@@ -37,8 +37,16 @@ public class ProjectDao {
 		return null;
 	}
 
-	public Response updateProject() {
-		return null;
+	public String updateProject(Project project) {
+		String response = "fail";
+		String query = QueryBuilder.getUpdateProjectQuery(project);
+		int insertResponse = DBConnectionUtil.insert(query);
+		if(insertResponse > 0) {
+			response = "success";
+		}else if(insertResponse == -1) {
+			response ="error";
+		}
+		return response;
 	}
 
 	public Response deleteProject() {
@@ -76,13 +84,14 @@ public class ProjectDao {
 				project.setDescription(rs.getString(8));
 				project.setLastModifiedBy(rs.getString(9));
 				project.setLastModifiedDateTime(rs.getString(10));
-//				project.setStatus(rs.getString(11));
-//				project.setViva(rs.getInt(12));
+				project.setStatus(rs.getString(11));
+				project.setViva(rs.getString(12));
 				projects.add(project);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
+		System.out.println("Projects : " + projects);
 		return projects;
 	}
 
