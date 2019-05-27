@@ -149,4 +149,9 @@ public class QueryBuilder {
 		}
 		return query;
 	}
+
+	public static String getProjectByIdQuery(String projectId) {
+		String query = "select * from project where id = " + projectId;
+		return query;
+	}
 }

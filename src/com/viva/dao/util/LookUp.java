@@ -67,6 +67,16 @@ public class LookUp {
 		}
 		return "";
 	}
+	public static List<String> getStatuses(){
+		List<String> statuses = new ArrayList<String>();
+		statuses.add("Open");
+		statuses.add("Work in progress");
+		statuses.add("On hold");
+		statuses.add("Closed");
+		statuses.add("Not Started");
+		statuses.add("Inactive");
+		return statuses;
+	}
 	public static List<String> getPriorities(){
 		List<String> priorities = new ArrayList<String>();
 		for(int i=1;i<=20;i++) {

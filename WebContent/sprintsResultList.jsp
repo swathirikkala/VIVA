@@ -11,34 +11,11 @@
 <%@page import="com.viva.dao.Response"%>
 
 <%
-	Response resp = (Response)request.getSession().getAttribute("response");
-	String message = resp.getResponseMessage();
-	
-	String projectId = String.valueOf(request.getSession().getAttribute("projectId"));
-	
-	List<User> managers = (List<User>)request.getSession().getAttribute("managers");
-	if(managers == null){
-		managers = new ArrayList();
+	List<Sprint> sprints = (List<Sprint>)request.getSession().getAttribute("sprints");	
+	if(sprints == null){
+		sprints = new ArrayList<Sprint>();
 	}
-	
-	String userId = String.valueOf(request.getSession().getAttribute("userId"));
-	String userName = String.valueOf(request.getSession().getAttribute("userName"));
-	
-	
-	List<Project> projectsByManagerId = (List<Project>)request.getSession().getAttribute("projectsByManagerId");
-	if(null == projectsByManagerId){
-		projectsByManagerId = new ArrayList<>();
-	}
-	if(projectId != null){
-		if("null".endsWith(projectId));
-		projectId = "1";
-	}else{
-		projectId = "1";
-	}
-	List<Sprint> sprintsByProjectId = new SprintDao().getSpintsByProject(projectId);
-	if(null == sprintsByProjectId){
-		sprintsByProjectId = new ArrayList<>();
-	}
+
 %>
 
 
@@ -87,9 +64,23 @@
 				width: 100px;
 			}
 		</style>
+		<script type="text/javascript">
+			function loadSprint() {
+				console.log("loadSprint Loading");
+			}
+		</script>
+		<script type="text/javascript">
+			function openModal(){
+				console.log("newSprint Open modal got called");
+				$("#addSprintDiv").load("./newSprint.jsp");
+			}
+		</script>
 	</head>
 	<body>
-			
+		<p>
+			<button onclick="openModal();" style="width: auto;">Create New Sprint</button>
+		</p>
+		<div id="addSprintDiv"></div>
 		<!-- Projects Table -->
 			<div class="limiter">
 				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:500px; min-height:0px; overflow-x: none;">
@@ -100,28 +91,23 @@
 								<th class="column100 width100" data-column="column2">Sprint Name</th>
 								<th class="column100 width75" data-column="column1">Start Date</th>
 								<th class="column100 width75" data-column="column1">End Date</th>
-								<th class="column100 width50" data-column="column1">Severity</th>
 								<th class="column100 width50" data-column="column6">Status</th>
-								<th class="column100 width100" data-column="column7">Created By</th>
 								<th class="column100 width100" data-column="column7">VIVA %</th>
-								<th class="column100 width100" data-column="column7">Actions</th>
+								<th class="column100 width100" data-column="column7">Created By</th>
 							</tr>
 						</thead>
 						<tbody id="projectsBody">
-							<% for(Sprint s : sprintsByProjectId){ %>
+							<% for(Sprint s : sprints){ %>
 								<tr class="row100 head">
-									<td class="column100 width50" data-column="column1">SP<%=s.getSprintId()%></td>
+									<td class="column100 width50" data-column="column1">
+									<a href="javascript:void(0)" onclick="loadSprint('<%=s.getSprintId()%>');">SP<%=s.getSprintId()%></a>
+									</td>
 									<td class="column100 width100" data-column="column2"><%=s.getSprintName() %></td>
 									<td class="column100 width50" data-column="column1"><%=s.getStartDate() %></td>
 									<td class="column100 width75" data-column="column1"><%=s.getEndDate() %></td>
 									<td class="column100 width75" data-column="column1"><%=s.getSeverity() %></td>
 									<td class="column100 width50" data-column="column6"><%=s.getSeverity() %></td>
 									<td class="column100 width100" data-column="column7"><%=s.getCreatedBy() %></td>
-									<td class="column100 width50" data-column="column6"></td>
-									<td class="column100 width100" data-column="column7">
-										<a href="#">view</a>&nbsp;
-										<a href="#">edit</a>
-									</td>
 								</tr>
 							<%} %>
 						</tbody>

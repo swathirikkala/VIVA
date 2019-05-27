@@ -66,6 +66,20 @@
 		<script type="text/javascript">
 			function loadProject(projectId) {
 				console.log("Load project function got called : projectId -> " +projectId );
+	            $.ajax({
+	                type: 'post',
+	                url: './loadProject',
+	                data: {projectId:projectId},
+	                success: function (response) {
+	                   console.log("Project Loading completed..... " + response);
+	                   if(response === "success"){
+	                	   loadPage('projectDiv','projectEdit.jsp')
+	                	   //$("#projectDiv").load("./projectHome.jsp");
+	                   }else{
+	                	   alert("No Data Found with search criteria");
+	                   }
+	                }
+	            });
 			}
 		</script>
 		<script type="text/javascript">

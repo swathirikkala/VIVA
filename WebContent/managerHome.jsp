@@ -33,7 +33,7 @@
   </div>
   <div class="w3-bar-block">
     <a href="#" onclick="loadPage('homeDiv','projectHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Home</a>
-    <a href="#" onclick="loadPage('projectDiv','projects.jsp');" class="w3-bar-item w3-button w3-hover-white">Projects</a>
+    <a href="#" onclick="loadPage('projectDiv','projectEdit.jsp');" class="w3-bar-item w3-button w3-hover-white">Projects</a>
     <a href="#" onclick="loadPage('sprintDiv','sprintHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Sprints</a>
     <a href="#" onclick="loadPage('epicsDiv','epicHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Epics</a>
     <a href="#" onclick="loadPage('epicsDiv','usHome.jsp');" class="w3-bar-item w3-button w3-hover-white">User Stories</a>
@@ -65,6 +65,7 @@
 	<div class="w3-container" id="homeDiv" style="margin-top:5px">
 		
 	</div>
+	
 	<!-- Project View -->
 	<div class="w3-container" id="projectDiv" style="margin-top:5px">
 		
@@ -116,9 +117,12 @@ function loadPage(diveName,pageName) {
 	$("#projectSearchDiv").hide();
 	$("#"+diveName).show()
 	$("#"+diveName).load(pageName);
-	if(diveName == "homeDiv"){
+	if(diveName === "homeDiv"){
 		$("#projectSearchDiv").show();
 		$("#projectSearchDiv").load("projectSearch.jsp");
+	}else if(diveName === "projectDiv" ){
+		$("#sprintDiv").show();
+		$("#sprintDiv").load("sprintsResultList.jsp");
 	}
 }
 

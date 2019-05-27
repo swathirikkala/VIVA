@@ -72,7 +72,8 @@ public class ProjectDao {
 				project.setDescription(rs.getString(8));
 				project.setLastModifiedBy(rs.getString(9));
 				project.setLastModifiedDateTime(rs.getString(10));
-
+//				project.setStatus(rs.getString(11));
+//				project.setViva(rs.getInt(12));
 				projects.add(project);
 			}
 		} catch (SQLException e) {
@@ -92,5 +93,16 @@ public class ProjectDao {
 		ResultSet data = DBConnectionUtil.getData(searchProjectsQuery);
 		List<Project> searchResultProjects = parseProjects(data);
 		return searchResultProjects;
+	}
+
+	public Project getProjectById(String projectId) {
+		Project project = null;
+		String query = QueryBuilder.getProjectByIdQuery(projectId);
+		ResultSet data = DBConnectionUtil.getData(query);
+		List<Project> projectById = parseProjects(data);
+		if(projectById != null) {
+			project = projectById.get(0);
+		}
+		return project;
 	}
 }
