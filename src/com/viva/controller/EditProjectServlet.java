@@ -53,8 +53,7 @@ public class EditProjectServlet extends HttpServlet {
 		project.setDescription(String.valueOf(request.getParameter("editProjectDescription")));
 		String updateProjectResponse = projectDao.updateProject(project);
 		printWriter.write(updateProjectResponse);
-		requestDispatcher = request.getRequestDispatcher("./managerHome.jsp");
-		requestDispatcher.forward(request, response);
+		
 	}
 
 	/**

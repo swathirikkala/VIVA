@@ -12,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import com.viva.dao.Response;
 import com.viva.dao.SprintDao;
 import com.viva.dto.Sprint;
+import com.viva.util.JSONUtil;
 
 /**
  * Servlet implementation class AddSprintServlet
@@ -36,10 +37,10 @@ public class AddSprintServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		Sprint sprint =new Sprint();
 		
-		sprint.setCreatedBy(String.valueOf(request.getParameter("createdBy")));
+		sprint.setCreatedBy(String.valueOf(request.getSession().getAttribute("userId")));
 		sprint.setDescription(String.valueOf(request.getParameter("sprintDescription")));
 		sprint.setEndDate(String.valueOf(request.getParameter("sprintEndDate")));
-		sprint.setLastModifiedBy(String.valueOf(request.getParameter("createdBy")));
+		sprint.setLastModifiedBy(String.valueOf(request.getSession().getAttribute("userId")));
 		sprint.setManagerId(String.valueOf(request.getParameter("projectManager")));
 		sprint.setProjectId(Integer.valueOf(request.getParameter("projectName")));
 		sprint.setSeverity(Integer.valueOf(request.getParameter("sprintSeverity")));
@@ -48,11 +49,8 @@ public class AddSprintServlet extends HttpServlet {
 		
 		String lastAccessedPage = "sprints";
 		request.getSession().setAttribute("lastAccessedPage", lastAccessedPage);
-		Response addSprintResponse = sprintDao.addSprint(sprint);
-		request.getSession().setAttribute("response", addSprintResponse);
-		String landingPage = String.valueOf(request.getSession().getAttribute("landingPage"));
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(landingPage);
-		requestDispatcher.forward(request, response);
+		String addSprintResponse = sprintDao.addSprint(sprint);
+		response.getWriter().write(addSprintResponse);
 
 	}
 

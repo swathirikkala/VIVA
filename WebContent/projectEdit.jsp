@@ -34,22 +34,22 @@
 		}
 	</style>
 	<script type="text/javascript">
-	$("#projectStartDate").change(function() {
-	console.log("projectStartDate : " + $("#projectStartDate").val());
-		 if($("#projectStartDate").val() !== ""){
-			 if (Date.parse($("#projectStartDate").val()) > Date.parse($("#projectEndDate").val())) {
+	$("#editProjectStartDate").change(function() {
+	console.log("editProjectStartDate : " + $("#editProjectStartDate").val());
+		 if($("#editProjectStartDate").val() !== ""){
+			 if (Date.parse($("#editProjectStartDate").val()) > Date.parse($("#editEndDate").val())) {
 	               alert('Project Start Date should not greater than End Date.');
-	               $("#projectStartDate").val("");
+	               $("#editProjectStartDate").val("");
 	           }
 		 }
 	});
 	
-	$("#projectEndDate").change(function() {
-		console.log("projectEndDate : " + $("#projectEndDate").val());
-		 if($("#projectEndDate").val() !== ""){
-			 if (Date.parse($("#projectStartDate").val()) > Date.parse($("#projectEndDate").val())) {
+	$("#editEndDate").change(function() {
+		console.log("editEndDate : " + $("#editEndDate").val());
+		 if($("#editEndDate").val() !== ""){
+			 if (Date.parse($("#editProjectStartDate").val()) > Date.parse($("#editEndDate").val())) {
 	               alert('Project End Date should not lesser than Start Date.');
-	               $("#projectEndDate").val("");
+	               $("#editEndDate").val("");
 	           }
 		 }
 	});
@@ -69,18 +69,41 @@
   	});
 	</script>
 	<script type="text/javascript">
-		function clearProjectEditFields() {
+		function updateProject(){
 			
+			console.log("update Project got called");
+			console.log($("form[name=editProjectForm]").serialize());
+			try {
+				$.ajax({
+					type : 'post',
+					url : './editProject',
+					data : $("form[name=editProjectForm]").serialize(),
+					success : function(response) {
+						console.log("update completed..... " + response);
+						if (response !== "success") {
+							alert("Update not successfull");
+						}else{
+							alert("Update successfull");
+						}
+					},
+					error : function(data, status, er) {
+						console.log("Error in update prject jsm : " + data
+								+ " status: " + status + " er:" + er);
+					}
+
+				});
+			} catch (e) {
+				console.log("Exception in update prject jsm : " + e);
+			}
 		}
-		function updateProject() {
-			
-		}
+		
 	</script>
+
 </head>
 <body>
 <h1 class="w3-xxxlarge w3-text-red"><b>Project View/Edit</b></h1>
 		<hr>
-		<form method="post" action="./editProject">
+		<form method="post" name="editProjectForm" id="editProjectForm">
 		    <div class="divClass">
 		    
 		    	<table>
@@ -182,7 +205,7 @@
 		    </div>
 		    
 		    <div style="margin-left: 35%;">
-			    	<button type="submit" class="signupbtn" style="text-align: centre; width:100px;">Save</button>
+			    	<button type="button" class="signupbtn" style="text-align: centre; width:100px;" onclick="updateProject()">Save</button>
 			    	&nbsp;
 			    	<button type="button" onclick="clearProjectEditFields();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
 		   	</div>

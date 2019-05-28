@@ -6,18 +6,21 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.viva.dao.util.ResponseBuilder;
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
 import com.viva.dto.Epic;
 
 public class EpicDao {
 
-	public Response addEpic(Epic epic) {
+	public String addEpic(Epic epic) {
 
 		int addEpicResponse = DBConnectionUtil.insert(QueryBuilder.getAddEpicQuery(epic));
-		return ResponseBuilder.getResponse(addEpicResponse, "Epic Creation", epic);
-
+		if(addEpicResponse >0) {
+			return "success";
+		}else if(addEpicResponse<0) {
+			return "exception";
+		}
+		return "fail";
 	}
 
 	public List<Epic> getEpics() {

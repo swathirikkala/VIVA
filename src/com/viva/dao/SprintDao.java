@@ -13,9 +13,12 @@ import com.viva.dto.Sprint;
 
 public class SprintDao {
 
-	public Response addSprint(Sprint sprint) {
+	public String addSprint(Sprint sprint) {
 		int addSprintResponse = DBConnectionUtil.insert(QueryBuilder.getAddSprintQuery(sprint));
-		return ResponseBuilder.getResponse(addSprintResponse, "Sprint Creation", sprint);
+		if(addSprintResponse >0) {
+			return "success";
+		}
+			return "fail";
 	}
 
 	public List<Sprint> getSpintsByProject(String projectId) {

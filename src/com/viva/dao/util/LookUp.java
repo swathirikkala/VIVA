@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.viva.dao.UserDao;
+import com.viva.dto.BusinessValue;
 import com.viva.dto.Project;
 import com.viva.dto.User;
 
@@ -48,25 +49,7 @@ public class LookUp {
 		return projectName;
 	}
 	
-	public static String getSeverityName(int s) {
-		switch(s) {
-		case 1 : return "High";
-		case 2: return "Medium";
-		case 3: return "Low";
-		case 4: return "No Severity";
-		}
-		return "";
-	}
-	
-	public static String getStatusName(int s) {
-		switch(s) {
-		case 1 : return "Grooming";
-		case 2: return "Defined";
-		case 3: return "In Progress";
-		case 4: return "Completed";
-		}
-		return "";
-	}
+
 	public static List<String> getStatuses(){
 		List<String> statuses = new ArrayList<String>();
 		statuses.add("Open");
@@ -83,5 +66,9 @@ public class LookUp {
 			priorities.add(String.valueOf(i));
 		}
 		return priorities;
+	}
+	public static List<BusinessValue> getBusinessValues(){
+		List<BusinessValue> bvs = new ArrayList<BusinessValue>();
+		return bvs;
 	}
 }

@@ -70,6 +70,8 @@
 		<script src="vendor/select2/select2.min.js"></script>
 	<!--===============================================================================================-->
 		<script src="js/main.js"></script>
+        <script src="js/jquery-3.4.0.min.js"></script>
+        
 	<!-- Table JS end -->
 		<style type="text/css">
 			.width50{
@@ -83,29 +85,57 @@
 			}
 		</style>
 		<script type="text/javascript">
-			function loadSprint(sprintId) {
-				console.log("loadSprint Loading");
-				 $.ajax({
-		                type: 'post',
-		                url: './loadSprint',
-		                data: {sprintId:sprintId},
-		                success: function (response) {
-		                   console.log("Sprint Loading completed..... " + response);
-		                   if(response === "success"){
-		                	   loadPage('sprintEditDiv','sprintHome.jsp')
-		                	   $("#epicsDiv").load("epicsResultList.jsp");
-		                   }else{
-		                	   alert("No Data Found with search criteria");
-		                   }
-		                }
-		            });
+			function openModal(){
+				console.log("new Sprint open modal got called");
+				displayPopup();
 			}
 		</script>
 		<script type="text/javascript">
-			function openModal(){
-				console.log("newSprint Open modal got called");
-				displayPopup();
+			function createSprint() {
+				console.log("createSprint got called");
+				console.log($("form[name=newSprintForm]").serialize());
+	          
+					$.ajax({
+		                type: 'post',
+		                url: './addSprint',
+		                data: $("form[name=newSprintForm]").serialize(),
+		                success: function (response) {
+		                   console.log("Sprint creation call completed..... " + response);
+		                   if(response === "success"){
+		                	   alert("Sprint creation Success");
+		                   }else{
+		                	   alert("Sprint creation Failed");
+		                   }
+		                },
+						error : function(data, status, er) {
+							console.log("Error in create new Sprint jsm : " + data + " status: " + status + " er:" + er);
+						
+						}
+		            });
+					 closePopup();
 			}
+		</script>
+		<script type="text/javascript">
+		function loadSprint(sprintId) {
+			console.log("loadSprint got called");
+				$.ajax({
+	                type: 'post',
+	                url: './loadSprint',
+	                data: {sprintId:sprintId},
+	                success: function (response) {
+	                   console.log("Sprint load call completed..... " + response);
+	                   if(response === "success"){
+	                	   console.log("loadSprint loading Success");
+	                	   
+	                   }else{
+	                	   console.log("loadSprint creation Failed");
+	                   }
+	                },
+					error : function(data, status, er) {
+						console.log("Error in create getSprintId jsm : " + data + " status: " + status + " er:" + er);
+					}
+	            });
+		}
 		</script>
 	</head>
 	<body>
@@ -137,7 +167,7 @@
 									<td class="column100 width100" data-column="column2"><%=s.getSprintName() %></td>
 									<td class="column100 width50" data-column="column1"><%=s.getStartDate() %></td>
 									<td class="column100 width75" data-column="column1"><%=s.getEndDate() %></td>
-									<td class="column100 width75" data-column="column1"><%=s.getSeverity() %></td>
+									<td class="column100 width75" data-column="column1"><%=s.getStatus() %></td>
 									<td class="column100 width50" data-column="column6"><%=s.getViva() %></td>
 									<td class="column100 width100" data-column="column7"><%=LookUp.getUserName(s.getCreatedBy(),allUsers)%></td>
 								</tr>
@@ -151,7 +181,7 @@
 		<!-- Project Creation Div -->
 		<div id="modalDiv" class="modal">
 		  <span onclick="javascript:closePopup()" class="close" title="Close Sprint">&times;</span>
-			<form class="modal-content" method="post" action="./addSprint">
+			<form id="newSprintForm" name="newSprintForm" class="modal-content">
 		    <div class="container">
 		      <h1 style="color:green">Add Sprint</h1>
 		      <p style="color:red">Please fill in the form to add the Sprint</p>
@@ -189,7 +219,7 @@
 		      
 		      <div class="clearfix">
 		        <button type="button" onclick="javascript:closePopup()" class="cancelbtn">Cancel</button>
-		        <button type="submit" class="signupbtn" id="saveDepartmentDiv">Save</button>
+		        <button type="button" class="signupbtn" onclick="createSprint()">Save</button>
 		      </div>
 		    </div>
 		  </form>

@@ -1,3 +1,5 @@
+<%@page import="com.viva.dto.BusinessValue"%>
+<%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="com.viva.dto.Epic"%>
 <%@page import="com.viva.dao.EpicDao"%>
 <%@page import="com.viva.dao.SprintDao"%>
@@ -120,11 +122,115 @@
 			}
 
 		</script>
+		<script type="text/javascript">
+			function openEpicModal() {
+				displayPopup();
+			}
+			function createEpic(){
+				console.log("createEpic got called");
+				console.log($("form[name=newEpicForm]").serialize());
+	          
+					$.ajax({
+		                type: 'post',
+		                url: './addEpic',
+		                data: $("form[name=newEpicForm]").serialize(),
+		                success: function (response) {
+		                   console.log("Epic creation call completed..... " + response);
+		                   if(response === "success"){
+		                	   alert("Epic creation Success");
+		                   }else{
+		                	   alert("Epic creation Failed");
+		                   }
+		                },
+						error : function(data, status, er) {
+							console.log("Error in create new Epic jsm : " + data + " status: " + status + " er:" + er);
+						
+						}
+		            });
+					 closePopup();
+			}
+		</script>
 	</head>
 	<body>
-		<p>
-			<button onclick="openEpicModal()" style="width: auto;">Create New Epic</button>
-		</p>
+		
+		<form method="post" action="./editProject">
+		    <div class="divClass">
+		    
+		    	<table>
+		    		<tr>
+		    			<th class="cellClass">
+		    				<label>Project Name</label>
+		    			</th>
+		    			<td class="cellClass">
+		    				<input type="text" name="editSprintProjectName" id="editSprintProjectName" required="required" value="">
+		    			</td>
+		    			<th>
+		    				<label>VIVA%</label>
+		    			</th>
+		    			<td>
+		    				<input type="text" name="sprintViva" id="sprintViva" disabled="disabled" value="">
+		    			</td>
+		    		
+		    			<th class="cellClass">
+		    				<label>Start Date</label>
+		    			</th>
+		    			<td class="cellClass">
+		    				<input type="date" placeholder="Project Start Date" name="sprintEditStartDate" id="sprintEditStartDate"  class="">
+		    			</td>
+		    		</tr>
+		    		<tr>
+		    			<th>
+		    			<label>Priority</label>
+		    			</th>
+		    			<td>
+		    				<select id="editSprintPriority" name = "editSprintPriority">
+					      		<option value="0">--Select--</option>
+					      		<% for(String p : LookUp.getPriorities()){ %>
+					      			<option value="<%=p%>"><%=p%></option>
+						      	<%} %>
+					     	 </select>
+		    			</td>
+		    			<th>
+		    				<label>Status</label>
+		    			</th>
+		    			<td>
+		    				<select id="editSprintStatus" name = "editSprintStatus">
+					      		<option value="0">--Select--</option>
+					      		<% for(String s : LookUp.getStatuses()){ %>
+					      			<option value="<%= s%>"><%= s%></option>
+						      	<%} %>
+					     	 </select>
+		    			</td>
+		    			<th class="cellClass">
+		    				<label>End date</label>
+		    			</th>
+		    			<td class="cellClass">
+					    	<input type="date" placeholder="Sprint End Date" name="sprintEditEndDate" id="sprintEditEndDate"  class="">
+		    			</td>
+		    	
+		    		</tr>
+		    		<tr>
+		    			<th>
+		    				<label>Description</label>
+		    			</th>
+		    			<td colspan="5">
+		    				<textarea rows="4" cols="50" placeholder="Sprint Description" name="editSprintDescription" id="editSprintDescription" style="height: 100px;" required="required">
+		      				</textarea>
+		    			</td>
+		    		</tr>
+		    	</table>
+		    </div>
+		    
+		    <div style="margin-left: 35%;">
+			    	<button type="submit" class="signupbtn" style="text-align: centre; width:100px;">Save</button>
+			    	&nbsp;
+			    	<button type="button" onclick="clearProjectEditFields();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
+		   	</div>
+		  </form>
+		  
+		<div style="margin-top: 50px;">
+			<button onclick="openEpicModal()" style="width: auto;">New Epic</button>
+		
 		<!-- Epics Table -->
 			<div class="limiter">
 				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:500px; min-height:0px; overflow-x: none;">
@@ -155,10 +261,11 @@
 				</div>
 			</div>
 		<!-- Epics Table ended -->
-		<!-- Epic creation -->
-		<div id="epicModalDiv" class="modal">
+		
+		<!-- Epic Creation Div -->
+		<div id="modalDiv" class="modal">
 		  <span onclick="javascript:closePopup()" class="close" title="Close Sprint">&times;</span>
-			<form class="modal-content" method="post" action="./addEpic">
+			<form class="modal-content" name="newEpicForm" id="newEpicForm">
 		    <div class="container">
 		    <input type="hidden" id="createdBy" name="createdBy" value="<%=userId%>">
 		      <h1 style="color:green">Add Epic</h1>
@@ -173,62 +280,51 @@
 		      <%}%>
 		      </select>
 		      		   
-		      <label for="sprintName"><b>Sprint Name</b></label>
-		       <select id="sprintName" name = "sprintName" >
-		       <option value="" selected="selected">--Select Sprint--</option>
-		      <%for(Sprint s : sprintsByProjectId){%>
-		      		<option value="<%= s.getSprintId()%>"><%= s.getSprintName()%></option>
-		      <%}%>
-		      </select>
-		      
 		      <label for="epicName"><b>Epic Name</b></label><label style="color: red;">&nbsp;*</label>
 		      <input type="text" name="epicName" id="epicName" required="required" placeholder="Epic Name">
 		      		      
-			   <label for="severity"><b>Epic Severity</b></label><label style="color: red;">&nbsp;*</label>
-			     <select id="severity" name = "severity" required>
-		      		<option value="1">High</option>
-			      	<option value="2">Medium</option>
-			      	<option value="3">Low</option>
-			      	<option value="4">No Severity</option>
+			   <label for="severity"><b>Epic Priority</b></label><label style="color: red;">&nbsp;*</label>
+			     <select id="epicPriority" name = "epicPriority" required>
+			      	<option value="0">--Select--</option>
+		      		<%for(BusinessValue bv:LookUp.getBusinessValues()){ %>
+			      		<option value="<%=bv.getId()%>"><%=bv.getName()%></option>
+			      	<%} %>
 		     	 </select>
-		     	 
-			   <label for="startDate"><b>Epic Start Date</b></label><label style="color: red;">&nbsp;*</label>
-			   <input type="date" placeholder="Sprint Start Date" name="startDate" id="startDate" required>
 			   
-			   <label for="endDate"><b>Epic End Date</b></label><label style="color: red;">&nbsp;*</label>
-			   <input type="date" placeholder="Sprint End Date" name="endDate" id="endDate" required>
-			   
-			   <input type="hidden" placeholder="Created By" name="createdBy" id="createdBy" required value="<%= userId %>">
-			   
-			   <label for="businessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
-		       <select id="businessValues" name = "businessValues" required>
-		      <%for(Sprint s : sprintsByProjectId){%>
-		      		<option value="<%= s.getSprintId()%>"><%= s.getSprintName()%></option>
-		      <%}%>
+			   <label for="epicBusinessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
+		       <select id="epicBusinessValues" name = "epicBusinessValues" required>
+			      <%for(Sprint s : sprintsByProjectId){%>
+			      		<option value="<%= s.getSprintId()%>"><%= s.getSprintName()%></option>
+			      <%}%>
 		      </select>
-			   
-		      <label for="assignTo"><b>Assign to</b></label><label style="color: red;">&nbsp;*</label>
-		      <select id="assignTo" name = "assignTo" required>
-<%-- 		      <%for(User user : listOfUsers){%> --%>
-<%-- 		      		<option value="<%= userId%>"><%= userName%></option> --%>
-<%-- 		      <%}%> --%>
-		      </select>
-		      <label for="projectManager"><b>Project Manager</b></label><label style="color: red;">&nbsp;*</label>
-		      <select id="projectManager" name = "projectManager" required>
-<%-- 			      <%for(User u : managers){%> --%>
-<%-- 			      		<option value="<%= u.getEmailId()%>"><%= u.getFirstName() + " " + u.getLastName()%></option> --%>
-<%-- 			      <%}%> --%>
-		      </select>
+
 		      <label for="description"><b>Epic Description</b></label><label style="color: red;">&nbsp;*</label>
 		      <textarea rows="4" cols="50" placeholder="Description" name="description" id="description" style="height: 100px;">
 		      </textarea>
 		      
 		      <div class="clearfix">
 		        <button type="button" onclick="javascript:closePopup()" class="cancelbtn">Cancel</button>
-		        <button type="submit" class="signupbtn" id="saveDepartmentDiv">Save</button>
+		        <button type="button" class="signupbtn" onclick="createEpic()">Save</button>
 		      </div>
 		    </div>
 		  </form>
+		  </div>
 		</div>
-		<!-- Epic creation completed -->
+		<!-- Epic Creation Div ended -->
+			<script type="text/javascript">
+	
+	function displayPopup(){
+		  document.getElementById('modalDiv').style.display='block';
+		}
+	function closePopup(){
+		  document.getElementById('modalDiv').style.display='none';
+		}
+	
+    $(document).ready(function() {
+    	$("#editSprintProjectName").val("<%=projectId%>");
+    	$("#editSprintDescription").val("");
+    	
+      });
+	
+	</script>
 	</body>

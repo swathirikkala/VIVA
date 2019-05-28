@@ -1,8 +1,6 @@
 
 package com.viva.db.util;
 
-import java.sql.ResultSet;
-
 import com.viva.dto.Department;
 import com.viva.dto.Epic;
 import com.viva.dto.Project;
@@ -13,7 +11,7 @@ import com.viva.dto.UserStory;
 public class QueryBuilder {
 
 	public static String getAddProjectQuery(Project project) {
-		String query = "insert into project (name,severity,start_date,end_date,created_by,manager,description,modified_by) values('"
+		String query = "insert into project (name,priority,start_date,end_date,created_by,manager,description,modified_by) values('"
 				+ project.getName() + "'," + project.getSeverity() + ",'" + project.getStartDate() + "','"
 				+ project.getEndDate() + "','" + project.getCreatedBy() + "','" + project.getManager() + "','"
 				+ project.getDescription() + "','" + project.getLastModifiedBy() + "')";
@@ -45,7 +43,8 @@ public class QueryBuilder {
 	}
 
 	public static String getAddSprintQuery(Sprint sprint) {
-		String query = "INSERT INTO sprint(name,project,severity,manager, start_date,end_date,created_by,description) VALUES ('"
+		System.out.println("sprint add ->" + sprint);
+		String query = "INSERT INTO sprint(name,project,priority,manager, start_date,end_date,created_by,description) VALUES ('"
 				+ sprint.getSprintName() + "'," + sprint.getProjectId() + "," + sprint.getSeverity() + ",'"
 				+ sprint.getManagerId() + "','" + sprint.getStartDate() + "','" + sprint.getEndDate() + "','"
 				+ sprint.getCreatedBy() + "','" + sprint.getDescription() + "')";
@@ -79,7 +78,7 @@ public class QueryBuilder {
 	}
 
 	public static String getAddEpicQuery(Epic epic) {
-		String query = "insert into epic (name,sprint,project,manager,assigned_to,severity,status,start_date,end_date,description,lmb) values ('"
+		String query = "insert into epic (name,sprint,project,manager,assigned_to,priority,status,start_date,end_date,description,lmb) values ('"
 				+ epic.getName() + "'," + epic.getSprint() + "," + epic.getProject() + ",'" + epic.getManager() + "','"
 				+ epic.getAssignedTo() + "'," + epic.getSeverity() + ",'" + epic.getStatus() + "','"
 				+ epic.getStartDate() + "','" + epic.getEndDate() + "','" + epic.getDescription() + "','"
@@ -116,7 +115,7 @@ public class QueryBuilder {
 			}
 			query += " id = " + project.getId() + "";
 		}
-		if (!project.getStatus().equalsIgnoreCase("0")) {
+		if (!project.getStatus().equalsIgnoreCase("select")) {
 			if (andNeeded) {
 				query += " AND";
 			} else {
@@ -165,7 +164,7 @@ public class QueryBuilder {
 	public static String getUpdateProjectQuery(Project project) {
 		System.out.println("Project is : " + project);
 		String query = "update project set name ='"+project.getName()+"', start_date='"+project.getStartDate()+"' , end_date='"+project.getEndDate()+"', manager ='"+
-				project.getManager()+"', description = '"+project.getDescription()+"', status='"+project.getStatus()+"', severity='"+
+				project.getManager()+"', description = '"+project.getDescription()+"', status='"+project.getStatus()+"', priority='"+
 				project.getSeverity()+"' where id="+project.getId();
 		return query;
 	}

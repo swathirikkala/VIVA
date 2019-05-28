@@ -1,3 +1,4 @@
+<%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="com.viva.dto.Project"%>
@@ -21,57 +22,15 @@
 			width: 200px;
 			padding-right: 25px;
 		}
-	</style>
-	<script type="text/javascript">
-		function clearProjectSearchValues() {
-			console.log("clearProjectSearchValues got called");
-			$("#projectId").val("0");
-			$("#projectStatus").val("0");
-			$("#projectViva").val("0");
-			$("#projectStartDate").val("");
-			$("#projectEndDate").val("");
-		}
-		function searchProjects() {
-			console.log("searchProjects got called");
-            $.ajax({
-                type: 'post',
-                url: './searchProjects',
-                data: $('form').serialize(),
-                success: function (response) {
-                   console.log("Search completed..... " + response);
-                   if(response === "success"){
-                	   $("#homeDiv").load("projectHome.jsp");
-                   }else{
-                	   alert("No Data Found with search criteria");
-                   }
-                }
-            });
-			
-		}
-		$("#projectStartDate").change(function() {
+	</style> 
+	<script src="./js/jquery-3.4.0.min.js"></script>
+  	<script src="./js/project.js"></script>
 
-			 if($("#projectStartDate").val() !== ""){
-				 if (Date.parse($("#projectStartDate").val()) > Date.parse($("#projectEndDate").val())) {
-		               alert('Project Start Date should not greater than End Date.');
-		               $("#projectStartDate").val("");
-		           }
-			 }
-		});
-		
-		$("#projectEndDate").change(function() {
-			 if($("#projectEndDate").val() !== ""){
-				 if (Date.parse($("#projectStartDate").val()) > Date.parse($("#projectEndDate").val())) {
-		               alert('Project End Date should not lesser than Start Date.');
-		               $("#projectEndDate").val("");
-		           }
-			 }
-		});
-	</script>
 </head>
 <body>
 		<h1 class="w3-xxxlarge w3-text-red"><b>Manager Home</b></h1>
 		<hr>
-		<form method="post">
+		<form method="post" name="projectSearchForm" id="projectSearchForm">
 		    <div class="divClass">
 		    
 		    	<table>
@@ -92,13 +51,14 @@
 		    			</th>
 		    			<td class="cellClass">
 					    	<select id="projectStatus" name = "projectStatus"  class="">
-					      		<option value="0" selected="selected">--- Select ---</option>
-					      		<option value="1">Open</option>
-						      	<option value="2">Work in Progress</option>
-						      	<option value="3">On Hold</option>
-						      	<option value="4">Closed</option>
-						      	<option value="5">InActive</option>
-						      	<option value="6">Not Started</option>
+					      		<option value="select" selected="selected">--- Select ---</option>
+					      		<%
+					      			for(String o:LookUp.getStatuses()){
+					      		%>
+					      			<option value="<%=o %>"><%=o %></option>
+					      		<%
+					      			}
+					      		%>
 					     	 </select>
 		    			</td>
 		    		</tr>
@@ -125,7 +85,7 @@
 		    				<label>Project start date</label>
 		    			</th>
 		    			<td class="cellClass">
-					    	<input type="date" placeholder="Project Start Date" name="projectStartDate" id="projectStartDate"  class="">
+					    	<input type="date" placeholder="DD/MM/YYYY" name="projectStartDate" id="projectStartDate"  class="">
 		    			</td>
 		    		</tr>
 		    		<tr>
@@ -139,7 +99,7 @@
 		    				<label>Project End date</label>
 		    			</th>
 		    			<td class="cellClass">
-					    	<input type="date" placeholder="Project End Date" name="projectEndDate" id="projectEndDate"  class="">
+					    	<input type="date" placeholder="DD/MM/YYYY" name="projectEndDate" id="projectEndDate"  class="">
 		    			</td>
 		    		</tr>
 		    	</table>

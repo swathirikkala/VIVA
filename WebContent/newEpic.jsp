@@ -49,7 +49,7 @@
 // 	}
 %>
 <!DOCTYPE html>
-<!-- Project Creation Div -->
+<!-- Epic Creation Div -->
 		<div id="modalDiv" class="modal">
 		  <span onclick="javascript:closePopup()" class="close" title="Close Sprint">&times;</span>
 			<form class="modal-content" method="post" action="./addEpic">
@@ -124,7 +124,7 @@
 		    </div>
 		  </form>
 		</div>
-		<!-- Project Creation Div ended -->
+		<!-- Epic Creation Div ended -->
 	<script type="text/javascript">
 	
 	function displayPopup(){

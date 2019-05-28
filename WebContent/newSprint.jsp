@@ -37,6 +37,7 @@
 	}
 %>
 <!DOCTYPE html>
+<html>
 <!-- Project Creation Div -->
 		<div id="modalDiv" class="modal">
 		  <span onclick="javascript:closePopup()" class="close" title="Close Sprint">&times;</span>
@@ -91,23 +92,26 @@
 		  </form>
 		</div>
 		<!-- Project Creation Div ended -->
+		
 	<script type="text/javascript">
 	
-	function displayPopup(){
-		  document.getElementById('modalDiv').style.display='block';
-		}
-	function closePopup(){
-		  document.getElementById('modalDiv').style.display='none';
-		}
-	
-    $(document).ready(function() {
-    	displayPopup();
-    	//alert("Create new sprint got called");
-    	$("#projectName").val("<%=projectId%>");
-    	$("#projectManager").val("<%=userId%>");
-    	$("#sprintDescription").val("");
-    	
-      });
+		function displayPopup(){
+			  document.getElementById('modalDiv').style.display='block';
+			}
+		function closePopup(){
+			  document.getElementById('modalDiv').style.display='none';
+			}
+		
+	    $(document).ready(function() {
+	    	displayPopup();
+	    	//alert("Create new sprint got called");
+	    	$("#projectName").val("<%=projectId%>");
+	    	$("#projectManager").val("<%=userId%>");
+	    	$("#sprintDescription").val("");
+	    	
+	      });
 	
 	</script>
+	</html>
+
 
