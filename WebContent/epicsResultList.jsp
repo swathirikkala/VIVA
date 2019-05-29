@@ -207,6 +207,7 @@
 		</script>
 	</head>
 	<body>
+		<h1 class="w3-xxxlarge w3-text-red"><b>Sprint Edit Form </b></h1>
 		
 		<form method="post" name="editSprintForm" id="editSprintForm">
 		    <div class="divClass">
@@ -287,7 +288,7 @@
 			    	<button type="button" onclick="clearProjectEditFields();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
 		   	</div>
 		  </form>
-		  
+<!-- 		  <hr> -->
 		<div style="margin-top: 50px;">
 			<button onclick="openEpicModal()" style="width: auto;">New Epic</button>
 		
