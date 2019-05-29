@@ -78,11 +78,10 @@ public class QueryBuilder {
 	}
 
 	public static String getAddEpicQuery(Epic epic) {
-		String query = "insert into epic (name,sprint,project,manager,assigned_to,priority,status,start_date,end_date,description,lmb) values ('"
-				+ epic.getName() + "'," + epic.getSprint() + "," + epic.getProject() + ",'" + epic.getManager() + "','"
-				+ epic.getAssignedTo() + "'," + epic.getSeverity() + ",'" + epic.getStatus() + "','"
-				+ epic.getStartDate() + "','" + epic.getEndDate() + "','" + epic.getDescription() + "','"
-				+ epic.getLmb() + "')";
+		System.out.println("Epic dto :" + epic);
+		String query = "insert into epic (name,project,priority,description,created_by,lmb) values ('"
+				+ epic.getName() + "'," + epic.getProject() + ","+ epic.getSeverity() + ",'" + epic.getDescription() + "','"
+				+ epic.getLmb()+ "','"+ epic.getLmb() + "')";
 		return query;
 	}
 

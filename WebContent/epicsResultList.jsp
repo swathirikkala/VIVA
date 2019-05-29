@@ -23,18 +23,26 @@
 	if(epics == null){
 		epics =new ArrayList<Epic>();
 	}
+	ProjectDao projectDao = new ProjectDao();
+	List<Project> projects = projectDao.getProjects();
+	if(projects == null){
+		projects = new ArrayList<Project>();
+	}
 
 %>
 <%
-	Response resp = (Response)request.getSession().getAttribute("response");
-	String message = resp.getResponseMessage();
+
+
+	Sprint sprint = (Sprint)request.getSession().getAttribute("sprint");
+	if(sprint == null){
+		sprint = new Sprint();
+	}
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
 	String projectId = String.valueOf(request.getSession().getAttribute("projectId"));
 	
 	
 	UserDao userDao = new UserDao();
-	ProjectDao projectDao = new ProjectDao();
 	SprintDao sprintDao = new SprintDao();
 	
 // 	List<User> managers = userDao.getManagers();
@@ -122,6 +130,29 @@
 			}
 
 		</script>
+	<script type="text/javascript">
+	
+			function displayPopup(){
+				  document.getElementById('epicModalDiv').style.display='block';
+				}
+			function closePopup(){
+				  document.getElementById('epicModalDiv').style.display='none';
+				}
+			
+		    $(document).ready(function() {
+		    	$("#editSprintProjectName").val("<%=sprint.getProjectId()%>");
+		    	$("#editSprintDescription").val("");
+		    	$("#editSprintDescription").val("<%=sprint.getDescription()%>");
+		    	$("#description").val("<%=sprint.getDescription()%>");
+		    	$("#sprintEditStartDate").val("<%=sprint.getStartDate()%>");
+		    	$("#sprintEditEndDate").val("<%=sprint.getEndDate()%>");
+		    	$("#editSprintPriority").val("<%=sprint.getSeverity()%>");
+		    	$("#editSprintStatus").val("<%=sprint.getStatus()%>");
+		    	$("#sprintViva").val("<%=sprint.getViva()%>");
+		    	
+		      });
+	
+	</script>
 		<script type="text/javascript">
 			function openEpicModal() {
 				displayPopup();
@@ -150,10 +181,34 @@
 					 closePopup();
 			}
 		</script>
+		<script type="text/javascript">
+			function editSprint() {
+				console.log("editSprint got called");
+				console.log($("form[name=newEpicForm]").serialize());
+	          
+					$.ajax({
+		                type: 'post',
+		                url: './editSprint',
+		                data: $("form[name=editSprintForm]").serialize(),
+		                success: function (response) {
+		                   console.log("Epic Sprint call completed..... " + response);
+		                   if(response === "success"){
+		                	   alert("Epic Sprint Success");
+		                   }else{
+		                	   alert("Epic Sprint Failed");
+		                   }
+		                },
+						error : function(data, status, er) {
+							console.log("Error in create new Epic jsm : " + data + " status: " + status + " er:" + er);
+						
+						}
+		            });
+			}
+		</script>
 	</head>
 	<body>
 		
-		<form method="post" action="./editProject">
+		<form method="post" name="editSprintForm" id="editSprintForm">
 		    <div class="divClass">
 		    
 		    	<table>
@@ -162,7 +217,12 @@
 		    				<label>Project Name</label>
 		    			</th>
 		    			<td class="cellClass">
-		    				<input type="text" name="editSprintProjectName" id="editSprintProjectName" required="required" value="">
+		    				   <select id="editSprintProjectName" name = "editSprintProjectName" >
+						       <option value="" selected="selected">--Select Project--</option>
+						      <%for(Project p : projects){%>
+						      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
+						      <%}%>
+						      </select>
 		    			</td>
 		    			<th>
 		    				<label>VIVA%</label>
@@ -222,7 +282,7 @@
 		    </div>
 		    
 		    <div style="margin-left: 35%;">
-			    	<button type="submit" class="signupbtn" style="text-align: centre; width:100px;">Save</button>
+			    	<button type="button" onclick="editSprint()" class="signupbtn" style="text-align: centre; width:100px;">Search</button>
 			    	&nbsp;
 			    	<button type="button" onclick="clearProjectEditFields();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
 		   	</div>
@@ -263,7 +323,7 @@
 		<!-- Epics Table ended -->
 		
 		<!-- Epic Creation Div -->
-		<div id="modalDiv" class="modal">
+		<div id="epicModalDiv" class="modal">
 		  <span onclick="javascript:closePopup()" class="close" title="Close Sprint">&times;</span>
 			<form class="modal-content" name="newEpicForm" id="newEpicForm">
 		    <div class="container">
@@ -275,7 +335,7 @@
 			   <label for="projectName"><b>Project Name</b></label>
 			   <select id="projectName" name = "projectName" >
 		       <option value="" selected="selected">--Select Project--</option>
-		      <%for(Project p : projectsByManagerId){%>
+		      <%for(Project p : projects){%>
 		      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
 		      <%}%>
 		      </select>
@@ -311,20 +371,5 @@
 		  </div>
 		</div>
 		<!-- Epic Creation Div ended -->
-			<script type="text/javascript">
-	
-	function displayPopup(){
-		  document.getElementById('modalDiv').style.display='block';
-		}
-	function closePopup(){
-		  document.getElementById('modalDiv').style.display='none';
-		}
-	
-    $(document).ready(function() {
-    	$("#editSprintProjectName").val("<%=projectId%>");
-    	$("#editSprintDescription").val("");
-    	
-      });
-	
-	</script>
+
 	</body>
