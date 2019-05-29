@@ -14,7 +14,38 @@
 %>
 <html>
 <head>
+    <script src="./js/jquery-3.4.0.min.js"></script>
+	<script type="text/javascript">
 
+	$("#searchProjectName")
+	.change(
+			function() {
+				console.log("searchSprintsByProjectId got called");
+				var projectId= $("#searchProjectName");
+				console.log("Project id : " + projectId);
+				try {
+					$.ajax({
+						type : 'post',
+						url : './sprintSearchByProjectId',
+						data : {projectId:projectId},
+						success : function(response) {
+							console.log("Sprint Search completed..... " + response);
+							if (response !== "success") {
+								alert("No Data Found with search criteria");
+							}
+							
+						},
+						error : function(data, status, er) {
+							console.log("Error in searchSprintsByProjectId jsm : " + data
+									+ " status: " + status + " er:" + er);
+						}
+
+					});
+				} catch (e) {
+					console.log("Exception in searchSprintsByProjectId jsm : " + e);
+				}
+			});
+	</script>
 </head>
 <body>
 <br>
