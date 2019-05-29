@@ -178,4 +178,11 @@ public class QueryBuilder {
 		
 		return query;
 	}
+
+	public static String updateSptintQuery(Sprint sprint) {
+		System.out.println("update Sprint : " + sprint);
+		String query ="update sprint set name='"+sprint.getSprintName()+"', start_date = '"+sprint.getStartDate()+"', end_date='"
+				+sprint.getEndDate()+"', priority = " + sprint.getSeverity()+", status='"+sprint.getStatus()+"', last_modified_by = '"+sprint.getLastModifiedBy()+"' where id="+sprint.getSprintId();
+		return query;
+	}
 }

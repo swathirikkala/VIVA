@@ -193,13 +193,13 @@
 		                success: function (response) {
 		                   console.log("Epic Sprint call completed..... " + response);
 		                   if(response === "success"){
-		                	   alert("Epic Sprint Success");
+		                	   alert("Sprint Update Success");
 		                   }else{
-		                	   alert("Epic Sprint Failed");
+		                	   alert("Sprint Update Failed");
 		                   }
 		                },
 						error : function(data, status, er) {
-							console.log("Error in create new Epic jsm : " + data + " status: " + status + " er:" + er);
+							console.log("Error in Update Sprint jsm : " + data + " status: " + status + " er:" + er);
 						
 						}
 		            });
@@ -282,7 +282,7 @@
 		    </div>
 		    
 		    <div style="margin-left: 35%;">
-			    	<button type="button" onclick="editSprint()" class="signupbtn" style="text-align: centre; width:100px;">Search</button>
+			    	<button type="button" onclick="editSprint()" class="signupbtn" style="text-align: centre; width:100px;">Save</button>
 			    	&nbsp;
 			    	<button type="button" onclick="clearProjectEditFields();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
 		   	</div>

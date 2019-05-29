@@ -15,10 +15,10 @@ public class SprintDao {
 
 	public String addSprint(Sprint sprint) {
 		int addSprintResponse = DBConnectionUtil.insert(QueryBuilder.getAddSprintQuery(sprint));
-		if(addSprintResponse >0) {
+		if (addSprintResponse > 0) {
 			return "success";
 		}
-			return "fail";
+		return "fail";
 	}
 
 	public List<Sprint> getSpintsByProject(String projectId) {
@@ -59,14 +59,25 @@ public class SprintDao {
 	}
 
 	public Sprint getSprintById(String sprintId) {
-		Sprint sprint  = null;
+		Sprint sprint = null;
 		String query = QueryBuilder.getSpringByIdQuery(sprintId);
 		ResultSet rs = DBConnectionUtil.getData(query);
 		List<Sprint> parseSprints = parseSprints(rs);
-		if(parseSprints != null) {
+		if (parseSprints != null) {
 			sprint = parseSprints.get(0);
 		}
 		return sprint;
-		
+
+	}
+
+	public String updateSptint(Sprint sprint) {
+
+		String query = QueryBuilder.updateSptintQuery(sprint);
+		int insertResult = DBConnectionUtil.insert(query);
+		if (insertResult > 0)
+			return "success";
+		else if (insertResult < 0)
+			return "exception";
+		return "fail";
 	}
 }
