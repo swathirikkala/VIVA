@@ -1,4 +1,4 @@
-package com.viva.dao;
+package com.viva.dto;
 
 public class Response {
 	private int responseCode;
