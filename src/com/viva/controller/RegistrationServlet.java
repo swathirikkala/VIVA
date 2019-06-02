@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.viva.dao.Response;
 import com.viva.dao.UserDao;
 import com.viva.dto.User;
 
@@ -50,7 +49,7 @@ public class RegistrationServlet extends HttpServlet {
 		}
 		
 		UserDao dao = new UserDao();
-		Response registerUserResponse = dao.registerUser(user);
+		String registerUserResponse = dao.registerUser(user);
 		
 		request.getSession().setAttribute("response", registerUserResponse);
 		

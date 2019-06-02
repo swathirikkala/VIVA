@@ -12,7 +12,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.viva.dto.User"%>
 <%@page import="java.util.List"%>
-<%@page import="com.viva.dao.Response"%>
 
 <%
 	List<Sprint> sprints = (List<Sprint>)request.getSession().getAttribute("sprints");	

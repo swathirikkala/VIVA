@@ -1,6 +1,6 @@
 package com.viva.dao.util;
 
-import com.viva.dao.Response;
+import com.viva.dto.Response;
 
 public class ResponseBuilder {
 

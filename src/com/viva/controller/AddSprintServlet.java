@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.viva.dao.Response;
 import com.viva.dao.SprintDao;
 import com.viva.dto.Sprint;
 import com.viva.util.JSONUtil;

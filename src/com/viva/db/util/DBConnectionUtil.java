@@ -52,7 +52,7 @@ public class DBConnectionUtil {
         System.out.println("Insertion query : \n" + query + "\n");
         try {
             statement = connection.createStatement();
-            response = statement.executeUpdate(query);
+            response = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
         } catch (SQLException ex) {
             response =-1;
             Logger.getLogger(DBConnectionUtil.class.getName()).log(Level.SEVERE, null, ex);

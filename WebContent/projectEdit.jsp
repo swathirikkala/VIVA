@@ -153,7 +153,7 @@
 		    				<label>Created Date</label>
 		    			</th>
 		    			<td class="cellClass">
-		    				<input type="text" placeholder="Created Date" name="editCreatedDate" id="editCreatedDate" required value="<%=project.getLastModifiedDateTime()%>" disabled="disabled"  class="">
+		    				<input type="text" placeholder="Created Date" name="editCreatedDate" id="editCreatedDate" required value="<%=project.getCretatedDate()%>" disabled="disabled"  class="">
 		    			</td>
 		    			<th class="cellClass">
 		    				<label>Project End date</label>

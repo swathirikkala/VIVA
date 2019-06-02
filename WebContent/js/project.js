@@ -19,7 +19,7 @@ function searchProjects() {
 			success : function(response) {
 				console.log("Search completed..... " + response);
 				if (response !== "success") {
-					alert("No Data Found with search criteria");
+					console.log("No Data Found with search criteria");
 				}
 				$("#homeDiv").load("projectHome.jsp");
 			},

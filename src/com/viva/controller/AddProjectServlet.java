@@ -11,31 +11,33 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.viva.dao.ProjectDao;
-import com.viva.dao.Response;
 import com.viva.dto.Project;
+import com.viva.util.DateUtil;
 
 /**
  * Servlet implementation class AddProjectServlet
  */
-@WebServlet(value="/addProject")
+@WebServlet(value = "/addProject")
 public class AddProjectServlet extends HttpServlet {
+
 	private static final long serialVersionUID = 1L;
 
 	ProjectDao dao = new ProjectDao();
 	RequestDispatcher requestDispatcher = null;
-    /**
-     * @see HttpServlet#HttpServlet()
-     */
-    public AddProjectServlet() {
-        super();
-        // TODO Auto-generated constructor stub
-    }
 
 	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#HttpServlet()
 	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	public AddProjectServlet() {
+		super();
+	}
+
+	/**
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
+	 *      response)
+	 */
+	protected void doGet(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		Project project = new Project();
 		project.setName(String.valueOf(request.getParameter("projectName")));
 		try {
@@ -44,51 +46,31 @@ public class AddProjectServlet extends HttpServlet {
 			System.out.println(e.getMessage());
 		}
 		project.setStartDate(String.valueOf(request.getParameter("projectStartDate")));
-		if(project.getStartDate().isEmpty()) {
+		if (project.getStartDate().isEmpty()) {
 			project.setStartDate("2000-01-01");
 		}
 		project.setEndDate(String.valueOf(request.getParameter("projectEndDate")));
 
-		if(project.getEndDate().isEmpty()) {
+		if (project.getEndDate().isEmpty()) {
 			project.setEndDate("2000-01-01");
 		}
 		project.setCreatedBy(String.valueOf(request.getSession().getAttribute("userId")));
 		project.setManager(String.valueOf(request.getParameter("projectManager")));
 		project.setDescription(String.valueOf(request.getParameter("projectDescription")));
 		project.setLastModifiedBy(String.valueOf(request.getSession().getAttribute("userId")));
+		project.setCretatedDate(DateUtil.getSqlDate());
+		String addProjectResponse = dao.addProject(project);
+		response.getWriter().write(addProjectResponse);
 		
-		Response addProjectResponse = dao.addProject(project);
-		
-		request.getSession().setAttribute("response", addProjectResponse);
-		String landingPage = "";
-		String userType = String.valueOf(request.getSession().getAttribute("userType"));
-		if("manager".equalsIgnoreCase(userType)) {
-			landingPage = "./managerHome.jsp";
-			ProjectDao projectDao = new ProjectDao();
-			List<Project> lastUpdatedProjectsList = projectDao.lastUpdatedProjectsListByManagerId(project.getCreatedBy());
-			request.getSession().setAttribute("lastUpdatedProjectsList", lastUpdatedProjectsList);
-			
-			
-			List<Project> projectsByManagerId = projectDao.getProjectsByAssignedManager(project.getCreatedBy());
-			request.getSession().setAttribute("projectsByManagerId", projectsByManagerId);
-			
-		}else if("admin".equalsIgnoreCase(userType)) {
-			landingPage = "./adminHome.jsp";
-		}else if("technical".equalsIgnoreCase(userType)) {
-			landingPage = "./technicalHome.jsp";
-		}
-		String lastAccessedPage = "projects";
-		request.getSession().setAttribute("lastAccessedPage", lastAccessedPage);
-		requestDispatcher = request.getRequestDispatcher(landingPage);
-		requestDispatcher.forward(request, response);
-		
+
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
+	 *      response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
+	protected void doPost(HttpServletRequest request, HttpServletResponse response)
+			throws ServletException, IOException {
 		doGet(request, response);
 	}
 

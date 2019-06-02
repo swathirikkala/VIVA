@@ -76,7 +76,7 @@
 	                	   loadPage('projectDiv','projectEdit.jsp')
 	                	   //$("#projectDiv").load("./projectHome.jsp");
 	                   }else{
-	                	   alert("No Data Found with search criteria");
+	                	   console.log("No Data Found with search criteria");
 	                   }
 	                }
 	            });
@@ -91,7 +91,11 @@
 	</head>
 	<body>
 	<button onclick="openModal();" style="width:auto;">Create New Project</button>
-		
+	<% if(projects.isEmpty()) {%>
+	<label id="projectResultInfo" style="color: red;margin-left: 20%;">No Projects found with search criteria</label>
+	<%} else{%>
+	<label id="projectResultInfo" style="color: blue;margin-left: 20%;"><%= projects.size()%> Projects Found</label>
+	<%} %>
 		<!-- Project Creation Div -->
 		<div id="addPrjDiv">
 <%-- 		  <%@include file="newProject.jsp" %> --%>

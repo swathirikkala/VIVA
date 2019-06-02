@@ -5,30 +5,43 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.viva.dao.util.ResponseBuilder;
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
 import com.viva.dto.Department;
+import com.viva.dto.History;
+import com.viva.util.DateUtil;
 
 public class DepartmentDao {
+	HistoryDao historyDao = new HistoryDao();
+	History history = new History();
 
-	public Response addDepartment(Department department) {
-
+	public String addDepartment(Department department) {
+		String response = "fail";
 		int addDepartmentResponse = DBConnectionUtil.insert(QueryBuilder.addDepartmentQuery(department));
-		return ResponseBuilder.getResponse(addDepartmentResponse, "Add Department",department );
-
+		if (addDepartmentResponse > 0) {
+			response = "success";
+			history.sethDate(DateUtil.getSqlDate());
+			history.setComment("new department created");
+			history.setJobId(addDepartmentResponse);
+			history.setJobType("dep");
+			history.setOwner("admin@mail.com");
+			historyDao.addHistory(history);
+		} else if (addDepartmentResponse < 0) {
+			response = "exception";
+		}
+		return response;
 	}
-	
-	public Response getAllDepartments() {
+
+	public List<Department> getAllDepartments() {
 		ResultSet departmentsRS = DBConnectionUtil.getData(QueryBuilder.getAllDepartmentsQuery());
 		List<Department> departments = parseRsForDepartments(departmentsRS);
-		return ResponseBuilder.getResponse(departments.size(),"All Departments", departments);
+		return departments;
 	}
 
 	private List<Department> parseRsForDepartments(ResultSet rs) {
-		List<Department>  departments = new ArrayList<Department>();
+		List<Department> departments = new ArrayList<Department>();
 		try {
-			while(null != rs && rs.next()) {
+			while (null != rs && rs.next()) {
 				Department department = new Department();
 				department.setId(Integer.valueOf(rs.getInt(1)));
 				department.setName(String.valueOf(rs.getString(2)));
@@ -40,5 +53,5 @@ public class DepartmentDao {
 		}
 		return departments;
 	}
-	
+
 }

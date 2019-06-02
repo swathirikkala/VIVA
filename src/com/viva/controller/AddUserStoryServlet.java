@@ -9,7 +9,6 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.viva.dao.Response;
 import com.viva.dao.UserStoryDao;
 import com.viva.dto.UserStory;
 
@@ -62,8 +61,8 @@ public class AddUserStoryServlet extends HttpServlet {
 		}
 		us.setStartDate(String.valueOf(request.getParameter("startDate")));
 		us.setLmb(String.valueOf(request.getParameter("createdBy")));
-		Response addUserStory = userStoryDao.addUserStory(us);
-		request.getSession().setAttribute("response", addUserStory);
+		String addUserStoryResponse = userStoryDao.addUserStory(us);
+		request.getSession().setAttribute("addUserStoryResponse", addUserStoryResponse);
 
 		String landingPage = String.valueOf(request.getSession().getAttribute("landingPage"));
 		RequestDispatcher requestDispatcher = request.getRequestDispatcher(landingPage);

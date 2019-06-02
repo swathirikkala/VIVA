@@ -13,6 +13,14 @@ public class Project {
 	private String lastModifiedDateTime;
 	private String status;
 	private String viva;
+	private String cretatedDate;
+	
+	public String getCretatedDate() {
+		return cretatedDate;
+	}
+	public void setCretatedDate(String cretatedDate) {
+		this.cretatedDate = cretatedDate;
+	}
 	public int getId() {
 		return id;
 	}

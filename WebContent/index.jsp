@@ -3,19 +3,12 @@
 <!--[if IE 7 ]>    <html lang="en" class="no-js ie7 lt8"> <![endif]-->
 <!--[if IE 8 ]>    <html lang="en" class="no-js ie8 lt8"> <![endif]-->
 <!--[if IE 9 ]>    <html lang="en" class="no-js ie9"> <![endif]-->
-<!--[if (gt IE 9)|!(IE)]><!--> <%@page import="com.viva.dao.Response"%>
 <html lang="en" class="no-js"> <!--<![endif]-->
     <head>
         <meta charset="UTF-8" />
         
 <%
-	Response resp = (Response)request.getSession().getAttribute("response");
-	int status = 0;
-	String statusMessage = null;
-	if (resp != null) {
-		status = resp.getResponseCode();
-		statusMessage = resp.getResponseMessage();
-	}
+
 %>
         <!-- <meta http-equiv="X-UA-Compatible" content="IE=edge,chrome=1">  -->
         <title>VIVA</title>
@@ -33,14 +26,7 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-	<%
-	 	if(resp != null){
-	 %>
-	 console.log("Response : <%=statusMessage%>");
-	 	alert('<%=statusMessage%>');
-	 <%
-	 	}
-	 %>
+	
 	});
 </script>
 

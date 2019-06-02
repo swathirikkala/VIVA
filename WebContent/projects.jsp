@@ -5,12 +5,9 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.viva.dto.User"%>
 <%@page import="java.util.List"%>
-<%@page import="com.viva.dao.Response"%>
 <%@page import="com.viva.dto.Project"%>
 
 <%
-	Response resp = (Response)request.getSession().getAttribute("response");
-	String message = resp.getResponseMessage();
 	List<User> managers = (List<User>)request.getSession().getAttribute("managers");
 	if(managers == null)
 		managers = new ArrayList();

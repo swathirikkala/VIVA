@@ -3,7 +3,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.viva.dto.User"%>
 <%@page import="java.util.List"%>
-<%@page import="com.viva.dao.Response"%>
 <html lang="en">
 <title>Admin Panel</title>
 <meta charset="UTF-8">
@@ -17,8 +16,6 @@
 <script src="./js/sprint.js"></script>
 <script src="./js/adminPanel.js"></script>
 <%
-	Response resp = (Response)request.getSession().getAttribute("response");
-	String message = resp.getResponseMessage();
 	List<User> managers = (List<User>)request.getSession().getAttribute("managers");
 	if(managers == null)
 		managers = new ArrayList();
@@ -253,7 +250,6 @@ body {font-size:16px;}
 </div>
       <script>
         $(document).ready(function() {
-          alert("<%= message%>");
         });
       </script>
 </body>

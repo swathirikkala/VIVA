@@ -12,7 +12,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.viva.dto.User"%>
 <%@page import="java.util.List"%>
-<%@page import="com.viva.dao.Response"%>
 
 <%@page import="com.viva.dao.SprintDao"%>
 <%@page import="com.viva.dao.ProjectDao"%>

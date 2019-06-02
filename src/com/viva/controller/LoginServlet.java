@@ -1,8 +1,6 @@
 package com.viva.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,13 +8,9 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.viva.dao.ProjectDao;
-import com.viva.dao.Response;
 import com.viva.dao.UserDao;
-import com.viva.dto.Department;
-import com.viva.dto.Project;
+import com.viva.dto.Response;
 import com.viva.dto.User;
-import com.viva.util.DataUtil;
 
 /**
  * Servlet implementation class LoginServlet
@@ -37,12 +31,9 @@ public class LoginServlet extends HttpServlet {
 	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
 	 *      response)
 	 */
-	@SuppressWarnings("unchecked")
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		RequestDispatcher requestDispatcher = null;
-		String userType = null;
-		String landingPage = "./index.jsp";
 		User user = new User();
 		try {
 			user.setEmailId(String.valueOf(request.getParameter("loginEmailId")));
@@ -62,33 +53,8 @@ public class LoginServlet extends HttpServlet {
 			if (u != null) {
 				request.getSession().setAttribute("userName", (u.getFirstName() + " " + u.getLastName()));
 			}
-
-			DataUtil dataUtil = new DataUtil(request);
-			dataUtil.loadData();
-			List<Department> departments = (List<Department>) request.getSession().getAttribute("departments");
-			if(departments != null) {
-				for(Department d : departments) {
-					if(u.getDepartment() == d.getId()) {
-						userType = d.getName();
-						request.getSession().setAttribute("userType", userType);
-						break;
-					}
-				}
-			}
 		}
-		if("manager".equalsIgnoreCase(userType)) {
-			landingPage = "./managerHome.jsp";
-			ProjectDao projectDao = new ProjectDao();
-			List<Project> allProjects = projectDao.getProjects();
-			request.getSession().setAttribute("allProjects", allProjects);
-			
-		}else if("admin".equalsIgnoreCase(userType)) {
-			landingPage = "./adminHome.jsp";
-		}else if("technical".equalsIgnoreCase(userType)) {
-			landingPage = "./technicalHome.jsp";
-		}
-		request.getSession().setAttribute("landingPage", landingPage);
-		requestDispatcher = request.getRequestDispatcher(landingPage);
+		requestDispatcher = request.getRequestDispatcher("./home.jsp");
 		requestDispatcher.forward(request, response);
 	}
 

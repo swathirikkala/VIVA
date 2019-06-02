@@ -6,30 +6,45 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.viva.dao.util.ResponseBuilder;
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
+import com.viva.dto.History;
 import com.viva.dto.UserStory;
+import com.viva.util.DateUtil;
 
 public class UserStoryDao {
-	
-	public Response addUserStory(UserStory userStory) {
+
+	HistoryDao historyDao = new HistoryDao();
+	History history = new History();
+	public String addUserStory(UserStory userStory) {
+		String response = "fail";
 		int addUSerStoryResponse = DBConnectionUtil.insert(QueryBuilder.getAddUserStoryQuery(userStory));
-		return ResponseBuilder.getResponse(addUSerStoryResponse, "User Story Creation", userStory);
+		if (addUSerStoryResponse > 0) {
+			response = "success";
+			history.sethDate(DateUtil.getSqlDate());
+			history.setJobId(addUSerStoryResponse);
+			history.setJobType("us");
+			history.setComment("new User story created");
+			history.setOwner(userStory.getLmb());
+		} else if (addUSerStoryResponse < 0) {
+			response = "exception";
+		}
+		return response;
 	}
-	
-	public List<UserStory> getAllUserStories(){
+
+	public List<UserStory> getAllUserStories() {
 		ResultSet rs = DBConnectionUtil.getData(QueryBuilder.getAllUserStoriesQuery());
 		return parseUserStories(rs);
 	}
+
 	private List<UserStory> parseUserStories(ResultSet rs) {
 		List<UserStory> uss = new ArrayList<UserStory>();
 		String pattern = "dd-MM-yyyy";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 		try {
-			while(rs != null && rs.next()) {
-				UserStory u =new UserStory();
-				
+			while (rs != null && rs.next()) {
+				UserStory u = new UserStory();
+
 				u.setId(rs.getInt(1));
 				u.setProject(rs.getInt(2));
 				u.setSprint(rs.getInt(3));
@@ -47,29 +62,14 @@ public class UserStoryDao {
 				u.setDescription(rs.getString(11));
 				u.setLmb(rs.getString(12));
 				u.setLmt(rs.getString(13));
-				
+
 				uss.add(u);
 			}
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		
+
 		return uss;
 	}
 
-	public Response updateUserStory(UserStory userStory) {
-		Response response = null;
-		
-		return response;
-	}
-	public Response deleteUserStory(UserStory userStory) {
-		Response response = null;
-		
-		return response;
-	}
-	public Response getUserStores(UserStory userStory) {
-		Response response = null;
-		
-		return response;
-	}
 }

@@ -9,13 +9,8 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.viva.dto.User"%>
 <%@page import="java.util.List"%>
-<%@page import="com.viva.dao.Response"%>
 
 <%
-	Response resp = (Response)request.getSession().getAttribute("response");
-	if(resp != null){
-		String message = resp.getResponseMessage();
-	}
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
 	

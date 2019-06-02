@@ -27,8 +27,10 @@
   	<script src="./js/project.js"></script>
 
 </head>
-<body>
-		<h1 class="w3-xxxlarge w3-text-red"><b>Manager Home</b></h1>
+<body style="margin-top: 5%">
+		<label class="w3-xxxlarge w3-text-red"><b>Manager Home</b></label>
+		<label class="w3-xxxlarge" style="color: green;margin-left: 55%;">Welcome </label>
+		<label class="w3-xxxlarge" style="color: blue;"><%=userName %></label>
 		<hr>
 		<form method="post" name="projectSearchForm" id="projectSearchForm">
 		    <div class="divClass">

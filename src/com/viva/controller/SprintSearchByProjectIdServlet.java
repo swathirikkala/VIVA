@@ -11,7 +11,6 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.viva.dao.SprintDao;
 import com.viva.dto.Sprint;
-import com.viva.util.JSONUtil;
 
 /**
  * Servlet implementation class SprintSearchByProjectIdServlet

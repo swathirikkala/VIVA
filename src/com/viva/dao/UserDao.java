@@ -3,21 +3,30 @@ package com.viva.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.HashMap;
-import java.util.List;
 import java.util.Map;
 
 import com.viva.dao.util.ResponseBuilder;
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
+import com.viva.dto.History;
+import com.viva.dto.Response;
 import com.viva.dto.User;
+import com.viva.util.DateUtil;
 
 public class UserDao {
+	HistoryDao historyDao = new HistoryDao();
 
-	public Response registerUser(User user) {
-
+	public String  registerUser(User user) {
+		String response = "fail";
 		int saveDBResponse = DBConnectionUtil.insert(QueryBuilder.getRegisterUserQuery(user));
-		return ResponseBuilder.getResponse(saveDBResponse, "User Registration", user);
-
+		if(saveDBResponse >0) {
+			History history = new History(0, 1, "nu", "Created", DateUtil.getSqlDate(),	"admin@mail.com");
+			response = "success";
+			historyDao.addHistory(history);
+		}else if (saveDBResponse<0) {
+			response = "exception";
+		}
+		return response;
 	}
 
 	public Response login(User user) {

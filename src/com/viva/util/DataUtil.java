@@ -1,12 +1,13 @@
 package com.viva.util;
 
+import java.util.List;
 import java.util.Map;
 
 import javax.servlet.http.HttpServletRequest;
 
 import com.viva.dao.DepartmentDao;
-import com.viva.dao.Response;
 import com.viva.dao.UserDao;
+import com.viva.dto.Department;
 import com.viva.dto.User;
 
 public class DataUtil {
@@ -22,9 +23,9 @@ public class DataUtil {
 		this.request.getSession().setAttribute("managers", managers);
 		
 		DepartmentDao departmentDao = new DepartmentDao();
-		Response departments = departmentDao.getAllDepartments();
-		System.out.println("List Of Departments : " + departments.getResponseObject());
-		this.request.getSession().setAttribute("departments", departments.getResponseObject());
+		 List<Department> allDepartments = departmentDao.getAllDepartments();
+		System.out.println("List Of Departments : " + allDepartments);
+		this.request.getSession().setAttribute("departments", allDepartments);
 				
 	}
 	

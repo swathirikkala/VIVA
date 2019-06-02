@@ -6,21 +6,48 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.viva.dao.util.ResponseBuilder;
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
+import com.viva.dto.History;
 import com.viva.dto.Project;
 
 public class ProjectDao {
 
-	public Response addProject(Project project) {
+	HistoryDao historyDao = new HistoryDao();
 
-		int addProjectResponse = DBConnectionUtil.insert(QueryBuilder.getAddProjectQuery(project));
-		return ResponseBuilder.getResponse(addProjectResponse, "Project Creation", project);
+	public String addProject(Project project) {
+		String response = "fail";
+		if (!isProjectExist(project)) {
+			int addProjectResponse = DBConnectionUtil.insert(QueryBuilder.getAddProjectQuery(project));
+			if (addProjectResponse > 0) {
+				History history = new History(0, addProjectResponse, "PJ", "Created", project.getCretatedDate(),
+						project.getCreatedBy());
+				boolean addHistory = historyDao.addHistory(history);
+				System.out.println("addProject addHistory : " + addHistory);
+			} else if (addProjectResponse < 0) {
+				response = "exception";
+			}
+		} else {
+			response = "projectExist";
+		}
+		return response;
+	}
+
+	public boolean isProjectExist(Project project) {
+		boolean isExist = false;
+		String query = QueryBuilder.getIsProjectExistQuery(project);
+		ResultSet rs = DBConnectionUtil.getData(query);
+		try {
+			if (rs != null && rs.next()) {
+				isExist = true;
+			}
+		} catch (SQLException e) {
+			System.out.println("isProjectExist exception : " + e.getMessage());
+		}
+		return isExist;
 	}
 
 	public List<Project> getProjects() {
-		
 		String getAllProjectsQuery = QueryBuilder.getAllProjectsQuery();
 		ResultSet data = DBConnectionUtil.getData(getAllProjectsQuery);
 		List<Project> allProjects = parseProjects(data);
@@ -33,32 +60,16 @@ public class ProjectDao {
 		return assigendProjects;
 	}
 
-	public Response getProjectsByCreatedBy() {
-		return null;
-	}
-
 	public String updateProject(Project project) {
 		String response = "fail";
 		String query = QueryBuilder.getUpdateProjectQuery(project);
 		int insertResponse = DBConnectionUtil.insert(query);
-		if(insertResponse > 0) {
+		if (insertResponse > 0) {
 			response = "success";
-		}else if(insertResponse == -1) {
-			response ="error";
+		} else if (insertResponse == -1) {
+			response = "exception";
 		}
 		return response;
-	}
-
-	public Response deleteProject() {
-		return null;
-	}
-
-	public Response getProjectUniqueBusinessValues() {
-		return null;
-	}
-
-	public Response getProjectSegregatedBusinessValues() {
-		return null;
 	}
 
 	private List<Project> parseProjects(ResultSet rs) {
@@ -113,7 +124,7 @@ public class ProjectDao {
 		String query = QueryBuilder.getProjectByIdQuery(projectId);
 		ResultSet data = DBConnectionUtil.getData(query);
 		List<Project> projectById = parseProjects(data);
-		if(projectById != null) {
+		if (projectById != null) {
 			project = projectById.get(0);
 		}
 		return project;
