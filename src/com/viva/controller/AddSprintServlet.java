@@ -1,6 +1,7 @@
 package com.viva.controller;
 
 import java.io.IOException;
+import java.util.List;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -49,6 +50,9 @@ public class AddSprintServlet extends HttpServlet {
 		String lastAccessedPage = "sprints";
 		request.getSession().setAttribute("lastAccessedPage", lastAccessedPage);
 		String addSprintResponse = sprintDao.addSprint(sprint);
+		String projectId = (String) request.getSession().getAttribute("searchProjectId");
+		List<Sprint> sprints = sprintDao.getSpintsByProject(projectId);
+		request.getSession().setAttribute("sprints", sprints);
 		response.getWriter().write(addSprintResponse);
 
 	}

@@ -1,6 +1,9 @@
 
 package com.viva.db.util;
 
+import java.sql.PreparedStatement;
+import java.sql.SQLException;
+
 import com.viva.dto.Department;
 import com.viva.dto.Epic;
 import com.viva.dto.History;
@@ -8,14 +11,15 @@ import com.viva.dto.Project;
 import com.viva.dto.Sprint;
 import com.viva.dto.User;
 import com.viva.dto.UserStory;
+import com.viva.util.DateUtil;
 
 public class QueryBuilder {
 
 	public static String getAddProjectQuery(Project project) {
-		String query = "insert into project (name,priority,start_date,end_date,created_by,manager,description,modified_by) values('"
-				+ project.getName() + "'," + project.getSeverity() + ",'" + project.getStartDate() + "','"
+		String query = "insert into project (name,priority,start_date,end_date,created_by,manager,description,modified_by,created_date,modified_on) values('"
+				+ project.getName() + "'," + project.getPriority() + ",'" + project.getStartDate() + "','"
 				+ project.getEndDate() + "','" + project.getCreatedBy() + "','" + project.getManager() + "','"
-				+ project.getDescription() + "','" + project.getLastModifiedBy() + "')";
+				+ project.getDescription() + "','" + project.getLastModifiedBy()+"','"+DateUtil.getSqlDate()+"','"+DateUtil.getSqlDate() + "')";
 		return query;
 	}
 
@@ -166,7 +170,7 @@ public class QueryBuilder {
 		String query = "update project set name ='" + project.getName() + "', start_date='" + project.getStartDate()
 				+ "' , end_date='" + project.getEndDate() + "', manager ='" + project.getManager()
 				+ "', description = '" + project.getDescription() + "', status='" + project.getStatus()
-				+ "', priority='" + project.getSeverity() + "' where id=" + project.getId();
+				+ "', priority='" + project.getPriority() + "' where id=" + project.getId();
 		return query;
 	}
 
@@ -206,5 +210,45 @@ public class QueryBuilder {
 		System.out.println("getIsProjectExistQuery input : " + project);
 		String query = "select * from project where name = '"+project.getName()+"'";
 		return query;
+	}
+
+	public static PreparedStatement getAllBusinessValuesPS() {
+		String query = "select * from bv";
+		PreparedStatement prepareStatement =null;
+		try {
+			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
+			System.out.println("getAllBusinessValuesPS Query : " + prepareStatement.toString());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prepareStatement;
+	}
+
+	public static PreparedStatement getEpicsByProjectIdQuery(Integer projectId) {
+		String query = "select * from epic where project = ?";
+		PreparedStatement prepareStatement =null;
+		try {
+			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
+			prepareStatement.setInt(1, projectId);
+			System.out.println("getAllBusinessValuesPS Query : " + prepareStatement.toString());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prepareStatement;
+		
+	}
+
+	public static PreparedStatement getAllUserStoriesByEpicPS(int epicId) {
+		String query = "select * from user_story where epic = ?";
+		PreparedStatement prepareStatement =null;
+		try {
+			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
+			prepareStatement.setInt(1, epicId);
+			System.out.println("getAllUserStoriesByEpicPS Query : " + prepareStatement.toString());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prepareStatement;
+		
 	}
 }

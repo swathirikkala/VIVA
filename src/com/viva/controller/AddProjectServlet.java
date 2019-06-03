@@ -1,8 +1,6 @@
 package com.viva.controller;
 
 import java.io.IOException;
-import java.util.List;
-
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -41,7 +39,7 @@ public class AddProjectServlet extends HttpServlet {
 		Project project = new Project();
 		project.setName(String.valueOf(request.getParameter("projectName")));
 		try {
-			project.setSeverity(Integer.valueOf(request.getParameter("projectSeverity")));
+			project.setPriority(Integer.valueOf(request.getParameter("projectSeverity")));
 		} catch (NumberFormatException e) {
 			System.out.println(e.getMessage());
 		}
@@ -61,7 +59,7 @@ public class AddProjectServlet extends HttpServlet {
 		project.setCretatedDate(DateUtil.getSqlDate());
 		String addProjectResponse = dao.addProject(project);
 		response.getWriter().write(addProjectResponse);
-		
+		System.out.println("Create project response : " + addProjectResponse);
 
 	}
 

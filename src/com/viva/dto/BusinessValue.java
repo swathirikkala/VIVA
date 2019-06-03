@@ -4,16 +4,26 @@ public class BusinessValue {
 	private int id;
 	private String name;
 	private String description;
+	private boolean active;
 
 	public BusinessValue() {
 		super();
 	}
 
-	public BusinessValue(int id, String name, String description) {
+	public boolean isActive() {
+		return active;
+	}
+
+	public BusinessValue(int id, String name, String description, boolean active) {
 		super();
 		this.id = id;
 		this.name = name;
 		this.description = description;
+		this.active = active;
+	}
+
+	public void setActive(boolean active) {
+		this.active = active;
 	}
 
 	public int getId() {

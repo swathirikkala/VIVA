@@ -116,27 +116,19 @@
 				width: 100px;
 			}
 		</style>
-		<script type="text/javascript">
-		function displayPopup(){
-			  document.getElementById('epicModalDiv').style.display='block';
-			}
-		function closePopup(){
-			  document.getElementById('epicModalDiv').style.display='none';
-			}
-			function openEpicModal() {
-				console.log("openEpicModal got called");
-				displayPopup();
-			}
 
-		</script>
 	<script type="text/javascript">
 	
-			function displayPopup(){
+			function openEpicModal(){
+				  console.log("openEpicModal got called");
 				  document.getElementById('epicModalDiv').style.display='block';
-				}
-			function closePopup(){
+				  $("#projectName").val("<%=sprint.getProjectId()%>");
+				  console.log("Project name " + <%=sprint.getProjectId()%>);
+			}
+			function closeEpicPopup(){
+				  console.log("closeEpicPopup got called");
 				  document.getElementById('epicModalDiv').style.display='none';
-				}
+			}
 			
 		    $(document).ready(function() {
 		    	$("#editSprintProjectName").val("<%=sprint.getProjectId()%>");
@@ -153,9 +145,7 @@
 	
 	</script>
 		<script type="text/javascript">
-			function openEpicModal() {
-				displayPopup();
-			}
+
 			function createEpic(){
 				console.log("createEpic got called");
 				console.log($("form[name=newEpicForm]").serialize());
@@ -324,7 +314,7 @@
 		
 		<!-- Epic Creation Div -->
 		<div id="epicModalDiv" class="modal">
-		  <span onclick="javascript:closePopup()" class="close" title="Close Sprint">&times;</span>
+		  <span onclick="javascript:closeEpicPopup()" class="close" title="Close Sprint">&times;</span>
 			<form class="modal-content" name="newEpicForm" id="newEpicForm">
 		    <div class="container">
 		    <input type="hidden" id="createdBy" name="createdBy" value="<%=userId%>">
@@ -363,7 +353,7 @@
 		      </textarea>
 		      
 		      <div class="clearfix">
-		        <button type="button" onclick="javascript:closePopup()" class="cancelbtn">Cancel</button>
+		        <button type="button" onclick="javascript:closeEpicPopup()" class="cancelbtn">Cancel</button>
 		        <button type="button" class="signupbtn" onclick="createEpic()">Save</button>
 		      </div>
 		    </div>

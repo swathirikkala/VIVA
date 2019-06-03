@@ -28,7 +28,7 @@
 
 </head>
 <body style="margin-top: 5%">
-		<label class="w3-xxxlarge w3-text-red"><b>Manager Home</b></label>
+		<label class="w3-xxxlarge w3-text-red"><b>Project</b></label>
 		<label class="w3-xxxlarge" style="color: green;margin-left: 55%;">Welcome </label>
 		<label class="w3-xxxlarge" style="color: blue;"><%=userName %></label>
 		<hr>

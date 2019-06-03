@@ -1,3 +1,4 @@
+<%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="com.viva.dto.Sprint"%>
 <%@page import="com.viva.dto.Project"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
@@ -7,38 +8,21 @@
 <%@page import="java.util.List"%>
 
 <%
-	
-	String projectId = String.valueOf(request.getSession().getAttribute("projectId"));
-	
-	List<User> managers = (List<User>)request.getSession().getAttribute("managers");
-	if(managers == null){
-		managers = new ArrayList();
-	}
-	
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
-	String userName = String.valueOf(request.getSession().getAttribute("userName"));
-	
-	List<Project> lastUpdatedProjectsList = (List<Project>)request.getSession().getAttribute("lastUpdatedProjectsList");
-	if(null == lastUpdatedProjectsList){
-		lastUpdatedProjectsList = new ArrayList<>();
+	List<Project> allProjects = (List<Project>)request.getSession().getAttribute("allProjects");
+	if(allProjects == null){
+		allProjects = new ArrayList<Project>();
 	}
-	
-	List<Project> projectsByManagerId = (List<Project>)request.getSession().getAttribute("projectsByManagerId");
-	if(null == projectsByManagerId){
-		projectsByManagerId = new ArrayList<>();
-	}
-	
-	List<Sprint> sprintsByProjectId = (List<Sprint>)request.getSession().getAttribute("sprintsByProjectId");
-	if(null == sprintsByProjectId){
-		sprintsByProjectId = new ArrayList<>();
+	Project project = (Project)request.getSession().getAttribute("project");
+	if(project == null){
+		project = new Project();
 	}
 %>
 <!DOCTYPE html>
 <html>
-<!-- Project Creation Div -->
 		<div id="modalDiv" class="modal">
 		  <span onclick="javascript:closePopup()" class="close" title="Close Sprint">&times;</span>
-			<form class="modal-content" method="post" action="./addSprint">
+			<form id="newSprintForm" name="newSprintForm" class="modal-content">
 		    <div class="container">
 		      <h1 style="color:green">Add Sprint</h1>
 		      <p style="color:red">Please fill in the form to add the Sprint</p>
@@ -46,20 +30,21 @@
 		      
 			   <label for="projectName"><b>Project Name</b></label><label style="color: red;">&nbsp;*</label>
 			   <select id="projectName" name = "projectName" required>
-		      <%for(Project p : projectsByManagerId){%>
+		      <%for(Project p : allProjects){%>
 		      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
 		      <%}%>
 		      </select>
 		      		   
-		      <label for="projectName"><b>Sprint Name</b></label><label style="color: red;">&nbsp;*</label>
+		      <label for="sprintName"><b>Sprint Name</b></label><label style="color: red;">&nbsp;*</label>
 		      <input type="text" id="sprintName" name = "sprintName" required placeholder="Sprint Name">
 		      		      
-			   <label for="projectSeverity"><b>Sprint Severity</b></label><label style="color: red;">&nbsp;*</label>
-			     <select id="sprintSeverity" name = "sprintSeverity" required>
-		      		<option value="1">High</option>
-			      	<option value="2">Medium</option>
-			      	<option value="3">Low</option>
-			      	<option value="4">No Severity</option>
+			   <label for="projectSeverity"><b>Sprint Priority</b></label>
+			   
+			     <select id="sprintSeverity" name = "sprintSeverity">
+		      		<option value="0">--Select--</option>
+		      		<%for(String p:LookUp.getPriorities()){ %>
+			      		<option value="<%=p%>"><%=p%></option>
+			      	<%} %>
 		     	 </select>
 		     	 
 			   <label for="sprintStartDate"><b>Sprint Start Date</b></label><label style="color: red;">&nbsp;*</label>
@@ -69,41 +54,22 @@
 			   <input type="date" placeholder="Sprint End Date" name="sprintEndDate" id="sprintEndDate" required>
 			   
 			   <input type="hidden" placeholder="Created By" name="createdBy" id="createdBy" required value="<%= userId %>">
-			   
-		      <label for="departmentDescription"><b>Assign to</b></label><label style="color: red;">&nbsp;*</label>
-		      <select id="projectManager" name = "projectManager" required>
-		      <%for(User user : managers){%>
-		      		<option value="<%= userId%>"><%= userName%></option>
-		      <%}%>
-		      </select>
-		      
 		      <label for="projectDescription"><b>Sprint Description</b></label><label style="color: red;">&nbsp;*</label>
 		      <textarea rows="4" cols="50" placeholder="Sprint Description" name="sprintDescription" id="sprintDescription" style="height: 100px;">
 		      </textarea>
 		      
 		      <div class="clearfix">
 		        <button type="button" onclick="javascript:closePopup()" class="cancelbtn">Cancel</button>
-		        <button type="submit" class="signupbtn" id="saveDepartmentDiv">Save</button>
+		        <button type="button" class="signupbtn" onclick="createSprint()">Save</button>
 		      </div>
 		    </div>
 		  </form>
 		</div>
-		<!-- Project Creation Div ended -->
 		
 	<script type="text/javascript">
-	
-		function displayPopup(){
-			  document.getElementById('modalDiv').style.display='block';
-			}
-		function closePopup(){
-			  document.getElementById('modalDiv').style.display='none';
-			}
-		
 	    $(document).ready(function() {
-	    	displayPopup();
 	    	//alert("Create new sprint got called");
-	    	$("#projectName").val("<%=projectId%>");
-	    	$("#projectManager").val("<%=userId%>");
+	    	$("#projectName").val("<%=project.getId()%>");
 	    	$("#sprintDescription").val("");
 	    	
 	      });

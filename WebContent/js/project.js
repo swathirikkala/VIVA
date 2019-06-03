@@ -1,7 +1,7 @@
 function clearProjectSearchValues() {
 	console.log("clearProjectSearchValues got called");
 	$("#projectId").val("0");
-	$("#projectStatus").val("0");
+	$("#projectStatus").val("select");
 	$("#projectViva").val("0");
 	$("#projectStartDate").val("");
 	$("#projectEndDate").val("");

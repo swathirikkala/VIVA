@@ -99,7 +99,7 @@ input[type=text] {
 							<tr class="row100 head">
 								<th class="column100 width50" data-column="column1">ID</th>
 								<th class="column100 width100" data-column="column2">Project</th>
-								<th class="column100 width50" data-column="column1">Severity</th>
+								<th class="column100 width50" data-column="column1">Priority</th>
 								<th class="column100 width75" data-column="column1">Start Date</th>
 								<th class="column100 width75" data-column="column1">End Date</th>
 								<th class="column100 width50" data-column="column6">Status</th>
@@ -112,10 +112,10 @@ input[type=text] {
 								<tr class="row100 head">
 									<td class="column100 width50" data-column="column1">PRJ<%=p.getId()%></td>
 									<td class="column100 width100" data-column="column2"><%=p.getName() %></ttdh>
-									<td class="column100 width50" data-column="column1"><%=p.getSeverity() %></td>
+									<td class="column100 width50" data-column="column1"><%=p.getPriority() %></td>
 									<td class="column100 width75" data-column="column1"><%=p.getStartDate() %></td>
 									<td class="column100 width75" data-column="column1"><%=p.getEndDate() %></td>
-									<td class="column100 width50" data-column="column6"><%=p.getSeverity() %></td>
+									<td class="column100 width50" data-column="column6"><%=p.getStatus() %></td>
 									<td class="column100 width100" data-column="column7"><%=p.getCreatedBy() %></td>
 									<td class="column100 width100" data-column="column7">
 										<a href="./sprintHome?projectId=<%=p.getId()%>">view</a><br>

@@ -10,6 +10,7 @@
 	if(projects == null){
 		projects = new ArrayList<Project>();
 	}
+	
 
 %>
 <html>
@@ -23,15 +24,15 @@
     </script>
 	<script type="text/javascript">
 
-	$("#searchProjectName").change(
+	$("#epicSearchProjectName").change(
 			function() {
-				console.log("searchSprintsByProjectId got called");
-				var projectId= $("#searchProjectName").val();
+				console.log("epicSearchProjectName change event got called");
+				var projectId= $("#epicSearchProjectName").val();
 				console.log("Project id : " + projectId);
 				try {
 					$.ajax({
 						type : 'post',
-						url : './sprintSearchByProjectId',
+						url : './epicSearchByProjectId',
 						data : {projectId:projectId},
 						success : function(response) {
 							var respJSONString = JSON.stringify(response);
@@ -56,21 +57,22 @@
 </head>
 <body>
 <br>
-<h1 class="w3-xxxlarge w3-text-red"><b>Sprint Search </b></h1>
+<h1 class="w3-xxxlarge w3-text-red"><b>Epic Search </b></h1>
 
 <br>
-<form method="post" name="editSprintForm" id="editSprintForm">
+<form method="post" name="epicSearchForm" id="epicSearchForm">
 		    <div class="divClass">
 		    	<table>
 		    		<tr>
 		    			<td>
-		    				<button type="button" onclick="newSprint()" class="signupbtn" style="text-align: centre; width:100px; margin-top: -10px;">New Sprint </button>
+		    				<button type="button" onclick="newSprint()" class="signupbtn" 
+		    				style="text-align: centre; width:150px; margin-top: -10px;">New Epic </button>
 		    			</td>
 		    			<th class="cellClass" style="width: 80px;">
 		    				<label>Project</label>
 		    			</th>
 		    			<td class="cellClass" style="width: 300px;">
-		    				   <select id="searchProjectName" name = "searchProjectName" >
+		    				   <select id="epicSearchProjectName" name = "epicSearchProjectName" >
 						       <option value="" selected="selected">--Select Project--</option>
 						      <%for(Project p : projects){%>
 						      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
@@ -78,12 +80,12 @@
 						      </select>
 		    			</td>
 		    			<th class="cellClass"  style="width: 80px;">
-		    				<label>Sprint</label>
+		    				<label>Epic</label>
 		    			</th>
 		    			<td class="cellClass"  style="width: 300px;">
-		    				 <select id="searchSprintName" name = "searchSprintName" >
-						       <option value="" selected="selected">--Select Sprint--</option>
-						      
+		    				 <select id="epicSearchEpicName" name = "epicSearchEpicName">
+						       <option value="" selected="selected">--Select Epic--</option>
+						      	
 						      </select>
 		    			</td>
 		    		

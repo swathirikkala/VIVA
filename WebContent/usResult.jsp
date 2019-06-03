@@ -14,10 +14,7 @@
 <%@page import="java.util.List"%>
 
 <%
-	List<Sprint> sprints = (List<Sprint>)request.getSession().getAttribute("sprints");	
-	if(sprints == null){
-		sprints = new ArrayList<Sprint>();
-	}
+
 	UserDao userDao = new UserDao();
 	Map<String, User> allUsers = userDao.getAllUsers();
 	if(allUsers == null){
@@ -109,24 +106,24 @@
 			}
 		</script>
 		<script type="text/javascript">
-		function loadSprint(sprintId) {
-			console.log("loadSprint got called");
+		function loadUserStory(userStoryId) {
+			console.log("loadUserStory( got called");
 				$.ajax({
 	                type: 'post',
-	                url: './loadSprint',
-	                data: {sprintId:sprintId},
+	                url: './loadUserStory',
+	                data: {userStoryId:userStoryId},
 	                success: function (response) {
-	                   console.log("Sprint load call completed..... " + response);
+	                   console.log("loadUserStory call completed..... " + response);
 	                   if(response === "success"){
-	                	   loadPage('sprintEditDiv','sprintHome.jsp');
-	                	   console.log("loadSprint loading Success");
+	                	   
+	                	   console.log("loadUserStory loading Success");
 	                	   
 	                   }else{
-	                	   console.log("loadSprint creation Failed");
+	                	   console.log("loadUserStory creation Failed");
 	                   }
 	                },
 					error : function(data, status, er) {
-						console.log("Error in create getSprintId jsm : " + data + " status: " + status + " er:" + er);
+						console.log("Error in loadUserStory jsm : " + data + " status: " + status + " er:" + er);
 					}
 	            });
 		}
@@ -134,43 +131,37 @@
 	</head>
 	<body>
 		<p>
-			<button onclick="openModal()" style="width: auto;">Create New Sprint</button>
+			<button onclick="openModal()" style="width: auto;">Create New User Story</button>
 		</p>
 
-		<!-- Projects Table -->
+		<!-- User Story Table -->
 			<div class="limiter">
 				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:500px; min-height:0px; overflow-x: none;">
 					<table data-vertable="ver2">
 						<thead>
 							<tr class="row100 head">
-								<th class="column100 width50" data-column="column1">Sprint ID</th>
-								<th class="column100 width100" data-column="column2">Sprint Name</th>
-								<th class="column100 width75" data-column="column1">Start Date</th>
-								<th class="column100 width75" data-column="column1">End Date</th>
+								<th class="column100 width50" data-column="column1">User Story ID</th>
+								<th class="column100 width100" data-column="column2">User Story Name</th>
 								<th class="column100 width50" data-column="column6">Status</th>
 								<th class="column100 width100" data-column="column7">VIVA %</th>
-								<th class="column100 width100" data-column="column7">Created By</th>
 							</tr>
 						</thead>
 						<tbody id="projectsBody">
-							<% for(Sprint s : sprints){ %>
-								<tr class="row100 head">
-									<td class="column100 width50" data-column="column1">
-									<a href="javascript:void(0)" onclick="loadSprint('<%=s.getSprintId()%>');">SP<%=s.getSprintId()%></a>
-									</td>
-									<td class="column100 width100" data-column="column2"><%=s.getSprintName() %></td>
-									<td class="column100 width50" data-column="column1"><%=s.getStartDate() %></td>
-									<td class="column100 width75" data-column="column1"><%=s.getEndDate() %></td>
-									<td class="column100 width75" data-column="column1"><%=s.getStatus() %></td>
-									<td class="column100 width50" data-column="column6"><%=s.getViva() %></td>
-									<td class="column100 width100" data-column="column7"><%=LookUp.getUserName(s.getCreatedBy(),allUsers)%></td>
-								</tr>
-							<%} %>
+<%-- 							<% for(Sprint s : sprints){ %> --%>
+<!-- 								<tr class="row100 head"> -->
+<!-- 									<td class="column100 width50" data-column="column1"> -->
+<%-- 									<a href="javascript:void(0)" onclick="loadUserStory('<%=s.getSprintId()%>');">US<%=s.getSprintId()%></a> --%>
+<!-- 									</td> -->
+<%-- 									<td class="column100 width100" data-column="column2"><%=s.getSprintName() %></td> --%>
+<%-- 									<td class="column100 width75" data-column="column1"><%=s.getStatus() %></td> --%>
+<%-- 									<td class="column100 width50" data-column="column6"><%=s.getViva() %></td> --%>
+<!-- 								</tr> -->
+<%-- 							<%} %> --%>
 						</tbody>
 					</table>
 				</div>
 			</div>
-		<!-- Sprint Creation Div -->
+		<!-- User Story Creation Div -->
 			<%@include file="./newSprint.jsp" %>
 		<!-- Sprint Creation Div ended -->
 		<script type="text/javascript">

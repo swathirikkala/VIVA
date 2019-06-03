@@ -35,7 +35,7 @@
     <a href="#" onclick="loadPage('homeDiv','projectHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Home</a>
 <!--     <a href="#" onclick="loadPage('projectDiv','projectEdit.jsp');" class="w3-bar-item w3-button w3-hover-white">Projects</a> -->
     <a href="#" onclick="loadPage('sprintEditDiv','sprintHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Sprints</a>
-    <a href="#" onclick="loadPage('epicsDiv','epicsResultList.jsp');" class="w3-bar-item w3-button w3-hover-white">Epics</a>
+    <a href="#" onclick="loadPage('epicsDiv','epicHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Epics</a>
     <a href="#" onclick="loadPage('epicsDiv','');" class="w3-bar-item w3-button w3-hover-white">User Stories</a>
     <a href="#" onclick="loadPage('dashBoardDiv','projectDashboard.jsp');" class="w3-bar-item w3-button w3-hover-white">Dash Board</a>
     <a href="./index.jsp" class="w3-bar-item w3-button w3-hover-white">Logout</a>

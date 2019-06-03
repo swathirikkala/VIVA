@@ -99,15 +99,9 @@ function login() {
                     alert("User Login Success.");
                     var landingPage = '';
                     if(deptId == 1){
-                        landingPage = "adminPanel.html";
-                    }else if (deptId == 2){
-                        landingPage = "projectManagerPanel.html";
-                    }else if(deptId==3){
-                        landingPage = "teamMemberPanel.html";
-                    }else{
-                        landingPage = "index.html";
+                        landingPage = "home.html";
                     }
-                    getUsers(landingPage);
+                    
 					
 				}else{
 					alert("User login Failed.\n please verify credentials");

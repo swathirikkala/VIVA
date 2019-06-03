@@ -39,6 +39,7 @@ public class LoadProjectServlet extends HttpServlet {
 		PrintWriter out = response.getWriter();
 		String projectId = "0";
 		projectId = String.valueOf(request.getParameter("projectId"));
+		request.getSession().setAttribute("searchProjectId", projectId);
 		List<Sprint> sprints = sprintDao.getSpintsByProject(projectId);
 		request.getSession().setAttribute("sprints", sprints);
 		Project project = projectDao.getProjectById(projectId);

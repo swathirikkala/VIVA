@@ -20,6 +20,7 @@ public class ProjectDao {
 		if (!isProjectExist(project)) {
 			int addProjectResponse = DBConnectionUtil.insert(QueryBuilder.getAddProjectQuery(project));
 			if (addProjectResponse > 0) {
+				response = "success";
 				History history = new History(0, addProjectResponse, "PJ", "Created", project.getCretatedDate(),
 						project.getCreatedBy());
 				boolean addHistory = historyDao.addHistory(history);
@@ -28,7 +29,7 @@ public class ProjectDao {
 				response = "exception";
 			}
 		} else {
-			response = "projectExist";
+			response = "exist";
 		}
 		return response;
 	}
@@ -44,6 +45,7 @@ public class ProjectDao {
 		} catch (SQLException e) {
 			System.out.println("isProjectExist exception : " + e.getMessage());
 		}
+		System.out.println("isProjectExist : " + isExist);
 		return isExist;
 	}
 
@@ -73,7 +75,7 @@ public class ProjectDao {
 	}
 
 	private List<Project> parseProjects(ResultSet rs) {
-		String pattern = "dd-MM-yyyy";
+		String pattern = "dd/MM/yyyy";
 		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
 
 		List<Project> projects = new ArrayList<Project>();
@@ -83,13 +85,13 @@ public class ProjectDao {
 
 				project.setId(rs.getInt(1));
 				project.setName(rs.getString(2));
-				project.setSeverity(rs.getInt(3));
-				java.util.Date startDate = new java.util.Date(rs.getDate(4).getTime());
-				String sd = simpleDateFormat.format(startDate);
-				project.setStartDate(sd);
-				java.util.Date endDate = new java.util.Date(rs.getDate(5).getTime());
-				String ed = simpleDateFormat.format(endDate);
-				project.setEndDate(ed);
+				project.setPriority(rs.getInt(3));
+//				java.util.Date startDate = new java.util.Date(rs.getDate(4).getTime());
+//				String sd = simpleDateFormat.format(startDate);
+				project.setStartDate(rs.getString(4));
+//				java.util.Date endDate = new java.util.Date(rs.getDate(5).getTime());
+//				String ed = simpleDateFormat.format(endDate);
+				project.setEndDate(rs.getString(5));
 				project.setCreatedBy(rs.getString(6));
 				project.setManager(rs.getString(7));
 				project.setDescription(rs.getString(8));
@@ -97,6 +99,9 @@ public class ProjectDao {
 				project.setLastModifiedDateTime(rs.getString(10));
 				project.setStatus(rs.getString(11));
 				project.setViva(rs.getString(12));
+				java.util.Date createdDate = new java.util.Date(rs.getDate(13).getTime());
+				String cd = simpleDateFormat.format(createdDate);
+				project.setCretatedDate(cd);
 				projects.add(project);
 			}
 		} catch (SQLException e) {

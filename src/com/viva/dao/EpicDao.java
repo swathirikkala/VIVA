@@ -1,5 +1,6 @@
 package com.viva.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -69,6 +70,19 @@ public class EpicDao {
 		System.out.println("Epics by " + sprintId + " : " + epics);
 		return epics;
 
+	}
+
+	public List<Epic> getEpicsByProjectId(Integer projectId) {
+		PreparedStatement preparedStatement = QueryBuilder.getEpicsByProjectIdQuery(projectId);
+		List<Epic> epics = null;
+		try {
+			ResultSet rs = preparedStatement.executeQuery();
+			epics = parseEpics(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("getEpicsByProjectId : " + epics);
+		return epics;
 	}
 
 }

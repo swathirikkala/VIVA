@@ -56,13 +56,14 @@
 	</script>
 	<script type="text/javascript">
 	$(document).ready(function() {
+		console.log("Project loaded for edit mode");
     	setTimeout(function(){
         	console.log("Project Edit Loading");
     			$("#editProjectStatus").val("<%=project.getStatus()%>");
     			$("#editProjectManager").val("<%=project.getManager()%>");
     			$("#editProjectStartDate").val("<%=project.getStartDate()%>");
     			$("#editEndDate").val("<%=project.getEndDate()%>");
-    			$("#editProjectPriority").val("<%=project.getSeverity()%>");
+    			$("#editProjectPriority").val("<%=project.getPriority()%>");
     			$("#editProjectStatus").val("<%=project.getStatus()%>");
     			$("#editProjectDescription").val("<%=project.getDescription()%>");
     		}, 1000);
@@ -126,7 +127,7 @@
 		    				<label>Start Date</label>
 		    			</th>
 		    			<td class="cellClass">
-		    				<input type="date" placeholder="Project Start Date" name="editProjectStartDate" id="editProjectStartDate"  class="">
+		    				<input type="date" placeholder="Project Start Date" name="editProjectStartDate" id="editProjectStartDate" value="<%=project.getStartDate() %>" class="">
 		    			</td>
 		    		</tr>
 		    		<tr>
@@ -153,13 +154,13 @@
 		    				<label>Created Date</label>
 		    			</th>
 		    			<td class="cellClass">
-		    				<input type="text" placeholder="Created Date" name="editCreatedDate" id="editCreatedDate" required value="<%=project.getCretatedDate()%>" disabled="disabled"  class="">
+		    				<input type="text" placeholder="Created Date" name="editCreatedDate" id="editCreatedDate" value="<%=project.getCretatedDate()%>" disabled="disabled"  class="">
 		    			</td>
 		    			<th class="cellClass">
 		    				<label>Project End date</label>
 		    			</th>
 		    			<td class="cellClass">
-					    	<input type="date" placeholder="Project End Date" name="editEndDate" id="editEndDate"  class="">
+					    	<input type="date" placeholder="Project End Date" name="editEndDate" id="editEndDate" value="<%=project.getEndDate() %>" class="">
 		    			</td>
 		    		</tr>
 		    		<tr>

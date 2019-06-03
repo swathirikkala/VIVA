@@ -7,7 +7,6 @@
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.viva.dto.User"%>
 <%@page import="java.util.List"%>
-<%@page import="com.viva.dao.Response"%>
 
 <%
 	List<Project> projects = (List<Project>)request.getSession().getAttribute("projects");
@@ -73,8 +72,7 @@
 	                success: function (response) {
 	                   console.log("Project Loading completed..... " + response);
 	                   if(response === "success"){
-	                	   loadPage('projectDiv','projectEdit.jsp')
-	                	   //$("#projectDiv").load("./projectHome.jsp");
+	                	   loadPage('projectDiv','projectEdit.jsp');
 	                   }else{
 	                	   console.log("No Data Found with search criteria");
 	                   }
@@ -85,7 +83,16 @@
 		<script type="text/javascript">
 			function openModal(){
 				console.log("Open Project modal got called");
-				$("#addPrjDiv").load("./newProject.jsp");
+				$("#addPrjDiv").load("./newProject.jsp",clearProject());
+			}
+			function clearProject() {
+				console.log("clearProject jsm got called..");
+				$("#projectManager").val("");
+				$("#projectName").val("");
+				$("#projectPriority").val("0");
+				$("#projectStartDate").val("");
+				$("#projectEndDate").val("");
+				$("#projectDescription").val("");
 			}
 		</script>
 	</head>
@@ -122,12 +129,28 @@
 									<td class="column100 width50" data-column="column1">
 										<a href="javascript:void(0);" onclick="loadProject('<%=p.getId()%>')">PRJ<%=p.getId()%></a> 
 									</td>
-									<td class="column100 width100" data-column="column2"><%=p.getName() %></ttdh>
-									<td class="column100 width50" data-column="column1"><%=LookUp.getUserName(p.getManager(),allUsers)%></td>
-									<td class="column100 width75" data-column="column1"><%=p.getStartDate() %></td>
-									<td class="column100 width75" data-column="column1"><%=p.getEndDate() %></td>
+									<td class="column100 width100" data-column="column2"><%=p.getName() %></td>
+									<%
+										String manager = LookUp.getUserName(p.getManager(),allUsers);
+										if(manager.isEmpty()){
+											manager = "Not Assigned";
+										}
+									%>
+									<td class="column100 width50" data-column="column1"><%=manager%></td>
+									<%
+										String sd = p.getStartDate();
+										if("2000-01-01".equals(sd)){
+											sd="Not Selected";
+										}
+										String ed = p.getEndDate();
+										if("2000-01-01".equals(ed)){
+											ed="Not Selected";
+										}
+									%>
+									<td class="column100 width75" data-column="column1"><%=sd%></td>
+									<td class="column100 width75" data-column="column1"><%=ed%></td>
 									<td class="column100 width50" data-column="column6"><%=p.getStatus()%></td>
-									<td class="column100 width100" data-column="column7"><%=p.getViva()%></td>
+									<td class="column100 width100" data-column="column7"><%=p.getViva()%>%</td>
 								</tr>
 							<%} %>
 						</tbody>

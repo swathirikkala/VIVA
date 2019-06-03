@@ -1,5 +1,6 @@
 package com.viva.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -16,6 +17,7 @@ public class UserStoryDao {
 
 	HistoryDao historyDao = new HistoryDao();
 	History history = new History();
+
 	public String addUserStory(UserStory userStory) {
 		String response = "fail";
 		int addUSerStoryResponse = DBConnectionUtil.insert(QueryBuilder.getAddUserStoryQuery(userStory));
@@ -35,6 +37,21 @@ public class UserStoryDao {
 	public List<UserStory> getAllUserStories() {
 		ResultSet rs = DBConnectionUtil.getData(QueryBuilder.getAllUserStoriesQuery());
 		return parseUserStories(rs);
+	}
+
+	public List<UserStory> getAllUserStoriesByEpic(int epicId) {
+		List<UserStory> uss = null;
+		PreparedStatement allUserStoriesByEpicPS = QueryBuilder.getAllUserStoriesByEpicPS(epicId);
+		ResultSet rs;
+		try {
+			rs = allUserStoriesByEpicPS.executeQuery();
+			uss = parseUserStories(rs);
+		} catch (SQLException e) {
+			System.err.println("getAllUserStoriesByEpic : " + e.getMessage());
+		}
+		System.out.println("getAllUserStoriesByEpic : " + uss);
+		return uss;
+
 	}
 
 	private List<UserStory> parseUserStories(ResultSet rs) {

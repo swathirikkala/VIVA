@@ -46,7 +46,7 @@ public class EditProjectServlet extends HttpServlet {
 		project.setStatus(String.valueOf(request.getParameter("editProjectStatus")));
 		project.setManager(String.valueOf(request.getParameter("editProjectManager")));
 		try {
-			project.setSeverity(Integer.valueOf(request.getParameter("editProjectPriority")));
+			project.setPriority(Integer.valueOf(request.getParameter("editProjectPriority")));
 		} catch (NumberFormatException e) {
 			System.err.println(e.getMessage());
 		}
