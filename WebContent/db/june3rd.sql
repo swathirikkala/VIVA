@@ -95,7 +95,7 @@ CREATE TABLE `epic` (
   CONSTRAINT `epic_createdBy_fk` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
   CONSTRAINT `epic_project_fk` FOREIGN KEY (`project`) REFERENCES `project` (`id`),
   CONSTRAINT `epic_sprint_fk` FOREIGN KEY (`sprint`) REFERENCES `sprint` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=2 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +104,7 @@ CREATE TABLE `epic` (
 
 LOCK TABLES `epic` WRITE;
 /*!40000 ALTER TABLE `epic` DISABLE KEYS */;
-INSERT INTO `epic` VALUES (1,'manager1@mail.com',1,NULL,0,NULL,'		      asdafs','manager1@mail.com','manager1@mail.com',NULL,NULL);
+INSERT INTO `epic` VALUES (2,'asdf',6,NULL,0,NULL,'sample sprint description','manager1@mail.com','manager1@mail.com',NULL,NULL);
 /*!40000 ALTER TABLE `epic` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -144,12 +144,14 @@ DROP TABLE IF EXISTS `history`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `history` (
-  `id` int(11) NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
   `job_id` int(11) NOT NULL,
-  `comment` text,
-  `ttime` date DEFAULT NULL,
+  `job_type` varchar(10) NOT NULL,
+  `comment` text NOT NULL,
+  `hdate` date NOT NULL,
+  `owner` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -158,6 +160,7 @@ CREATE TABLE `history` (
 
 LOCK TABLES `history` WRITE;
 /*!40000 ALTER TABLE `history` DISABLE KEYS */;
+INSERT INTO `history` VALUES (1,1,'PJ','Created','2019-06-02','manager1@mail.com'),(2,1,'PJ','Created','2019-06-02','manager1@mail.com');
 /*!40000 ALTER TABLE `history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -205,7 +208,7 @@ CREATE TABLE `project` (
   `manager` varchar(100) DEFAULT NULL,
   `description` text NOT NULL,
   `modified_by` varchar(100) DEFAULT NULL,
-  `modified_on` datetime DEFAULT CURRENT_TIMESTAMP,
+  `modified_on` date NOT NULL,
   `status` varchar(50) DEFAULT 'Not Started',
   `viva` int(11) DEFAULT '0',
   `created_date` date DEFAULT NULL,
@@ -213,7 +216,7 @@ CREATE TABLE `project` (
   UNIQUE KEY `id_UNIQUE` (`id`),
   KEY `created_by_fk_idx` (`created_by`),
   CONSTRAINT `created_by_fk` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=8 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -222,7 +225,7 @@ CREATE TABLE `project` (
 
 LOCK TABLES `project` WRITE;
 /*!40000 ALTER TABLE `project` DISABLE KEYS */;
-INSERT INTO `project` VALUES (1,'28 project','0','2019-05-02','2019-05-31','manager1@mail.com','','sadfasdfasdf','manager1@mail.com','2019-05-28 16:45:12','Not Started',0,NULL),(2,'sample project','0','2019-05-08','2019-05-31','manager1@mail.com','','sample description','manager1@mail.com','2019-05-28 16:52:54','Not Started',0,NULL);
+INSERT INTO `project` VALUES (5,'sample project','3','2019-06-01','2019-06-30','manager1@mail.com','manager1@mail.com','sample description','manager1@mail.com','2019-06-02','Open',0,'2019-06-02'),(6,'demo project','0','2000-01-01','2000-01-01','manager1@mail.com','','demo description','manager1@mail.com','2019-06-02','Not Started',0,'2019-06-02'),(7,'new project','0','2000-01-01','2000-01-01','manager1@mail.com','','sample project description','manager1@mail.com','2019-06-02','Not Started',0,'2019-06-02');
 /*!40000 ALTER TABLE `project` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -281,7 +284,7 @@ CREATE TABLE `sprint` (
   KEY `last_modified_fk_idx` (`last_modified_by`),
   CONSTRAINT `createdByFk` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
   CONSTRAINT `projectFk` FOREIGN KEY (`project`) REFERENCES `project` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -290,7 +293,7 @@ CREATE TABLE `sprint` (
 
 LOCK TABLES `sprint` WRITE;
 /*!40000 ALTER TABLE `sprint` DISABLE KEYS */;
-INSERT INTO `sprint` VALUES (3,'dd',1,4,'null','2019-05-01','2019-05-31','manager1@mail.com','fff','null','2019-05-28 23:00:49','Work in progress',NULL),(4,'sample sprint under project 28',2,0,'null','2019-05-01','2019-05-11','manager1@mail.com','dasfasf',NULL,'2019-05-29 07:16:02','Not Started',NULL);
+INSERT INTO `sprint` VALUES (6,'sample sprint',5,3,'null','2019-06-01','2019-06-30','manager1@mail.com','sample description','null','2019-06-02 15:04:26','Open',NULL),(7,'sample sprint2',5,0,'null','2019-06-01','2019-06-30','manager1@mail.com','description',NULL,'2019-06-02 15:08:39','Not Started',NULL),(8,'sample sprint',6,2,'null','2019-06-01','2019-06-30','manager1@mail.com','sample sprint description','manager1@mail.com','2019-06-03 21:29:34','Not Started',NULL),(9,'demo sprint',6,13,'null','2019-06-01','2019-06-30','manager1@mail.com','sasdad',NULL,'2019-06-03 21:38:47','Not Started',NULL),(10,'demo sprint',6,13,'null','2019-06-01','2019-06-30','manager1@mail.com','sasdad',NULL,'2019-06-03 21:39:14','Not Started',NULL),(11,'ddddddd',6,13,'null','2019-06-01','2019-06-30','manager1@mail.com','ssssss',NULL,'2019-06-03 21:40:40','Not Started',NULL);
 /*!40000 ALTER TABLE `sprint` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -405,4 +408,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-05-29  8:30:41
+-- Dump completed on 2019-06-03 22:58:12
