@@ -42,14 +42,15 @@ public class SprintSearchByProjectIdServlet extends HttpServlet {
 			System.out.println("Error in SprintSearchByProjectIdServlet");
 		}
 		List<Sprint> spintsByProject = sprintDao.getSpintsByProject(String.valueOf(projectId));
-		
+		Response resp = null;
 		if(spintsByProject != null && !spintsByProject.isEmpty()) {
-			Response resp = ResponseBuilder.getResponse(1, "sprints",spintsByProject );
-			JSONUtil.mapper.writeValue(response.getOutputStream(), resp);
+			resp = ResponseBuilder.getResponse(1, "sprints",spintsByProject );
 		}else {
-			Response resp = ResponseBuilder.getResponse(0, "sprints",null );
-			JSONUtil.mapper.writeValue(response.getOutputStream(), resp);
+			resp = ResponseBuilder.getResponse(0, "sprints",null );
 		}
+		response.setContentType("application/json");
+		JSONUtil.mapper.writeValue(response.getOutputStream(), resp);
+		
 	}
 
 	/**

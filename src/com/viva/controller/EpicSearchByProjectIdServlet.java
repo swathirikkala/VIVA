@@ -41,13 +41,16 @@ public class EpicSearchByProjectIdServlet extends HttpServlet {
 			System.out.println("Error in EpicSearchByProjectIdServlet");
 		}
 		List<Epic> epicsByProjectId = epicDao.getEpicsByProjectId(projectId);
+		response.setContentType("application/json");
+		Response resp= null;
 		if(epicsByProjectId != null && !epicsByProjectId.isEmpty()) {
-			Response resp = ResponseBuilder.getResponse(epicsByProjectId.size(), "epics",epicsByProjectId );
-			JSONUtil.mapper.writeValue(response.getOutputStream(), resp);
+			resp = ResponseBuilder.getResponse(epicsByProjectId.size(), "epics",epicsByProjectId );
 		}else {
-			Response resp = ResponseBuilder.getResponse(0, "epics",epicsByProjectId );
-			JSONUtil.mapper.writeValue(response.getOutputStream(), resp);
+			resp = ResponseBuilder.getResponse(0, "epics",epicsByProjectId );
 		}
+		String jsonString = JSONUtil.mapper.writerWithDefaultPrettyPrinter().writeValueAsString(resp);
+		System.out.println("EpicSearchByProjectIdServlet response \n"+jsonString);
+		JSONUtil.mapper.writeValue(response.getOutputStream(), jsonString);
 	}
 
 	/**

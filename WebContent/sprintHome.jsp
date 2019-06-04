@@ -22,12 +22,13 @@
 		}
     </script>
 	<script type="text/javascript">
-
 	$("#searchProjectName").change(
 			function() {
 				console.log("searchSprintsByProjectId got called");
 				var projectId= $("#searchProjectName").val();
 				console.log("Project id : " + projectId);
+				$("#searchSprintName").empty();
+				$("#searchSprintName").append('<option value="">Loading ....</option>');
 				try {
 					$.ajax({
 						type : 'post',
@@ -35,12 +36,24 @@
 						data : {projectId:projectId},
 						success : function(response) {
 							var respJSONString = JSON.stringify(response);
-							console.log(respJSONString);
 							var jsonObj = JSON.parse(respJSONString);
-			                console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
-			                console.log(jsonObj.responseCode == 1);
+							console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
+							var option='<option value="" selected="selected">--Select Sprint--</option>';
 							if(jsonObj.responseCode == 1){
-								alert(jsonObj.responseObject);
+								console.log("data found");
+								$("#searchSprintName").empty();
+								$("#searchSprintName").append(option);
+								$.each(response.responseObject, function (i, sprint) {
+									option='<option value="'+sprint.sprintId+'">'+sprint.sprintName+'</option>';
+									console.log(option);
+									$("#searchSprintName").append(option);
+								});
+								
+							}else{
+								alert("Sprints not found in this project");
+								var option='<option value="" selected="selected">--Select Sprint--</option>';
+								$("#searchSprintName").empty();
+								$("#searchSprintName").append(option);
 							}
 						},
 						error : function(data, status, er) {
@@ -53,6 +66,33 @@
 				}
 			});
 	</script>
+	<script type="text/javascript">
+		function searchSprint(){
+			var sprintId = $("#searchSprintName").val();
+			console.log("searchSprint got called ... " +sprintId);
+			try {
+				$.ajax({
+					type : 'post',
+					url : './loadSprint',
+					data : {sprintId:sprintId},
+					success : function(response) {
+						console.log("searchSprint result : " + response);
+						if(response === "success"){
+							loadPage('sprintEditDiv','sprintHome.jsp');				
+						}else{
+							alert("Sprint not found");
+						}
+					},
+					error : function(data, status, er) {
+						console.log("Error in searchSprint jsm : " + data
+								+ " status: " + status + " er:" + er);
+					}
+				});
+			} catch (e) {
+				console.log("Exception in searchSprint jsm : " + e);
+			}
+		}
+	</script>
 </head>
 <body>
 <br>
@@ -64,7 +104,7 @@
 		    	<table>
 		    		<tr>
 		    			<td>
-		    				<button type="button" onclick="newSprint()" class="signupbtn" style="text-align: centre; width:100px; margin-top: -10px;">New Sprint </button>
+		    				<button type="button" onclick="newSprint()" class="signupbtn" style="text-align: centre; width:150px; margin-top: -10px;">New Sprint </button>
 		    			</td>
 		    			<th class="cellClass" style="width: 80px;">
 		    				<label>Project</label>
