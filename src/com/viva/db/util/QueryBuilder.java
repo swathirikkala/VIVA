@@ -96,10 +96,7 @@ public class QueryBuilder {
 	}
 
 	public static String getAddUserStoryQuery(UserStory us) {
-		String query = "insert into user_story (project,sprint,epic,name,priority,start_date,end_date,manager,assign_to,	description,lmb) values("
-				+ us.getProject() + "," + us.getSprint() + "," + us.getEpic() + ",'" + us.getName() + "','"
-				+ us.getPrioroty() + "','" + us.getStartDate() + "','" + us.getEndDate() + "','" + us.getManager()
-				+ "','" + us.getAssignTo() + "','" + us.getDescription() + "','" + us.getLmb() + "')";
+		String query = "";
 		return query;
 	}
 

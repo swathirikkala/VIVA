@@ -3,7 +3,6 @@ package com.viva.dao;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
@@ -56,8 +55,7 @@ public class UserStoryDao {
 
 	private List<UserStory> parseUserStories(ResultSet rs) {
 		List<UserStory> uss = new ArrayList<UserStory>();
-		String pattern = "dd-MM-yyyy";
-		SimpleDateFormat simpleDateFormat = new SimpleDateFormat(pattern);
+		
 		try {
 			while (rs != null && rs.next()) {
 				UserStory u = new UserStory();
@@ -67,23 +65,18 @@ public class UserStoryDao {
 				u.setSprint(rs.getInt(3));
 				u.setEpic(rs.getInt(4));
 				u.setName(rs.getString(5));
-				u.setPrioroty(rs.getString(6));
-				java.util.Date startDate = new java.util.Date(rs.getDate(7).getTime());
-				String sd = simpleDateFormat.format(startDate);
-				u.setStartDate(sd);
-				java.util.Date endDate = new java.util.Date(rs.getDate(8).getTime());
-				String ed = simpleDateFormat.format(endDate);
-				u.setEndDate(ed);
-				u.setManager(rs.getString(9));
-				u.setAssignTo(rs.getString(10));
-				u.setDescription(rs.getString(11));
-				u.setLmb(rs.getString(12));
-				u.setLmt(rs.getString(13));
+				u.setPrioroty(rs.getInt(6));
+				u.setStatus(rs.getString(7));
+				u.setCreatedBy(rs.getString(8));
+				u.setDescription(rs.getString(9));
+				u.setLmb(rs.getString(10));
+				u.setLmd(rs.getString(11));
+				u.setViva(rs.getInt(12));
 
 				uss.add(u);
 			}
 		} catch (SQLException e) {
-			e.printStackTrace();
+			System.err.println("Exception in parseUserStories : " + e.getMessage());
 		}
 
 		return uss;

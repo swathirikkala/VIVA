@@ -2,7 +2,6 @@ package com.viva.controller;
 
 import java.io.IOException;
 
-import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -26,7 +25,6 @@ public class AddUserStoryServlet extends HttpServlet {
 	 */
 	public AddUserStoryServlet() {
 		super();
-		// TODO Auto-generated constructor stub
 	}
 
 	/**
@@ -35,38 +33,28 @@ public class AddUserStoryServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		UserStory us = new UserStory();
-		us.setAssignTo(String.valueOf(request.getParameter("assignTo")));
 		us.setDescription(String.valueOf(request.getParameter("description")));
-		us.setEndDate(String.valueOf(request.getParameter("endDate")));
 		try {
 			us.setEpic(Integer.valueOf(request.getParameter("epicName")));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
-		us.setManager(String.valueOf(request.getParameter("projectManager")));
 		us.setName(String.valueOf(request.getParameter("usName")));
-		us.setPrioroty(String.valueOf(request.getParameter("")));
 		try {
 			us.setProject(Integer.valueOf(request.getParameter("projectName")));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
-		us.setPrioroty(String.valueOf(request.getParameter("severity")));
+		us.setPrioroty(Integer.valueOf(request.getParameter("severity")));
 		try {
 			us.setSprint(Integer.valueOf(request.getParameter("sprintName")));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
-		us.setStartDate(String.valueOf(request.getParameter("startDate")));
 		us.setLmb(String.valueOf(request.getParameter("createdBy")));
 		String addUserStoryResponse = userStoryDao.addUserStory(us);
-		request.getSession().setAttribute("addUserStoryResponse", addUserStoryResponse);
 
-		String landingPage = String.valueOf(request.getSession().getAttribute("landingPage"));
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher(landingPage);
-		requestDispatcher.forward(request, response);
 	}
 
 	/**

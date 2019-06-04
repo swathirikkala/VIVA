@@ -55,7 +55,7 @@
 								$("#epicSearchEpicName").append(option);
 								$.each(response.responseObject, function (i, epic) {
 									option='<option value="'+epic.id+'">'+epic.name+'</option>';
-									console.log(option);
+// 									console.log(option);
 									$("#epicSearchEpicName").append(option);
 								});
 								
@@ -78,9 +78,10 @@
 	</script>
 	<script type="text/javascript">
 			
-		function loadEpic(epicId) {
-			console.log("loadEpic got called : projectId -> "
-					+ projectId);
+		function loadEpicForEdit() {
+			var epicId = $("#epicSearchEpicName").val();
+			console.log("loadEpicForEdit got called : epicId -> "
+					+ epicId);
 			$.ajax({
 				type : 'post',
 				url : './loadEpic',
@@ -88,7 +89,7 @@
 					epicId : epicId
 				},
 				success : function(response) {
-					console.log("loadEpic Loading completed..... " + response);
+					console.log("loadEpicForEdit completed..... " + response);
 					if (response === "success") {
 						loadPage('commonDiv','./epicHome.jsp')
 					} else {
@@ -134,7 +135,7 @@
 		    			</td>
 		    		
 		    			<td class="cellClass">
-		    				<button type="button" onclick="searchSprint()" class="signupbtn" style="text-align: centre; width:100px; margin-top: -10px;">Search</button>
+		    				<button type="button" onclick="loadEpicForEdit()" class="signupbtn" style="text-align: centre; width:100px; margin-top: -10px;">Search</button>
 		    				
 		    			</td>
 		    			<th class="cellClass">

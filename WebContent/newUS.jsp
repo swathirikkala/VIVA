@@ -1,3 +1,4 @@
+<%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="com.viva.dao.BusinessValuesDao"%>
 <%@page import="com.viva.dto.BusinessValue"%>
 <%@page import="com.viva.dao.EpicDao"%>
@@ -34,7 +35,7 @@
 	}
 %>
 <!DOCTYPE html>
-<!-- Project Creation Div -->
+<!-- User story Creation Div start-->
 		<div id="usModalDiv" class="modal">
 		  <span onclick="javascript:closeUSPopup()" class="close" title="Close Sprint">&times;</span>
 			<form class="modal-content" name="newUSForm" id="newUSForm">
@@ -68,10 +69,10 @@
 			   <label for="severity"><b>User Story Priority</b></label>
 			     <select id="usPriority" name = "usPriority" required>
 		      		<option value="0">--Select--</option>
-		      		<option value="1">High</option>
-			      	<option value="2">Medium</option>
-			      	<option value="3">Low</option>
-			      	<option value="4">No Severity</option>
+		      		<% for(String p : LookUp.getPriorities()){%>
+		      			
+		      		<option value="<%=p%>"><%=p%></option>
+		      		<%} %>
 		     	 </select>
 		     	 
 			   
@@ -84,7 +85,7 @@
 		      </select>
 
 		      <label for="description"><b>User Story Description</b></label><label style="color: red;">&nbsp;*</label>
-		      <textarea rows="4" cols="50" placeholder="Description" name="description" id="description" style="height: 100px;">
+		      <textarea rows="4" cols="50" placeholder="Description" name="usDescription" id="usDescription" style="height: 100px;">
 		      </textarea>
 		      
 		      <div class="clearfix">
@@ -94,23 +95,47 @@
 		    </div>
 		  </form>
 		</div>
-		<!-- Project Creation Div ended -->
+		<!-- User story Creation Div ended -->
 	<script type="text/javascript">
-	
-	function displayPopup(){
-		  document.getElementById('usModalDiv').style.display='block';
-		}
-	function closeUSPopup()(){
-		  document.getElementById('usModalDiv').style.display='none';
-		}
-	
     $(document).ready(function() {
-    	displayPopup();
-    	//alert("Create new sprint got called");
-    	$("#projectName").val("<%=projectId%>");
-    	$("#description").val("");
-    	
+    	setTimeout(function(){ 
+    		$("#projectName").val("<%=projectId%>");
+        	$("#usDescription").val("");
+    	}, 1000);
       });
-	
 	</script>
-
+	<script type="text/javascript">
+		function openUSModal(){
+			  console.log("openUSModal got called");
+			  document.getElementById('usModalDiv').style.display='block';
+		}
+		function closeUSPopup(){
+			  console.log("closeUSPopup got called");
+			  document.getElementById('usModalDiv').style.display='none';
+		}
+	</script>
+	<script type="text/javascript">
+    	function createUS() {
+			console.log("createUS got called ....");
+			var newUSFormData = $("form[name=newUSForm]").serialize();
+			console.log(newUSFormData);
+			$.ajax({
+                type: 'post',
+                url: './addUserStory',
+                data: newUSFormData,
+                success: function (response) {
+                   console.log("US creation call completed..... " + response);
+                   if(response === "success"){
+                	   alert("US creation Success");
+                   }else{
+                	   alert("US creation Failed");
+                   }
+                },
+				error : function(data, status, er) {
+					console.log("Error in createUS jsm : " + data + " status: " + status + " er:" + er);
+				
+				}
+            });
+			closeUSPopup();
+	}
+	</script>

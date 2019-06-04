@@ -1,26 +1,18 @@
-<%@page import="com.viva.dao.util.LookUp"%>
-<%@page import="java.util.HashMap"%>
-<%@page import="java.util.Map"%>
-<%@page import="com.viva.dao.UserDao"%>
-<%@page import="com.viva.dao.SprintDao"%>
-<%@page import="com.viva.dto.Sprint"%>
-<%@page import="com.viva.dto.Project"%>
+<%@page import="java.util.ArrayList"%>
+<%@page import="java.util.List"%>
+<%@page import="com.viva.dto.UserStory"%>
+<%@page import="com.viva.dto.Epic"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
-<%@page import="java.util.ArrayList"%>
-<%@page import="com.viva.dto.User"%>
-<%@page import="java.util.List"%>
 
 <%
 
-	UserDao userDao = new UserDao();
-	Map<String, User> allUsers = userDao.getAllUsers();
-	if(allUsers == null){
-		allUsers = new HashMap<String,User>();
+	List<UserStory> uss = (List<UserStory>) request.getSession().getAttribute("userStories");
+	if(uss == null){
+		uss = new ArrayList<UserStory>();
 	}
-	String userName = String.valueOf(request.getSession().getAttribute("userName"));
 
 %>
 
@@ -29,37 +21,37 @@
 	<head>
 		<!-- Table css -->
 	
-	<!--===============================================================================================-->	
-		<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
-	<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
-	<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
-	<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
-	<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
-	<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
-	<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="css/util.css">
-		<link rel="stylesheet" type="text/css" href="css/main.css">
-	<!--===============================================================================================-->
-		<link rel="stylesheet" type="text/css" href="css/modal.css">
-	
-	<!-- Table css end -->
-	<!-- Table JS -->
-	<!--===============================================================================================-->	
-		<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
-	<!--===============================================================================================-->
-		<script src="vendor/bootstrap/js/popper.js"></script>
-		<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
-	<!--===============================================================================================-->
-		<script src="vendor/select2/select2.min.js"></script>
-	<!--===============================================================================================-->
-		<script src="js/main.js"></script>
-        <script src="js/jquery-3.4.0.min.js"></script>
-        
+		<!--===============================================================================================-->	
+			<link rel="icon" type="image/png" href="images/icons/favicon.ico"/>
+		<!--===============================================================================================-->
+			<link rel="stylesheet" type="text/css" href="vendor/bootstrap/css/bootstrap.min.css">
+		<!--===============================================================================================-->
+			<link rel="stylesheet" type="text/css" href="fonts/font-awesome-4.7.0/css/font-awesome.min.css">
+		<!--===============================================================================================-->
+			<link rel="stylesheet" type="text/css" href="vendor/animate/animate.css">
+		<!--===============================================================================================-->
+			<link rel="stylesheet" type="text/css" href="vendor/select2/select2.min.css">
+		<!--===============================================================================================-->
+			<link rel="stylesheet" type="text/css" href="vendor/perfect-scrollbar/perfect-scrollbar.css">
+		<!--===============================================================================================-->
+			<link rel="stylesheet" type="text/css" href="css/util.css">
+			<link rel="stylesheet" type="text/css" href="css/main.css">
+		<!--===============================================================================================-->
+			<link rel="stylesheet" type="text/css" href="css/modal.css">
+		
+		<!-- Table css end -->
+		<!-- Table JS -->
+		<!--===============================================================================================-->	
+			<script src="vendor/jquery/jquery-3.2.1.min.js"></script>
+		<!--===============================================================================================-->
+			<script src="vendor/bootstrap/js/popper.js"></script>
+			<script src="vendor/bootstrap/js/bootstrap.min.js"></script>
+		<!--===============================================================================================-->
+			<script src="vendor/select2/select2.min.js"></script>
+		<!--===============================================================================================-->
+			<script src="js/main.js"></script>
+	        <script src="js/jquery-3.4.0.min.js"></script>
+	        
 	<!-- Table JS end -->
 		<style type="text/css">
 			.width50{
@@ -72,12 +64,6 @@
 				width: 100px;
 			}
 		</style>
-		<script type="text/javascript">
-			function openModal(){
-				console.log("new Sprint open modal got called");
-				displayPopup();
-			}
-		</script>
 		<script type="text/javascript">
 			function createSprint() {
 				console.log("createSprint got called");
@@ -131,7 +117,7 @@
 	</head>
 	<body>
 		<p>
-			<button onclick="openModal()" style="width: auto;">Create New User Story</button>
+			<button onclick="openUSModal()" style="width: auto;">Create New User Story</button>
 		</p>
 
 		<!-- User Story Table -->
@@ -147,31 +133,22 @@
 							</tr>
 						</thead>
 						<tbody id="projectsBody">
-<%-- 							<% for(Sprint s : sprints){ %> --%>
-<!-- 								<tr class="row100 head"> -->
-<!-- 									<td class="column100 width50" data-column="column1"> -->
-<%-- 									<a href="javascript:void(0)" onclick="loadUserStory('<%=s.getSprintId()%>');">US<%=s.getSprintId()%></a> --%>
-<!-- 									</td> -->
-<%-- 									<td class="column100 width100" data-column="column2"><%=s.getSprintName() %></td> --%>
-<%-- 									<td class="column100 width75" data-column="column1"><%=s.getStatus() %></td> --%>
-<%-- 									<td class="column100 width50" data-column="column6"><%=s.getViva() %></td> --%>
-<!-- 								</tr> -->
-<%-- 							<%} %> --%>
+							<% for(UserStory us : uss){ %>
+								<tr class="row100 head">
+									<td class="column100 width50" data-column="column1">
+									<a href="javascript:void(0)" onclick="loadUserStory('<%=us.getId()%>');">US<%=us.getId()%></a>
+									</td>
+									<td class="column100 width100" data-column="column2"><%=us.getName()%></td>
+									<td class="column100 width75" data-column="column1"><%= us.getStatus()%></td>
+									<td class="column100 width50" data-column="column6"><%=us.getViva()%>%</td>
+								</tr>
+							<%} %>
 						</tbody>
 					</table>
 				</div>
 			</div>
-		<!-- User Story Creation Div -->
-			<%@include file="./newSprint.jsp" %>
-		<!-- Sprint Creation Div ended -->
-		<script type="text/javascript">
-		function displayPopup(){
-			  document.getElementById('modalDiv').style.display='block';
-			}
-		function closePopup(){
-			  document.getElementById('modalDiv').style.display='none';
-			}
-		
+		<!-- User Story Creation Div started-->
+			<jsp:include page="./newUS.jsp"/>
+		<!-- User Story Creation Div ended -->
 
-		</script>
-	</body>
+</body>
