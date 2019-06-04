@@ -64,11 +64,7 @@
 	if(null == sprintsByProjectId){
 		sprintsByProjectId = new ArrayList<Sprint>();
 	}
-	
-// 	List<User> listOfUsers =  new UserDao().getAllUsers();
-// 	if(null == listOfUsers){
-// 		listOfUsers = new ArrayList<User>();
-// 	}
+
 %>
 
 <html>

@@ -10,7 +10,10 @@
 	if(projects == null){
 		projects = new ArrayList<Project>();
 	}
-
+	String userName = String.valueOf(request.getSession().getAttribute("userName"));
+    if(userName == null){
+    	userName = "";
+    }
 %>
 <html>
 <head>
@@ -37,6 +40,7 @@
 						success : function(response) {
 							var respJSONString = JSON.stringify(response);
 							var jsonObj = JSON.parse(respJSONString);
+							console.log(respJSONString);
 							console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
 							var option='<option value="" selected="selected">--Select Sprint--</option>';
 							if(jsonObj.responseCode == 1){
@@ -94,11 +98,10 @@
 		}
 	</script>
 </head>
-<body>
-<br>
-<h1 class="w3-xxxlarge w3-text-red"><b>Sprint Search </b></h1>
-
-<br>
+<body style="margin-top: 5%">
+		<label class="w3-xxxlarge w3-text-red"><b>Sprint Home</b></label>
+		<label class="w3-xxxlarge" style="color: green;margin-left: 55%;">Welcome </label>
+		<label class="w3-xxxlarge" style="color: blue;"><%=userName %></label>
 <form method="post" name="editSprintForm" id="editSprintForm">
 		    <div class="divClass">
 		    	<table>

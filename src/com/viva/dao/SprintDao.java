@@ -2,11 +2,9 @@ package com.viva.dao;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.viva.dao.util.ResponseBuilder;
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
 import com.viva.dto.Sprint;

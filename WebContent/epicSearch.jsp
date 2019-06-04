@@ -10,9 +10,16 @@
 	if(projects == null){
 		projects = new ArrayList<Project>();
 	}
-	
-
+	List<Project> allProjects = (List<Project>)request.getSession().getAttribute("allProjects");
+    if(null == allProjects){
+    	allProjects = new ArrayList<>();
+    }
+	String userName = String.valueOf(request.getSession().getAttribute("userName"));
+    if(userName == null){
+    	userName = "";
+    }
 %>
+
 <html>
 <head>
     <script src="./js/jquery-3.4.0.min.js"></script>
@@ -29,6 +36,8 @@
 				console.log("epicSearchProjectName change event got called");
 				var projectId= $("#epicSearchProjectName").val();
 				console.log("Project id : " + projectId);
+				$("#epicSearchEpicName").empty();
+				$("#epicSearchEpicName").append('<option value="">Loading ....</option>');
 				try {
 					$.ajax({
 						type : 'post',
@@ -36,13 +45,26 @@
 						data : {projectId:projectId},
 						success : function(response) {
 							var respJSONString = JSON.stringify(response);
-							console.log(respJSONString);
 							var jsonObj = JSON.parse(respJSONString);
-			                console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
-			                console.log(jsonObj.responseCode == 1);
-							if(jsonObj.responseCode == 1){
-								alert(jsonObj.responseObject);
-							}
+							console.log(respJSONString);
+							console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
+							var option='<option value="" selected="selected">--Select Sprint--</option>';
+			                if(jsonObj.responseCode == 1){
+			                	console.log("data found");
+								$("#epicSearchEpicName").empty();
+								$("#epicSearchEpicName").append(option);
+								$.each(response.responseObject, function (i, epic) {
+									option='<option value="'+epic.id+'">'+epic.name+'</option>';
+									console.log(option);
+									$("#epicSearchEpicName").append(option);
+								});
+								
+			                }else{
+			                	alert("no epics found with this search criteria");
+			                	var option='<option value="" selected="selected">--Select Epic--</option>';
+								$("#epicSearchEpicName").empty();
+								$("#epicSearchEpicName").append(option);
+			                }
 						},
 						error : function(data, status, er) {
 							console.log("Error in searchSprintsByProjectId jsm : " + data
@@ -54,11 +76,33 @@
 				}
 			});
 	</script>
+	<script type="text/javascript">
+			
+		function loadEpic(epicId) {
+			console.log("loadEpic got called : projectId -> "
+					+ projectId);
+			$.ajax({
+				type : 'post',
+				url : './loadEpic',
+				data : {
+					epicId : epicId
+				},
+				success : function(response) {
+					console.log("loadEpic Loading completed..... " + response);
+					if (response === "success") {
+						loadPage('commonDiv','./epicHome.jsp')
+					} else {
+						console.log("No Data Found with search criteria");
+					}
+				}
+			});
+		}
+	</script>
 </head>
-<body>
-<br>
-<h1 class="w3-xxxlarge w3-text-red"><b>Epic Search </b></h1>
-
+<body style="margin-top: 5%">
+<label class="w3-xxxlarge w3-text-red"><b>Epic Home</b></label>
+<label class="w3-xxxlarge" style="color: green;margin-left: 55%;">Welcome </label>
+<label class="w3-xxxlarge" style="color: blue;"><%=userName %></label>
 <br>
 <form method="post" name="epicSearchForm" id="epicSearchForm">
 		    <div class="divClass">
@@ -104,7 +148,7 @@
 		  <hr>
 	
 		<!-- Sprint Creation Div -->
-			<%@include file="./newSprint.jsp" %>
+			<jsp:include page="newSprint.jsp" /> 
 		<!-- Sprint Creation Div ended -->
 <script type="text/javascript">
 	$(document).ready(function() {

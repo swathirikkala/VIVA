@@ -43,7 +43,7 @@ public class AddEpicServlet extends HttpServlet {
 			e.printStackTrace();
 		}
 		try {
-			epic.setSeverity(Integer.valueOf(request.getParameter("epicPriority")));
+			epic.setPriority(Integer.valueOf(request.getParameter("epicPriority")));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}

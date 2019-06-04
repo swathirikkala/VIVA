@@ -10,6 +10,9 @@
 	    	allProjects = new ArrayList<>();
 	    }
 		String userName = String.valueOf(request.getSession().getAttribute("userName"));
+	    if(userName == null){
+	    	userName = "";
+	    }
     %>
 <!DOCTYPE html>
 <html>

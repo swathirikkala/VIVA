@@ -85,7 +85,7 @@ public class QueryBuilder {
 	public static String getAddEpicQuery(Epic epic) {
 		System.out.println("Epic dto :" + epic);
 		String query = "insert into epic (name,project,priority,description,created_by,lmb) values ('" + epic.getName()
-				+ "'," + epic.getProject() + "," + epic.getSeverity() + ",'" + epic.getDescription() + "','"
+				+ "'," + epic.getProject() + "," + epic.getPriority() + ",'" + epic.getDescription() + "','"
 				+ epic.getLmb() + "','" + epic.getLmb() + "')";
 		return query;
 	}
@@ -245,6 +245,20 @@ public class QueryBuilder {
 			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
 			prepareStatement.setInt(1, epicId);
 			System.out.println("getAllUserStoriesByEpicPS Query : " + prepareStatement.toString());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prepareStatement;
+		
+	}
+
+	public static PreparedStatement getEpicByIdPs(int epicId) {
+		String query = "select * from epic where id = ?";
+		PreparedStatement prepareStatement =null;
+		try {
+			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
+			prepareStatement.setInt(1, epicId);
+			System.out.println("getEpicByIdPs Query : " + prepareStatement.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

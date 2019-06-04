@@ -1,9 +1,12 @@
+<%@ page language="java" contentType="text/html; charset=UTF-8"
+    pageEncoding="UTF-8"%>
+
 <div id="epicSearchDiv">
-	<%@include file="./epicSearch.jsp" %>
+	<jsp:include page="epicSearch.jsp" />
 </div>
-<div id="epicEditDiv">
-	<%@include file="./editEpic.jsp" %>
+<div id="epicEditDiv" style="margin-top: 0px;">
+	<jsp:include page="editEpic.jsp" />
 </div>
-<div id="epicUSsDiv">
-	<%@include file="./usResult.jsp" %>
+<div id="epicUSsDiv" style="margin-top: 50px;">
+	<jsp:include page="usResult.jsp" /> 
 </div>
