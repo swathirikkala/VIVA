@@ -106,22 +106,17 @@
 		</div>
 		<!-- User story Creation Div ended -->
 	<script type="text/javascript">
-    $(document).ready(function() {
-    	setTimeout(function(){ 
-    		$("#usProjectName").val("<%=projectId%>");
-        	$("#usDescription").val("");
-    	}, 1000);
-      });
+
 	</script>
 	<script type="text/javascript">
-		function openUSModal(){
-			  console.log("openUSModal got called");
-			  document.getElementById('usModalDiv').style.display='block';
-		}
-		function closeUSPopup(){
-			  console.log("closeUSPopup got called");
-			  document.getElementById('usModalDiv').style.display='none';
-		}
+function openUSModal(){
+	console.log("openUSModal got called");
+	document.getElementById('usModalDiv').style.display='block';
+}
+function closeUSPopup(){
+	console.log("closeUSPopup got called");
+	document.getElementById('usModalDiv').style.display='none';
+}
 	</script>
 	<script type="text/javascript">
     	function createUS() {

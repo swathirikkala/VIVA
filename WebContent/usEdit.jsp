@@ -55,9 +55,8 @@
 	</style>
 
 	<script type="text/javascript">
-		function updateEpic(){
-			
-			console.log("update Project got called");
+		function updateUserStory(){
+			console.log("updateUserStory got called");
 			var updateUSFormData = $("form[name=updateUSForm]").serialize();
 			console.log(updateUSFormData);
 			try {
@@ -66,7 +65,7 @@
 					url : './updateUserStory',
 					data : updateUSFormData,
 					success : function(response) {
-						console.log("update User story completed..... " + response);
+						console.log("updateUserStory completed..... " + response);
 						if (response !== "success") {
 							alert("Update not successfull");
 						}else{
@@ -176,9 +175,9 @@
 		    </div>
 		    <button onclick="openUSModal()" style="width: auto;">New User Story</button>
 		    <div style="margin-left: 25%;display: inline-flex;">
-			    	<button type="button" class="signupbtn" style="text-align: centre; width:100px;" onclick="updateProject()">Save</button>
+			    	<button type="button" class="signupbtn" style="text-align: centre; width:100px;" onclick="updateUserStory()">Save</button>
 			    	&nbsp;
-			    	<button type="button" onclick="clearUSEditFields();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
+			    	<button type="button" onclick="clearUserStoryForm();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
 		   	</div>
 		  </form>
 		  <!-- User Story Creation Div started-->
@@ -248,10 +247,6 @@
     					console.log("Exception in projectName Change event in US edit jsm : " + e);
     				}
     			});
-    	
-    	
-    	
-    	
     	
   	});//document ready close
 	
