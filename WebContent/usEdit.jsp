@@ -142,7 +142,7 @@
 					     	 </select>
 		    			</td>
 		    			<th>
-		    				<label>VIVA%</label>
+		    				<label>Business Value %</label>
 		    			</th>
 		    			<td>
 		    				<input type="text" name="viva" id="viva" disabled="disabled" value="<%=userStoryForEdit.getViva()%>">

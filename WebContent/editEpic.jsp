@@ -44,7 +44,7 @@
 		    				<label>Epic Name</label>
 		    			</th>
 		    			<td class="cellClass">
-		    				<input type="text" name="editEpicName" id="editEpicName" value="<%=epic.getName() %>" readonly="readonly">
+		    				<input type="text" name="editEpicName" id="editEpicName" value="<%=epic.getName()%>">
 		    			</td>
 		    		</tr>
 		    		<tr>
