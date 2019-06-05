@@ -15,6 +15,17 @@ public class Project {
 	private String viva;
 	private String cretatedDate;
 
+	
+	public Project() {
+		this.name="";
+		this.status="";
+		this.startDate="";
+		this.endDate="";
+		this.description="";
+		this.cretatedDate="";
+		this.lastModifiedBy="";
+	}
+
 	public String getCretatedDate() {
 		return cretatedDate;
 	}

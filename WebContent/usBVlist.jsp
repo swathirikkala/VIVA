@@ -1,30 +1,13 @@
-<%@page import="com.viva.dao.UserStoryDao"%>
-<%@page import="com.viva.dto.UserStory"%>
-<%@page import="com.viva.dto.Epic"%>
-<%@page import="com.viva.dao.EpicDao"%>
-<%@page import="com.viva.dao.SprintDao"%>
-<%@page import="com.viva.dto.Sprint"%>
-<%@page import="com.viva.dto.Project"%>
+
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
 
 <%@page import="java.util.ArrayList"%>
-<%@page import="com.viva.dto.User"%>
 <%@page import="java.util.List"%>
 
 <%
-	UserStoryDao userStoryDao = new UserStoryDao();
 	
-
-	String userId = String.valueOf(request.getSession().getAttribute("userId"));
-	String userName = String.valueOf(request.getSession().getAttribute("userName"));
-	
-	List<UserStory>  uss = userStoryDao.getAllUserStories();
-	if(null == uss){
-		uss = new ArrayList<UserStory>();
-	}
-
 %>
 
 
@@ -76,41 +59,32 @@
 	</head>
 	<body>
 			
-		<!-- User stories Table -->
+		<!-- User story business values Table -->
 			<div class="limiter">
 				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:500px; min-height:0px; overflow-x: none;">
 					<table data-vertable="ver2">
 						<thead>
 							<tr class="row100 head">
-								<th class="column100 width50" data-column="column1">US ID</th>
-								<th class="column100 width100" data-column="column2">US Name</th>
-								<th class="column100 width75" data-column="column1">Start Date</th>
-								<th class="column100 width75" data-column="column1">End Date</th>
-								<th class="column100 width50" data-column="column1">Severity</th>
-								<th class="column100 width50" data-column="column6">Status</th>
-								<th class="column100 width100" data-column="column7">Created By</th>
-								<th class="column100 width100" data-column="column7">VIVA %</th>
-								<th class="column100 width100" data-column="column7">Actions</th>
+								<th class="column100 width50" data-column="column1">BV ID</th>
+								<th class="column100 width100" data-column="column2">BV Name</th>
+								<th class="column100 width75" data-column="column1">BV VIVA%</th>
+								<th class="column100 width75" data-column="column1">Comment</th>
 							</tr>
 						</thead>
 						<tbody id="projectsBody">
-							<%for(UserStory us: uss) {%>
+<%-- 							<%for(UserStory us: uss) {%> --%>
 								<tr class="row100 head">
-									<td class="column100 width50" data-column="column1">US<%= us.getId()%></td>
-									<td class="column100 width100" data-column="column2"><%=us.getName() %></td>
-									<td class="column100 width75" data-column="column1"><%= us.getPrioroty()%></td>
-									<td class="column100 width50" data-column="column6"><%= us.getPrioroty()%></td>
-									<td class="column100 width50" data-column="column6"></td>
-									<td class="column100 width100" data-column="column7">
-										<a href="#">view</a>&nbsp;
-										<a href="#">edit</a>
-									</td>
+									<td class="column100 width50" data-column="column1">US<%=0 %></td>
+									<td class="column100 width100" data-column="column2"><%= 0%></td>
+									<td class="column100 width75" data-column="column1"><%= 0%></td>
+									<td class="column100 width50" data-column="column6"><%= 0%></td>
+									
 								</tr>
-							<%} %>
+<%-- 							<%} %> --%>
 						</tbody>
 					</table>
 				</div>
 			</div>
-		<!-- Projects Table ended -->
+		<!-- User story business values Table ended -->
 		
 	</body>

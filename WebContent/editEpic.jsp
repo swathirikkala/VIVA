@@ -21,12 +21,7 @@
 	}
 %>
 <meta charset="UTF-8">
-<style type="text/css">
-	.cellClass{
-			width: 200px;
-			padding-right: 10px;
-		}
-</style>
+
 <h1 class="w3-xxxlarge w3-text-red"><b>Epic Edit Form </b></h1>
 		
 		<form method="post" name="epicEditForm" id="epicEditForm">

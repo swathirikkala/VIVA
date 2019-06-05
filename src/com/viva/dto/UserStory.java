@@ -17,6 +17,16 @@ public class UserStory {
 	private String lmb;
 	private String lmd;
 	private int viva;
+	
+	
+	public UserStory() {
+		this.name="";
+		this.status="";
+		this.createdBy="";
+		this.description="";
+		this.lmb="";
+		this.lmd="";
+	}
 	public int getId() {
 		return id;
 	}

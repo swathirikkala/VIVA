@@ -151,6 +151,7 @@
 		<!-- Sprint Creation Div -->
 			<jsp:include page="newSprint.jsp" /> 
 		<!-- Sprint Creation Div ended -->
+</body>
 <script type="text/javascript">
 	$(document).ready(function() {
 		

@@ -1,23 +1,25 @@
 <html>
 <head>
-<script type="text/javascript">
-	function openModal(){
-		console.log("new User Story Open modal got called");
-		$("#addUsDiv").load("newUS.jsp");
-		
-	}
-	</script>
+<style type="text/css">
+	.cellClass{
+			width: 200px;
+			padding-right: 10px;
+		}
+</style>
 </head>
 <body>
-		<h1 class="w3-xxxlarge w3-text-red"><b>User Stories</b></h1>
-	<p>
-		<button onclick="openModal();" style="width: auto;">Create New User Story</button>
-	</p>
-	<div id="addUsDiv"></div>
-	<div id="usTable"></div>
+	<div id="userStorySearchDiv">
+		<jsp:include page="usSearch.jsp" /> 
+	</div>
+	<div id="userStoryEditDiv">
+		<jsp:include page="usEdit.jsp" /> 
+	</div>
+	<div id="userStoryBusinessValuesDiv" style="margin-top: 50px;">
+		<jsp:include page="usBVlist.jsp" /> 
+	</div>
 	<script type="text/javascript">
 	$(document).ready(function() {
-		$("#usTable").load("./usResultList.jsp");
+		
   	});
 </script>
 </html>

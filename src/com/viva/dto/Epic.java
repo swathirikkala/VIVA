@@ -13,6 +13,15 @@ public class Epic {
 	private String lmt;
 	private String createdBy;
 	private int viva;
+	
+	public Epic() {
+		this.status="";
+		this.description="";
+		this.createdBy="";
+		this.name="";
+		this.lmb="";
+		this.lmt="";
+	}
 	public int getId() {
 		return id;
 	}
