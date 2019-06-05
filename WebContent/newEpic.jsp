@@ -41,7 +41,7 @@
 <!DOCTYPE html>
 		<!-- Epic Creation Div -->
 		<div id="newEpicModalDiv" class="modal">
-		  <span onclick="javascript:closeNewEpicModal" class="close" title="Close Sprint">&times;</span>
+		  <span onclick="javascript:closeNewEpicModal()" class="close" title="Close Sprint">&times;</span>
 			<form class="modal-content" name="newEpicForm" id="newEpicForm">
 		    <div class="container">
 		    <input type="hidden" id="createdBy" name="createdBy" value="<%=userId%>">
@@ -80,7 +80,7 @@
 		      </textarea>
 		      
 		      <div class="clearfix">
-		        <button type="button" onclick="javascript:closeNewEpicModal" class="cancelbtn">Cancel</button>
+		        <button type="button" onclick="javascript:closeNewEpicModal()" class="cancelbtn">Cancel</button>
 		        <button type="button" class="signupbtn" onclick="createEpic()">Save</button>
 		      </div>
 		    </div>
