@@ -1,3 +1,6 @@
+<%@page import="com.viva.dto.Epic"%>
+<%@page import="com.viva.dto.BusinessValue"%>
+<%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="com.viva.dao.SprintDao"%>
 <%@page import="com.viva.dao.ProjectDao"%>
 <%@page import="com.viva.dao.UserDao"%>
@@ -10,46 +13,36 @@
 <%@page import="java.util.List"%>
 
 <%
+
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
 	String projectId = String.valueOf(request.getSession().getAttribute("projectId"));
-	
-	
-	UserDao userDao = new UserDao();
-	ProjectDao projectDao = new ProjectDao();
+	List<Epic> epics = (List<Epic>)request.getSession().getAttribute("epics");
+
 	SprintDao sprintDao = new SprintDao();
 	
-// 	List<User> managers = userDao.getManagers();
-// 	if(managers == null){
-// 		managers = new ArrayList<User>();
-// 	}
-	
-	
-	List<Project> lastUpdatedProjectsList = projectDao.lastUpdatedProjectsListByManagerId(userId);
-	if(null == lastUpdatedProjectsList){
-		lastUpdatedProjectsList = new ArrayList<>();
+	if(epics == null){
+		epics =new ArrayList<Epic>();
 	}
-	
-	List<Project> projectsByManagerId = projectDao.getProjectsByAssignedManager(userId);
-	if(null == projectsByManagerId){
-		projectsByManagerId = new ArrayList<Project>();
+	ProjectDao projectDao = new ProjectDao();
+	List<Project> projects = projectDao.getProjects();
+	if(projects == null){
+		projects = new ArrayList<Project>();
 	}
-	
 	List<Sprint> sprintsByProjectId = sprintDao.getSpintsByProject(projectId);
 	if(null == sprintsByProjectId){
 		sprintsByProjectId = new ArrayList<Sprint>();
 	}
-	
-// 	List<User> listOfUsers =  new UserDao().getAllUsers();
-// 	if(null == listOfUsers){
-// 		listOfUsers = new ArrayList<User>();
-// 	}
+	Sprint sprint = (Sprint)request.getSession().getAttribute("sprint");
+	if(sprint == null){
+		sprint = new Sprint();
+	}
 %>
 <!DOCTYPE html>
-<!-- Epic Creation Div -->
-		<div id="modalDiv" class="modal">
-		  <span onclick="javascript:closePopup()" class="close" title="Close Sprint">&times;</span>
-			<form class="modal-content" method="post" action="./addEpic">
+		<!-- Epic Creation Div -->
+		<div id="newEpicModalDiv" class="modal">
+		  <span onclick="javascript:closeNewEpicModal" class="close" title="Close Sprint">&times;</span>
+			<form class="modal-content" name="newEpicForm" id="newEpicForm">
 		    <div class="container">
 		    <input type="hidden" id="createdBy" name="createdBy" value="<%=userId%>">
 		      <h1 style="color:green">Add Epic</h1>
@@ -59,86 +52,88 @@
 			   <label for="projectName"><b>Project Name</b></label>
 			   <select id="projectName" name = "projectName" >
 		       <option value="" selected="selected">--Select Project--</option>
-		      <%for(Project p : projectsByManagerId){%>
+		      <%for(Project p : projects){%>
 		      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
 		      <%}%>
 		      </select>
 		      		   
-		      <label for="sprintName"><b>Sprint Name</b></label>
-		       <select id="sprintName" name = "sprintName" >
-		       <option value="" selected="selected">--Select Sprint--</option>
-		      <%for(Sprint s : sprintsByProjectId){%>
-		      		<option value="<%= s.getSprintId()%>"><%= s.getSprintName()%></option>
-		      <%}%>
-		      </select>
-		      
 		      <label for="epicName"><b>Epic Name</b></label><label style="color: red;">&nbsp;*</label>
 		      <input type="text" name="epicName" id="epicName" required="required" placeholder="Epic Name">
 		      		      
-			   <label for="severity"><b>Epic Severity</b></label><label style="color: red;">&nbsp;*</label>
-			     <select id="severity" name = "severity" required>
-		      		<option value="1">High</option>
-			      	<option value="2">Medium</option>
-			      	<option value="3">Low</option>
-			      	<option value="4">No Severity</option>
+			   <label for="severity"><b>Epic Priority</b></label><label style="color: red;">&nbsp;*</label>
+			     <select id="epicPriority" name = "epicPriority" required>
+			      	<option value="0">--Select--</option>
+		      		<%for(String p:LookUp.getPriorities()){ %>
+			      		<option value="<%=p%>"><%=p%></option>
+			      	<%} %>
 		     	 </select>
-		     	 
-			   <label for="startDate"><b>Epic Start Date</b></label><label style="color: red;">&nbsp;*</label>
-			   <input type="date" placeholder="Sprint Start Date" name="startDate" id="startDate" required>
 			   
-			   <label for="endDate"><b>Epic End Date</b></label><label style="color: red;">&nbsp;*</label>
-			   <input type="date" placeholder="Sprint End Date" name="endDate" id="endDate" required>
-			   
-			   <input type="hidden" placeholder="Created By" name="createdBy" id="createdBy" required value="<%= userId %>">
-			   
-			   <label for="businessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
-		       <select id="businessValues" name = "businessValues" required>
-		      <%for(Sprint s : sprintsByProjectId){%>
-		      		<option value="<%= s.getSprintId()%>"><%= s.getSprintName()%></option>
-		      <%}%>
+			   <label for="epicBusinessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
+		       <select id="epicBusinessValues" name = "epicBusinessValues" required>
+			      <%for(Sprint s : sprintsByProjectId){%>
+			      		<option value="<%= s.getSprintId()%>"><%= s.getSprintName()%></option>
+			      <%}%>
 		      </select>
-			   
-		      <label for="assignTo"><b>Assign to</b></label><label style="color: red;">&nbsp;*</label>
-		      <select id="assignTo" name = "assignTo" required>
-<%-- 		      <%for(User user : listOfUsers){%> --%>
-<%-- 		      		<option value="<%= userId%>"><%= userName%></option> --%>
-<%-- 		      <%}%> --%>
-		      </select>
-		      <label for="projectManager"><b>Project Manager</b></label><label style="color: red;">&nbsp;*</label>
-		      <select id="projectManager" name = "projectManager" required>
-<%-- 			      <%for(User u : managers){%> --%>
-<%-- 			      		<option value="<%= u.getEmailId()%>"><%= u.getFirstName() + " " + u.getLastName()%></option> --%>
-<%-- 			      <%}%> --%>
-		      </select>
+
 		      <label for="description"><b>Epic Description</b></label><label style="color: red;">&nbsp;*</label>
 		      <textarea rows="4" cols="50" placeholder="Description" name="description" id="description" style="height: 100px;">
 		      </textarea>
 		      
 		      <div class="clearfix">
-		        <button type="button" onclick="javascript:closePopup()" class="cancelbtn">Cancel</button>
-		        <button type="submit" class="signupbtn" id="saveDepartmentDiv">Save</button>
+		        <button type="button" onclick="javascript:closeNewEpicModal" class="cancelbtn">Cancel</button>
+		        <button type="button" class="signupbtn" onclick="createEpic()">Save</button>
 		      </div>
 		    </div>
 		  </form>
-		</div>
+		  </div>
 		<!-- Epic Creation Div ended -->
-	<script type="text/javascript">
+<script type="text/javascript">
+function openNewEpicModal(){
+	document.getElementById('newEpicModalDiv').style.display='block';
+	 $("#projectName").val("<%=sprint.getProjectId()%>");
+	 console.log("Project name " + <%=sprint.getProjectId()%>);
+}
+function closeNewEpicModal(){
+	document.getElementById('newEpicModalDiv').style.display='none';
+}
 	
-	function displayPopup(){
-		  document.getElementById('modalDiv').style.display='block';
+$(document).ready(function() {
+	$("#description").val("");
+});
+</script>
+<script type="text/javascript">
+function createEpic(){
+	console.log("createEpic got called");
+	console.log($("form[name=newEpicForm]").serialize());
+	$.ajax({
+		type: 'post',
+		url: './addEpic',
+		data: $("form[name=newEpicForm]").serialize(),
+		success: function (response) {
+			console.log("Epic creation call completed..... " + response);
+			if(response === "success"){
+				alert("Epic creation Success");
+			}else{
+				alert("Epic creation Failed");
+			}
+		},
+		error : function(data, status, er) {
+			console.log("Error in create new Epic jsm : " + data + " status: " + status + " er:" + er);
+						
 		}
-	function closePopup(){
-		  document.getElementById('modalDiv').style.display='none';
-		}
-	
-    $(document).ready(function() {
-    	displayPopup();
-    	//alert("Create new sprint got called");
-    	$("#projectName").val("<%=projectId%>");
-    	$("#projectManager").val("<%=userId%>");
-    	$("#description").val("");
-    	
-      });
-	
-	</script>
+	});
+	closeNewEpicModal();
+}
+</script>
+<script type="text/javascript">
+
+$("#projectName").change(
+		function() {
+			console.log("projectName change event got called");
+			var projectId= $("#projectName").val();
+			console.log("Project id : " + projectId);
+		
+			
+		});
+</script>
 

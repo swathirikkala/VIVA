@@ -31,7 +31,14 @@
 		projects = new ArrayList<Project>();
 	}
 	List<BusinessValue> bvs = businessValuesDao.getAllBusinessValues();
-	List<Epic> epicsByProjectId = epicDao.getEpicsByProjectId(Integer.valueOf(projectId));
+	int pid = 0;
+	try{
+		pid = Integer.valueOf(projectId);
+	}catch(Exception e){
+		System.err.println("Project id format exception : " + e.getMessage());
+	}
+	
+	List<Epic> epicsByProjectId = epicDao.getEpicsByProjectId(pid);
 	if(null == epicsByProjectId){
 		epicsByProjectId = new ArrayList<Epic>();
 	}
