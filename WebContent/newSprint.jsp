@@ -20,8 +20,8 @@
 %>
 <!DOCTYPE html>
 <html>
-		<div id="modalDiv" class="modal">
-		  <span onclick="javascript:closePopup()" class="close" title="Close Sprint">&times;</span>
+		<div id="newSprintmodalDiv" class="modal">
+		  <span onclick="javascript:closeSprintModal()" class="close" title="Close Sprint">&times;</span>
 			<form id="newSprintForm" name="newSprintForm" class="modal-content">
 		    <div class="container">
 		      <h1 style="color:green">Add Sprint</h1>
@@ -59,7 +59,7 @@
 		      </textarea>
 		      
 		      <div class="clearfix">
-		        <button type="button" onclick="javascript:closePopup()" class="cancelbtn">Cancel</button>
+		        <button type="button" onclick="javascript:closeSprintModal()" class="cancelbtn">Cancel</button>
 		        <button type="button" class="signupbtn" onclick="createSprint()">Save</button>
 		      </div>
 		    </div>
@@ -75,6 +75,44 @@
 	      });
 	
 	</script>
+	
+	<script type="text/javascript">
+		function openSprintModal(){
+			console.log("new Sprint creation open modal got called ....");
+			  document.getElementById('newSprintmodalDiv').style.display='block';
+			}
+		function closeSprintModal(){
+			  document.getElementById('newSprintmodalDiv').style.display='none';
+			}
+	</script>
+
+		<script type="text/javascript">
+			function createSprint() {
+				console.log("createSprint got called");
+				console.log($("form[name=newSprintForm]").serialize());
+	          
+					$.ajax({
+		                type: 'post',
+		                url: './addSprint',
+		                data: $("form[name=newSprintForm]").serialize(),
+		                success: function (response) {
+		                   console.log("Sprint creation call completed..... " + response);
+		                   if(response === "success"){
+		                	   alert("Sprint creation Success");
+		                	   
+		                	   loadPage('projectDiv','projectEdit.jsp')
+		                   }else{
+		                	   alert("Sprint creation Failed");
+		                   }
+		                },
+						error : function(data, status, er) {
+							console.log("Error in create new Sprint jsm : " + data + " status: " + status + " er:" + er);
+						
+						}
+		            });
+					 closePopup();
+			}
+		</script>
 	</html>
 
 

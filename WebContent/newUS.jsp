@@ -17,7 +17,9 @@
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
 	String projectId = String.valueOf(request.getSession().getAttribute("projectId"));
-	
+	if(projectId == null){
+		projectId = "0";
+	}
 	
 	UserDao userDao = new UserDao();
 	ProjectDao projectDao = new ProjectDao();
@@ -29,9 +31,9 @@
 		projects = new ArrayList<Project>();
 	}
 	List<BusinessValue> bvs = businessValuesDao.getAllBusinessValues();
-	List<Epic> epics = epicDao.getEpics(); 
-	if(null == epics){
-		epics = new ArrayList<Epic>();
+	List<Epic> epicsByProjectId = epicDao.getEpicsByProjectId(Integer.valueOf(projectId));
+	if(null == epicsByProjectId){
+		epicsByProjectId = new ArrayList<Epic>();
 	}
 %>
 <!DOCTYPE html>
@@ -44,8 +46,8 @@
 		      <p style="color:red">Please fill in the form to add the User Story</p>
 		      <hr>
 		      
-			   <label for="projectName"><b>Project Name</b></label>
-			   <select id="projectName" name = "projectName" >
+			   <label for="usProjectName"><b>Project Name</b></label>
+			   <select id="usProjectName" name = "usProjectName" >
 		       <option value="" selected="selected">--Select Project--</option>
 		      <%for(Project p : projects){%>
 		      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
@@ -54,10 +56,10 @@
 		      		   
 		      
 		      
-		      <label for="epicName"><b>Epic Name</b></label><label style="color: red;">&nbsp;*</label>
-		      <select id="epicName" name = "epicName" >
+		      <label for="usEpicName"><b>Epic Name</b></label><label style="color: red;">&nbsp;*</label>
+		      <select id="usEpicName" name = "usEpicName" >
 		       <option value="" selected="selected">--Select Epic--</option>
-		      <%for(Epic e : epics){%>
+		      <%for(Epic e : epicsByProjectId){%>
 		      		<option value="<%= e.getId()%>"><%= e.getName()%></option>
 		      <%}%>
 		      </select>
@@ -99,7 +101,7 @@
 	<script type="text/javascript">
     $(document).ready(function() {
     	setTimeout(function(){ 
-    		$("#projectName").val("<%=projectId%>");
+    		$("#usProjectName").val("<%=projectId%>");
         	$("#usDescription").val("");
     	}, 1000);
       });
@@ -139,3 +141,50 @@
 			closeUSPopup();
 	}
 	</script>
+<script type="text/javascript">
+
+$("#usProjectName").change(
+		function() {
+			console.log("usProjectName change event got called");
+			var projectId= $("#usProjectName").val();
+			console.log("Project id : " + projectId);
+			$("#usEpicName").empty();
+			$("#usEpicName").append('<option value="">Loading ....</option>');
+			try {
+				$.ajax({
+					type : 'post',
+					url : './epicSearchByProjectId',
+					data : {projectId:projectId},
+					success : function(response) {
+						var respJSONString = JSON.stringify(response);
+						var jsonObj = JSON.parse(respJSONString);
+						console.log(respJSONString);
+						console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
+						var option='<option value="" selected="selected">--Select Sprint--</option>';
+		                if(jsonObj.responseCode == 1){
+		                	console.log("data found");
+							$("#usEpicName").empty();
+							$("#usEpicName").append(option);
+							$.each(response.responseObject, function (i, epic) {
+								option='<option value="'+epic.id+'">'+epic.name+'</option>';
+//									console.log(option);
+								$("#usEpicName").append(option);
+							});
+							
+		                }else{
+		                	alert("no epics found with this search criteria");
+		                	var option='<option value="" selected="selected">--Select Epic--</option>';
+							$("#usEpicName").empty();
+							$("#usEpicName").append(option);
+		                }
+					},
+					error : function(data, status, er) {
+						console.log("Error in projectName Change event in US creation jsm  : " + data
+								+ " status: " + status + " er:" + er);
+					}
+				});
+			} catch (e) {
+				console.log("Exception in projectName Change event in US creation jsm : " + e);
+			}
+		});
+</script>

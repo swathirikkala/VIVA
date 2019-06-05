@@ -55,19 +55,6 @@
 	</style>
 
 	<script type="text/javascript">
-	$(document).ready(function() {
-		console.log("Project loaded for edit mode");
-    	setTimeout(function(){
-        	console.log("Project Edit Loading");
-    			$("#projectName").val("<%=userStoryForEdit.getProject()%>");
-    			$("#sprintName").val("<%=userStoryForEdit.getSprint()%>");
-    			$("#epicName").val("<%=userStoryForEdit.getEpic()%>");
-    			$("#priority").val("<%=userStoryForEdit.getPrioroty()%>");
-    			$("#status").val("<%=userStoryForEdit.getStatus()%>");
-    		}, 1000);
-  	});
-	</script>
-	<script type="text/javascript">
 		function updateEpic(){
 			
 			console.log("update Project got called");
@@ -187,12 +174,87 @@
 		    		</tr>
 		    	</table>
 		    </div>
-		    
-		    <div style="margin-left: 35%;">
+		    <button onclick="openUSModal()" style="width: auto;">New User Story</button>
+		    <div style="margin-left: 25%;display: inline-flex;">
 			    	<button type="button" class="signupbtn" style="text-align: centre; width:100px;" onclick="updateProject()">Save</button>
 			    	&nbsp;
 			    	<button type="button" onclick="clearUSEditFields();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
 		   	</div>
 		  </form>
+		  <!-- User Story Creation Div started-->
+			<jsp:include page="./newUS.jsp"/>
+		<!-- User Story Creation Div ended -->
 </body>
+<script type="text/javascript">
+	
+
+</script>
+
+	<script type="text/javascript">
+	$(document).ready(function() {
+		console.log("Project loaded for edit mode");
+    	setTimeout(function(){
+        	console.log("Project Edit Loading");
+    			$("#projectName").val("<%=userStoryForEdit.getProject()%>");
+    			$("#sprintName").val("<%=userStoryForEdit.getSprint()%>");
+    			$("#epicName").val("<%=userStoryForEdit.getEpic()%>");
+    			$("#priority").val("<%=userStoryForEdit.getPrioroty()%>");
+    			$("#status").val("<%=userStoryForEdit.getStatus()%>");
+    		}, 1000);
+    	
+    	
+
+    	$("#projectName").change(
+    			function() {
+    				console.log("projectName change event got called");
+    				var projectId= $("#projectName").val();
+    				console.log("Project id : " + projectId);
+    				$("#epicName").empty();
+    				$("#epicName").append('<option value="">Loading ....</option>');
+    				try {
+    					$.ajax({
+    						type : 'post',
+    						url : './epicSearchByProjectId',
+    						data : {projectId:projectId},
+    						success : function(response) {
+    							var respJSONString = JSON.stringify(response);
+    							var jsonObj = JSON.parse(respJSONString);
+    							console.log(respJSONString);
+    							console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
+    							var option='<option value="" selected="selected">--Select Sprint--</option>';
+    			                if(jsonObj.responseCode == 1){
+    			                	console.log("data found");
+    								$("#epicName").empty();
+    								$("#epicName").append(option);
+    								$.each(response.responseObject, function (i, epic) {
+    									option='<option value="'+epic.id+'">'+epic.name+'</option>';
+//    										console.log(option);
+    									$("#epicName").append(option);
+    								});
+    								
+    			                }else{
+    			                	alert("no epics found with this search criteria");
+    			                	var option='<option value="" selected="selected">--Select Epic--</option>';
+    								$("#epicName").empty();
+    								$("#epicName").append(option);
+    			                }
+    						},
+    						error : function(data, status, er) {
+    							console.log("Error in projectName Change event in US edit jsm  : " + data
+    									+ " status: " + status + " er:" + er);
+    						}
+    					});
+    				} catch (e) {
+    					console.log("Exception in projectName Change event in US edit jsm : " + e);
+    				}
+    			});
+    	
+    	
+    	
+    	
+    	
+  	});//document ready close
+	
+	
+	</script>
 </html>

@@ -76,39 +76,6 @@
 			}
 		</style>
 		<script type="text/javascript">
-			function openModal(){
-				console.log("new Sprint open modal got called");
-				displayPopup();
-			}
-		</script>
-		<script type="text/javascript">
-			function createSprint() {
-				console.log("createSprint got called");
-				console.log($("form[name=newSprintForm]").serialize());
-	          
-					$.ajax({
-		                type: 'post',
-		                url: './addSprint',
-		                data: $("form[name=newSprintForm]").serialize(),
-		                success: function (response) {
-		                   console.log("Sprint creation call completed..... " + response);
-		                   if(response === "success"){
-		                	   alert("Sprint creation Success");
-		                	   
-		                	   loadPage('projectDiv','projectEdit.jsp')
-		                   }else{
-		                	   alert("Sprint creation Failed");
-		                   }
-		                },
-						error : function(data, status, er) {
-							console.log("Error in create new Sprint jsm : " + data + " status: " + status + " er:" + er);
-						
-						}
-		            });
-					 closePopup();
-			}
-		</script>
-		<script type="text/javascript">
 		function loadSprint(sprintId) {
 			console.log("loadSprint got called");
 				$.ajax({
@@ -134,7 +101,7 @@
 	</head>
 	<body>
 		<p>
-			<button onclick="openModal()" style="width: auto;">Create New Sprint</button>
+			<button onclick="openSprintModal()" style="width: auto;">Create New Sprint</button>
 		</p>
 
 		<!-- Projects Table -->
@@ -173,14 +140,5 @@
 		<!-- Sprint Creation Div -->
 			<%@include file="./newSprint.jsp" %>
 		<!-- Sprint Creation Div ended -->
-		<script type="text/javascript">
-		function displayPopup(){
-			  document.getElementById('modalDiv').style.display='block';
-			}
-		function closePopup(){
-			  document.getElementById('modalDiv').style.display='none';
-			}
-		
 
-		</script>
 	</body>
