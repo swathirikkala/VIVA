@@ -37,6 +37,8 @@
     <a href="#" onclick="loadPage('commonDiv','./epicHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Epics</a>
     <a href="#" onclick="loadPage('commonDiv','./usHome.jsp');" class="w3-bar-item w3-button w3-hover-white">User Stories</a>
     <a href="#" onclick="loadPage('commonDiv','./dashBoard.jsp');" class="w3-bar-item w3-button w3-hover-white">Dash Board</a>
+    <a href="#" onclick="loadPage('commonDiv','./newBV.jsp');" class="w3-bar-item w3-button w3-hover-white">Business Values</a>
+    
     <a href="./index.jsp" class="w3-bar-item w3-button w3-hover-white">Logout</a>
   </div>
 </nav>

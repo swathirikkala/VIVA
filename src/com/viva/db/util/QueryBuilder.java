@@ -4,6 +4,7 @@ package com.viva.db.util;
 import java.sql.PreparedStatement;
 import java.sql.SQLException;
 
+import com.viva.dto.BusinessValue;
 import com.viva.dto.Department;
 import com.viva.dto.Epic;
 import com.viva.dto.History;
@@ -256,6 +257,35 @@ public class QueryBuilder {
 			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
 			prepareStatement.setInt(1, epicId);
 			System.out.println("getEpicByIdPs Query : " + prepareStatement.toString());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prepareStatement;
+		
+	}
+
+	public static PreparedStatement getCheckBvExist(String bvName) {
+		String query = "select * from bv where name=?";
+		PreparedStatement prepareStatement =null;
+		try {
+			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
+			prepareStatement.setString(1,bvName.trim());
+			
+			System.out.println("getCheckBvExist Query : " + prepareStatement.toString());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prepareStatement;
+		
+	}
+	public static PreparedStatement getAddBVQuery(BusinessValue bv) {
+		String query = "insert into bv (name,description) values (?,?)";
+		PreparedStatement prepareStatement =null;
+		try {
+			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
+			prepareStatement.setString(1, bv.getName());
+			prepareStatement.setString(2, bv.getDescription());
+			System.out.println("getAddBVQuery Query : " + prepareStatement.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

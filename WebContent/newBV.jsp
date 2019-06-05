@@ -63,7 +63,7 @@
 		</style>
 </head>
 <body>
-	<button onclick="openBVModal();" style="width:auto;">Create New Business Value</button>
+	<button onclick="openBVModal();" style="width:auto;">New Business Value</button>
 	<div id="newBvModalDiv" class="modal">
 		  <span onclick="javascript:closeBVModal()" class="close" title="Close Sprint">&times;</span>
 			<form id="newBVForm" name="newBVForm" class="modal-content">
@@ -104,9 +104,12 @@
 	                success: function (response) {
 	                   console.log("new BV creation call completed..... " + response);
 	                   if(response === "success"){
-	                	   alert("BV creation Success");
+	                	   alert($("#businessValueName").val() + " creation Success");
+	                	   loadPage('commonDiv','./newBV.jsp');
+	                   }else if(response === "exist"){
+	                	   alert($("#businessValueName").val() + " Already Exist");
 	                   }else{
-	                	   alert("BV creation Failed");
+	                	   alert($("#businessValueName").val() + " creation Failed");
 	                   }
 	                },
 					error : function(data, status, er) {
@@ -118,10 +121,12 @@
 		}
 		
 		function closeBVModal(){
-			  document.getElementById('newBvModalDiv').style.display='none';
+	    	$("#businessValueDescription").val("");
+			document.getElementById('newBvModalDiv').style.display='none';
 		}
 		function openBVModal(){
 			  document.getElementById('newBvModalDiv').style.display='block';
+			  clearBVForm();
 		}
 		function clearBVForm(){
 			$("#businessValueName").val("");
@@ -130,7 +135,7 @@
 	</script>
 	<!-- BV Table -->
 			<div class="limiter">
-				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:500px; min-height:0px; overflow-x: none;">
+				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:630px; min-height:0px; overflow-x: none;">
 					<table data-vertable="ver2">
 						<thead>
 							<tr class="row100 head">

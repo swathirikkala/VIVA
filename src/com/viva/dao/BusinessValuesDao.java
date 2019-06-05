@@ -6,10 +6,10 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
-import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
 import com.viva.dto.BusinessValue;
 import com.viva.dto.History;
+import com.viva.util.Constants;
 import com.viva.util.DateUtil;
 
 public class BusinessValuesDao {
@@ -18,10 +18,31 @@ public class BusinessValuesDao {
 	HistoryDao historyDao = new HistoryDao();
 	History history = new History();
 
+	private boolean checkBvExist(String bvName) {
+		PreparedStatement ps = QueryBuilder.getCheckBvExist(bvName);
+		try {
+			ResultSet rs = ps.executeQuery();
+			if(rs!=null && rs.next()) {
+				return true;
+			}
+		} catch (SQLException e) {
+			System.err.println("checkBvExist exception : " + e.getMessage());
+		}
+		return false;
+	}
 	public String addBusinessValue(BusinessValue businessValue ) {
 		String response = "fail";
-		String query = "insert into business_values values ('" + businessValue.getName() + "','"+ businessValue.getDescription()+ "')";
-		int saveDBResponse = DBConnectionUtil.insert(query);
+		if(checkBvExist(businessValue.getName())) {
+			return Constants.RECORD_EXIST;
+		}
+		PreparedStatement preparedStatement = QueryBuilder.getAddBVQuery(businessValue);
+		
+		int saveDBResponse = 0;
+		try {
+			saveDBResponse = preparedStatement.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("addBusinessValue : Exception : " + e.getMessage());
+		}
 		history.setJobId(saveDBResponse);
 		history.setJobType("ab");
 		history.sethDate(DateUtil.getSqlDate());
