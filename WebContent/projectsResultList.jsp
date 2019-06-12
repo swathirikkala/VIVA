@@ -72,7 +72,7 @@
 	                success: function (response) {
 	                   console.log("Project Loading completed..... " + response);
 	                   if(response === "success"){
-	                	   loadPage('projectDiv','projectEdit.jsp');
+	                	   loadPage('commonDiv','projectEditHome.jsp');
 	                   }else{
 	                	   console.log("No Data Found with search criteria");
 	                   }

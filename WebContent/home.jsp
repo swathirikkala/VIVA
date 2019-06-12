@@ -100,6 +100,7 @@ function loadPage(diveName,pageName) {
 	$("#commonDiv").hide();
 	$("#projectSearchDiv").hide();
 	$("#"+diveName).show();
+	$("#"+diveName).empty();
 	$("#"+diveName).load(pageName);
 	if(diveName === "homeDiv"){
 		$("#projectSearchDiv").show();
