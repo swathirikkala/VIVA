@@ -48,7 +48,7 @@
 							var jsonObj = JSON.parse(respJSONString);
 							console.log(respJSONString);
 							console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
-							var option='<option value="" selected="selected">--Select Sprint--</option>';
+							var option='<option value="" selected="selected">--Select Epic--</option>';
 			                if(jsonObj.responseCode == 1){
 			                	console.log("data found");
 								$("#epicSearchEpicName").empty();

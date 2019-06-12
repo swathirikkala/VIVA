@@ -85,7 +85,7 @@
 	                success: function (response) {
 	                   console.log("Sprint load call completed..... " + response);
 	                   if(response === "success"){
-	                	   loadPage('sprintEditDiv','sprintHome.jsp');
+	                	   loadPage('commonDiv','sprintHome.jsp');
 	                	   console.log("loadSprint loading Success");
 	                	   
 	                   }else{

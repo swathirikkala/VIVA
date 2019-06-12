@@ -59,7 +59,7 @@
 		      <p style="color:red">Please fill in the form to add the Epic</p>
 		      <hr>
 		      
-			   <label for="projectName"><b>Project Name</b></label>
+			   <label for="projectName"><b>Project Name</b></label><label style="color: red;">&nbsp;*</label>
 			   <select id="projectName" name = "projectName" >
 		       <option value="" selected="selected">--Select Project--</option>
 		      <%for(Project p : projects){%>
@@ -70,7 +70,7 @@
 		      <label for="epicName"><b>Epic Name</b></label><label style="color: red;">&nbsp;*</label>
 		      <input type="text" name="epicName" id="epicName" required="required" placeholder="Epic Name">
 		      		      
-			   <label for="severity"><b>Epic Priority</b></label><label style="color: red;">&nbsp;*</label>
+			   <label for="severity"><b>Epic Priority</b></label>
 			     <select id="epicPriority" name = "epicPriority" required>
 			      	<option value="0">--Select--</option>
 		      		<%for(String p:LookUp.getPriorities()){ %>
@@ -78,7 +78,7 @@
 			      	<%} %>
 		     	 </select>
 			   
-			   <label for="epicBusinessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
+			   <label for="epicBusinessValues"><b>Business Values</b></label>
 		       <select id="epicBusinessValues" name = "epicBusinessValues" required class="test" multiple="multiple">
 			      		<option value="" disabled="disabled">--Select--</option>
 			      <%for(BusinessValue bv : LookUp.getBusinessValues()){%>

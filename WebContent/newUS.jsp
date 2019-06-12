@@ -44,6 +44,13 @@
 	}
 %>
 <!DOCTYPE html>
+<html>
+	<head>
+		<link href="./css/fSelect.css" rel="stylesheet">
+		<script src="./js/jquery-3.4.0.min.js"></script>
+		<script src="./js/fSelect.js"></script>
+	</head>
+	<body>
 <!-- User story Creation Div start-->
 		<div id="usModalDiv" class="modal">
 		  <span onclick="javascript:closeUSPopup()" class="close" title="Close Sprint">&times;</span>
@@ -86,11 +93,12 @@
 		     	 
 			   
 			   <label for="businessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
-		       <select id="businessValues" name = "businessValues" multiple="multiple">
+		       <select id="businessValues" name = "businessValues" multiple="multiple" class="test" multiple="multiple">
 		       <option value="0">--Select--</option>
-		     		<%for(BusinessValue bv : bvs){ %>
-		     			<option value="<%=bv.getId()%>"><%=bv.getName() %></option>
-		     		<%} %>
+		     		<option value="" disabled="disabled">--Select--</option>
+			      <%for(BusinessValue bv : LookUp.getBusinessValues()){%>
+			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option>
+			      <%}%>
 		      </select>
 
 		      <label for="description"><b>User Story Description</b></label><label style="color: red;">&nbsp;*</label>
@@ -199,3 +207,5 @@ $("#usProjectName").change(
 			}
 		});
 </script>
+</body>
+</html>
