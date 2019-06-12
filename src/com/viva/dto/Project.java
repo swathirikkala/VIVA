@@ -63,6 +63,9 @@ public class Project {
 	}
 
 	public String getStartDate() {
+		if("2000-01-01".equalsIgnoreCase(this.startDate)) {
+			return "";
+		}
 		return startDate;
 	}
 
@@ -71,6 +74,9 @@ public class Project {
 	}
 
 	public String getEndDate() {
+		if("2000-01-01".equalsIgnoreCase(this.endDate)) {
+			return "";
+		}
 		return endDate;
 	}
 
