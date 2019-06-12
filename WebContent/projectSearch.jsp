@@ -5,10 +5,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
-    	List<Project> allProjects = (List<Project>)request.getSession().getAttribute("allProjects");
-	    if(null == allProjects){
-	    	allProjects = new ArrayList<>();
-	    }
 		String userName = String.valueOf(request.getSession().getAttribute("userName"));
 	    if(userName == null){
 	    	userName = "";
@@ -54,7 +50,7 @@
 		    			<td class="cellClass">
 		    				<select id="projectId" name = "projectId" class="">
 						      <option value="0">--Select--</option>
-						      <%for(Project p : allProjects){%>
+						      <%for(Project p : LookUp.getAllProjectByTeam()){%>
 						      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
 						      <%}%>
 						     </select>

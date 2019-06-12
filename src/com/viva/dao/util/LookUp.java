@@ -5,6 +5,7 @@ import java.util.List;
 import java.util.Map;
 
 import com.viva.dao.BusinessValuesDao;
+import com.viva.dao.ProjectDao;
 import com.viva.dao.UserDao;
 import com.viva.dto.BusinessValue;
 import com.viva.dto.Project;
@@ -13,6 +14,7 @@ import com.viva.dto.User;
 public class LookUp {
 
 	private static UserDao userDao = new UserDao();
+	private static ProjectDao projectDao = new ProjectDao();
 	private static BusinessValuesDao businessValuesDao = new BusinessValuesDao();
 	public static String getUserName(String userId ,Map<String, User> allUsers ) {
 		String userName ="";
@@ -74,5 +76,12 @@ public class LookUp {
 			bvs = new ArrayList<BusinessValue>();
 		}
 		return bvs;
+	}
+	public static List<Project> getAllProjectByTeam(){
+		List<Project> projects = projectDao.getProjects();
+		if(projects == null) {
+			projects = new ArrayList<Project>();
+		}
+		return projects;
 	}
 }
