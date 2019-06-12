@@ -64,6 +64,12 @@ public class ProjectDao {
 
 	public String updateProject(Project project) {
 		String response = "fail";
+		if("".equals(project.getStartDate())) {
+			project.setStartDate("2000-01-01");
+		}
+		if("".equals(project.getEndDate())) {
+			project.setEndDate("2000-01-01");
+		}
 		String query = QueryBuilder.getUpdateProjectQuery(project);
 		int insertResponse = DBConnectionUtil.insert(query);
 		if (insertResponse > 0) {
