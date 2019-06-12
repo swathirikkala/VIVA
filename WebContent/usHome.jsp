@@ -1,3 +1,9 @@
+<%
+	String userName = String.valueOf(request.getSession().getAttribute("userName"));
+	if(userName == null){
+		userName = "";
+	}
+%>
 <html>
 <head>
 <style type="text/css">
@@ -6,6 +12,14 @@
 			padding-right: 10px;
 		}
 </style>
+<script type="text/javascript">
+	$(document).ready(function() {
+		if("" === <%=userName%>){
+			alert("Session expired please login again.");
+			window.location="./index.jsp";
+		}
+	});
+</script>
 </head>
 <body>
 	<div id="userStorySearchDiv">

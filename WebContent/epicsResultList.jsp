@@ -170,7 +170,7 @@
 		    				<label>VIVA%</label>
 		    			</th>
 		    			<td>
-		    				<input type="text" name="sprintViva" id="sprintViva" disabled="disabled" value="">
+		    				<input type="text" name="sprintViva" id="sprintViva" readonly="readonly" value="">
 		    			</td>
 		    		
 		    			<th class="cellClass">

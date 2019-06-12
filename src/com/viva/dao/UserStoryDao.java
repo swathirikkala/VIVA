@@ -10,6 +10,7 @@ import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
 import com.viva.dto.History;
 import com.viva.dto.UserStory;
+import com.viva.util.Constants;
 import com.viva.util.DateUtil;
 
 public class UserStoryDao {
@@ -18,17 +19,23 @@ public class UserStoryDao {
 	History history = new History();
 
 	public String addUserStory(UserStory userStory) {
-		String response = "fail";
-		int addUSerStoryResponse = DBConnectionUtil.insert(QueryBuilder.getAddUserStoryQuery(userStory));
+		String response = Constants.FAIL;
+		PreparedStatement ps = QueryBuilder.getAddUserStoryQuery(userStory);
+		int addUSerStoryResponse =0;
+		try {
+			addUSerStoryResponse = ps.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("addUserStory :  exception : " + e.getMessage());
+		}
 		if (addUSerStoryResponse > 0) {
-			response = "success";
+			response = Constants.SUCCESS;
 			history.sethDate(DateUtil.getSqlDate());
 			history.setJobId(addUSerStoryResponse);
 			history.setJobType("us");
 			history.setComment("new User story created");
 			history.setOwner(userStory.getLmb());
 		} else if (addUSerStoryResponse < 0) {
-			response = "exception";
+			response = Constants.ERROR;
 		}
 		return response;
 	}

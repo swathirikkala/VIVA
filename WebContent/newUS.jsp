@@ -86,7 +86,7 @@
 		     	 
 			   
 			   <label for="businessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
-		       <select id="businessValues" name = "businessValues">
+		       <select id="businessValues" name = "businessValues" multiple="multiple">
 		       <option value="0">--Select--</option>
 		     		<%for(BusinessValue bv : bvs){ %>
 		     			<option value="<%=bv.getId()%>"><%=bv.getName() %></option>
@@ -111,11 +111,19 @@
 	<script type="text/javascript">
 function openUSModal(){
 	console.log("openUSModal got called");
+	clearUSForm();
 	document.getElementById('usModalDiv').style.display='block';
 }
 function closeUSPopup(){
 	console.log("closeUSPopup got called");
 	document.getElementById('usModalDiv').style.display='none';
+}
+function clearUSForm(){
+	$("#usDescription").val("");
+	$("#businessValues").val("0");
+	$("#usPriority").val("0");
+	$("#usDescription").val("");
+	$("#usEpicName").val("");
 }
 	</script>
 	<script type="text/javascript">

@@ -28,12 +28,19 @@
 	</style> 
 	<script src="./js/jquery-3.4.0.min.js"></script>
   	<script src="./js/project.js"></script>
-
+  	<script type="text/javascript">
+		$(document).ready(function() {
+			if("" === <%=userName%>){
+				alert("Session expired please login again.");
+				window.location="./index.jsp";
+			}
+		});
+	</script>
 </head>
 <body style="margin-top: 5%">
 		<label class="w3-xxxlarge w3-text-red"><b>Project</b></label>
 		<label class="w3-xxxlarge" style="color: green;margin-left: 55%;">Welcome </label>
-		<label class="w3-xxxlarge" style="color: blue;"><%=userName %></label>
+		<label class="w3-xxxlarge" style="color: blue;"><%=userName%></label>
 		<hr>
 		<form method="post" name="projectSearchForm" id="projectSearchForm">
 		    <div class="divClass">

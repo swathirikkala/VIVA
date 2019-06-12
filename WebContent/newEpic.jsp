@@ -39,6 +39,16 @@
 	}
 %>
 <!DOCTYPE html>
+<link href="./css/fSelect.css" rel="stylesheet">
+<script src="./js/jquery-3.4.0.min.js"></script>
+<script src="./js/fSelect.js"></script>
+<script>
+	(function($) {
+	    $(function() {
+	        window.fs_test = $('.test').fSelect();
+	    });
+	})(jQuery);
+</script>
 		<!-- Epic Creation Div -->
 		<div id="newEpicModalDiv" class="modal">
 		  <span onclick="javascript:closeNewEpicModal()" class="close" title="Close Sprint">&times;</span>
@@ -69,9 +79,10 @@
 		     	 </select>
 			   
 			   <label for="epicBusinessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
-		       <select id="epicBusinessValues" name = "epicBusinessValues" required>
-			      <%for(Sprint s : sprintsByProjectId){%>
-			      		<option value="<%= s.getSprintId()%>"><%= s.getSprintName()%></option>
+		       <select id="epicBusinessValues" name = "epicBusinessValues" required class="test" multiple="multiple">
+			      		<option value="" disabled="disabled">--Select--</option>
+			      <%for(BusinessValue bv : LookUp.getBusinessValues()){%>
+			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option>
 			      <%}%>
 		      </select>
 

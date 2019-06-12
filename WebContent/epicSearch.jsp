@@ -110,7 +110,7 @@
 		    	<table>
 		    		<tr>
 		    			<td>
-		    				<button type="button" onclick="newSprint()" class="signupbtn" 
+		    				<button type="button" onclick="openNewEpicModal()" class="signupbtn" 
 		    				style="text-align: centre; width:150px; margin-top: -10px;">New Epic </button>
 		    			</td>
 		    			<th class="cellClass" style="width: 80px;">
@@ -147,10 +147,7 @@
 		    </div>
 		  </form>
 		  <hr>
-	
-		<!-- Sprint Creation Div -->
-			<jsp:include page="newSprint.jsp" /> 
-		<!-- Sprint Creation Div ended -->
+
 </body>
 <script type="text/javascript">
 	$(document).ready(function() {

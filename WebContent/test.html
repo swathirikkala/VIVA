@@ -1,0 +1,30 @@
+<html>
+<head>
+<title>fSelect Test</title>
+<link href="./css/fSelect.css" rel="stylesheet">
+<script src="./js/jquery-3.4.0.min.js"></script>
+<!-- <script src="https://cdnjs.cloudflare.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script> -->
+<script src="./js/fSelect.js"></script>
+<script>
+(function($) {
+    $(function() {
+        window.fs_test = $('.test').fSelect();
+    });
+})(jQuery);
+</script>
+</head>
+<body>
+    <select class="test" multiple="multiple">
+            <option value="1">Option 1</option>
+            <option value="2" selected>Option 2</option>
+            <option value="3">Option 3</option>
+            <option value="4">Manège</option>
+            <option value="5">Bête</option>
+   
+            <option value="6">Option 6</option>
+            <option value="7">Option 7</option>
+            <option value="8">Option 8</option>
+            <option value="9">Mécanique</option>
+    </select>
+</body>
+</html>

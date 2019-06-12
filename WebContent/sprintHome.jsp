@@ -147,10 +147,13 @@
 		<!-- Sprint Creation Div -->
 			<%@include file="./newSprint.jsp" %>
 		<!-- Sprint Creation Div ended -->
-<script type="text/javascript">
-	$(document).ready(function() {
-		
-	});
+  	<script type="text/javascript">
+		$(document).ready(function() {
+			if("" === <%=userName%>){
+				alert("Session expired please login again.");
+				window.location="./index.jsp";
+			}
+		});
 	function displayPopup(){
 		  document.getElementById('modalDiv').style.display='block';
 		}

@@ -96,9 +96,24 @@ public class QueryBuilder {
 		return query;
 	}
 
-	public static String getAddUserStoryQuery(UserStory us) {
-		String query = "";
-		return query;
+	public static PreparedStatement getAddUserStoryQuery(UserStory us) {
+		String query = "insert into user_story (project,epic,name,priority,description,lmb,lmd,created_by) values (?,?,?,?,?,?,?,?)";
+		PreparedStatement ps =null;
+		try {
+			ps = DBConnectionUtil.getconnection().prepareStatement(query);
+			ps.setInt(1, us.getProject());
+			ps.setInt(2, us.getEpic());
+			ps.setString(3, us.getName());
+			ps.setInt(4, us.getPrioroty());
+			ps.setString(5, us.getDescription());
+			ps.setString(6, us.getLmb());
+			ps.setString(7, us.getLmd());
+			ps.setString(8, us.getCreatedBy());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("getAddUserStoryQuery : " + ps.toString());
+		return ps;
 	}
 
 	public static String getAllUserStoriesQuery() {
