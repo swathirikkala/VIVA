@@ -147,7 +147,7 @@
 		    </div>
 		  </form>
 		  <hr>
-
+	
 </body>
 <script type="text/javascript">
 	$(document).ready(function() {

@@ -15,6 +15,20 @@ public class Sprint {
 	private String lastModifiedDateTime;
 	private String status;
 	private int viva;
+	
+	
+	public Sprint() {
+		this.sprintName="";
+		this.managerId="";
+		this.startDate="";
+		this.endDate="";
+		this.createdBy="";
+		this.description="";
+		this.lastModifiedBy="";
+		this.lastModifiedDateTime="";
+		this.status="0";
+		this.projectId=0;
+	}
 	public int getSprintId() {
 		return sprintId;
 	}

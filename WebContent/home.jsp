@@ -33,7 +33,7 @@
   </div>
   <div class="w3-bar-block">
     <a href="#" onclick="loadPage('homeDiv','projectHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Home</a>
-    <a href="#" onclick="loadPage('sprintEditDiv','sprintHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Sprints</a>
+    <a href="#" onclick="loadPage('commonDiv','sprintHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Sprints</a>
     <a href="#" onclick="loadPage('commonDiv','./epicHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Epics</a>
     <a href="#" onclick="loadPage('commonDiv','./usHome.jsp');" class="w3-bar-item w3-button w3-hover-white">User Stories</a>
     <a href="#" onclick="loadPage('commonDiv','./dashBoard.jsp');" class="w3-bar-item w3-button w3-hover-white">Dash Board</a>
@@ -71,16 +71,6 @@
 	<div class="w3-container" id="projectDiv" style="margin-top:5px">
 		
 	</div>
-	<!-- Sprint Board -->
-	<div class="w3-container" id="sprintDiv" style="margin-top:5px">
-		
-	</div>
-	<div class="w3-container" id="sprintEditDiv" style="margin-top:5px">
-		
-	</div>
-	<div class="w3-container" id="epicsDiv" style="margin-top:5px">
-		
-	</div>
 	<!-- commonDiv Board -->
 	<br>
 	<div class="w3-container" id="commonDiv" style="margin-top:5px">
@@ -107,23 +97,13 @@ function w3_close() {
 function loadPage(diveName,pageName) {
 	console.log("load page method called : " + diveName + " : " + pageName);
 	$("#homeDiv").hide();
-	$("#projectDiv").hide();
-	$("#sprintDiv").hide();
 	$("#commonDiv").hide();
 	$("#projectSearchDiv").hide();
-	$("#sprintEditDiv").hide();
-	$("#epicsDiv").hide();
-	$("#"+diveName).show()
+	$("#"+diveName).show();
 	$("#"+diveName).load(pageName);
 	if(diveName === "homeDiv"){
 		$("#projectSearchDiv").show();
 		$("#projectSearchDiv").load("projectSearch.jsp");
-	}else if(diveName === "projectDiv" ){
-		$("#sprintDiv").show();
-		$("#sprintDiv").load("sprintsResultList.jsp");
-	}else if("sprintEditDiv" === diveName){
-		$("#epicsDiv").show();
-		$("#epicsDiv").load("./epicsResultList.jsp");
 	}
 }
 

@@ -111,7 +111,8 @@
 	<script type="text/javascript">
 function openUSModal(){
 	console.log("openUSModal got called");
-	clearUSForm();
+	//clearUSForm();
+	closeUSPopup();
 	document.getElementById('usModalDiv').style.display='block';
 }
 function closeUSPopup(){

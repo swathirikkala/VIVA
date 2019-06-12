@@ -19,7 +19,23 @@
 	}
 %>
 <!DOCTYPE html>
+
 <html>
+	<head>
+		<script type="text/javascript">
+				function openSprintModal(){
+					alert("openSprintModal()");
+					  closePopup();
+					  console.log("openSprintModal() got called");
+					  document.getElementById('newSprintmodalDiv').style.display='block';
+					}
+				function closeSprintModal(){
+					  console.log("closeSprintModal() got called");
+					  document.getElementById('newSprintmodalDiv').style.display='none';
+					}
+		</script>
+	</head>
+	<body>
 		<div id="newSprintmodalDiv" class="modal">
 		  <span onclick="javascript:closeSprintModal()" class="close" title="Close Sprint">&times;</span>
 			<form id="newSprintForm" name="newSprintForm" class="modal-content">
@@ -113,6 +129,7 @@
 					 closePopup();
 			}
 		</script>
+		</body>
 	</html>
 
 

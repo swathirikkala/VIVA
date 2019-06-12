@@ -30,7 +30,8 @@
   	<script src="./js/project.js"></script>
   	<script type="text/javascript">
 		$(document).ready(function() {
-			if("" === <%=userName%>){
+			var uname = '<%=userName%>';
+			if('' === uname){
 				alert("Session expired please login again.");
 				window.location="./index.jsp";
 			}

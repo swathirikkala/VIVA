@@ -14,7 +14,8 @@
 </style>
 <script type="text/javascript">
 	$(document).ready(function() {
-		if("" === <%=userName%>){
+		var uname = '<%=userName%>';
+		if('' === uname){
 			alert("Session expired please login again.");
 			window.location="./index.jsp";
 		}
@@ -22,6 +23,11 @@
 </script>
 </head>
 <body>
+
+	<!-- User Story Creation Div started-->
+	<jsp:include page="./newUS.jsp"/>
+	<!-- User Story Creation Div ended -->
+		
 	<div id="userStorySearchDiv">
 		<jsp:include page="usSearch.jsp" /> 
 	</div>
