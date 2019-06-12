@@ -82,7 +82,11 @@
 					success : function(response) {
 						console.log("searchSprint result : " + response);
 						if(response === "success"){
-							loadPage('commonDiv','sprintHome.jsp');				
+							//loadPage('commonDiv','sprintHome.jsp');
+							$("#sprintEditDiv").empty();
+							$("#sprintEditDiv").load('./sprintEdit.jsp');
+							$("#sprintUserStoriesDiv").empty();
+							$("#sprintUserStoriesDiv").load('./usResult.jsp');
 						}else{
 							alert("Sprint not found");
 						}

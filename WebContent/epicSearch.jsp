@@ -91,7 +91,11 @@
 				success : function(response) {
 					console.log("loadEpicForEdit completed..... " + response);
 					if (response === "success") {
-						loadPage('commonDiv','./epicHome.jsp')
+						//loadPage('commonDiv','./epicHome.jsp');
+						$("#epicEditDiv").empty();
+						$("#epicUSsDiv").empty();
+						$("#epicEditDiv").load('./editEpic.jsp');
+						$("#epicUSsDiv").load('./usResult.jsp');
 					} else {
 						console.log("No Data Found with search criteria");
 					}
