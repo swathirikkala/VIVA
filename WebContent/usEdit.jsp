@@ -145,7 +145,7 @@
 		    				<label>Business Value %</label>
 		    			</th>
 		    			<td>
-		    				<input type="text" name="viva" id="viva" disabled="disabled" value="<%=userStoryForEdit.getViva()%>">
+		    				<input type="text" name="viva" id="viva" readonly="readonly" value="<%=userStoryForEdit.getViva()%>">
 		    			</td>
 		    			<th>
 		    				<label>Status</label>

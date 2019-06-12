@@ -26,6 +26,10 @@ public class UserStory {
 		this.description="";
 		this.lmb="";
 		this.lmd="";
+		this.project=0;
+		this.sprint=0;
+		this.epic=0;
+		this.prioroty=0;
 	}
 	public int getId() {
 		return id;
