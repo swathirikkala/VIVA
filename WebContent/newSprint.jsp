@@ -115,8 +115,7 @@
 		                   console.log("Sprint creation call completed..... " + response);
 		                   if(response === "success"){
 		                	   alert("Sprint creation Success");
-		                	   
-		                	   loadPage('projectDiv','projectEdit.jsp')
+		                	   //loadPage('commonDiv','projectEditHome.jsp');
 		                   }else{
 		                	   alert("Sprint creation Failed");
 		                   }
