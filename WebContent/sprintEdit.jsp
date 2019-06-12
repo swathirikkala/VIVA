@@ -181,6 +181,8 @@
 		    			<td>
 		    				<input type="text" name="sprintViva" id="sprintViva" readonly="readonly" value="">
 		    			</td>
+		    			<th></th><td></td>
+		    			<th></th><td></td>
 		    		</tr>
 		    		<tr>
 		    			<th>
