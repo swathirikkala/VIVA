@@ -115,7 +115,7 @@
 	</head>
 	<body>
 		<p>
-			<button onclick="openUSModal()" style="width: auto;">Create New User Story</button>
+			<button onclick="openUSModal()" style="width: auto;">Add User Story</button>
 		</p>
 
 		<!-- User Story Table -->
