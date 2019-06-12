@@ -34,6 +34,6 @@ $(document).ready(function() {
 <div id="sprintEditDiv" style="margin-top: 0px;">
 	<jsp:include page="./sprintEdit.jsp" />
 </div>
-<div id="sprintEpicsDiv" style="margin-top: 50px;">
-	<jsp:include page="./epicsResultList.jsp" /> 
+<div id="sprintUserStoriesDiv" style="margin-top: 50px;">
+	<jsp:include page="./usResult.jsp" /> 
 </div>

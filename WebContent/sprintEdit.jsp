@@ -63,7 +63,12 @@
 
 <html>
 	<head>
-	
+	<style type="text/css">
+	.cellClass{
+			width: 200px;
+			padding-right: 10px;
+		}
+	</style>
 	<script type="text/javascript">
 		    $(document).ready(function() {
 		    	$("#editSprintProjectName").val("<%=sprint.getProjectId()%>");
@@ -126,15 +131,13 @@
 		    			<th>
 		    				<label>Sprint</label>
 		    			</th>
-		    			<td>
-		    				<td class="cellClass">
+		    			<td class="cellClass">
 		    				   <select id="editSprintName" name = "editSprintName" >
 						       <option value="0" selected="selected">--Select Sprint--</option>
 						      <%for(Sprint s : sprintsByProjectId){%>
 						      		<option value="<%= s.getSprintId()%>"><%= s.getSprintName()%></option>
 						      <%}%>
 						      </select>
-		    			</td>
 		    			</td>
 		    		
 		    			<th class="cellClass">
@@ -174,7 +177,8 @@
 					    	<input type="date" placeholder="Sprint End Date" name="sprintEditEndDate" id="sprintEditEndDate"  class="">
 		    			</td>
 		    	
-		    		</tr><tr>
+		    		</tr>
+		    		<tr>
 		    			<th>
 		    				<label>VIVA%</label>
 		    			</th>
