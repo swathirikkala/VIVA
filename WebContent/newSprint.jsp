@@ -125,7 +125,7 @@
 						
 						}
 		            });
-					 closePopup();
+					closeSprintModal();
 			}
 		</script>
 		</body>

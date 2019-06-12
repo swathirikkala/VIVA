@@ -75,7 +75,7 @@
 		    	$("#editSprintPriority").val("<%=sprint.getSeverity()%>");
 		    	$("#editSprintStatus").val("<%=sprint.getStatus()%>");
 		    	$("#sprintViva").val("<%=sprint.getViva()%>");
-		    	
+		    	$("#editSprintName").val("<%=sprint.getSprintId()%>");
 		      });
 	
 	</script>
@@ -124,10 +124,17 @@
 						      </select>
 		    			</td>
 		    			<th>
-		    				<label>VIVA%</label>
+		    				<label>Sprint</label>
 		    			</th>
 		    			<td>
-		    				<input type="text" name="sprintViva" id="sprintViva" readonly="readonly" value="">
+		    				<td class="cellClass">
+		    				   <select id="editSprintName" name = "editSprintName" >
+						       <option value="0" selected="selected">--Select Sprint--</option>
+						      <%for(Sprint s : sprintsByProjectId){%>
+						      		<option value="<%= s.getSprintId()%>"><%= s.getSprintName()%></option>
+						      <%}%>
+						      </select>
+		    			</td>
 		    			</td>
 		    		
 		    			<th class="cellClass">
@@ -167,6 +174,13 @@
 					    	<input type="date" placeholder="Sprint End Date" name="sprintEditEndDate" id="sprintEditEndDate"  class="">
 		    			</td>
 		    	
+		    		</tr><tr>
+		    			<th>
+		    				<label>VIVA%</label>
+		    			</th>
+		    			<td>
+		    				<input type="text" name="sprintViva" id="sprintViva" readonly="readonly" value="">
+		    			</td>
 		    		</tr>
 		    		<tr>
 		    			<th>
