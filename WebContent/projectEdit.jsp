@@ -14,6 +14,14 @@
     	if(project == null){
     		project = new Project();
     	}
+    	if("2000-01-01".equals(project.getStartDate())){
+    		project.setStartDate("");
+    	}
+
+    	if("2000-01-01".equals(project.getEndDate())){
+    		project.setEndDate("");
+    	}
+    	
     	Map<String,User> managers = userDao.getManagers();
     	if(managers == null){
     		managers = new HashMap<String,User>();

@@ -19,8 +19,8 @@ public class Project {
 	public Project() {
 		this.name="";
 		this.status="";
-		this.startDate="";
-		this.endDate="";
+		this.startDate="2000-01-01";
+		this.endDate="2000-01-01";
 		this.description="";
 		this.cretatedDate="";
 		this.lastModifiedBy="";
