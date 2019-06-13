@@ -81,7 +81,16 @@
 <!-- End page content -->
 </div>
 
-
+<script type="text/javascript">
+$(document).ready(function() {
+	var uname = '<%=userName%>';
+	console.log("user name : " + uname);
+	if("null" === uname ){
+		alert("Session expired please login again.");
+		window.location="./index.jsp";
+	}
+});
+</script>
 
 <script>
 // Script to open and close sidebar

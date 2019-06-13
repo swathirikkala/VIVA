@@ -22,6 +22,7 @@ public class SprintDao {
 	public List<Sprint> getSpintsByProject(String projectId) {
 		ResultSet sprintsRS = DBConnectionUtil.getData(QueryBuilder.getAllSprintsByProjectQuery(projectId));
 		List<Sprint> listOfSprintsByProjectId = parseSprints(sprintsRS);
+		System.out.println("getSpintsByProject : " + listOfSprintsByProjectId);
 		return listOfSprintsByProjectId;
 	}
 
