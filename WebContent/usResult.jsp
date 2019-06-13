@@ -101,9 +101,10 @@
 	                   if(response === "success"){
 	                	   
 	                	   console.log("loadUserStory loading Success");
+	                	   loadPage('commonDiv','./usHome.jsp');
 	                	   
 	                   }else{
-	                	   console.log("loadUserStory creation Failed");
+	                	   console.log("loadUserStory creation "+response);
 	                   }
 	                },
 					error : function(data, status, er) {

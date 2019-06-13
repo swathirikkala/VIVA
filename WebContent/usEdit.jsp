@@ -31,7 +31,15 @@
     	if(userStoryForEdit == null){
     		userStoryForEdit = new UserStory();
     	}
+    	List<Sprint> sprintsByProjectUsEdit = (List<Sprint>) request.getSession().getAttribute("sprintsByProjectUsEdit");
+    	if(sprintsByProjectUsEdit == null){
+    		sprintsByProjectUsEdit = new ArrayList<Sprint>();
+    	}
     	
+    	List<Epic> epicsByProjectUsEdit =  (List<Epic>)request.getSession().getAttribute("epicsByProjectUsEdit");
+    	if(epicsByProjectUsEdit== null){
+    		epicsByProjectUsEdit = new ArrayList<Epic>();
+    	}
     	SprintDao sprintDao = new SprintDao();
     	List<Sprint> sprintsByProjectId = sprintDao.getSpintsByProject(String.valueOf(project.getId()));
     	if(sprintsByProjectId == null){
@@ -90,15 +98,23 @@
 		<hr>
 		<form method="post" name="updateUSForm" id="updateUSForm">
 		    <div class="divClass">
-		    
+		    <input type="hidden" value="<%=userStoryForEdit.getId()%>" id="usId4Edit" name="usId4Edit">
 		    	<table>
+		    		<tr>
+		    			<th>
+		    				<label>User Story  Name</label>
+		    			</th>
+		    			<td colspan="5">
+		    				<input type="text"  placeholder="User Story Name" name="usName4Edit" id="usName4Edit" required="required">
+		    			</td>
+		    		</tr>
 		    		<tr>
 		    			<th class="cellClass">
 		    				<label>Project Name</label>
 		    			</th>
 		    			<td class="cellClass">
-		    				<select id="projectName" name = "projectName" >
-						       <option value="" selected="selected">--Select Project--</option>
+		    				<select id="usProject4Edit" name = "usProject4Edit" >
+						       <option value="0" selected="selected">--Select Project--</option>
 						      <%for(Project p : projects){%>
 						      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
 						      <%}%>
@@ -109,9 +125,9 @@
 		    				<label>Sprint Name</label>
 		    			</th>
 		    			<td class="cellClass">
-		    				<select id="sprintName" name = "sprintName" >
-						       <option value="" selected="selected">--Select Project--</option>
-						      <%for(Sprint s : sprintsByProjectId){%>
+		    				<select id="usSprint4Edit" name = "usSprint4Edit" >
+						       <option value="0" selected="selected">--Select Sprint--</option>
+						      <%for(Sprint s : sprintsByProjectUsEdit){%>
 						      		<option value="<%= s.getSprintId()%>"><%= s.getSprintName()%></option>
 						      <%}%>
 						    </select>
@@ -121,9 +137,9 @@
 		    				<label>Epic Name</label>
 		    			</th>
 		    			<td class="cellClass">
-		    				<select id="epicName" name = "epicName" >
-						       <option value="" selected="selected">--Select Project--</option>
-						      <%for(Epic e : epicsByProjectId){%>
+		    				<select id="usEpic4Edit" name = "usEpic4Edit" >
+						       <option value="0" selected="selected">--Select Epic--</option>
+						      <%for(Epic e : epicsByProjectUsEdit){%>
 						      		<option value="<%= e.getId()%>"><%= e.getName()%></option>
 						      <%}%>
 						    </select>
@@ -134,7 +150,7 @@
 		    			<label>Priority</label>
 		    			</th>
 		    			<td>
-		    				<select id="priority" name = "priority">
+		    				<select id="usPriority4Edit" name = "usPriority4Edit">
 					      		<option value="0">--Select--</option>
 					      		<% for(String p : LookUp.getPriorities()){ %>
 					      			<option value="<%=p%>"><%=p%></option>
@@ -151,7 +167,7 @@
 		    				<label>Status</label>
 		    			</th>
 		    			<td>
-		    				<select id="status" name = "status">
+		    				<select id="usStatus4Edit" name = "usStatus4Edit">
 					      		<option value="0">--Select--</option>
 					      		<% for(String s : LookUp.getStatuses()){ %>
 					      			<option value="<%= s%>"><%= s%></option>
@@ -167,7 +183,7 @@
 		    				<label>User Story  Description</label>
 		    			</th>
 		    			<td colspan="5">
-		    				<textarea rows="4" cols="50" placeholder="User Story Description" name="editProjectDescription" id="editProjectDescription" style="height: 100px;" required="required">
+		    				<textarea rows="4" cols="50" placeholder="User Story Description" name="usDescription4Edit" id="usDescription4Edit" style="height: 70px;" required="required">
 		      				</textarea>
 		    			</td>
 		    		</tr>
@@ -191,22 +207,25 @@
 		console.log("Project loaded for edit mode");
     	setTimeout(function(){
         	console.log("Project Edit Loading");
-    			$("#projectName").val("<%=userStoryForEdit.getProject()%>");
-    			$("#sprintName").val("<%=userStoryForEdit.getSprint()%>");
-    			$("#epicName").val("<%=userStoryForEdit.getEpic()%>");
-    			$("#priority").val("<%=userStoryForEdit.getPrioroty()%>");
-    			$("#status").val("<%=userStoryForEdit.getStatus()%>");
+    			$("#usProject4Edit").val("<%=userStoryForEdit.getProject()%>");
+    			$("#usSprint4Edit").val("<%=userStoryForEdit.getSprint()%>");
+    			$("#usEpic4Edit").val("<%=userStoryForEdit.getEpic()%>");
+    			$("#usPriority4Edit").val("<%=userStoryForEdit.getPrioroty()%>");
+    			$("#usStatus4Edit").val("<%=userStoryForEdit.getStatus()%>");
+    			$("#usDescription4Edit").val("<%=userStoryForEdit.getDescription()%>");
+    			$("#usId4Edit").val("<%=userStoryForEdit.getId()%>");
+    			$("#usName4Edit").val("<%=userStoryForEdit.getName()%>");
     		}, 1000);
     	
     	
 
-    	$("#projectName").change(
+    	$("#usProject4Edit").change(
     			function() {
-    				console.log("projectName change event got called");
-    				var projectId= $("#projectName").val();
+    				console.log("usProject4Edit change event got called");
+    				var projectId= $("#usProject4Edit").val();
     				console.log("Project id : " + projectId);
-    				$("#epicName").empty();
-    				$("#epicName").append('<option value="">Loading ....</option>');
+    				$("#usEpic4Edit").empty();
+    				$("#usEpic4Edit").append('<option value="">Loading ....</option>');
     				try {
     					$.ajax({
     						type : 'post',
@@ -220,32 +239,32 @@
     							var option='<option value="" selected="selected">--Select Sprint--</option>';
     			                if(jsonObj.responseCode == 1){
     			                	console.log("data found");
-    								$("#epicName").empty();
-    								$("#epicName").append(option);
+    								$("#usEpic4Edit").empty();
+    								$("#usEpic4Edit").append(option);
     								$.each(response.responseObject, function (i, epic) {
     									option='<option value="'+epic.id+'">'+epic.name+'</option>';
 //    										console.log(option);
-    									$("#epicName").append(option);
+    									$("#usEpic4Edit").append(option);
     								});
     								
     			                }else{
     			                	alert("no epics found with this search criteria");
     			                	var option='<option value="" selected="selected">--Select Epic--</option>';
-    								$("#epicName").empty();
-    								$("#epicName").append(option);
+    								$("#usEpic4Edit").empty();
+    								$("#usEpic4Edit").append(option);
     			                }
     						},
     						error : function(data, status, er) {
-    							console.log("Error in projectName Change event in US edit jsm  : " + data
+    							console.log("Error in usProject4Edit Change event in US edit jsm  : " + data
     									+ " status: " + status + " er:" + er);
     						}
     					});
     				} catch (e) {
-    					console.log("Exception in projectName Change event in US edit jsm : " + e);
+    					console.log("Exception in usProject4Edit Change event in US edit jsm : " + e);
     				}
     			});
     	
-  	});//document ready close
+  	});
 	
 	
 	</script>

@@ -89,4 +89,56 @@ public class UserStoryDao {
 		return uss;
 	}
 
+	public UserStory getUserStoryByUsName(String usName) {
+		List<UserStory> uss = null;
+		PreparedStatement allUserStoriesByEpicPS = QueryBuilder.getUserStoryByUsNamePS(usName);
+		ResultSet rs;
+		try {
+			rs = allUserStoriesByEpicPS.executeQuery();
+			uss = parseUserStories(rs);
+		} catch (SQLException e) {
+			System.err.println("getUserStoryByUsName : " + e.getMessage());
+		}
+		System.out.println("getUserStoryByUsName : " + uss);
+		
+		return uss!=null? uss.get(0):null;
+	}
+
+	public UserStory getUserStoryByUsId(int userStoryId) {
+		List<UserStory> uss = null;
+		PreparedStatement allUserStoriesByEpicPS = QueryBuilder.getUserStoryByUsIdPS(userStoryId);
+		ResultSet rs;
+		try {
+			rs = allUserStoriesByEpicPS.executeQuery();
+			uss = parseUserStories(rs);
+		} catch (SQLException e) {
+			System.err.println("getUserStoryByUsId : " + e.getMessage());
+		}
+		System.out.println("getUserStoryByUsId : " + uss);
+		
+		return uss!=null? uss.get(0):null;
+	}
+
+	public String updateUserStory(UserStory us) {
+		String response = Constants.FAIL;
+		PreparedStatement ps = QueryBuilder.getUpdateUserStoryPS(us);
+		int addUSerStoryResponse =0;
+		try {
+			addUSerStoryResponse = ps.executeUpdate();
+		} catch (SQLException e) {
+			System.err.println("updateUserStory :  exception : " + e.getMessage());
+		}
+		if (addUSerStoryResponse > 0) {
+			response = Constants.SUCCESS;
+			history.sethDate(DateUtil.getSqlDate());
+			history.setJobId(addUSerStoryResponse);
+			history.setJobType("us");
+			history.setComment("User Updated");
+			history.setOwner(us.getLmb());
+		} else if (addUSerStoryResponse < 0) {
+			response = Constants.ERROR;
+		}
+		return response;
+	}
+
 }

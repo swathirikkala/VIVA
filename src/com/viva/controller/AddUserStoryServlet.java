@@ -1,6 +1,8 @@
 package com.viva.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
 
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
@@ -10,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.viva.dao.UserStoryDao;
 import com.viva.dto.UserStory;
+import com.viva.util.Constants;
 import com.viva.util.DateUtil;
 
 /**
@@ -54,7 +57,16 @@ public class AddUserStoryServlet extends HttpServlet {
 		String addUserStoryResponse = userStoryDao.addUserStory(us);
 		System.out.println("Add User Story response : " + addUserStoryResponse);
 		response.getWriter().write(addUserStoryResponse);
-
+		if(Constants.SUCCESS.equals(addUserStoryResponse)) {
+			@SuppressWarnings("unchecked")
+			List<UserStory> uss = (List<UserStory>) request.getSession().getAttribute("userStories");
+			if(uss == null) {
+				uss = new ArrayList<UserStory>();
+			}
+			UserStory usbn = userStoryDao.getUserStoryByUsName(us.getName());
+			uss.add(usbn);
+			request.getSession().setAttribute("userStories",uss);
+		}
 	}
 
 	/**

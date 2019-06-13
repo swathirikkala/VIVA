@@ -307,4 +307,54 @@ public class QueryBuilder {
 		return prepareStatement;
 		
 	}
+
+	public static PreparedStatement getUserStoryByUsNamePS(String usName) {
+		String query = "select * from user_story where name = ?";
+		PreparedStatement prepareStatement =null;
+		try {
+			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
+			prepareStatement.setString(1, usName);
+			System.out.println("getUserStoryByUsNamePS Query : " + prepareStatement.toString());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prepareStatement;
+	}
+
+	public static PreparedStatement getUserStoryByUsIdPS(int userStoryId) {
+		String query = "select * from user_story where id = ?";
+		PreparedStatement prepareStatement =null;
+		try {
+			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
+			prepareStatement.setInt(1, userStoryId);
+			System.out.println("getUserStoryByUsIdPS Query : " + prepareStatement.toString());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prepareStatement;
+	}
+
+	public static PreparedStatement getUpdateUserStoryPS(UserStory us) {
+		String query = "update user_story set name=? , project=?, sprint=?, epic=?, priority=?, status=?, "
+				+ "description=?, lmb=?, lmd=? where id=?" ;
+		PreparedStatement ps =null;
+		try {
+			ps = DBConnectionUtil.getconnection().prepareStatement(query);
+			ps.setString(1, us.getName());
+			ps.setInt(2,us.getProject());
+			ps.setInt(3, us.getSprint());
+			ps.setInt(4, us.getEpic());
+			ps.setString(5, us.getPrioroty()+"");
+			ps.setString(6, us.getStatus());
+			ps.setString(7, us.getDescription());
+			ps.setString(8, us.getLmb());
+			ps.setString(9, us.getLmd());
+			ps.setInt(10, us.getId());
+			
+			System.out.println("getUpdateUserStoryPS Query : " + ps.toString());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ps;
+	}
 }
