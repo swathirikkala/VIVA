@@ -72,6 +72,7 @@
 		      		      
 			   <label for="severity"><b>Epic Priority</b></label>
 			     <select id="epicPriority" name = "epicPriority" required>
+			      	<option value="0">--Select Priority--</option>
 		      		<%for(String p:LookUp.getPriorities()){ %>
 			      		<option value="<%=p%>"><%=p%></option>
 			      	<%} %>
