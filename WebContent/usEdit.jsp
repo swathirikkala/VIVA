@@ -236,14 +236,14 @@
     							var jsonObj = JSON.parse(respJSONString);
     							console.log(respJSONString);
     							console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
-    							var option='<option value="" selected="selected">--Select Sprint--</option>';
+    							var option='<option value="" selected="selected">--Select Epic--</option>';
     			                if(jsonObj.responseCode == 1){
     			                	console.log("data found");
     								$("#usEpic4Edit").empty();
     								$("#usEpic4Edit").append(option);
     								$.each(response.responseObject, function (i, epic) {
     									option='<option value="'+epic.id+'">'+epic.name+'</option>';
-//    										console.log(option);
+    									console.log(option);
     									$("#usEpic4Edit").append(option);
     								});
     								
@@ -252,6 +252,45 @@
     			                	var option='<option value="" selected="selected">--Select Epic--</option>';
     								$("#usEpic4Edit").empty();
     								$("#usEpic4Edit").append(option);
+    			                }
+    						},
+    						error : function(data, status, er) {
+    							console.log("Error in usProject4Edit Change event in US edit jsm  : " + data
+    									+ " status: " + status + " er:" + er);
+    						}
+    					});
+    				} catch (e) {
+    					console.log("Exception in usProject4Edit Change event in US edit jsm : " + e);
+    				}
+    				
+    				$("#usSprint4Edit").empty();
+    				$("#usSprint4Edit").append('<option value="">Loading ....</option>');
+    				try {
+    					$.ajax({
+    						type : 'post',
+    						url : './sprintSearchByProjectId',
+    						data : {projectId:projectId},
+    						success : function(response) {
+    							var respJSONString = JSON.stringify(response);
+    							var jsonObj = JSON.parse(respJSONString);
+    							console.log(respJSONString);
+    							console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
+    							var option='<option value="" selected="selected">--Select Sprint--</option>';
+    			                if(jsonObj.responseCode == 1){
+    			                	console.log("data found");
+    								$("#usSprint4Edit").empty();
+    								$("#usSprint4Edit").append(option);
+    								$.each(response.responseObject, function (i, sprint) {
+    									option='<option value="'+sprint.sprintId+'">'+sprint.sprintName+'</option>';
+//     									console.log(option);
+    									$("#usSprint4Edit").append(option);
+    								});
+    								
+    			                }else{
+    			                	alert("no Sprint found with this search criteria");
+    			                	var option='<option value="" selected="selected">--Select Epic--</option>';
+    								$("#usSprint4Edit").empty();
+    								$("#usSprint4Edit").append(option);
     			                }
     						},
     						error : function(data, status, er) {

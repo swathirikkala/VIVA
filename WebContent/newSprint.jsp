@@ -1,3 +1,4 @@
+<%@page import="com.viva.dao.ProjectDao"%>
 <%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="com.viva.dto.Sprint"%>
 <%@page import="com.viva.dto.Project"%>
@@ -8,8 +9,9 @@
 <%@page import="java.util.List"%>
 
 <%
+	ProjectDao projectDao = new ProjectDao();
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
-	List<Project> allProjects = (List<Project>)request.getSession().getAttribute("allProjects");
+	List<Project> allProjects = projectDao.getProjects();
 	if(allProjects == null){
 		allProjects = new ArrayList<Project>();
 	}
@@ -46,9 +48,10 @@
 		      
 			   <label for="projectName"><b>Project Name</b></label><label style="color: red;">&nbsp;*</label>
 			   <select id="projectName" name = "projectName" required>
-		      <%for(Project p : allProjects){%>
-		      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
-		      <%}%>
+				   <option value="0">--Select Project--</option>
+			      	<%for(Project p : allProjects){%>
+			      	<option value="<%= p.getId()%>"><%= p.getName()%></option>
+			      	<%}%>
 		      </select>
 		      		   
 		      <label for="sprintName"><b>Sprint Name</b></label><label style="color: red;">&nbsp;*</label>
