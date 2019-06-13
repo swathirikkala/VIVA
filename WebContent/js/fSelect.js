@@ -29,7 +29,7 @@
         }
         else {
             var settings = $.extend({
-                placeholder: 'Select some options',
+                placeholder: '-- Select Business Values --',
                 numDisplayed: 3,
                 overflowText: '{n} selected',
                 searchText: 'Search',

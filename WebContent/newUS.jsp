@@ -49,6 +49,13 @@
 		<link href="./css/fSelect.css" rel="stylesheet">
 		<script src="./js/jquery-3.4.0.min.js"></script>
 		<script src="./js/fSelect.js"></script>
+		<script>
+			(function($) {
+			    $(function() {
+			        window.fs_test = $('.usBvs').fSelect();
+			    });
+			})(jQuery);
+		</script>
 	</head>
 	<body>
 <!-- User story Creation Div start-->
@@ -67,8 +74,6 @@
 		      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
 		      <%}%>
 		      </select>
-		      		   
-		      
 		      
 		      <label for="usEpicName"><b>Epic Name</b></label><label style="color: red;">&nbsp;*</label>
 		      <select id="usEpicName" name = "usEpicName" >
@@ -93,9 +98,7 @@
 		     	 
 			   
 			   <label for="businessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
-		       <select id="businessValues" name = "businessValues" multiple="multiple" class="test" multiple="multiple">
-		       <option value="0">--Select--</option>
-		     		<option value="" disabled="disabled">--Select--</option>
+		       <select id="businessValues" name = "businessValues" class="usBvs" multiple="multiple">
 			      <%for(BusinessValue bv : LookUp.getBusinessValues()){%>
 			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option>
 			      <%}%>
@@ -119,11 +122,12 @@
 	<script type="text/javascript">
 function openUSModal(){
 	console.log("openUSModal got called");
-	//clearUSForm();
 	closeUSPopup();
 	document.getElementById('usModalDiv').style.display='block';
 }
 function closeUSPopup(){
+
+	clearUSForm();
 	console.log("closeUSPopup got called");
 	document.getElementById('usModalDiv').style.display='none';
 }
@@ -179,7 +183,7 @@ $("#usProjectName").change(
 						var jsonObj = JSON.parse(respJSONString);
 						console.log(respJSONString);
 						console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
-						var option='<option value="" selected="selected">--Select Sprint--</option>';
+						var option='<option value="" selected="selected">--Select Epic--</option>';
 		                if(jsonObj.responseCode == 1){
 		                	console.log("data found");
 							$("#usEpicName").empty();

@@ -45,7 +45,7 @@
 <script>
 	(function($) {
 	    $(function() {
-	        window.fs_test = $('.test').fSelect();
+	        window.fs_test = $('.epicBvs').fSelect();
 	    });
 	})(jQuery);
 </script>
@@ -72,14 +72,13 @@
 		      		      
 			   <label for="severity"><b>Epic Priority</b></label>
 			     <select id="epicPriority" name = "epicPriority" required>
-			      	<option value="0">--Select--</option>
 		      		<%for(String p:LookUp.getPriorities()){ %>
 			      		<option value="<%=p%>"><%=p%></option>
 			      	<%} %>
 		     	 </select>
 			   
 			   <label for="epicBusinessValues"><b>Business Values</b></label>
-		       <select id="epicBusinessValues" name = "epicBusinessValues" required class="test" multiple="multiple">
+		       <select id="epicBusinessValues" name = "epicBusinessValues" class="epicBvs" multiple="multiple">
 			      		<option value="" disabled="disabled">--Select--</option>
 			      <%for(BusinessValue bv : LookUp.getBusinessValues()){%>
 			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option>

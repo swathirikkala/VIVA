@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.viva.dao.UserStoryDao;
 import com.viva.dto.UserStory;
+import com.viva.util.DateUtil;
 
 /**
  * Servlet implementation class AddUserStoryServlet
@@ -34,26 +35,25 @@ public class AddUserStoryServlet extends HttpServlet {
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
 		UserStory us = new UserStory();
-		us.setDescription(String.valueOf(request.getParameter("description")));
+		us.setDescription(String.valueOf(request.getParameter("usDescription")));
 		try {
-			us.setEpic(Integer.valueOf(request.getParameter("epicName")));
+			us.setEpic(Integer.valueOf(request.getParameter("usEpicName")));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
 		us.setName(String.valueOf(request.getParameter("usName")));
 		try {
-			us.setProject(Integer.valueOf(request.getParameter("projectName")));
+			us.setProject(Integer.valueOf(request.getParameter("usProjectName")));
 		} catch (NumberFormatException e) {
 			e.printStackTrace();
 		}
-		us.setPrioroty(Integer.valueOf(request.getParameter("severity")));
-		try {
-			us.setSprint(Integer.valueOf(request.getParameter("sprintName")));
-		} catch (NumberFormatException e) {
-			e.printStackTrace();
-		}
-		us.setLmb(String.valueOf(request.getParameter("createdBy")));
+		us.setPrioroty(Integer.valueOf(request.getParameter("usPriority")));
+		us.setLmd(DateUtil.getSqlDate());
+		us.setLmb(String.valueOf(request.getSession().getAttribute("userId")));
+		us.setCreatedBy(String.valueOf(request.getSession().getAttribute("userId")));
 		String addUserStoryResponse = userStoryDao.addUserStory(us);
+		System.out.println("Add User Story response : " + addUserStoryResponse);
+		response.getWriter().write(addUserStoryResponse);
 
 	}
 
