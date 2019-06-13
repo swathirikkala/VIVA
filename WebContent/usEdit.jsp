@@ -61,30 +61,55 @@
 			margin-bottom: 2px; margin-top: 2px; margin-left: 2px; margin-right: 2px; border: thin;
 		}
 	</style>
-
+	<script type="text/javascript">
+		function validEditForm(){
+			var isValidForm = true;
+			if($("#usName4Edit").val() === ""){
+				alert("Please enter User story name");
+				isValidForm = false;
+			}else if($("#usProject4Edit").val() === "0"){
+				alert("Please Select Project Name");
+				isValidForm = false;
+			}else if($("#usSprint4Edit").val() === "0"){
+				alert("Please Select Sprint Name");
+				isValidForm = false;
+			}else if($("#usEpic4Edit").val() === "0"){
+				alert("Please Select Epic Name");
+				isValidForm = false;
+			}else if($("#usDescription4Edit").val() === ""){
+				alert("Please Select Description");
+				isValidForm = false;
+			}
+			return isValidForm;
+		}
+	</script>
 	<script type="text/javascript">
 		function updateUserStory(){
 			console.log("updateUserStory got called");
 			var updateUSFormData = $("form[name=updateUSForm]").serialize();
 			console.log(updateUSFormData);
 			try {
-				$.ajax({
-					type : 'post',
-					url : './updateUserStory',
-					data : updateUSFormData,
-					success : function(response) {
-						console.log("updateUserStory completed..... " + response);
-						if (response !== "success") {
-							alert("Update not successfull");
-						}else{
-							alert("Update successfull");
+				if(validEditForm()){
+					$.ajax({
+						type : 'post',
+						url : './updateUserStory',
+						data : updateUSFormData,
+						success : function(response) {
+							console.log("updateUserStory completed..... " + response);
+							if (response !== "success") {
+								alert("Update not successfull");
+							}else{
+								alert("Update successfull");
+							}
+						},
+						error : function(data, status, er) {
+							console.log("Error in update Us jsm : " + data
+									+ " status: " + status + " er:" + er);
 						}
-					},
-					error : function(data, status, er) {
-						console.log("Error in update Us jsm : " + data
-								+ " status: " + status + " er:" + er);
-					}
-				});
+					});
+				}else{
+					console.log("Form in complete");
+				}
 			} catch (e) {
 				console.log("Exception in update US jsm : " + e);
 			}
