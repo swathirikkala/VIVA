@@ -25,12 +25,13 @@ DROP TABLE IF EXISTS `bv`;
 /*!40101 SET @saved_cs_client     = @@character_set_client */;
  SET character_set_client = utf8mb4 ;
 CREATE TABLE `bv` (
-  `id` int(11) NOT NULL,
-  `name` text NOT NULL,
+  `id` int(11) NOT NULL AUTO_INCREMENT,
+  `name` varchar(500) NOT NULL,
   `description` text NOT NULL,
   `status` int(11) DEFAULT '1',
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+  PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`)
+) ENGINE=InnoDB AUTO_INCREMENT=22 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -39,6 +40,7 @@ CREATE TABLE `bv` (
 
 LOCK TABLES `bv` WRITE;
 /*!40000 ALTER TABLE `bv` DISABLE KEYS */;
+INSERT INTO `bv` VALUES (1,'Common Good','Common Good',1),(2,'Public Interest','Public Interest',1),(4,'Social cohesion','Social cohesion',1),(5,'Altruism','Altruism',1),(6,'Human dignity','Human dignity',1),(7,'Sustainability','Sustainability',1),(8,'Voice of the future','Voice of the future',1),(9,'Regime dignity','Regime dignity',1),(10,'Regime Stability','Regime Stability',1),(11,'Majority rule','Majority rule',1),(12,'Democracy','Democracy',1),(13,'Will of the people','Will of the people',1),(14,'Collective choice','Collective choice',1),(15,'User Democracy','User Democracy',1),(16,'Local governance','Local governance',1),(17,'Citizen involvement','Citizen involvement',1),(18,'Protection of minories','Protection of minories',1),(19,'Protection of individual rights','Protection of individual rights',1),(20,'Political loyalty','Political loyalty',1),(21,'Accountability','Accountability',1);
 /*!40000 ALTER TABLE `bv` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -95,7 +97,7 @@ CREATE TABLE `epic` (
   CONSTRAINT `epic_createdBy_fk` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
   CONSTRAINT `epic_project_fk` FOREIGN KEY (`project`) REFERENCES `project` (`id`),
   CONSTRAINT `epic_sprint_fk` FOREIGN KEY (`sprint`) REFERENCES `sprint` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -104,7 +106,7 @@ CREATE TABLE `epic` (
 
 LOCK TABLES `epic` WRITE;
 /*!40000 ALTER TABLE `epic` DISABLE KEYS */;
-INSERT INTO `epic` VALUES (2,'asdf',6,NULL,0,NULL,'sample sprint description','manager1@mail.com','manager1@mail.com',NULL,NULL);
+INSERT INTO `epic` VALUES (2,'asdf',6,NULL,0,NULL,'sample sprint description','manager1@mail.com','manager1@mail.com',NULL,NULL),(3,'xyz epic',6,NULL,0,NULL,'sample epic description','manager1@mail.com','manager1@mail.com',NULL,NULL),(4,'sample epic 123',6,NULL,6,NULL,'asdfsdfasdf','manager1@mail.com','manager1@mail.com',NULL,NULL);
 /*!40000 ALTER TABLE `epic` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -121,9 +123,9 @@ CREATE TABLE `epic_bv` (
   `status` tinyint(4) DEFAULT '1',
   `viva` int(11) DEFAULT NULL,
   PRIMARY KEY (`eid`,`bid`),
-  KEY `ebv_bvidfk_idx` (`bid`),
-  CONSTRAINT `ebv_bvidfk` FOREIGN KEY (`bid`) REFERENCES `bv` (`id`),
-  CONSTRAINT `ebv_eidfk` FOREIGN KEY (`eid`) REFERENCES `epic` (`id`)
+  KEY `epic_epicbv_fk_idx` (`bid`),
+  CONSTRAINT `epic_epicbv_fk` FOREIGN KEY (`bid`) REFERENCES `bv` (`id`),
+  CONSTRAINT `epic_epicid_fk` FOREIGN KEY (`eid`) REFERENCES `epic` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
@@ -151,7 +153,7 @@ CREATE TABLE `history` (
   `hdate` date NOT NULL,
   `owner` varchar(100) NOT NULL,
   PRIMARY KEY (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=3 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=23 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -160,7 +162,7 @@ CREATE TABLE `history` (
 
 LOCK TABLES `history` WRITE;
 /*!40000 ALTER TABLE `history` DISABLE KEYS */;
-INSERT INTO `history` VALUES (1,1,'PJ','Created','2019-06-02','manager1@mail.com'),(2,1,'PJ','Created','2019-06-02','manager1@mail.com');
+INSERT INTO `history` VALUES (1,1,'PJ','Created','2019-06-02','manager1@mail.com'),(2,1,'PJ','Created','2019-06-02','manager1@mail.com'),(3,1,'ab','new business value added','2019-06-05','admin@mail.com'),(4,1,'ab','new business value added','2019-06-05','admin@mail.com'),(5,1,'ab','new business value added','2019-06-05','admin@mail.com'),(6,1,'ab','new business value added','2019-06-05','admin@mail.com'),(7,1,'ab','new business value added','2019-06-05','admin@mail.com'),(8,1,'ab','new business value added','2019-06-05','admin@mail.com'),(9,1,'ab','new business value added','2019-06-05','admin@mail.com'),(10,1,'ab','new business value added','2019-06-05','admin@mail.com'),(11,1,'ab','new business value added','2019-06-05','admin@mail.com'),(12,1,'ab','new business value added','2019-06-05','admin@mail.com'),(13,1,'ab','new business value added','2019-06-05','admin@mail.com'),(14,1,'ab','new business value added','2019-06-05','admin@mail.com'),(15,1,'ab','new business value added','2019-06-05','admin@mail.com'),(16,1,'ab','new business value added','2019-06-05','admin@mail.com'),(17,1,'ab','new business value added','2019-06-05','admin@mail.com'),(18,1,'ab','new business value added','2019-06-05','admin@mail.com'),(19,1,'ab','new business value added','2019-06-05','admin@mail.com'),(20,1,'ab','new business value added','2019-06-05','admin@mail.com'),(21,1,'ab','new business value added','2019-06-05','admin@mail.com'),(22,1,'ab','new business value added','2019-06-05','admin@mail.com');
 /*!40000 ALTER TABLE `history` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -176,8 +178,8 @@ CREATE TABLE `p_bv` (
   `bvid` int(11) NOT NULL,
   `viva` int(11) DEFAULT NULL,
   PRIMARY KEY (`pid`,`bvid`),
-  KEY `pbv_bvidfk_idx` (`bvid`),
-  CONSTRAINT `pbv_bvidfk` FOREIGN KEY (`bvid`) REFERENCES `bv` (`id`),
+  KEY `pbv_bvfk_idx` (`bvid`),
+  CONSTRAINT `pbv_bvfk` FOREIGN KEY (`bvid`) REFERENCES `bv` (`id`),
   CONSTRAINT `pbv_pidfk` FOREIGN KEY (`pid`) REFERENCES `project` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -225,7 +227,7 @@ CREATE TABLE `project` (
 
 LOCK TABLES `project` WRITE;
 /*!40000 ALTER TABLE `project` DISABLE KEYS */;
-INSERT INTO `project` VALUES (5,'sample project','3','2019-06-01','2019-06-30','manager1@mail.com','manager1@mail.com','sample description','manager1@mail.com','2019-06-02','Open',0,'2019-06-02'),(6,'demo project','0','2000-01-01','2000-01-01','manager1@mail.com','','demo description','manager1@mail.com','2019-06-02','Not Started',0,'2019-06-02'),(7,'new project','0','2000-01-01','2000-01-01','manager1@mail.com','','sample project description','manager1@mail.com','2019-06-02','Not Started',0,'2019-06-02');
+INSERT INTO `project` VALUES (5,'sample project','3','2019-06-01','2019-06-30','manager1@mail.com','manager1@mail.com','sample description','manager1@mail.com','2019-06-02','Open',0,'2019-06-02'),(6,'demo project','0','2000-01-01','2000-01-01','manager1@mail.com','','demo description.','manager1@mail.com','2019-06-02','Not Started',0,'2019-06-02'),(7,'new project','0','2000-01-01','2000-01-01','manager1@mail.com','','sample project description','manager1@mail.com','2019-06-02','Not Started',0,'2019-06-02');
 /*!40000 ALTER TABLE `project` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -241,8 +243,8 @@ CREATE TABLE `s_bv` (
   `bvid` int(11) NOT NULL,
   `viva` int(11) DEFAULT NULL,
   PRIMARY KEY (`sid`,`bvid`),
-  KEY `sbv_bvidfk_idx` (`bvid`),
-  CONSTRAINT `sbv_bvidfk` FOREIGN KEY (`bvid`) REFERENCES `bv` (`id`),
+  KEY `sbv_bvfk_idx` (`bvid`),
+  CONSTRAINT `sbv_bvfk` FOREIGN KEY (`bvid`) REFERENCES `bv` (`id`),
   CONSTRAINT `sbv_sidfk` FOREIGN KEY (`sid`) REFERENCES `sprint` (`id`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -278,13 +280,14 @@ CREATE TABLE `sprint` (
   `status` varchar(45) DEFAULT 'Not Started',
   `viva` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`),
   KEY `project_id_fk_idx` (`project`),
   KEY `manager_fk_idx` (`manager`),
   KEY `created_fk_idx` (`created_by`),
   KEY `last_modified_fk_idx` (`last_modified_by`),
   CONSTRAINT `createdByFk` FOREIGN KEY (`created_by`) REFERENCES `user` (`id`),
   CONSTRAINT `projectFk` FOREIGN KEY (`project`) REFERENCES `project` (`id`)
-) ENGINE=InnoDB AUTO_INCREMENT=12 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=14 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -293,7 +296,7 @@ CREATE TABLE `sprint` (
 
 LOCK TABLES `sprint` WRITE;
 /*!40000 ALTER TABLE `sprint` DISABLE KEYS */;
-INSERT INTO `sprint` VALUES (6,'sample sprint',5,3,'null','2019-06-01','2019-06-30','manager1@mail.com','sample description','null','2019-06-02 15:04:26','Open',NULL),(7,'sample sprint2',5,0,'null','2019-06-01','2019-06-30','manager1@mail.com','description',NULL,'2019-06-02 15:08:39','Not Started',NULL),(8,'sample sprint',6,2,'null','2019-06-01','2019-06-30','manager1@mail.com','sample sprint description','manager1@mail.com','2019-06-03 21:29:34','Not Started',NULL),(9,'demo sprint',6,13,'null','2019-06-01','2019-06-30','manager1@mail.com','sasdad',NULL,'2019-06-03 21:38:47','Not Started',NULL),(10,'demo sprint',6,13,'null','2019-06-01','2019-06-30','manager1@mail.com','sasdad',NULL,'2019-06-03 21:39:14','Not Started',NULL),(11,'ddddddd',6,13,'null','2019-06-01','2019-06-30','manager1@mail.com','ssssss',NULL,'2019-06-03 21:40:40','Not Started',NULL);
+INSERT INTO `sprint` VALUES (13,'sample sprint',7,0,'null','2019-06-01','2019-06-30','manager1@mail.com','sample description','manager1@mail.com','2019-06-12 22:06:51','Not Started',NULL);
 /*!40000 ALTER TABLE `sprint` ENABLE KEYS */;
 UNLOCK TABLES;
 
@@ -310,8 +313,8 @@ CREATE TABLE `us_bv` (
   `status` tinyint(4) DEFAULT NULL,
   `viva` int(11) DEFAULT NULL,
   PRIMARY KEY (`usid`),
-  KEY `usbv_bvidFk_idx` (`bvid`),
-  CONSTRAINT `usbv_bvidFk` FOREIGN KEY (`bvid`) REFERENCES `bv` (`id`),
+  KEY `usbv_bv_fk_idx` (`bvid`),
+  CONSTRAINT `usbv_bv_fk` FOREIGN KEY (`bvid`) REFERENCES `bv` (`id`),
   CONSTRAINT `usbv_usidFk` FOREIGN KEY (`usid`) REFERENCES `user` (`department`)
 ) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
@@ -371,14 +374,15 @@ CREATE TABLE `user_story` (
   `sprint` int(11) DEFAULT NULL,
   `epic` int(11) DEFAULT NULL,
   `name` varchar(200) DEFAULT NULL,
-  `priority` varchar(45) DEFAULT NULL,
-  `status` varchar(45) DEFAULT NULL,
+  `priority` varchar(45) DEFAULT '0',
+  `status` varchar(45) DEFAULT 'Not Started',
   `created_by` varchar(100) DEFAULT NULL,
   `description` text,
   `lmb` varchar(100) DEFAULT NULL,
   `lmd` date DEFAULT NULL,
   `viva` int(11) DEFAULT NULL,
   PRIMARY KEY (`id`),
+  UNIQUE KEY `name_UNIQUE` (`name`),
   KEY `usCreatedByFk_idx` (`created_by`),
   KEY `usProjectFk_idx` (`project`),
   KEY `usSprintFk_idx` (`sprint`),
@@ -387,7 +391,7 @@ CREATE TABLE `user_story` (
   CONSTRAINT `usEpicFk` FOREIGN KEY (`epic`) REFERENCES `epic` (`id`),
   CONSTRAINT `usProjectFk` FOREIGN KEY (`project`) REFERENCES `project` (`id`),
   CONSTRAINT `usSprintFk` FOREIGN KEY (`sprint`) REFERENCES `sprint` (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
+) ENGINE=InnoDB AUTO_INCREMENT=5 DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_0900_ai_ci;
 /*!40101 SET character_set_client = @saved_cs_client */;
 
 --
@@ -396,6 +400,7 @@ CREATE TABLE `user_story` (
 
 LOCK TABLES `user_story` WRITE;
 /*!40000 ALTER TABLE `user_story` DISABLE KEYS */;
+INSERT INTO `user_story` VALUES (3,6,NULL,3,'sample user story 1','6','Not Started','manager1@mail.com','sample description','manager1@mail.com','2019-06-13',NULL),(4,6,NULL,4,'sample user story','15','Not Started','manager1@mail.com','sample desct\\rtion','manager1@mail.com','2019-06-13',NULL);
 /*!40000 ALTER TABLE `user_story` ENABLE KEYS */;
 UNLOCK TABLES;
 /*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
@@ -408,4 +413,4 @@ UNLOCK TABLES;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2019-06-03 22:58:12
+-- Dump completed on 2019-06-13 11:51:01
