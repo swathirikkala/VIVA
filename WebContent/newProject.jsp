@@ -26,46 +26,66 @@
 <!DOCTYPE html>
 <html>
 	<head>
+		<script type="text/javascript">
+			function clearProject() {
+				console.log("clearProject jsm got called..");
+				$("#projectManager").val("");
+				$("#projectName").val("");
+				$("#projectPriority").val("0");
+				$("#projectStartDate").val("");
+				$("#projectEndDate").val("");
+				$("#projectDescription").val("");
+			}
+		</script>
+		<script type="text/javascript">
+		    $(document).ready(function() {
+// 		    	displayPopup();
+		    	$("#projectDescription").val("");
+		      });
+		</script>
 	<script type="text/javascript">
 	
-	function displayPopup(){
-		  document.getElementById('modalDiv').style.display='block';
+	function displayProjectModalPopup(){
+		  closeProjectModalPopup();
+		  document.getElementById('projectModalDiv').style.display='block';
 		}
-	function closePopup(){
-		  document.getElementById('modalDiv').style.display='none';
+	function closeProjectModalPopup(){
+		  clearProject()
+		  document.getElementById('projectModalDiv').style.display='none';
 		}
+	</script>
 	
-    $(document).ready(function() {
-    	displayPopup();
-    	$("#projectDescription").val("");
-      });
+	<script type="text/javascript">
 	function saveProject() {
 		console.log("saveProject function got called ");
-        $.ajax({
-            type: 'post',
-            url: './addProject',
-            data: $("form[name=newProjectForm]").serialize(),
-            success: function (response) {
-               console.log("Save Project completed..... " + response);
-               if(response === "success"){
-            	   alert("Project created Successfully");
-               }else if(response === "exist"){
-
-            	   alert("Project exist with this name ");
-               }else{
-            	   alert("Project creation fail");
-               }
-            }
-        });
-        closePopup();
+		try{
+	        $.ajax({
+	            type: 'post',
+	            url: './addProject',
+	            data: $("form[name=newProjectForm]").serialize(),
+	            success: function (response) {
+	               console.log("Save Project completed..... " + response);
+	               if(response === "success"){
+	            	   alert("Project created Successfully");
+	               }else if(response === "exist"){
+	            	   alert("Project exist with this name ");
+	               }else{
+	            	   alert("Project creation fail");
+	               }
+	            }
+	        });
+		}catch(e){
+			console.log("Exception in new Project : " + e);
+		}
+        closeProjectModalPopup();
 	}
 	</script>
 	</head>
 	<body>
 	
 	<!-- Project Creation Div -->
-		<div id="modalDiv" class="modal">
-		  <span onclick="closePopup()" class="close" title="Close Modal">&times;</span>
+		<div id="projectModalDiv" class="modal">
+		  <span onclick="closeProjectModalPopup()" class="close" title="Close Modal">&times;</span>
 			<form class="modal-content" id="newProjectForm" name="newProjectForm">
 		    <div class="container">
 		      <h1 style="color: green;">Add Project</h1>
@@ -109,7 +129,7 @@
 		      </textarea>
 		      
 		      <div class="clearfix">
-		        <button type="button" onclick="closePopup()" class="cancelbtn">Cancel</button>
+		        <button type="button" onclick="closeProjectModalPopup()" class="cancelbtn">Cancel</button>
 		        <button type="button" class="signupbtn" onclick="saveProject()">Save</button>
 		      </div>
 		    </div>

@@ -32,7 +32,7 @@
     <h3 class="w3-padding-64"><b>VIVA<br>Application</b></h3>
   </div>
   <div class="w3-bar-block">
-    <a href="#" onclick="loadPage('homeDiv','projectHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Home</a>
+    <a href="#" onclick="loadPage('commonDiv','projectHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Home</a>
     <a href="#" onclick="loadPage('commonDiv','sprintHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Sprints</a>
     <a href="#" onclick="loadPage('commonDiv','./epicHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Epics</a>
     <a href="#" onclick="loadPage('commonDiv','./usHome.jsp');" class="w3-bar-item w3-button w3-hover-white">User Stories</a>
@@ -58,19 +58,19 @@
 <%--     	<h1 class="w3-xxxlarge" style="color: blue;"><b>Welcome <%= userName%></b></h1> --%>
 <!-- 	</div> -->
 	<!-- Search form -->
-	<div class="w3-container" id="projectSearchDiv" style="margin-top:5px">
-		<h1 class="w3-xxxlarge" style="color: green;"><b>Projects</b></h1>
-	</div>
+<!-- 	<div class="w3-container" id="projectSearchDiv" style="margin-top:5px"> -->
+<!-- 		<h1 class="w3-xxxlarge" style="color: green;"><b>Projects</b></h1> -->
+<!-- 	</div> -->
 	<!-- Search form end-->
   <!-- Projects -->
-	<div class="w3-container" id="homeDiv" style="margin-top:5px">
+<!-- 	<div class="w3-container" id="homeDiv" style="margin-top:5px"> -->
 		
-	</div>
+<!-- 	</div> -->
 	
 	<!-- Project View -->
-	<div class="w3-container" id="projectDiv" style="margin-top:5px">
+<!-- 	<div class="w3-container" id="projectDiv" style="margin-top:5px"> -->
 		
-	</div>
+<!-- 	</div> -->
 	<!-- commonDiv Board -->
 	<br>
 	<div class="w3-container" id="commonDiv" style="margin-top:5px">
@@ -105,21 +105,21 @@ function w3_close() {
 }
 function loadPage(diveName,pageName) {
 	console.log("load page method called : " + diveName + " : " + pageName);
-	$("#homeDiv").hide();
+// 	$("#homeDiv").hide();
 	$("#commonDiv").hide();
-	$("#projectSearchDiv").hide();
-	$("#"+diveName).show();
+// 	$("#projectSearchDiv").hide();
 	$("#"+diveName).empty();
+	$("#"+diveName).show();
 	$("#"+diveName).load(pageName);
-	if(diveName === "homeDiv"){
-		$("#projectSearchDiv").show();
-		$("#projectSearchDiv").load("projectSearch.jsp");
-	}
+// 	if(diveName === "homeDiv"){
+// 		$("#projectSearchDiv").show();
+// 		$("#projectSearchDiv").load("projectSearch.jsp");
+// 	}
 }
 
-$(document).ready(function() {
-	loadPage('homeDiv','projectHome.jsp');
-});
+ $(document).ready(function() {
+ 	loadPage('commonDiv','projectHome.jsp');
+ });
 </script>
 
 </body>

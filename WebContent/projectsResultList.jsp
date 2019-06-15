@@ -80,34 +80,14 @@
 	            });
 			}
 		</script>
-		<script type="text/javascript">
-			function openModal(){
-				console.log("Open Project modal got called");
-				$("#addPrjDiv").load("./newProject.jsp",clearProject());
-			}
-			function clearProject() {
-				console.log("clearProject jsm got called..");
-				$("#projectManager").val("");
-				$("#projectName").val("");
-				$("#projectPriority").val("0");
-				$("#projectStartDate").val("");
-				$("#projectEndDate").val("");
-				$("#projectDescription").val("");
-			}
-		</script>
 	</head>
 	<body>
-	<button onclick="openModal();" style="width:auto;">Create New Project</button>
+	
 	<% if(projects.isEmpty()) {%>
-	<label id="projectResultInfo" style="color: red;margin-left: 20%;">No Projects found with search criteria</label>
+	<label id="projectResultInfo" style="color: red;margin-left: 35%;">No Projects found with search criteria</label>
 	<%} else{%>
-	<label id="projectResultInfo" style="color: blue;margin-left: 20%;"><%= projects.size()%> Projects Found</label>
+	<label id="projectResultInfo" style="color: blue;margin-left: 35%;"><%= projects.size()%> Projects Found</label>
 	<%} %>
-		<!-- Project Creation Div -->
-		<div id="addPrjDiv">
-		  <jsp:include page="newProject.jsp"/>
-		</div>
-		<!-- Project Creation Div ended -->
 	<!-- Projects Table -->
 			<div class="limiter">
 				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:500px; min-height:0px; overflow-x: none;">

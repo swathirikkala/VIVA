@@ -15,12 +15,24 @@
 
 	</head>
 	<body>
+	
+		<!-- Projects Search -->
+			<div class="projectsDiv">
+				<jsp:include page="projectSearch.jsp" /> 
+			</div>
+		<!-- Projects Search ended -->
 		
 		<!-- Projects Table -->
 			<div class="projectsDiv">
-			<jsp:include page="projectsResultList.jsp" /> 
+				<jsp:include page="projectsResultList.jsp" /> 
 			</div>
 		<!-- Projects Table ended -->
+		
+		<!-- Projects Creation -->
+			<div class="projectsDiv">
+				<jsp:include page="newProject.jsp" /> 
+			</div>
+		<!-- Projects Creation ended -->
 		
 	</body>
 	
