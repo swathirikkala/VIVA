@@ -140,6 +140,10 @@ function clearUSForm(){
 }
 	</script>
 	<script type="text/javascript">
+		function validateUs(){
+			
+		}
+	
     	function createUS() {
 			console.log("createUS got called ....");
 			var newUSFormData = $("form[name=newUSForm]").serialize();

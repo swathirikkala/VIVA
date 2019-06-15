@@ -18,7 +18,7 @@
 		
 		<!-- Projects Table -->
 			<div class="projectsDiv">
-				<%@include file="projectsResultList.jsp" %>
+			<jsp:include page="projectsResultList.jsp" /> 
 			</div>
 		<!-- Projects Table ended -->
 		

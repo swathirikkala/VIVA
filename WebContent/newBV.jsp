@@ -48,7 +48,6 @@
 	<!--===============================================================================================-->
 		<script src="js/main.js"></script>
 		<script src="./js/jquery-3.4.0.min.js"></script>
-		<script src="./js/modal.js"></script>
 	<!-- Table JS end -->
 		<style type="text/css">
 			.width50{

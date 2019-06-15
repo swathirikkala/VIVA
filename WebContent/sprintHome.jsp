@@ -19,22 +19,22 @@ $(document).ready(function() {
 	console.log("user name : " + uname);
 	if("null" === uname ){
 		alert("Session expired please login again.");
-		window.location="./index.jsp";
+		window.location="index.jsp";
 	}
 });
 </script>
 </head>
 
 <!-- Sprint Creation Div -->
-	<jsp:include page="./newSprint.jsp" /> 
+	<jsp:include page="newSprint.jsp" /> 
 <!-- Sprint Creation Div ended -->
 
 <div id="sprintSearchDiv">
-	<jsp:include page="./sprintSearch.jsp" />
+	<jsp:include page="sprintSearch.jsp" />
 </div>
 <div id="sprintEditDiv" style="margin-top: 0px;">
-	<jsp:include page="./sprintEdit.jsp" />
+	<jsp:include page="sprintEdit.jsp" />
 </div>
 <div id="sprintUserStoriesDiv" style="margin-top: 50px;">
-	<jsp:include page="./usResult.jsp" /> 
+	<jsp:include page="usResult.jsp" /> 
 </div>

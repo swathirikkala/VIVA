@@ -9,9 +9,9 @@
 <%@page import="java.util.List"%>
 
 <%
-	ProjectDao projectDao = new ProjectDao();
+	ProjectDao prjDao = new ProjectDao();
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
-	List<Project> allProjects = projectDao.getProjects();
+	List<Project> allProjects = prjDao.getProjects();
 	if(allProjects == null){
 		allProjects = new ArrayList<Project>();
 	}
@@ -24,21 +24,108 @@
 
 <html>
 	<head>
-		<script type="text/javascript">
-				function openSprintModal(){
-					alert("openSprintModal()");
-					  closePopup();
-					  console.log("openSprintModal() got called");
-					  document.getElementById('newSprintmodalDiv').style.display='block';
-					}
-				function closeSprintModal(){
-					  console.log("closeSprintModal() got called");
-					  document.getElementById('newSprintmodalDiv').style.display='none';
-					}
-		</script>
+	<script type="text/javascript">
+	    $(document).ready(function() {
+	    	$("#projectName").val("<%=project.getId()%>");
+	    	$("#sprintDescription").val("");
+	      });
+	</script>
+	
+	<script type="text/javascript">
+		function openSprintModal(){
+			  closeSprintModal();
+			  console.log("new Sprint creation open modal got called ....");
+			  document.getElementById('newSprintModalDiv').style.display='block';
+		}
+		function closeSprintModal(){
+			  document.getElementById('newSprintModalDiv').style.display='none';
+		}
+	</script>
+	<script type="text/javascript">
+		function validateSprintForm() {
+			console.log("Sprint Validation got called .....");
+			var errorMessage = "";
+			var isValid = true;
+			if($("#projectName").val() === "0"){
+				errorMessage += "\r\n Please Select Project Name";
+				isValid = false;
+			}
+			if($("#sprintName").val() === ""){
+				errorMessage += "\r\n Please Give Sprint Name";
+				isValid = false;
+			}
+			if($("#sprintStartDate").val() === ""){
+				errorMessage += "\r\n Please Select Sprint Start Date";
+				isValid = false;
+			}
+			if($("#sprintEndDate").val() === "0"){
+				errorMessage += "\r\n Please Select Sprint End Name";
+				isValid = false;
+			}
+			if($("#sprintDescription").val() === "0"){
+				errorMessage += "\r\n Please Give Sprint Description";
+				isValid = false;
+			}
+			alert(errorMessage);
+			return isValid;
+		}
+	</script>
+
+	<script type="text/javascript">
+		function createSprint() {
+			console.log("createSprint got called");
+			console.log($("form[name=newSprintForm]").serialize());
+			console.log("Sprint Validation got called .....");
+			
+			var errorMessage = "";
+			var isValid = true;
+			if($("#projectName").val() === "0"){
+				errorMessage += "\r\n Please Select Project Name";
+				isValid = false;
+			}
+			if($("#sprintName").val() === ""){
+				errorMessage += "\r\n Please Give Sprint Name";
+				isValid = false;
+			}
+			if($("#sprintStartDate").val() === ""){
+				errorMessage += "\r\n Please Select Sprint Start Date";
+				isValid = false;
+			}
+			if($("#sprintEndDate").val() === ""){
+				errorMessage += "\r\n Please Select Sprint End Name";
+				isValid = false;
+			}
+			if($("#sprintDescription").val() === ""){
+				errorMessage += "\r\n Please Give Sprint Description";
+				isValid = false;
+			}
+			
+			if(isValid == false){
+				console.log("Form validation failed");
+			}else{
+				$.ajax({
+					type: 'post',
+					url: './addSprint',
+					data: $("form[name=newSprintForm]").serialize(),
+					success: function (response) {
+							console.log("Sprint creation call completed..... " + response);
+							if(response === "success"){
+			                	   alert("Sprint creation Success");
+							}else{
+			                	   alert("Sprint creation Failed");
+							}
+		                },
+						error : function(data, status, er) {
+							console.log("Error in create new Sprint jsm : " + data + " status: " + status + " er:" + er);
+						}
+		            });
+				}
+				closeSprintModal();
+		}
+	</script>
 	</head>
 	<body>
-		<div id="newSprintmodalDiv" class="modal">
+		<div id="newSprintModalDiv" class="modal">
 		  <span onclick="javascript:closeSprintModal()" class="close" title="Close Sprint">&times;</span>
 			<form id="newSprintForm" name="newSprintForm" class="modal-content">
 		    <div class="container">
@@ -84,53 +171,6 @@
 		    </div>
 		  </form>
 		</div>
-		
-	<script type="text/javascript">
-	    $(document).ready(function() {
-	    	//alert("Create new sprint got called");
-	    	$("#projectName").val("<%=project.getId()%>");
-	    	$("#sprintDescription").val("");
-	    	
-	      });
-	
-	</script>
-	
-	<script type="text/javascript">
-		function openSprintModal(){
-			console.log("new Sprint creation open modal got called ....");
-			  document.getElementById('newSprintmodalDiv').style.display='block';
-			}
-		function closeSprintModal(){
-			  document.getElementById('newSprintmodalDiv').style.display='none';
-			}
-	</script>
-
-		<script type="text/javascript">
-			function createSprint() {
-				console.log("createSprint got called");
-				console.log($("form[name=newSprintForm]").serialize());
-	          
-					$.ajax({
-		                type: 'post',
-		                url: './addSprint',
-		                data: $("form[name=newSprintForm]").serialize(),
-		                success: function (response) {
-		                   console.log("Sprint creation call completed..... " + response);
-		                   if(response === "success"){
-		                	   alert("Sprint creation Success");
-		                	   //loadPage('commonDiv','projectEditHome.jsp');
-		                   }else{
-		                	   alert("Sprint creation Failed");
-		                   }
-		                },
-						error : function(data, status, er) {
-							console.log("Error in create new Sprint jsm : " + data + " status: " + status + " er:" + er);
-						
-						}
-		            });
-					closeSprintModal();
-			}
-		</script>
 		</body>
 	</html>
 

@@ -26,7 +26,7 @@
 <body>
 
 	<!-- User Story Creation Div started-->
-	<jsp:include page="./newUS.jsp"/>
+	<jsp:include page="newUS.jsp"/>
 	<!-- User Story Creation Div ended -->
 		
 	<div id="userStorySearchDiv">

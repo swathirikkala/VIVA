@@ -138,7 +138,7 @@
 				</div>
 			</div>
 		<!-- Sprint Creation Div -->
-			<%@include file="./newSprint.jsp" %>
+		<jsp:include page="newSprint.jsp"/>
 		<!-- Sprint Creation Div ended -->
 
 	</body>

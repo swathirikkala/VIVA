@@ -22,8 +22,6 @@
 			padding-right: 25px;
 		}
 	</style> 
-	<script src="./js/jquery-3.4.0.min.js"></script>
-  	<script src="./js/project.js"></script>
   	<script type="text/javascript">
 		$(document).ready(function() {
 			var uname = '<%=userName%>';

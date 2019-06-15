@@ -105,7 +105,7 @@
 	<%} %>
 		<!-- Project Creation Div -->
 		<div id="addPrjDiv">
-<%-- 		  <%@include file="newProject.jsp" %> --%>
+		  <jsp:include page="newProject.jsp"/>
 		</div>
 		<!-- Project Creation Div ended -->
 	<!-- Projects Table -->

@@ -18,9 +18,9 @@
 <link rel="stylesheet" href="./css/w3.css">
 <link rel="stylesheet" href="./css/w3.css">
 <link rel="stylesheet" href="./css/modal.css">
-<link rel="stylesheet" href="https://fonts.googleapis.com/css?family=Poppins">
+<link href="./css/fSelect.css" rel="stylesheet">
 <script src="./js/jquery-3.4.0.min.js"></script>
-<script src="./js/modal.js"></script>
+<script src="./js/fSelect.js"></script>
 
 
 <body>

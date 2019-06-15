@@ -11,7 +11,6 @@
 <link rel="stylesheet" href="./css/w3.css">
 <link rel="stylesheet" href="./css/modal.css">
 <script src="./js/jquery-3.4.0.min.js"></script>
-<script src="./js/modal.js"></script>
 <script src="./js/project.js"></script>
 <script src="./js/sprint.js"></script>
 <script src="./js/adminPanel.js"></script>

@@ -17,7 +17,6 @@
 %>
 <html>
 <head>
-    <script src="./js/jquery-3.4.0.min.js"></script>
     <script type="text/javascript">
     	function newSprint() {
     		console.log("new Sprint open modal got called in sprint home");
@@ -149,7 +148,7 @@
 		  <hr>
 	
 		<!-- Sprint Creation Div -->
-			<%@include file="./newSprint.jsp" %>
+			<jsp:include page="newSprint.jsp" />
 		<!-- Sprint Creation Div ended -->
   	<script type="text/javascript">
 		$(document).ready(function() {

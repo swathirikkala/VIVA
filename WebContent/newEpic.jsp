@@ -39,9 +39,6 @@
 	}
 %>
 <!DOCTYPE html>
-<link href="./css/fSelect.css" rel="stylesheet">
-<script src="./js/jquery-3.4.0.min.js"></script>
-<script src="./js/fSelect.js"></script>
 <script>
 	(function($) {
 	    $(function() {
