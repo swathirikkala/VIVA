@@ -39,13 +39,6 @@
 	}
 %>
 <!DOCTYPE html>
-<script>
-	(function($) {
-	    $(function() {
-	        window.fs_test = $('.epicBvs').fSelect();
-	    });
-	})(jQuery);
-</script>
 		<!-- Epic Creation Div -->
 		<div id="newEpicModalDiv" class="modal">
 		  <span onclick="javascript:closeNewEpicModal()" class="close" title="Close Sprint">&times;</span>
@@ -76,8 +69,7 @@
 		     	 </select>
 			   
 			   <label for="epicBusinessValues"><b>Business Values</b></label>
-		       <select id="epicBusinessValues" name = "epicBusinessValues" class="epicBvs" multiple="multiple">
-			      		<option value="" disabled="disabled">--Select--</option>
+		       <select id="epicBusinessValues" name = "epicBusinessValues" multiple="multiple">
 			      <%for(BusinessValue bv : LookUp.getBusinessValues()){%>
 			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option>
 			      <%}%>
@@ -95,6 +87,16 @@
 		  </form>
 		  </div>
 		<!-- Epic Creation Div ended -->
+		
+<script>
+	(function($) {
+	    $(function() {
+	    	$('#epicBusinessValues').removeAttr('style');
+	        window.fs_test = $('.test').fSelect();
+	    });
+	})(jQuery);
+</script>
+
 <script type="text/javascript">
 function openNewEpicModal(){
 	document.getElementById('newEpicModalDiv').style.display='block';
@@ -140,8 +142,6 @@ $("#projectName").change(
 			console.log("projectName change event got called");
 			var projectId= $("#projectName").val();
 			console.log("Project id : " + projectId);
-		
-			
 		});
 </script>
 

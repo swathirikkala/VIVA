@@ -12,15 +12,11 @@ import com.viva.dto.Epic;
 
 public class EpicDao {
 
-	public String addEpic(Epic epic) {
+	public int addEpic(Epic epic) {
 
 		int addEpicResponse = DBConnectionUtil.insert(QueryBuilder.getAddEpicQuery(epic));
-		if(addEpicResponse >0) {
-			return "success";
-		}else if(addEpicResponse<0) {
-			return "exception";
-		}
-		return "fail";
+		
+		return addEpicResponse;
 	}
 
 	public List<Epic> getEpics() {

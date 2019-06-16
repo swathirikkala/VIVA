@@ -113,7 +113,7 @@
 		    </div>
 		    <div> 
 		    	<div style="display: inline-flex;">
-		    		<button onclick="displayProjectModalPopup();" style="width:auto;">Create New Project</button>
+		    		<button onclick="javascript:displayProjectModalPopup()" style="width:auto;">Create New Project</button>
 		    	</div>
 			    <div style="display: inline-flex;margin-left: 45%;">
 			    	<button type="button" class="signupbtn" style="text-align: centre; width:100px;" onclick="searchProjects()">Search</button>

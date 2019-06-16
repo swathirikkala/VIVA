@@ -19,8 +19,10 @@
 <link rel="stylesheet" href="./css/w3.css">
 <link rel="stylesheet" href="./css/modal.css">
 <link href="./css/fSelect.css" rel="stylesheet">
-<script src="./js/jquery-3.4.0.min.js"></script>
+<!-- <script src="./js/jquery-3.4.0.min.js"></script> -->
+<script src="./vendor/jquery/jquery-3.2.1.min.js"></script>
 <script src="./js/fSelect.js"></script>
+
 
 
 <body>
@@ -34,12 +36,12 @@
   <div class="w3-bar-block">
     <a href="#" onclick="loadPage('commonDiv','projectHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Home</a>
     <a href="#" onclick="loadPage('commonDiv','sprintHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Sprints</a>
-    <a href="#" onclick="loadPage('commonDiv','./epicHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Epics</a>
-    <a href="#" onclick="loadPage('commonDiv','./usHome.jsp');" class="w3-bar-item w3-button w3-hover-white">User Stories</a>
-    <a href="#" onclick="loadPage('commonDiv','./dashBoard.jsp');" class="w3-bar-item w3-button w3-hover-white">Dash Board</a>
-    <a href="#" onclick="loadPage('commonDiv','./newBV.jsp');" class="w3-bar-item w3-button w3-hover-white">Business Values</a>
+    <a href="#" onclick="loadPage('commonDiv','epicHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Epics</a>
+    <a href="#" onclick="loadPage('commonDiv','usHome.jsp');" class="w3-bar-item w3-button w3-hover-white">User Stories</a>
+    <a href="#" onclick="loadPage('commonDiv','dashBoard.jsp');" class="w3-bar-item w3-button w3-hover-white">Dash Board</a>
+    <a href="#" onclick="loadPage('commonDiv','newBV.jsp');" class="w3-bar-item w3-button w3-hover-white">Business Values</a>
     
-    <a href="./index.jsp" class="w3-bar-item w3-button w3-hover-white">Logout</a>
+    <a href="index.jsp" class="w3-bar-item w3-button w3-hover-white">Logout</a>
   </div>
 </nav>
 
@@ -54,24 +56,7 @@
 
 <!-- !PAGE CONTENT! -->
 <div class="w3-main" style="margin-left:340px;margin-right:40px">
-<!-- 	<div class="w3-container" style="margin-top:50px;text-align: right;"> -->
-<%--     	<h1 class="w3-xxxlarge" style="color: blue;"><b>Welcome <%= userName%></b></h1> --%>
-<!-- 	</div> -->
-	<!-- Search form -->
-<!-- 	<div class="w3-container" id="projectSearchDiv" style="margin-top:5px"> -->
-<!-- 		<h1 class="w3-xxxlarge" style="color: green;"><b>Projects</b></h1> -->
-<!-- 	</div> -->
-	<!-- Search form end-->
-  <!-- Projects -->
-<!-- 	<div class="w3-container" id="homeDiv" style="margin-top:5px"> -->
-		
-<!-- 	</div> -->
-	
-	<!-- Project View -->
-<!-- 	<div class="w3-container" id="projectDiv" style="margin-top:5px"> -->
-		
-<!-- 	</div> -->
-	<!-- commonDiv Board -->
+
 	<br>
 	<div class="w3-container" id="commonDiv" style="margin-top:5px">
 	</div>
@@ -105,16 +90,8 @@ function w3_close() {
 }
 function loadPage(diveName,pageName) {
 	console.log("load page method called : " + diveName + " : " + pageName);
-// 	$("#homeDiv").hide();
-	$("#commonDiv").hide();
-// 	$("#projectSearchDiv").hide();
 	$("#"+diveName).empty();
-	$("#"+diveName).show();
 	$("#"+diveName).load(pageName);
-// 	if(diveName === "homeDiv"){
-// 		$("#projectSearchDiv").show();
-// 		$("#projectSearchDiv").load("projectSearch.jsp");
-// 	}
 }
 
  $(document).ready(function() {

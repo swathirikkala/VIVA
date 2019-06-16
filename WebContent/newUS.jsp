@@ -52,7 +52,7 @@
 		<script>
 			(function($) {
 			    $(function() {
-			        window.fs_test = $('.usBvs').fSelect();
+			        window.fs_test = $('.test').fSelect();
 			    });
 			})(jQuery);
 		</script>
@@ -98,7 +98,7 @@
 		     	 
 			   
 			   <label for="businessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
-		       <select id="businessValues" name = "businessValues" class="usBvs" multiple="multiple">
+		       <select id="businessValues" name = "businessValues" class="test" multiple="multiple">
 			      <%for(BusinessValue bv : LookUp.getBusinessValues()){%>
 			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option>
 			      <%}%>

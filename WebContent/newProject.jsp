@@ -24,8 +24,12 @@
 
 %>
 <!DOCTYPE html>
-<html>
+<html>	
+
 	<head>
+	
+<link rel="stylesheet" href="./css/modal.css">
+<script src="./vendor/jquery/jquery-3.2.1.min.js"></script>
 		<script type="text/javascript">
 			function clearProject() {
 				console.log("clearProject jsm got called..");
@@ -37,20 +41,13 @@
 				$("#projectDescription").val("");
 			}
 		</script>
-		<script type="text/javascript">
-		    $(document).ready(function() {
-// 		    	displayPopup();
-		    	$("#projectDescription").val("");
-		      });
-		</script>
+		
 	<script type="text/javascript">
-	
 	function displayProjectModalPopup(){
-		  closeProjectModalPopup();
+			alert("Hi");
 		  document.getElementById('projectModalDiv').style.display='block';
 		}
 	function closeProjectModalPopup(){
-		  clearProject()
 		  document.getElementById('projectModalDiv').style.display='none';
 		}
 	</script>
@@ -58,6 +55,7 @@
 	<script type="text/javascript">
 	function saveProject() {
 		console.log("saveProject function got called ");
+		alert("");
 		try{
 	        $.ajax({
 	            type: 'post',

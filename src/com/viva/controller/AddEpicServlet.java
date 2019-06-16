@@ -8,8 +8,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.viva.dao.EpicBvDao;
 import com.viva.dao.EpicDao;
 import com.viva.dto.Epic;
+import com.viva.util.Constants;
 
 /**
  * Servlet implementation class AddEpicServlet
@@ -18,6 +20,7 @@ import com.viva.dto.Epic;
 public class AddEpicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EpicDao epicDao = new EpicDao();
+	private EpicBvDao epicBvDao = new EpicBvDao();
 
 	/**
 	 * @see HttpServlet#HttpServlet()
@@ -51,9 +54,19 @@ public class AddEpicServlet extends HttpServlet {
 		epic.setDescription(String.valueOf(request.getParameter("description")));
 		epic.setLmb(String.valueOf(request.getSession().getAttribute("userId")));
 
-		String addEpicResponse = epicDao.addEpic(epic);
-
-		response.getWriter().write(addEpicResponse);
+		int addEpicResponse = epicDao.addEpic(epic);
+		if(addEpicResponse>0) {
+			String [] bvs = request.getParameterValues("epicBusinessValues");
+			System.out.println("bvs :::::: " + bvs);
+			epicBvDao.addBvsToEpic(addEpicResponse, bvs);
+		}
+		if(addEpicResponse > 0) {
+			response.getWriter().write(Constants.SUCCESS);
+		}else if(addEpicResponse < 0) {
+			response.getWriter().write(Constants.ERROR);
+		}else{
+			response.getWriter().write(Constants.FAIL);
+		}
 
 	}
 
