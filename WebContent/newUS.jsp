@@ -49,13 +49,7 @@
 		<link href="./css/fSelect.css" rel="stylesheet">
 		<script src="./js/jquery-3.4.0.min.js"></script>
 		<script src="./js/fSelect.js"></script>
-		<script>
-			(function($) {
-			    $(function() {
-			        window.fs_test = $('.test').fSelect();
-			    });
-			})(jQuery);
-		</script>
+		
 	</head>
 	<body>
 <!-- User story Creation Div start-->
@@ -98,7 +92,7 @@
 		     	 
 			   
 			   <label for="businessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
-		       <select id="businessValues" name = "businessValues" class="test" multiple="multiple">
+		       <select id="businessValues" name = "businessValues" multiple="multiple">
 			      <%for(BusinessValue bv : LookUp.getBusinessValues()){%>
 			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option>
 			      <%}%>
@@ -214,6 +208,51 @@ $("#usProjectName").change(
 				console.log("Exception in projectName Change event in US creation jsm : " + e);
 			}
 		});
+</script>
+<script type="text/javascript">
+
+$("#usEpicName").change(
+		function() {
+		console.log("loadBvs");	
+		console.log("usEpicName change event got called");
+		var epicId= $("#usEpicName").val();
+		console.log("epicId : " + epicId);
+		try {
+			$.ajax({
+				type : 'post',
+				url : './bvsByEpic',
+				data : {epicId:epicId},
+				success : function(response) {
+					var respJSONString = JSON.stringify(response);
+					var jsonObj = JSON.parse(respJSONString);
+					console.log(respJSONString);
+					console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
+					$("#businessValues").val("");
+	                if(jsonObj.responseCode == 1){
+	                	console.log("BVs found");
+	                	var bvArray = [];
+						$.each(response.responseObject, function (i, epicBv) {
+							console.log("epicBv.bvId " + epicBv.bvId);
+							bvArray.push(epicBv.bvId);
+							
+						});
+						console.log("bvArray : " + bvArray)
+						$("#businessValues").val(bvArray);
+						
+	                }else{
+	                	alert("no epics Business values found with this Epic");
+	                }
+				},
+				error : function(data, status, er) {
+					console.log("Error in loadBvs in US creation jsm  : " + data
+							+ " status: " + status + " er:" + er);
+				}
+			});
+		} catch (e) {
+			console.log("Exception in loadBvs in US creation jsm : " + e);
+		}
+	});
+		
 </script>
 </body>
 </html>
