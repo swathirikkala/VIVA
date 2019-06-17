@@ -51,7 +51,7 @@
 		      
 			   <label for="projectName"><b>Project Name</b></label><label style="color: red;">&nbsp;*</label>
 			   <select id="projectName" name = "projectName" >
-		       <option value="" selected="selected">--Select Project--</option>
+		       <option value="0" selected="selected">--Select Project--</option>
 		      <%for(Project p : projects){%>
 		      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
 		      <%}%>
@@ -69,7 +69,7 @@
 		     	 </select>
 			   
 			   <label for="epicBusinessValues"><b>Business Values</b></label>
-		       <select id="epicBusinessValues" name = "epicBusinessValues" multiple="multiple">
+		       <select id="epicBusinessValues" name = "epicBusinessValues" multiple="multiple" style="height: 100px;">
 			      <%for(BusinessValue bv : LookUp.getBusinessValues()){%>
 			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option>
 			      <%}%>

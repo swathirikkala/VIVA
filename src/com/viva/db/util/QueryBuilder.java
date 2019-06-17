@@ -359,7 +359,7 @@ public class QueryBuilder {
 	}
 
 	public static PreparedStatement getAddBvsToEpicPs(int epicId, String[] bvs) {
-		String query = "insert into epic_bv values " ;
+		String query = "insert into epic_bv(eid,bid) values " ;
 		
 		for(int i= 0 ; i< bvs.length ; i++) {
 			query+="(?,?)";

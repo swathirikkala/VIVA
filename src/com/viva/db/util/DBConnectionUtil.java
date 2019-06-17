@@ -57,6 +57,10 @@ public class DBConnectionUtil {
 		try {
 			statement = connection.createStatement();
 			response = statement.executeUpdate(query, Statement.RETURN_GENERATED_KEYS);
+			ResultSet generatedKeys = statement.getGeneratedKeys();
+			if(generatedKeys != null && generatedKeys.next()) {
+				response = generatedKeys.getInt(1);
+			}
 		} catch (SQLException ex) {
 			response = -1;
 			Logger.getLogger(DBConnectionUtil.class.getName()).log(Level.SEVERE, null, ex);
