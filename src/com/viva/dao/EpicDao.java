@@ -9,6 +9,7 @@ import java.util.List;
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
 import com.viva.dto.Epic;
+import com.viva.util.Constants;
 
 public class EpicDao {
 
@@ -83,6 +84,20 @@ public class EpicDao {
 		}
 		System.out.println("getEpicById : " + epics);
 		return epics != null ? epics.get(0):null;
+	}
+
+	public String updateEpic(Epic epic) {
+		PreparedStatement ps = QueryBuilder.getUpdateEpicPs(epic);
+		try {
+			int epicUpdateResponse = ps.executeUpdate();
+			if(epicUpdateResponse >0) {
+				return Constants.SUCCESS;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return Constants.ERROR;
+		}
+		return Constants.FAIL;
 	}
 
 }

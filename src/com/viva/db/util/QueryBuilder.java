@@ -382,4 +382,24 @@ public class QueryBuilder {
 		}
 		return ps;
 	}
+
+	public static PreparedStatement getUpdateEpicPs(Epic epic) {
+		String sql ="update epic set name=?, project = ?, sprint = ?, priority=?, status=?, description=? where id =?";
+		
+		PreparedStatement ps = null;
+		try {
+			ps = DBConnectionUtil.getconnection().prepareStatement(sql);
+			ps.setString(1, epic.getName());
+			ps.setInt(2, epic.getProject());
+			ps.setInt(3, epic.getSprint());
+			ps.setInt(4, epic.getPriority());
+			ps.setString(5, epic.getStatus());
+			ps.setString(6, epic.getDescription());
+			ps.setInt(7, epic.getId());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("getUpdateEpicPs query : " + ps.toString());
+		return ps;
+	}
 }

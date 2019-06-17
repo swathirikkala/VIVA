@@ -15,7 +15,7 @@ public class Epic {
 	private int viva;
 	
 	public Epic() {
-		this.status="";
+		this.status="0";
 		this.description="";
 		this.createdBy="";
 		this.name="";
