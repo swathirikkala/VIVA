@@ -10,6 +10,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.viva.dao.UsBvDao;
 import com.viva.dao.UserStoryDao;
 import com.viva.dto.UserStory;
 import com.viva.util.Constants;
@@ -23,7 +24,7 @@ public class AddUserStoryServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	UserStoryDao userStoryDao = new UserStoryDao();
-
+	UsBvDao usBvDao = new UsBvDao();
 	/**
 	 * @see HttpServlet#HttpServlet()
 	 */
@@ -66,6 +67,11 @@ public class AddUserStoryServlet extends HttpServlet {
 			UserStory usbn = userStoryDao.getUserStoryByUsName(us.getName());
 			uss.add(usbn);
 			request.getSession().setAttribute("userStories",uss);
+			
+			String [] bvs = request.getParameterValues("usBusinessValues");
+			System.out.println("bvs :::::: " + bvs);
+			String addBvsToUsResponse = usBvDao.addBvsToUs(usbn.getId(), bvs);
+			System.out.println("addBvsToUsResponse : " +addBvsToUsResponse);
 		}
 	}
 

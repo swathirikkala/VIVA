@@ -20,7 +20,8 @@ public class QueryBuilder {
 		String query = "insert into project (name,priority,start_date,end_date,created_by,manager,description,modified_by,created_date,modified_on) values('"
 				+ project.getName() + "'," + project.getPriority() + ",'" + project.getStartDate() + "','"
 				+ project.getEndDate() + "','" + project.getCreatedBy() + "','" + project.getManager() + "','"
-				+ project.getDescription() + "','" + project.getLastModifiedBy()+"','"+DateUtil.getSqlDate()+"','"+DateUtil.getSqlDate() + "')";
+				+ project.getDescription() + "','" + project.getLastModifiedBy() + "','" + DateUtil.getSqlDate() + "','"
+				+ DateUtil.getSqlDate() + "')";
 		return query;
 	}
 
@@ -98,7 +99,7 @@ public class QueryBuilder {
 
 	public static PreparedStatement getAddUserStoryQuery(UserStory us) {
 		String query = "insert into user_story (project,epic,name,priority,description,lmb,lmd,created_by) values (?,?,?,?,?,?,?,?)";
-		PreparedStatement ps =null;
+		PreparedStatement ps = null;
 		try {
 			ps = DBConnectionUtil.getconnection().prepareStatement(query);
 			ps.setInt(1, us.getProject());
@@ -213,21 +214,22 @@ public class QueryBuilder {
 				+ history.getOwner() + "')";
 		return query;
 	}
+
 	public static String getHistoryByjobIdAndJobType(int jobId, String jobType) {
 		System.out.println("getHistoryByjobIdAndJobType input jobId : " + jobId + " , jobType : " + jobType);
-		String query = "select * from history where jobId = "+ jobId +" and jobType = '" + jobType +"'";
+		String query = "select * from history where jobId = " + jobId + " and jobType = '" + jobType + "'";
 		return query;
 	}
 
 	public static String getIsProjectExistQuery(Project project) {
 		System.out.println("getIsProjectExistQuery input : " + project);
-		String query = "select * from project where name = '"+project.getName()+"'";
+		String query = "select * from project where name = '" + project.getName() + "'";
 		return query;
 	}
 
 	public static PreparedStatement getAllBusinessValuesPS() {
 		String query = "select * from bv";
-		PreparedStatement prepareStatement =null;
+		PreparedStatement prepareStatement = null;
 		try {
 			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
 			System.out.println("getAllBusinessValuesPS Query : " + prepareStatement.toString());
@@ -239,7 +241,7 @@ public class QueryBuilder {
 
 	public static PreparedStatement getEpicsByProjectIdQuery(Integer projectId) {
 		String query = "select * from epic where project = ?";
-		PreparedStatement prepareStatement =null;
+		PreparedStatement prepareStatement = null;
 		try {
 			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
 			prepareStatement.setInt(1, projectId);
@@ -248,12 +250,12 @@ public class QueryBuilder {
 			e.printStackTrace();
 		}
 		return prepareStatement;
-		
+
 	}
 
 	public static PreparedStatement getAllUserStoriesByEpicPS(int epicId) {
 		String query = "select * from user_story where epic = ?";
-		PreparedStatement prepareStatement =null;
+		PreparedStatement prepareStatement = null;
 		try {
 			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
 			prepareStatement.setInt(1, epicId);
@@ -262,12 +264,12 @@ public class QueryBuilder {
 			e.printStackTrace();
 		}
 		return prepareStatement;
-		
+
 	}
 
 	public static PreparedStatement getEpicByIdPs(int epicId) {
 		String query = "select * from epic where id = ?";
-		PreparedStatement prepareStatement =null;
+		PreparedStatement prepareStatement = null;
 		try {
 			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
 			prepareStatement.setInt(1, epicId);
@@ -276,26 +278,27 @@ public class QueryBuilder {
 			e.printStackTrace();
 		}
 		return prepareStatement;
-		
+
 	}
 
 	public static PreparedStatement getCheckBvExist(String bvName) {
 		String query = "select * from bv where name=?";
-		PreparedStatement prepareStatement =null;
+		PreparedStatement prepareStatement = null;
 		try {
 			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
-			prepareStatement.setString(1,bvName.trim());
-			
+			prepareStatement.setString(1, bvName.trim());
+
 			System.out.println("getCheckBvExist Query : " + prepareStatement.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return prepareStatement;
-		
+
 	}
+
 	public static PreparedStatement getAddBVQuery(BusinessValue bv) {
 		String query = "insert into bv (name,description) values (?,?)";
-		PreparedStatement prepareStatement =null;
+		PreparedStatement prepareStatement = null;
 		try {
 			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
 			prepareStatement.setString(1, bv.getName());
@@ -305,12 +308,12 @@ public class QueryBuilder {
 			e.printStackTrace();
 		}
 		return prepareStatement;
-		
+
 	}
 
 	public static PreparedStatement getUserStoryByUsNamePS(String usName) {
 		String query = "select * from user_story where name = ?";
-		PreparedStatement prepareStatement =null;
+		PreparedStatement prepareStatement = null;
 		try {
 			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
 			prepareStatement.setString(1, usName);
@@ -323,7 +326,7 @@ public class QueryBuilder {
 
 	public static PreparedStatement getUserStoryByUsIdPS(int userStoryId) {
 		String query = "select * from user_story where id = ?";
-		PreparedStatement prepareStatement =null;
+		PreparedStatement prepareStatement = null;
 		try {
 			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
 			prepareStatement.setInt(1, userStoryId);
@@ -336,21 +339,21 @@ public class QueryBuilder {
 
 	public static PreparedStatement getUpdateUserStoryPS(UserStory us) {
 		String query = "update user_story set name=? , project=?, sprint=?, epic=?, priority=?, status=?, "
-				+ "description=?, lmb=?, lmd=? where id=?" ;
-		PreparedStatement ps =null;
+				+ "description=?, lmb=?, lmd=? where id=?";
+		PreparedStatement ps = null;
 		try {
 			ps = DBConnectionUtil.getconnection().prepareStatement(query);
 			ps.setString(1, us.getName());
-			ps.setInt(2,us.getProject());
+			ps.setInt(2, us.getProject());
 			ps.setInt(3, us.getSprint());
 			ps.setInt(4, us.getEpic());
-			ps.setString(5, us.getPrioroty()+"");
+			ps.setString(5, us.getPrioroty() + "");
 			ps.setString(6, us.getStatus());
 			ps.setString(7, us.getDescription());
 			ps.setString(8, us.getLmb());
 			ps.setString(9, us.getLmd());
 			ps.setInt(10, us.getId());
-			
+
 			System.out.println("getUpdateUserStoryPS Query : " + ps.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -359,23 +362,23 @@ public class QueryBuilder {
 	}
 
 	public static PreparedStatement getAddBvsToEpicPs(int epicId, String[] bvs) {
-		String query = "insert into epic_bv(eid,bid) values " ;
-		
-		for(int i= 0 ; i< bvs.length ; i++) {
-			query+="(?,?)";
-			if(i < bvs.length-1) {
-				query+=",";
+		String query = "insert into epic_bv(eid,bid) values ";
+
+		for (int i = 0; i < bvs.length; i++) {
+			query += "(?,?)";
+			if (i < bvs.length - 1) {
+				query += ",";
 			}
 		}
-		PreparedStatement ps =null;
+		PreparedStatement ps = null;
 		try {
 			ps = DBConnectionUtil.getconnection().prepareStatement(query);
-			int i=0;
-			for(String bv : bvs) {
+			int i = 0;
+			for (String bv : bvs) {
 				ps.setInt(++i, epicId);
 				ps.setInt(++i, Integer.valueOf(bv));
 			}
-			
+
 			System.out.println("getAddBvsToEpicPs Query : " + ps.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
@@ -384,8 +387,8 @@ public class QueryBuilder {
 	}
 
 	public static PreparedStatement getUpdateEpicPs(Epic epic) {
-		String sql ="update epic set name=?, project = ?, sprint = ?, priority=?, status=?, description=? where id =?";
-		
+		String sql = "update epic set name=?, project = ?, sprint = ?, priority=?, status=?, description=? where id =?";
+
 		PreparedStatement ps = null;
 		try {
 			ps = DBConnectionUtil.getconnection().prepareStatement(sql);
@@ -404,17 +407,57 @@ public class QueryBuilder {
 	}
 
 	public static PreparedStatement getBvsByEpicIdPs(int epicId) {
-		String sql ="select * from epic_bv where eid = ?";
-		
+		String sql = "select * from epic_bv where eid = ?";
+
 		PreparedStatement ps = null;
 		try {
 			ps = DBConnectionUtil.getconnection().prepareStatement(sql);
 			ps.setInt(1, epicId);
-			
+
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		System.out.println("getBvsByEpicIdPs query : " + ps.toString());
+		return ps;
+	}
+
+	public static PreparedStatement getAddBvsToUsPs(int usId, String[] bvs) {
+		String query = "insert into us_bv(usid,bvid) values ";
+
+		for (int i = 0; i < bvs.length; i++) {
+			query += "(?,?)";
+			if (i < bvs.length - 1) {
+				query += ",";
+			}
+		}
+		PreparedStatement ps = null;
+		try {
+			ps = DBConnectionUtil.getconnection().prepareStatement(query);
+			int i = 0;
+			for (String bv : bvs) {
+				ps.setInt(++i, usId);
+				ps.setInt(++i, Integer.valueOf(bv));
+			}
+
+			System.out.println("getAddBvsToUsPs Query : " + ps.toString());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return ps;
+	}
+
+	public static PreparedStatement getBvsByUsIdPs(int userStoryId) {
+		String sql = "select * from us_bv where usid = ?";
+
+		PreparedStatement ps = null;
+		try {
+			ps = DBConnectionUtil.getconnection().prepareStatement(sql);
+			ps.setInt(1, userStoryId);
+
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("getBvsByUsIdPs query : " + ps.toString());
 		return ps;
 	}
 }

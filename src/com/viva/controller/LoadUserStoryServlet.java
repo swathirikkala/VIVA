@@ -12,9 +12,12 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.viva.dao.EpicDao;
 import com.viva.dao.SprintDao;
+import com.viva.dao.UsBvDao;
 import com.viva.dao.UserStoryDao;
+import com.viva.dto.BusinessValue;
 import com.viva.dto.Epic;
 import com.viva.dto.Sprint;
+import com.viva.dto.UsBv;
 import com.viva.dto.UserStory;
 import com.viva.util.Constants;
 
@@ -27,6 +30,7 @@ public class LoadUserStoryServlet extends HttpServlet {
     private UserStoryDao userStoryDao = new UserStoryDao();
     private SprintDao sprintDao = new SprintDao();
     private EpicDao epicDao = new EpicDao();
+    private UsBvDao usBvDao = new UsBvDao();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -55,6 +59,8 @@ public class LoadUserStoryServlet extends HttpServlet {
 			request.getSession().setAttribute("sprintsByProjectUsEdit", sprintsByProjectUsEdit);
 			List<Epic> epicsByProjectUsEdit = epicDao.getEpicsByProjectId(userStory.getProject());
 			request.getSession().setAttribute("epicsByProjectUsEdit", epicsByProjectUsEdit);
+			List<UsBv> bvsByUsId =usBvDao.getBvsByUsId(userStoryId);
+			request.getSession().setAttribute("bvsByUsId", bvsByUsId);
 			out.write(Constants.SUCCESS);
 		}else {
 			out.write(Constants.NO_DATA_FOUND);

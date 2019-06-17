@@ -1,4 +1,7 @@
 
+<%@page import="com.viva.dao.util.LookUp"%>
+<%@page import="com.viva.dto.BusinessValue"%>
+<%@page import="com.viva.dto.UsBv"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -7,7 +10,11 @@
 <%@page import="java.util.List"%>
 
 <%
-	
+
+	List<UsBv> bvsByUsId = (List<UsBv>)request.getSession().getAttribute("bvsByUsId");
+	if(bvsByUsId == null){
+		bvsByUsId = new ArrayList<UsBv>();
+	}
 %>
 
 
@@ -72,15 +79,15 @@
 							</tr>
 						</thead>
 						<tbody id="projectsBody">
-<%-- 							<%for(UserStory us: uss) {%> --%>
+							<%for(UsBv ub: bvsByUsId) {%>
 								<tr class="row100 head">
-									<td class="column100 width50" data-column="column1">US<%=0 %></td>
-									<td class="column100 width100" data-column="column2"><%= 0%></td>
-									<td class="column100 width75" data-column="column1"><%= 0%></td>
-									<td class="column100 width50" data-column="column6"><%= 0%></td>
+									<td class="column100 width50" data-column="column1">BV<%=ub.getBvId()%></td>
+									<td class="column100 width100" data-column="column2"><%= LookUp.bvName(ub.getBvId())%></td>
+									<td class="column100 width75" data-column="column1"><%= ub.getViva()%></td>
+									<td class="column100 width50" data-column="column6"><%=ub.getComment()%></td>
 									
 								</tr>
-<%-- 							<%} %> --%>
+							<%} %>
 						</tbody>
 					</table>
 				</div>

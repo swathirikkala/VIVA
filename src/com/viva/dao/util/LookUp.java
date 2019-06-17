@@ -14,6 +14,7 @@ public class LookUp {
 
 	private static ProjectDao projectDao = new ProjectDao();
 	private static BusinessValuesDao businessValuesDao = new BusinessValuesDao();
+	private static Map<Integer,BusinessValue> bvMap = null;
 	public static String getUserName(String userId ,Map<String, User> allUsers ) {
 		String userName ="";
 
@@ -82,4 +83,12 @@ public class LookUp {
 		}
 		return projects;
 	}
+	
+	public static String bvName(int bvId) {
+		if(bvMap == null) {
+			bvMap = businessValuesDao.getBvMap();
+		}
+		return bvMap.get(bvId).getName();
+	}
+	
 }

@@ -4,7 +4,9 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.viva.db.util.QueryBuilder;
 import com.viva.dto.BusinessValue;
@@ -68,6 +70,14 @@ public class BusinessValuesDao {
 		}
 		List<BusinessValue> bvs = parseBVs(rs);
 		return bvs;
+	}
+	
+	public Map<Integer,BusinessValue> getBvMap(){
+		Map<Integer,BusinessValue> bvMap = new HashMap<Integer, BusinessValue>();
+		for(BusinessValue bv: getAllBusinessValues()) {
+			bvMap.put(bv.getId(), bv);
+		}
+		return bvMap;
 	}
 	private List<BusinessValue> parseBVs(ResultSet rs) {
 		List<BusinessValue> bvs = new ArrayList<BusinessValue>();

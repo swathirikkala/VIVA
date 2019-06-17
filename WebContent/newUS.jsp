@@ -91,15 +91,15 @@
 		     	 </select>
 		     	 
 			   
-			   <label for="businessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
-		       <select id="businessValues" name = "businessValues" multiple="multiple">
+			   <label for="usBusinessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
+		       <select id="usBusinessValues" name = "usBusinessValues" multiple="multiple"  style="height: 200px;">
 			      <%for(BusinessValue bv : LookUp.getBusinessValues()){%>
 			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option>
 			      <%}%>
 		      </select>
 
 		      <label for="description"><b>User Story Description</b></label><label style="color: red;">&nbsp;*</label>
-		      <textarea rows="4" cols="50" placeholder="Description" name="usDescription" id="usDescription" style="height: 100px;">
+		      <textarea rows="4" cols="50" placeholder="Description" name="usDescription" id="usDescription">
 		      </textarea>
 		      
 		      <div class="clearfix">
@@ -127,7 +127,7 @@ function closeUSPopup(){
 }
 function clearUSForm(){
 	$("#usDescription").val("");
-	$("#businessValues").val("0");
+	$("#usBusinessValues").val("0");
 	$("#usPriority").val("0");
 	$("#usDescription").val("");
 	$("#usEpicName").val("");
@@ -227,7 +227,7 @@ $("#usEpicName").change(
 					var jsonObj = JSON.parse(respJSONString);
 					console.log(respJSONString);
 					console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
-					$("#businessValues").val("");
+					$("#usBusinessValues").val("");
 	                if(jsonObj.responseCode == 1){
 	                	console.log("BVs found");
 	                	var bvArray = [];
@@ -237,7 +237,7 @@ $("#usEpicName").change(
 							
 						});
 						console.log("bvArray : " + bvArray)
-						$("#businessValues").val(bvArray);
+						$("#usBusinessValues").val(bvArray);
 						
 	                }else{
 	                	alert("no epics Business values found with this Epic");
