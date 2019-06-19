@@ -19,7 +19,7 @@
 		
 		<!-- Projects Creation -->
 			<div class="projectsDiv">
-				<jsp:include page="newProject.jsp" /> 
+<%-- 				<jsp:include page="newProject.jsp" />  --%>
 			</div>
 		<!-- Projects Creation ended -->
 		<!-- Projects Search -->

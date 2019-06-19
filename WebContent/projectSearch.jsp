@@ -100,7 +100,9 @@
 		    				<label>Project Created by</label>
 		    			</th>
 		    			<td class="cellClass">
-		    				<input type="text" placeholder="Created By" name="createdByName" id="createdByName" required value="<%= userName %>" disabled="disabled"  class="">
+					    	<select id="createdByName" name = "createdByName" required>
+					      		<option value="">--Select--</option>
+					      	</select>
 		    			</td>
 		    			<th class="cellClass">
 		    				<label>Project End date</label>
