@@ -214,13 +214,13 @@
 		    		</tr>
 		    	</table>
 		    </div>
-<!-- 		    <button onclick="javascript:openUSModal()" style="width: auto;">Create New User Story</button> -->
+		  </form>
+		    <button onclick="javascript:openUSModal()" style="width: auto;">Create New User Story</button>
 		    <div style="margin-left: 25%;display: inline-flex;">
 			    	<button type="button" class="signupbtn" style="text-align: centre; width:100px;" onclick="updateUserStory()">Save</button>
 			    	&nbsp;
 			    	<button type="button" onclick="clearUserStoryForm();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
 		   	</div>
-		  </form>
 </body>
 <script type="text/javascript">
 	

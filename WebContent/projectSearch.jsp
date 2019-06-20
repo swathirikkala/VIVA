@@ -13,6 +13,7 @@
 <!DOCTYPE html>
 <html>
 <head>
+	
 	<style type="text/css">
 		.divClass{
 			margin-bottom: 2px; margin-top: 2px; margin-left: 2px; margin-right: 2px; border: thin;
@@ -113,6 +114,7 @@
 		    		</tr>
 		    	</table>
 		    </div>
+		  </form>
 		    <div> 
 		    	<div style="display: inline-flex;">
 		    		<button onclick="javascript:displayProjectModalPopup()" style="width:auto;">Create New Project</button>
@@ -122,6 +124,5 @@
 			    	<button type="button" onclick="clearProjectSearchValues();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
 			    </div>
 		   	</div>
-		  </form>
 </body>
 </html>

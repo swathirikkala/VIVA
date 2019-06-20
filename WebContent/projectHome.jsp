@@ -1,6 +1,7 @@
 
 <html>
 	<head>
+	<script src="./js/project.js"></script>
 		<style type="text/css">
 			.width50{
 				width: 50px;
@@ -19,7 +20,7 @@
 		
 		<!-- Projects Creation -->
 			<div class="projectsDiv">
-<%-- 				<jsp:include page="newProject.jsp" />  --%>
+				<jsp:include page="newProject.jsp" /> 
 			</div>
 		<!-- Projects Creation ended -->
 		<!-- Projects Search -->
@@ -37,10 +38,10 @@
 	</body>
 	
 	<script type="text/javascript">
-// 	$(document).ready(function() {
-//     	setTimeout(function(){
-//         	console.log("Loding projects");
-//     		}, 2000);
-//   	});
+	$(document).ready(function() {
+    	setTimeout(function(){
+        	console.log("Loding projects");
+    		}, 500);
+  	});
 	</script>
 </html>

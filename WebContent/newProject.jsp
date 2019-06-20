@@ -44,7 +44,6 @@
 		
 	<script type="text/javascript">
 	function displayProjectModalPopup(){
-			alert("Hi");
 		  document.getElementById('projectModalDiv').style.display='block';
 		}
 	function closeProjectModalPopup(){
@@ -55,7 +54,6 @@
 	<script type="text/javascript">
 	function saveProject() {
 		console.log("saveProject function got called ");
-		alert("");
 		try{
 	        $.ajax({
 	            type: 'post',
