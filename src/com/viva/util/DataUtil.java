@@ -18,7 +18,7 @@ public class DataUtil {
 	}
 	public void loadData() {
 		UserDao userDao = new UserDao();
-		Map<String, User> managers = userDao.getManagers();
+		Map<String, User> managers = userDao.getManagersMap();
 		System.out.println("List of Managers : " + managers);
 		this.request.getSession().setAttribute("managers", managers);
 		

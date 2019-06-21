@@ -14,7 +14,7 @@
 		projects = new ArrayList<Project>();
 	}
 	UserDao userDao = new UserDao();
-	Map<String, User> allUsers = userDao.getAllUsers();
+	Map<String, User> allUsers = userDao.getAllUsersMap();
 %>
 <!DOCTYPE html>
 <html>

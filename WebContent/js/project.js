@@ -21,7 +21,8 @@ function searchProjects() {
 				if (response !== "success") {
 					console.log("No Data Found with search criteria");
 				}
-				$("#homeDiv").load("projectHome.jsp");
+				$("#projectsDiv").empty();
+				$("#projectsDiv").load("projectsResultList.jsp");
 			},
 			error : function(data, status, er) {
 				console.log("Error in search prjects jsm : " + data

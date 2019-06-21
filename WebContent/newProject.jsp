@@ -17,7 +17,7 @@
 	UserDao userDao = new UserDao();
 	ProjectDao projectDao = new ProjectDao();
 	
-	Map<String,User> managers = userDao.getManagers();
+	Map<String,User> managers = userDao.getManagersMap();
 	if(managers == null){
 		managers = new HashMap<String,User>();
 	}

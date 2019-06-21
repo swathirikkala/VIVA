@@ -19,7 +19,7 @@
 		sprints = new ArrayList<Sprint>();
 	}
 	UserDao userDao = new UserDao();
-	Map<String, User> allUsers = userDao.getAllUsers();
+	Map<String, User> allUsers = userDao.getAllUsersMap();
 	if(allUsers == null){
 		allUsers = new HashMap<String,User>();
 	}

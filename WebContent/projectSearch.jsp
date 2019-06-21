@@ -1,3 +1,6 @@
+<%@page import="com.viva.dto.User"%>
+<%@page import="com.viva.dao.UserDao"%>
+<%@page import="com.viva.dao.ProjectDao"%>
 <%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
@@ -9,6 +12,8 @@
 	    if(userName == null){
 	    	userName = "";
 	    }
+	    UserDao userDao = new UserDao();
+	    List<User> users = userDao.getAllUsers();
     %>
 <!DOCTYPE html>
 <html>
@@ -103,6 +108,9 @@
 		    			<td class="cellClass">
 					    	<select id="createdByName" name = "createdByName" required>
 					      		<option value="">--Select--</option>
+					    	<% for(User user : users){ %>
+					      		<option value="<%=user.getEmailId()%>"><%= user.getFirstName() +" " + user.getLastName() %></option>
+					      	<%} %>
 					      	</select>
 		    			</td>
 		    			<th class="cellClass">

@@ -22,11 +22,11 @@
     		project.setEndDate("");
     	}
     	
-    	Map<String,User> managers = userDao.getManagers();
+    	Map<String,User> managers = userDao.getManagersMap();
     	if(managers == null){
     		managers = new HashMap<String,User>();
     	}
-    	Map<String, User> allUsers = userDao.getAllUsers();
+    	Map<String, User> allUsers = userDao.getAllUsersMap();
     %>
 <!DOCTYPE html>
 <html>

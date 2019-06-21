@@ -49,6 +49,8 @@ public class ProjectsSearchServlet extends HttpServlet {
 		} catch (NumberFormatException e) {
 			System.out.println(e.getMessage());
 		}
+
+		project.setCreatedBy(String.valueOf(request.getParameter("createdByName")));
 		try {
 			List<Project> projects = projectDao.searchProjects(project);
 			request.getSession().setAttribute("projects", projects);

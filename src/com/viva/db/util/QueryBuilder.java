@@ -166,6 +166,14 @@ public class QueryBuilder {
 			}
 			query += " viva <= " + project.getViva() + "";
 		}
+		if (!project.getCreatedBy().equalsIgnoreCase("")) {
+			if (andNeeded) {
+				query += " AND";
+			} else {
+				andNeeded = true;
+			}
+			query += " created_by = '" + project.getCreatedBy() + "'";
+		}
 		return query;
 	}
 
