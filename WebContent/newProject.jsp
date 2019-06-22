@@ -49,27 +49,45 @@
 	function closeProjectModalPopup(){
 		  document.getElementById('projectModalDiv').style.display='none';
 		}
+	 $(document).ready(function() {
+		 clearProject();
+	});
 	</script>
 	
 	<script type="text/javascript">
 	function saveProject() {
 		console.log("saveProject function got called ");
 		try{
-	        $.ajax({
-	            type: 'post',
-	            url: './addProject',
-	            data: $("form[name=newProjectForm]").serialize(),
-	            success: function (response) {
-	               console.log("Save Project completed..... " + response);
-	               if(response === "success"){
-	            	   alert("Project created Successfully");
-	               }else if(response === "exist"){
-	            	   alert("Project exist with this name ");
-	               }else{
-	            	   alert("Project creation fail");
-	               }
-	            }
-	        });
+			var errorMessage = "";
+			var isValid = true;
+			if($("#projectName").val() == ""){
+				errorMessage+="\r\nPlease enter project name";
+				isValid=false;
+			}
+			if($("#projectDescription").val() == ""){
+				errorMessage+="\r\nPlease enter project description";
+				isValid=false;
+			}
+			console.log("isValid : " + isValid);
+			if(isValid == false){
+				alert(errorMessage);
+			}else{
+		        $.ajax({
+		            type: 'post',
+		            url: './addProject',
+		            data: $("form[name=newProjectForm]").serialize(),
+		            success: function (response) {
+		               console.log("Save Project completed..... " + response);
+		               if(response === "success"){
+		            	   alert("Project created Successfully");
+		               }else if(response === "exist"){
+		            	   alert("Project exist with this name ");
+		               }else{
+		            	   alert("Project creation fail");
+		               }
+		            }
+		        });
+			}
 		}catch(e){
 			console.log("Exception in new Project : " + e);
 		}
@@ -121,7 +139,7 @@
 		      </select>
 		      
 		      <label for="projectDescription"><b>Project Description</b></label><label style="color: red;">&nbsp;*</label>
-		      <textarea rows="4" cols="50" placeholder="Project Description" name="projectDescription" id="projectDescription" style="height: 100px;" required="required">
+		      <textarea rows="4" placeholder="Project Description" name="projectDescription" id="projectDescription" style="height: 100px;" required="required">
 		      </textarea>
 		      
 		      <div class="clearfix">
