@@ -40,6 +40,7 @@
     <a href="#" onclick="loadPage('commonDiv','usHome.jsp');" class="w3-bar-item w3-button w3-hover-white">User Stories</a>
     <a href="#" onclick="loadPage('commonDiv','dashBoard.jsp');" class="w3-bar-item w3-button w3-hover-white">Dash Board</a>
     <a href="#" onclick="loadPage('commonDiv','newBV.jsp');" class="w3-bar-item w3-button w3-hover-white">Business Values</a>
+    <a href="#" onclick="loadPage('commonDiv','userHome.jsp');" class="w3-bar-item w3-button w3-hover-white">Management</a>
     
     <a href="index.jsp" class="w3-bar-item w3-button w3-hover-white">Logout</a>
   </div>

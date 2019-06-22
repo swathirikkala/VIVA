@@ -128,7 +128,7 @@
 		    				<label>Created By</label>
 		    			</th>
 		    			<td class="cellClass">
-					    	<input type="text" name="createdBy" id="createdBy" required="required" value="<%=LookUp.getUserName(project.getCreatedBy(),allUsers) %>" disabled="disabled">
+					    	<input type="text" name="createdBy" id="createdBy" required="required" value="<%=LookUp.getUserName(project.getCreatedBy(),allUsers) %>" readonly="readonly">
 		    			</td>
 		    		
 		    			<th class="cellClass">
@@ -162,7 +162,7 @@
 		    				<label>Created Date</label>
 		    			</th>
 		    			<td class="cellClass">
-		    				<input type="text" placeholder="Created Date" name="editCreatedDate" id="editCreatedDate" value="<%=project.getCretatedDate()%>" disabled="disabled"  class="">
+		    				<input type="text" placeholder="Created Date" name="editCreatedDate" id="editCreatedDate" value="<%=project.getCretatedDate()%>" readonly="readonly"  class="">
 		    			</td>
 		    			<th class="cellClass">
 		    				<label>Project End date</label>
@@ -187,7 +187,7 @@
 		    				<label>VIVA%</label>
 		    			</th>
 		    			<td>
-		    				<input type="text" name="viva" id="viva" disabled="disabled" value="<%=project.getViva()%>">
+		    				<input type="text" name="viva" id="viva" readonly="readonly" value="<%=project.getViva()%>">
 		    			</td>
 		    			<th>
 		    				<label>Status</label>
@@ -206,7 +206,7 @@
 		    				<label>Project  Description</label>
 		    			</th>
 		    			<td colspan="5">
-		    				<textarea rows="4" cols="50" placeholder="Project Description" name="editProjectDescription" id="editProjectDescription" style="height: 100px;" required="required">
+		    				<textarea rows="2" cols="50" placeholder="Project Description" name="editProjectDescription" id="editProjectDescription" style="height: 100px;" required="required">
 		      				</textarea>
 		    			</td>
 		    		</tr>
