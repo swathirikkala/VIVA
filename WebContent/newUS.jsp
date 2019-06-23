@@ -63,7 +63,7 @@
 		      
 			   <label for="usProjectName"><b>Project Name</b></label>
 			   <select id="usProjectName" name = "usProjectName" >
-		       <option value="" selected="selected">--Select Project--</option>
+		       <option value="0" selected="selected">--Select Project--</option>
 		      <%for(Project p : projects){%>
 		      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
 		      <%}%>
@@ -71,7 +71,7 @@
 		      
 		      <label for="usEpicName"><b>Epic Name</b></label><label style="color: red;">&nbsp;*</label>
 		      <select id="usEpicName" name = "usEpicName" >
-		       <option value="" selected="selected">--Select Epic--</option>
+		       <option value="0" selected="selected">--Select Epic--</option>
 		      <%for(Epic e : epicsByProjectId){%>
 		      		<option value="<%= e.getId()%>"><%= e.getName()%></option>
 		      <%}%>
@@ -92,7 +92,7 @@
 		     	 
 			   
 			   <label for="usBusinessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
-		       <select id="usBusinessValues" name = "usBusinessValues" multiple="multiple"  style="height: 200px;">
+		       <select id="usBusinessValues" name = "usBusinessValues" multiple="multiple"  style="height: 150px;">
 			      <%for(BusinessValue bv : LookUp.getBusinessValues()){%>
 			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option>
 			      <%}%>
@@ -126,39 +126,72 @@ function closeUSPopup(){
 	document.getElementById('usModalDiv').style.display='none';
 }
 function clearUSForm(){
-	$("#usDescription").val("");
-	$("#usBusinessValues").val("0");
+	$("#usProjectName").val("0");
+	$("#usEpicName").val("0");
+	$("#usName").val("");
 	$("#usPriority").val("0");
+	$("#usBusinessValues").val("[]");
 	$("#usDescription").val("");
-	$("#usEpicName").val("");
+}
+
+function validateUSForm(){
+	var isValid = true;
+	var errorMessage = "";
+	if($("#usProjectName").val() == "0"){
+		isValid = false;
+		errorMessage += "\r\nPlease Select Project";
+	}
+	if($("#usEpicName").val() == "0"){
+		isValid = false;
+		errorMessage += "\r\nPlease Select Epic";
+	}
+	if($("#usName").val() == ""){
+		isValid = false;
+		errorMessage += "\r\nPlease Give User Story Name";
+	}
+	if($("#usBusinessValues").val().length == 0){
+		isValid = false;
+		errorMessage += "\r\nPlease Select Atleast one Business Value";
+	}
+	if($("#usDescription").val() == ""){
+		isValid = false;
+		errorMessage += "\r\nPlease Give User Description";
+	}
+	
+	if(isValid == false){
+		alert(errorMessage);
+	}
+	console.log("validateUSForm : " + isValid);
+	return isValid;
 }
 	</script>
 	<script type="text/javascript">
-		function validateUs(){
-			
-		}
 	
     	function createUS() {
 			console.log("createUS got called ....");
 			var newUSFormData = $("form[name=newUSForm]").serialize();
 			console.log(newUSFormData);
-			$.ajax({
-                type: 'post',
-                url: './addUserStory',
-                data: newUSFormData,
-                success: function (response) {
-                   console.log("US creation call completed..... " + response);
-                   if(response === "success"){
-                	   alert("US creation Success");
-                   }else{
-                	   alert("US creation Failed");
-                   }
-                },
-				error : function(data, status, er) {
-					console.log("Error in createUS jsm : " + data + " status: " + status + " er:" + er);
-				
-				}
-            });
+			var isValidForm = validateUSForm();
+			console.log("isValidForm : " + isValidForm);
+			if(isValidForm == true){
+				$.ajax({
+	                type: 'post',
+	                url: './addUserStory',
+	                data: newUSFormData,
+	                success: function (response) {
+	                   console.log("US creation call completed..... " + response);
+	                   if(response === "success"){
+	                	   alert("US creation Success");
+	                   }else{
+	                	   alert("US creation Failed");
+	                   }
+	                },
+					error : function(data, status, er) {
+						console.log("Error in createUS jsm : " + data + " status: " + status + " er:" + er);
+					
+					}
+	            });
+			}else{console.log("Form incomplete ......")}
 			closeUSPopup();
 	}
 	</script>
@@ -171,6 +204,8 @@ $("#usProjectName").change(
 			console.log("Project id : " + projectId);
 			$("#usEpicName").empty();
 			$("#usEpicName").append('<option value="">Loading ....</option>');
+
+			$("#usBusinessValues").val("[]");
 			try {
 				$.ajax({
 					type : 'post',
@@ -217,6 +252,8 @@ $("#usEpicName").change(
 		console.log("usEpicName change event got called");
 		var epicId= $("#usEpicName").val();
 		console.log("epicId : " + epicId);
+
+		$("#usBusinessValues").val("[]");
 		try {
 			$.ajax({
 				type : 'post',
