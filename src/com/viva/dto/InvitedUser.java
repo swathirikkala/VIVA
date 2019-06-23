@@ -1,6 +1,6 @@
 package com.viva.dto;
 
-public class InitedUser {
+public class InvitedUser {
 	private String userMailId;
 	private int team;
 	private int department;
@@ -8,6 +8,7 @@ public class InitedUser {
 	private String token;
 	private String invitedBy;
 	private String invitedOn;
+	private String designation;
 
 	public String getUserMailId() {
 		return userMailId;
@@ -65,10 +66,19 @@ public class InitedUser {
 		this.invitedOn = invitedOn;
 	}
 
+	public String getDesignation() {
+		return designation;
+	}
+
+	public void setDesignation(String designation) {
+		this.designation = designation;
+	}
+
 	@Override
 	public String toString() {
-		return "InitedUser [userMailId=" + userMailId + ", team=" + team + ", department=" + department + ", status="
-				+ status + ", token=" + token + ", invitedBy=" + invitedBy + ", invitedOn=" + invitedOn + "]";
+		return "InvitedUser [userMailId=" + userMailId + ", team=" + team + ", department=" + department + ", status="
+				+ status + ", token=" + token + ", invitedBy=" + invitedBy + ", invitedOn=" + invitedOn
+				+ ", designation=" + designation + "]";
 	}
 
 }

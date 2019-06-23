@@ -29,7 +29,7 @@ public class QueryBuilder {
 		String query = "insert into user values ('" + user.getEmailId() + "','" + user.getFirstName() + "','"
 				+ user.getLastName() + "','" + user.getDob() + "'," + user.getDepartment() + ",'"
 				+ user.getDesignation() + "','" + user.getPassword() + "','" + user.getSecurityQuestion() + "','"
-				+ user.getSecurityAnswer() + "')";
+				+ user.getSecurityAnswer() + "',"+user.getTeam()+")";
 		return query;
 	}
 

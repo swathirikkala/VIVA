@@ -7,28 +7,32 @@ import java.util.Map;
 import com.viva.dao.BusinessValuesDao;
 import com.viva.dao.ProjectDao;
 import com.viva.dto.BusinessValue;
+import com.viva.dto.Department;
 import com.viva.dto.Project;
+import com.viva.dto.Team;
 import com.viva.dto.User;
 
 public class LookUp {
 
 	private static ProjectDao projectDao = new ProjectDao();
 	private static BusinessValuesDao businessValuesDao = new BusinessValuesDao();
-	private static Map<Integer,BusinessValue> bvMap = null;
-	public static String getUserName(String userId ,Map<String, User> allUsers ) {
-		String userName ="";
+	private static Map<Integer, BusinessValue> bvMap = null;
+
+	public static String getUserName(String userId, Map<String, User> allUsers) {
+		String userName = "";
 
 		try {
-			 User user = allUsers.get(userId);
-			 if(user!=null) {
-				 userName = user.getFirstName() +" "+ user.getLastName();
-			 }
-		}catch(Exception e) {
+			User user = allUsers.get(userId);
+			if (user != null) {
+				userName = user.getFirstName() + " " + user.getLastName();
+			}
+		} catch (Exception e) {
 			System.out.println(e.getMessage());
 		}
-		
+
 		return userName;
 	}
+
 	public static String getUserName(String userId, List<User> users) {
 		String userName = "";
 		for (User u : users) {
@@ -50,9 +54,8 @@ public class LookUp {
 		}
 		return projectName;
 	}
-	
 
-	public static List<String> getStatuses(){
+	public static List<String> getStatuses() {
 		List<String> statuses = new ArrayList<String>();
 		statuses.add("Open");
 		statuses.add("Work in progress");
@@ -62,33 +65,55 @@ public class LookUp {
 		statuses.add("Inactive");
 		return statuses;
 	}
-	public static List<String> getPriorities(){
+
+	public static List<String> getPriorities() {
 		List<String> priorities = new ArrayList<String>();
-		for(int i=1;i<=20;i++) {
+		for (int i = 1; i <= 20; i++) {
 			priorities.add(String.valueOf(i));
 		}
 		return priorities;
 	}
-	public static List<BusinessValue> getBusinessValues(){
+
+	public static List<BusinessValue> getBusinessValues() {
 		List<BusinessValue> bvs = businessValuesDao.getAllBusinessValues();
-		if(bvs == null) {
+		if (bvs == null) {
 			bvs = new ArrayList<BusinessValue>();
 		}
 		return bvs;
 	}
-	public static List<Project> getAllProjectByTeam(){
+
+	public static List<Project> getAllProjectByTeam() {
 		List<Project> projects = projectDao.getProjects();
-		if(projects == null) {
+		if (projects == null) {
 			projects = new ArrayList<Project>();
 		}
 		return projects;
 	}
-	
+
 	public static String bvName(int bvId) {
-		if(bvMap == null) {
+		if (bvMap == null) {
 			bvMap = businessValuesDao.getBvMap();
 		}
 		return bvMap.get(bvId).getName();
 	}
-	
+
+	public static String getTeamName(int teamId, List<Team> teams) {
+		for (Team t : teams) {
+			if (teamId == t.getTeamId()) {
+				return t.getTeamName();
+			}
+		}
+		return "";
+	}
+
+	public static String getDepartmentName(int deptId, List<Department> departments) {
+		for (Department d : departments) {
+			if (deptId == d.getId()) {
+				return d.getName();
+			}
+		}
+
+		return "";
+	}
+
 }

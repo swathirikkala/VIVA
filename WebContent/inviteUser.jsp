@@ -58,9 +58,12 @@
 		      		<option value="<%=d.getId()%>"><%=d.getName()%></option>
 		      		<%} %>
 		     	 </select>
+		      
+			   <label for="designation"><b>Designation</b></label>
+		       <input type="text" id="designation" name="designation" required="required">
 		      <div class="clearfix">
 		        <button type="button" onclick="javascript:closeUserInvitePopup()" class="cancelbtn">Cancel</button>
-		        <button type="submit" class="signupbtn" onclick="createUS()">Invite</button>
+		        <button type="submit" class="signupbtn" onclick="inviteUser()">Invite</button>
 		      </div>
 		    </div>
 		  </form>
@@ -88,17 +91,18 @@
 	</script>
 	<script type="text/javascript">
 		function validateUserInviteForm(){
+			console.log("validateUserInviteForm got called .....");
 			var errorMessage = "";
 			var isValid = true;
-			if($("#userEmailId").val() == ""){
+			if($("#userEmailId").val() === ""){
 				isValid = false;
 				errorMessage += "\r\n Please fill email id";
 			}
-			if($("#teamId").val() == "0"){
+			if($("#teamId").val() === "0"){
 				isValid = false;
 				errorMessage += "\r\n Please Select team Name";
 			}
-			if($("#departmentId").val() == "0"){
+			if($("#departmentId").val() === "0"){
 				isValid = false;
 				errorMessage += "\r\n Please Select Department Name";
 			}
@@ -111,26 +115,30 @@
     	function inviteUser() {
 			console.log("inviteUser got called ....");
 			var userInviteFormData = $("form[name=userInviteForm]").serialize();
-			console.log(userInviteFormData);
+			console.log("userInviteFormData : "+userInviteFormData);
 			var isValidForm = validateUserInviteForm();
 			console.log("validateUserInviteForm : " + isValidForm);
-			$.ajax({
-                type: 'post',
-                url: './inviteUser',
-                data: userInviteFormData,
-                success: function (response) {
-                   console.log("inviteUser call completed..... " + response);
-                   if(response === "success"){
-                	   alert("User Invite Completed");
-                   }else{
-                	   alert("User Invite Failed");
-                   }
-                },
-				error : function(data, status, er) {
-					console.log("Error in inviteUser jsm : " + data + " status: " + status + " er:" + er);
-				
-				}
-            });
+			if(isValidForm == true){
+				$.ajax({
+	                type: 'post',
+	                url: './inviteUser',
+	                data: userInviteFormData,
+	                success: function (response) {
+	                   console.log("inviteUser call completed..... " + response);
+	                   if(response === "success"){
+	                	   alert("User Invite Completed");
+	                   }else{
+	                	   alert("User Invite Failed");
+	                   }
+	                },
+					error : function(data, status, er) {
+						console.log("Error in inviteUser jsm : " + data + " status: " + status + " er:" + er);
+					
+					}
+	            });
+			}else{
+				console.log("Invalid form");
+			}
 			closeUserInvitePopup();
 	}
 	</script>

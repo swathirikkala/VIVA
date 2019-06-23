@@ -3,7 +3,9 @@ package com.viva.dao;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.HashMap;
 import java.util.List;
+import java.util.Map;
 
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.dto.Team;
@@ -36,4 +38,13 @@ public class TeamDao {
 	public static void main(String[] args) {
 		System.out.println(new TeamDao().getAllTeams());
 	}
+
+	public Map<Integer, Team> getTeamMap() {
+		Map<Integer, Team> teamMap = new HashMap<Integer, Team>();
+		for (Team t : getAllTeams()) {
+			teamMap.put(t.getTeamId(), t);
+		}
+		return teamMap;
+	}
+
 }

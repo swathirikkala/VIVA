@@ -1,6 +1,6 @@
 package com.viva.dto;
 
-public class User{
+public class User {
 
 	private String firstName;
 	private String lastName;
@@ -11,6 +11,7 @@ public class User{
 	private String dob;
 	private String securityQuestion;
 	private String securityAnswer;
+	private int team;
 
 	public User() {
 		super();
@@ -94,12 +95,20 @@ public class User{
 		this.securityAnswer = securityAnswer;
 	}
 
+	public int getTeam() {
+		return team;
+	}
+
+	public void setTeam(int team) {
+		this.team = team;
+	}
+
 	@Override
 	public String toString() {
 		return "User [firstName=" + firstName + ", lastName=" + lastName + ", department=" + department
 				+ ", designation=" + designation + ", emailId=" + emailId + ", password=" + password + ", dob=" + dob
-				+ ", securityQuestion=" + securityQuestion + ", securityAnswer=" + securityAnswer + "]";
+				+ ", securityQuestion=" + securityQuestion + ", securityAnswer=" + securityAnswer + ", team=" + team
+				+ "]";
 	}
 
-  
 }

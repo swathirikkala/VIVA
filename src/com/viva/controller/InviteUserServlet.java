@@ -8,7 +8,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.viva.dao.InvitedUserDao;
-import com.viva.dto.InitedUser;
+import com.viva.dto.InvitedUser;
 import com.viva.util.DateUtil;
 import com.viva.util.RandomString;
 
@@ -32,7 +32,7 @@ public class InviteUserServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
 		// TODO Auto-generated method stub
-		InitedUser ui = new InitedUser();
+		InvitedUser ui = new InvitedUser();
 		ui.setUserMailId(String.valueOf(request.getParameter("userEmailId")));
 		int teamId = 0;
 		
@@ -53,6 +53,7 @@ public class InviteUserServlet extends HttpServlet {
 		ui.setToken(RandomString.getToken());
 		ui.setInvitedBy((String)request.getSession().getAttribute("userId"));
 		ui.setInvitedOn(DateUtil.getSqlDate());
+		ui.setDesignation(String.valueOf(request.getParameter("designation")));
 		String inviteUserResponse = userInviteDao.inviteUser(ui);
 		response.getWriter().write(inviteUserResponse);
 		System.out.println("inviteUserResponse : " + inviteUserResponse);

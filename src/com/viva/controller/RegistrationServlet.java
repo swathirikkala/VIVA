@@ -44,6 +44,13 @@ public class RegistrationServlet extends HttpServlet {
 			user.setPassword(String.valueOf(request.getParameter("password")));
 			user.setSecurityQuestion(String.valueOf(request.getParameter("securityQuestion")));
 			user.setSecurityAnswer(String.valueOf(request.getParameter("securityAnswer")));
+			int team = 0;
+			try {
+				Integer.valueOf(request.getParameter("teamName"));
+			} catch (Exception e) {
+				System.err.println("Team id parsing error");
+			}
+			user.setTeam(team); 
 		} catch (Exception e) {
 			System.err.println("Error in user obejct creation in RegistrationServlet " + e.getMessage());
 		}
