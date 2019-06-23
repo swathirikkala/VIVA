@@ -59,9 +59,9 @@ public class RegistrationServlet extends HttpServlet {
 		String registerUserResponse = dao.registerUser(user);
 		
 		request.getSession().setAttribute("response", registerUserResponse);
-		
-		RequestDispatcher requestDispatcher = request.getRequestDispatcher("./index.jsp");
-        requestDispatcher.forward(request, response);
+//		
+//		RequestDispatcher requestDispatcher = request.getRequestDispatcher("./index.jsp");
+//        requestDispatcher.forward(request, response);
 
 	}
 
