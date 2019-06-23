@@ -36,23 +36,17 @@
 		    	<table>
 		    		<tr>
 		    			<th class="cellClass" style="width: 80px;">
+		    				<button onclick="javascript:openUSModal()" style="width: 150px;">New User Story</button>
+		    			</th>
+		    			<th class="cellClass" style="width: 80px;">
 		    				<label>Project</label>
 		    			</th>
 		    			<td class="cellClass" style="width: 300px;">
 		    				   <select id="usSearchProjectName" name = "usSearchProjectName" >
-						       <option value="" selected="selected">--Select Project--</option>
+						       <option value="0" selected="selected">--Select Project--</option>
 						      <%for(Project p : projects){%>
 						      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
 						      <%}%>
-						      </select>
-		    			</td>
-		    			<th class="cellClass"  style="width: 80px;">
-		    				<label>Sprint</label>
-		    			</th>
-		    			<td class="cellClass"  style="width: 300px;">
-		    				 <select id="usSearchSprintName" name = "usSearchSprintName">
-						       <option value="" selected="selected">--Select Sprint--</option>
-						      	
 						      </select>
 		    			</td>
 		    			<th class="cellClass"  style="width: 80px;">
@@ -60,7 +54,15 @@
 		    			</th>
 		    			<td class="cellClass"  style="width: 300px;">
 		    				 <select id="usSearchEpicName" name = "usSearchEpicName">
-						       <option value="" selected="selected">--Select Epic--</option>
+						       <option value="0" selected="selected">--Select Epic--</option>
+						      </select>
+		    			</td>
+		    			<th class="cellClass"  style="width: 80px;">
+		    				<label>User Story</label>
+		    			</th>
+		    			<td class="cellClass"  style="width: 300px;">
+		    				 <select id="userStorySearchUss" name = "userStorySearchUss">
+						       <option value="0" selected="selected">--Select User Story--</option>
 						      	
 						      </select>
 		    			</td>
@@ -70,9 +72,6 @@
 		    				style="text-align: centre; width:100px; margin-top: -10px;">Search</button>
 		    				
 		    			</td>
-		    			<th class="cellClass">
-		    				<label></label>
-		    			</th>
 		    		</tr>
 		    		
 		    	</table>
@@ -123,6 +122,86 @@ $("#usSearchProjectName").change(
 				});
 			} catch (e) {
 				console.log("Exception in usSearchProjectName jsm : " + e);
+			}
+		});
+</script>
+
+<script type="text/javascript">
+
+$("#usSearchEpicName").change(
+		function() {
+			console.log("usSearchEpicName change event got called");
+			var epicId= $("#usSearchEpicName").val();
+			console.log("epicId : " + epicId);
+			$("#userStorySearchUss").empty();
+			$("#userStorySearchUss").append('<option value="">Loading ....</option>');
+			try {
+				$.ajax({
+					type : 'post',
+					url : './userStoriesByEpic',
+					data : {epicId:epicId},
+					success : function(response) {
+						var respJSONString = JSON.stringify(response);
+						var jsonObj = JSON.parse(respJSONString);
+						console.log(respJSONString);
+						console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
+						var option='<option value="" selected="selected">--Select User Story--</option>';
+		                if(jsonObj.responseCode == 1){
+		                	console.log("data found");
+							$("#userStorySearchUss").empty();
+							$("#userStorySearchUss").append(option);
+							$.each(response.responseObject, function (i, userStory) {
+								option='<option value="'+userStory.id+'">'+userStory.name+'</option>';
+//									console.log(option);
+								$("#userStorySearchUss").append(option);
+							});
+							
+		                }else{
+		                	alert("no epics found with this search criteria");
+		                	var option='<option value="" selected="selected">--Select Epic--</option>';
+							$("#userStorySearchUss").empty();
+							$("#userStorySearchUss").append(option);
+		                }
+					},
+					error : function(data, status, er) {
+						console.log("Error in us search epic change jsm : " + data
+								+ " status: " + status + " er:" + er);
+					}
+				});
+			} catch (e) {
+				console.log("Exception in us search epic change jsm : " + e);
+			}
+		});
+</script>
+
+<script type="text/javascript">
+
+$("#userStorySearchUss").change(
+		function() {
+			console.log("userStorySearchUss change event got called");
+			var userStoryId= $("#userStorySearchUss").val();
+			console.log("userStoryId : " + userStoryId);
+			try {
+				$.ajax({
+					type : 'post',
+					url : './loadUserStory',
+					data : {userStoryId:userStoryId},
+					success : function(response) {
+						console.log("userStorySearchUss result : " + response);
+						if(response != "success"){
+							alert("User stories not found");
+						}
+
+						$("#userStoryEditDiv").load("./usEdit.jsp");
+						$("#userStoryBusinessValuesDiv").load("./usBVlist.jsp");
+					},
+					error : function(data, status, er) {
+						console.log("Error in user story loading jsm : " + data
+								+ " status: " + status + " er:" + er);
+					}
+				});
+			} catch (e) {
+				console.log("Exception in user story loading jsm : " + e);
 			}
 		});
 </script>
