@@ -81,6 +81,7 @@
 			            success: function (response) {
 			               console.log("Update User Story Business Value : " + response);
 			               //alert("Update User Story Business Value : " + response);
+			               $("#messageDiv").empty();
 			               $("#messageDiv").html("<h3>Value updated</h3>");
 			            }
 			        });
@@ -96,6 +97,9 @@
 			            success: function (response) {
 			               console.log("removeBv Response : " + response);
 			               alert("Remove Business Value from User Story Response : " + response);
+						   $("#userStoryEditDiv").load("./usEdit.jsp");
+			               $("#userStoryBusinessValuesDiv").load("./usBVlist.jsp");
+			               $("#messageDiv").empty();
 			               $("#messageDiv").html("<h3>Business Value Remoived from this User Story</h3>");
 			            }
 			        });
@@ -103,7 +107,7 @@
 		</script>
 	</head>
 	<body>
-		<div id="messageDiv"></div>
+		<div id="messageDiv" style="color: blue;margin-left: 35%;"></div>
 		<!-- User story business values Table -->
 			<div class="limiter">
 				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:500px; min-height:0px; overflow-x: none;">

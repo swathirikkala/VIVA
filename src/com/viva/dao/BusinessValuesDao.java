@@ -19,6 +19,7 @@ public class BusinessValuesDao {
 
 	HistoryDao historyDao = new HistoryDao();
 	History history = new History();
+	UserStoryDao userStoryDao = new UserStoryDao();
 
 	private boolean checkBvExist(String bvName) {
 		PreparedStatement ps = QueryBuilder.getCheckBvExist(bvName);
@@ -110,6 +111,8 @@ public class BusinessValuesDao {
 			System.out.println("updateBvValue Query : " + ps.toString());
 			int executeUpdateResponse = ps.executeUpdate();
 			if (executeUpdateResponse > 0) {
+				String updateVivaResponse = userStoryDao.updateViva(usId);
+				System.out.println("updateVivaResponse : " + updateVivaResponse);
 				return Constants.SUCCESS;
 			} else {
 				return Constants.ERROR;
@@ -119,6 +122,7 @@ public class BusinessValuesDao {
 		}
 		return Constants.FAIL;
 	}
+
 	public String removeUsBv(int usId, int bvId) {
 		String query = "delete from us_bv where usid = ? and bvid = ?";
 		try {
@@ -128,6 +132,8 @@ public class BusinessValuesDao {
 			System.out.println("removeUsBv Query : " + ps.toString());
 			int executeUpdateResponse = ps.executeUpdate();
 			if (executeUpdateResponse > 0) {
+				String updateVivaResponse = userStoryDao.updateViva(usId);
+				System.out.println("updateVivaResponse : " + updateVivaResponse);
 				return Constants.SUCCESS;
 			} else {
 				return Constants.ERROR;

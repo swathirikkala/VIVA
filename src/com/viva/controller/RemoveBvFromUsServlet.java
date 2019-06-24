@@ -1,6 +1,8 @@
 package com.viva.controller;
 
 import java.io.IOException;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -8,6 +10,8 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.viva.dao.BusinessValuesDao;
+import com.viva.dao.UsBvDao;
+import com.viva.dto.UsBv;
 
 /**
  * Servlet implementation class RemoveBvFromUsServlet
@@ -16,6 +20,7 @@ import com.viva.dao.BusinessValuesDao;
 public class RemoveBvFromUsServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	BusinessValuesDao businessValuesDao = new BusinessValuesDao();
+    private UsBvDao usBvDao = new UsBvDao();
        
     /**
      * @see HttpServlet#HttpServlet()
@@ -42,6 +47,8 @@ public class RemoveBvFromUsServlet extends HttpServlet {
 			System.err.println("Exception in parsing business value id");
 		}
 		String removeResponse = businessValuesDao.removeUsBv(usId, bvId);
+		List<UsBv> bvsByUsId =usBvDao.getBvsByUsId(usId);
+		request.getSession().setAttribute("bvsByUsId", bvsByUsId);
 		System.out.println("Remove Business Value response : " + removeResponse);
 		response.getWriter().write(removeResponse);
 	}

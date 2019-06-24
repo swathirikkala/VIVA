@@ -215,7 +215,7 @@
 		    	</table>
 		    </div>
 		  </form>
-		    <button onclick="#" style="width: auto;">Add Business Value</button>
+		    <button style="width: auto;">Add Business Value</button>
 		    <div style="margin-left: 25%;display: inline-flex;">
 			    	<button type="button" class="signupbtn" style="text-align: centre; width:100px;" onclick="updateUserStory()">Save</button>
 			    	&nbsp;

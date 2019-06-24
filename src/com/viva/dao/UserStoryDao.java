@@ -140,5 +140,23 @@ public class UserStoryDao {
 		}
 		return response;
 	}
+	
+	public String updateViva(int usId) {
+		String query ="update user_story set viva = (SELECT ceiling(avg(viva)) FROM viva.us_bv where usid = ?)  where id=?";
+		try {
+			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(query);
+			ps.setInt(1, usId);
+			ps.setInt(2, usId);
+			int updateResponse = ps.executeUpdate();
+			if(updateResponse >0) {
+				return Constants.SUCCESS;
+			}else {
+				return Constants.ERROR;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Constants.FAIL;
+	}
 
 }
