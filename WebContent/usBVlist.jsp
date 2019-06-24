@@ -104,6 +104,26 @@
 			            }
 			        });
 			}
+			
+			function updateComment(bvId, usId, commentFieldId) {
+				console.log("updateComment got called......." +bvId+" "+ usId +" " + commentFieldId);
+				var comment = $("#"+commentFieldId).val();
+				console.log("vivaVcommentalue : " + comment);
+				if(comment == ""){
+					console.log("comment not given");
+				}else{
+					$.ajax({
+			            type: 'post',
+			            url: './usBvCommentUpdate',
+			            data: {bvId:bvId,usId:usId,comment:comment},
+			            success: function (response) {
+			               console.log("Update User Story Comment update : " + response);
+			               $("#messageDiv").empty();
+			               $("#messageDiv").html("<h3>Comment updated</h3>");
+			            }
+			        });
+				}
+			}
 		</script>
 	</head>
 	<body>
@@ -122,22 +142,26 @@
 							</tr>
 						</thead>
 						<tbody id="projectsBody">
-							<%for(UsBv ub: bvsByUsId) {
-								int i=1; 
+							<%	int i=0;
+								for(UsBv ub: bvsByUsId) {
+								i++;
 							%>
 								<tr class="row100 head">
 									<td class="column100 width50" data-column="column1">BV<%=ub.getBvId()%></td>
 									<td class="column100 width100" data-column="column2"><%= LookUp.bvName(ub.getBvId())%></td>
 									<td class="column100 width75" data-column="column1">
 										<input type="number" id="usBv_<%=i %>" name="usBv_<%=i %>" value="<%= ub.getViva()%>" required="required"
-										min="0" max="100" maxlength="3" onblur="updateBv('<%=ub.getBvId()%>','<%=ub.getUsId()%>','usBv_<%=i %>')">
+										min="0" max="100" maxlength="3" onblur="updateBv(<%=ub.getBvId()%>,<%=ub.getUsId()%>,'usBv_<%=i %>')">
 									</td>
-									<td class="column100 width50" data-column="column6"><%=ub.getComment()%></td>
 									<td class="column100 width50" data-column="column6">
-										<a href="#" onclick="removeBv('<%=ub.getBvId()%>','<%=ub.getUsId()%>')">Remove</a>
+									<input type="text" id="comment_<%=i %>" name="comment_<%=i %>" value="<%=ub.getComment()%>"
+										onblur="updateComment(<%=ub.getBvId()%>,<%=ub.getUsId()%>,'comment_<%=i %>')">
+									</td>
+									<td class="column100 width50" data-column="column6">
+										<a href="#" onclick="removeBv(<%=ub.getBvId()%>,<%=ub.getUsId()%>)">Remove</a>
 									</td>
 								</tr>
-							<% i++;} %>
+							<% } %>
 						</tbody>
 					</table>
 				</div>

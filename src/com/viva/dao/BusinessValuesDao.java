@@ -143,4 +143,26 @@ public class BusinessValuesDao {
 		}
 		return Constants.FAIL;
 	}
+
+	public String updateBvComment(int usId, int bvId, String comment) {
+		String query = "update us_bv set comment = ? where usid = ? and bvid = ?";
+		try {
+			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(query);
+			ps.setString(1, comment);
+			ps.setInt(2, usId);
+			ps.setInt(3, bvId);
+			System.out.println("updateBvComment Query : " + ps.toString());
+			int executeUpdateResponse = ps.executeUpdate();
+			if (executeUpdateResponse > 0) {
+				String updateVivaResponse = userStoryDao.updateViva(usId);
+				System.out.println("updateBvCommentResponse : " + updateVivaResponse);
+				return Constants.SUCCESS;
+			} else {
+				return Constants.ERROR;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Constants.FAIL;
+	}
 }

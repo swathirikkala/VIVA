@@ -46,27 +46,31 @@
 			console.log("Sprint Validation got called .....");
 			var errorMessage = "";
 			var isValid = true;
-			if($("#projectName").val() === "0"){
+			
+			if($("#projectName").val() == "0"){
 				errorMessage += "\r\n Please Select Project Name";
 				isValid = false;
 			}
-			if($("#sprintName").val() === ""){
+			if($("#sprintName").val() == ""){
 				errorMessage += "\r\n Please Give Sprint Name";
 				isValid = false;
 			}
-			if($("#sprintStartDate").val() === ""){
+			if($("#sprintStartDate").val() == ""){
 				errorMessage += "\r\n Please Select Sprint Start Date";
 				isValid = false;
 			}
-			if($("#sprintEndDate").val() === "0"){
+			if($("#sprintEndDate").val() == ""){
 				errorMessage += "\r\n Please Select Sprint End Name";
 				isValid = false;
 			}
-			if($("#sprintDescription").val() === "0"){
+			if($("#sprintDescription").val() == ""){
 				errorMessage += "\r\n Please Give Sprint Description";
 				isValid = false;
 			}
-			alert(errorMessage);
+			console.log("validateSprintForm error message : " + errorMessage);
+			if(isValid == false){
+				alert(errorMessage);
+			}
 			return isValid;
 		}
 	</script>
@@ -77,31 +81,11 @@
 			console.log($("form[name=newSprintForm]").serialize());
 			console.log("Sprint Validation got called .....");
 			
-			var errorMessage = "";
-			var isValid = true;
-			if($("#projectName").val() === "0"){
-				errorMessage += "\r\n Please Select Project Name";
-				isValid = false;
-			}
-			if($("#sprintName").val() === ""){
-				errorMessage += "\r\n Please Give Sprint Name";
-				isValid = false;
-			}
-			if($("#sprintStartDate").val() === ""){
-				errorMessage += "\r\n Please Select Sprint Start Date";
-				isValid = false;
-			}
-			if($("#sprintEndDate").val() === ""){
-				errorMessage += "\r\n Please Select Sprint End Name";
-				isValid = false;
-			}
-			if($("#sprintDescription").val() === ""){
-				errorMessage += "\r\n Please Give Sprint Description";
-				isValid = false;
-			}
+			var isValidSprintForm = validateSprintForm();
+			console.log("isValidSprintForm : " + isValidSprintForm);
 			
-			if(isValid == false){
-				console.log("Form validation failed");
+			if(isValidSprintForm == false){
+				console.log("Form validation : ");
 			}else{
 				$.ajax({
 					type: 'post',
@@ -120,7 +104,8 @@
 						}
 		            });
 				}
-				closeSprintModal();
+
+			closeSprintModal();
 		}
 	</script>
 	</head>
