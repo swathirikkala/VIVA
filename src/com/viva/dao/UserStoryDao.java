@@ -149,6 +149,7 @@ public class UserStoryDao {
 			ps.setInt(2, usId);
 			int updateResponse = ps.executeUpdate();
 			if(updateResponse >0) {
+				//EpicDao.updateEpicViva(0);
 				return Constants.SUCCESS;
 			}else {
 				return Constants.ERROR;

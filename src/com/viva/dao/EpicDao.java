@@ -100,4 +100,21 @@ public class EpicDao {
 		return Constants.FAIL;
 	}
 
+	public static String updateEpicViva(int epicId) {
+		String query ="update epic set viva =  (SELECT ceiling( avg(viva)) FROM user_story where epic = ?)  where id = ?";
+		try {
+			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(query);
+			ps.setInt(1, epicId);
+			ps.setInt(2, epicId);
+			int updateResponse = ps.executeUpdate();
+			if(updateResponse >0) {
+				return Constants.SUCCESS;
+			}else {
+				return Constants.ERROR;
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return Constants.FAIL;
+	}
 }
