@@ -13,20 +13,61 @@
 %>
 <html>
 <head>
-    <script type="text/javascript">
-    	function newSprint() {
-    		console.log("new Sprint open modal got called in sprint home");
-			displayPopup();
+    
+   <script type="text/javascript">
+	function loadEpics() {
+		console.log("epicSearchProjectName change event got called");
+		var projectId= $("#reportProjectName").val();
+		console.log("Project id : " + projectId);
+		$("#reportEpicName").empty();
+		$("#reportEpicName").append('<option value="">Loading ....</option>');
+		try {
+			$.ajax({
+				type : 'post',
+				url : './epicSearchByProjectId',
+				data : {projectId:projectId},
+				success : function(response) {
+					var respJSONString = JSON.stringify(response);
+					var jsonObj = JSON.parse(respJSONString);
+					console.log(respJSONString);
+					console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
+					var option='<option value="" selected="selected">--Select Epic--</option>';
+	                if(jsonObj.responseCode == 1){
+	                	console.log("data found");
+						$("#reportEpicName").empty();
+						$("#reportEpicName").append(option);
+						$.each(response.responseObject, function (i, epic) {
+							option='<option value="'+epic.id+'">'+epic.name+'</option>';
+//								console.log(option);
+							$("#reportEpicName").append(option);
+						});
+						
+	                }else{
+	                	alert("no epics found with this search criteria");
+	                	var option='<option value="" selected="selected">--Select Epic--</option>';
+						$("#reportEpicName").empty();
+						$("#reportEpicName").append(option);
+	                }
+				},
+				error : function(data, status, er) {
+					console.log("Error in searchSprintsByProjectId jsm : " + data
+							+ " status: " + status + " er:" + er);
+				}
+			});
+		} catch (e) {
+			console.log("Exception in searchSprintsByProjectId jsm : " + e);
 		}
-    </script>
+	};
+	</script>
 	<script type="text/javascript">
-	$("#searchProjectName").change(
+	$("#reportProjectName").change(
 			function() {
-				console.log("searchSprintsByProjectId got called");
-				var projectId= $("#searchProjectName").val();
+				console.log("reportProjectName got called");
+				var projectId= $("#reportProjectName").val();
+				loadEpics();
 				console.log("Project id : " + projectId);
-				$("#searchSprintName").empty();
-				$("#searchSprintName").append('<option value="">Loading ....</option>');
+				$("#reportSprintName").empty();
+				$("#reportSprintName").append('<option value="">Loading ....</option>');
 				try {
 					$.ajax({
 						type : 'post',
@@ -40,19 +81,19 @@
 							var option='<option value="" selected="selected">--Select Sprint--</option>';
 							if(jsonObj.responseCode == 1){
 								console.log("data found");
-								$("#searchSprintName").empty();
-								$("#searchSprintName").append(option);
+								$("#reportSprintName").empty();
+								$("#reportSprintName").append(option);
 								$.each(response.responseObject, function (i, sprint) {
 									option='<option value="'+sprint.sprintId+'">'+sprint.sprintName+'</option>';
 									console.log(option);
-									$("#searchSprintName").append(option);
+									$("#reportSprintName").append(option);
 								});
 								
 							}else{
 								alert("Sprints not found in this project");
 								var option='<option value="" selected="selected">--Select Sprint--</option>';
-								$("#searchSprintName").empty();
-								$("#searchSprintName").append(option);
+								$("#reportSprintName").empty();
+								$("#reportSprintName").append(option);
 							}
 						},
 						error : function(data, status, er) {
@@ -65,6 +106,7 @@
 				}
 			});
 	</script>
+	
 	<script type="text/javascript">
 		function searchSprint(){
 			var sprintId = $("#searchSprintName").val();
@@ -99,7 +141,7 @@
 </head>
 <body style="margin-top: 5%">
 		
-		<form method="post" name="editSprintForm" id="editSprintForm">
+		<form method="post" name="reportForm" id="reportForm">
 		    <div class="divClass">
 		    	<table>
 		    		<tr>
@@ -107,7 +149,7 @@
 		    				<label>Project</label>
 		    			</td>
 		    			<td class="cellClass" style="width: 300px;">
-		    				   <select id="searchProjectName" name = "searchProjectName" >
+		    				   <select id="reportProjectName" name = "reportProjectName" >
 						       <option value="" selected="selected">--Select Project--</option>
 						      <%for(Project p : projects){%>
 						      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
@@ -118,7 +160,7 @@
 		    				<label>Sprint</label>
 		    			</td>
 		    			<td class="cellClass"  style="width: 300px;">
-		    				 <select id="searchSprintName" name = "searchSprintName" >
+		    				 <select id="reportSprintName" name = "reportSprintName" >
 						       <option value="" selected="selected">--Select Sprint--</option>
 						      
 						      </select>
@@ -129,7 +171,7 @@
 		    				<label>Epic</label>
 		    			</td>
 		    			<td class="cellClass"  style="width: 300px;">
-		    				 <select id="searchSprintName" name = "searchSprintName" >
+		    				 <select id="reportEpicName" name = "reportEpicName" >
 						       <option value="" selected="selected">--Select Epic--</option>
 						      
 						      </select>
@@ -138,7 +180,7 @@
 		    				
 		    			</td>
 		    			<td>	
-		    				<button type="button" onclick="searchReport()" class="signupbtn" style="text-align: centre; width:100px; margin-top: -10px;">Search</button>
+		    				<button type="button" onclick="businessValuesStatusReport()" class="signupbtn" style="text-align: centre; width:100px; margin-top: -10px;">Search</button>
 		    				<span style="width: 10px"></span>
 		    				<button type="button" onclick="clearSearch()" class="cancelbtn" style="text-align: centre; width:100px; margin-top: -10px;">clear</button>
 		    			</td>
@@ -156,5 +198,34 @@
 		$(document).ready(function() {
 			
 		});
+</script>
+<script type="text/javascript">
+	function businessValuesStatusReport() {
+		console.log("businessValuesStatusReport got called");
+		var projectId = $("#reportProjectName").val();
+		var epicId = $("#reportEpicName").val();
+		var sprintId = $("#reportSprintName").val();
+		console.log("\r\nprojectId = " + projectId + "\r\nepicId = " + epicId +"\r\nsprintId = "+sprintId);
+		try {
+			$.ajax({
+					type : 'post',
+					url : './businessValuesStatusReport',
+					data : {projectId:projectId,epicId:epicId,sprintId:sprintId},
+					success : function(response) {
+						console.log("businessValuesStatusReport response : " + response);
+// 						if(response == "success"){
+							$("#reportDisplayDiv").empty();
+							$("#reportDisplayDiv").load("bvStatusReport.jsp");
+// 						}
+					},
+					error : function(data, status, er) {
+						console.log("Error in businessValuesStatusReport jsm : " + data
+								+ " status: " + status + " er:" + er);
+					}
+				});
+			} catch (e) {
+				console.log("Exception in businessValuesStatusReport jsm : " + e);
+			}
+	}
 </script>
 </html>

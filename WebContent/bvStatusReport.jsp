@@ -1,3 +1,5 @@
+<%@page import="com.viva.dto.UsBv"%>
+<%@page import="com.viva.dto.BusinessValue"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="java.util.List"%>
 <%@page import="com.viva.dto.UserStory"%>
@@ -8,12 +10,13 @@
 
 
 <%
-
-	List<UserStory> uss = (List<UserStory>) request.getSession().getAttribute("userStories");
-	if(uss == null){
-		uss = new ArrayList<UserStory>();
+	List<UsBv> businessValuesStatusReport = (List<UsBv>)request.getSession().getAttribute("businessValuesStatusReport");
+	if(businessValuesStatusReport == null){
+		businessValuesStatusReport = new ArrayList<UsBv>();
 	}
-
+	int projectId = (int)request.getSession().getAttribute("businessValuesStatusReportProjectId");
+	int sprintId = (int)request.getSession().getAttribute("businessValuesStatusReportSprintId");
+	int epicId = (int)request.getSession().getAttribute("businessValuesStatusReportEpicId");
 %>
 
 
@@ -64,55 +67,7 @@
 				width: 100px;
 			}
 		</style>
-		<script type="text/javascript">
-			function createSprint() {
-				console.log("createSprint got called");
-				console.log($("form[name=newSprintForm]").serialize());
-	          
-					$.ajax({
-		                type: 'post',
-		                url: './addSprint',
-		                data: $("form[name=newSprintForm]").serialize(),
-		                success: function (response) {
-		                   console.log("Sprint creation call completed..... " + response);
-		                   if(response === "success"){
-		                	   alert("Sprint creation Success");
-		                   }else{
-		                	   alert("Sprint creation Failed");
-		                   }
-		                },
-						error : function(data, status, er) {
-							console.log("Error in create new Sprint jsm : " + data + " status: " + status + " er:" + er);
-						
-						}
-		            });
-					 closePopup();
-			}
-		</script>
-		<script type="text/javascript">
-		function loadUserStory(userStoryId) {
-			console.log("loadUserStory( got called");
-				$.ajax({
-	                type: 'post',
-	                url: './loadUserStory',
-	                data: {userStoryId:userStoryId},
-	                success: function (response) {
-	                   console.log("loadUserStory call completed..... " + response);
-	                   if(response === "success"){
-	                	   
-	                	   console.log("loadUserStory loading Success");
-	                	   loadPage('commonDiv','./usHome.jsp');
-	                	   
-	                   }else{
-	                	   console.log("loadUserStory creation "+response);
-	                   }
-	                },
-					error : function(data, status, er) {
-						console.log("Error in loadUserStory jsm : " + data + " status: " + status + " er:" + er);
-					}
-	            });
-		}
-		</script>
+		
 	</head>
 	<body>
 
@@ -132,15 +87,16 @@
 							</tr>
 						</thead>
 						<tbody id="projectsBody">
-							<% for(UserStory us : uss){ %>
+							<% int i=1;
+								for(UsBv ub : businessValuesStatusReport){ %>
 								<tr class="row100 head">
-									<td class="column100 width100" data-column="column2"></td>
-									<td class="column100 width75" data-column="column1"></td>
-									<td class="column100 width50" data-column="column6"></td>
-									<td class="column100 width100" data-column="column2"></td>
-									<td class="column100 width75" data-column="column1"></td>
-									<td class="column100 width50" data-column="column6"></td>
-									<td class="column100 width50" data-column="column6"></td>
+									<td class="column100 width100" data-column="column2"><%= i++ %></td>
+									<td class="column100 width75" data-column="column1">BV<%=ub.getBvId() %></td>
+									<td class="column100 width50" data-column="column6"><%=ub.getViva() %></td>
+									<td class="column100 width100" data-column="column2">PRJ<%=projectId %></td>
+									<td class="column100 width75" data-column="column1">SPR<%=sprintId %></td>
+									<td class="column100 width50" data-column="column6">EP<%=epicId %></td>
+									<td class="column100 width50" data-column="column6">US<%=ub.getUsId()%></td>
 								</tr>
 							<%} %>
 						</tbody>
