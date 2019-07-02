@@ -6,6 +6,7 @@ import java.text.SimpleDateFormat;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.viva.db.util.CacheUtil;
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
 import com.viva.dto.History;
@@ -21,6 +22,7 @@ public class ProjectDao {
 			int addProjectResponse = DBConnectionUtil.insert(QueryBuilder.getAddProjectQuery(project));
 			if (addProjectResponse > 0) {
 				response = "success";
+				CacheUtil.updateProjects();
 				History history = new History(0, addProjectResponse, "PJ", "Created", project.getCretatedDate(),
 						project.getCreatedBy());
 				boolean addHistory = historyDao.addHistory(history);

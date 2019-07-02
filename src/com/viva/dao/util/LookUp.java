@@ -6,6 +6,7 @@ import java.util.Map;
 
 import com.viva.dao.BusinessValuesDao;
 import com.viva.dao.ProjectDao;
+import com.viva.db.util.CacheUtil;
 import com.viva.dto.BusinessValue;
 import com.viva.dto.Department;
 import com.viva.dto.Project;
@@ -75,7 +76,7 @@ public class LookUp {
 	}
 
 	public static List<BusinessValue> getBusinessValues() {
-		List<BusinessValue> bvs = businessValuesDao.getAllBusinessValues();
+		List<BusinessValue> bvs = CacheUtil.allBusinessValues;
 		if (bvs == null) {
 			bvs = new ArrayList<BusinessValue>();
 		}

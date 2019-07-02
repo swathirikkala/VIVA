@@ -1,3 +1,4 @@
+<%@page import="com.viva.db.util.CacheUtil"%>
 <%@page import="com.viva.dao.ProjectDao"%>
 <%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="com.viva.dto.Sprint"%>
@@ -11,11 +12,12 @@
 <%
 	ProjectDao prjDao = new ProjectDao();
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
-	List<Project> allProjects = prjDao.getProjects();
+	List<Project> allProjects = CacheUtil.allProjects;
 	if(allProjects == null){
 		allProjects = new ArrayList<Project>();
 	}
 	Project project = (Project)request.getSession().getAttribute("project");
+	
 	if(project == null){
 		project = new Project();
 	}
@@ -26,6 +28,7 @@
 	<head>
 	<script type="text/javascript">
 	    $(document).ready(function() {
+	    	console.log("project id in new sprint creation : " + '<%=project.getId()%>');
 	    	$("#projectName").val("<%=project.getId()%>");
 	    	$("#sprintDescription").val("");
 	      });
@@ -121,8 +124,8 @@
 			   <label for="projectName"><b>Project Name</b></label><label style="color: red;">&nbsp;*</label>
 			   <select id="projectName" name = "projectName" required>
 				   <option value="0">--Select Project--</option>
-			      	<%for(Project p : allProjects){%>
-			      	<option value="<%= p.getId()%>"><%= p.getName()%></option>
+			      	<%for(Project prj : allProjects){%>
+			      	<option value="<%= prj.getId()%>"><%= prj.getName()%></option>
 			      	<%}%>
 		      </select>
 		      		   

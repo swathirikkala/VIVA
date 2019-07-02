@@ -1,3 +1,4 @@
+<%@page import="com.viva.db.util.CacheUtil"%>
 <%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="com.viva.dao.BusinessValuesDao"%>
 <%@page import="com.viva.dto.BusinessValue"%>
@@ -26,11 +27,11 @@
 	EpicDao epicDao = new EpicDao();
 	BusinessValuesDao businessValuesDao = new BusinessValuesDao();
 	
-	List<Project> projects = projectDao.getProjects();
+	List<Project> projects = CacheUtil.allProjects;
 	if(null == projects){
 		projects = new ArrayList<Project>();
 	}
-	List<BusinessValue> bvs = businessValuesDao.getAllBusinessValues();
+	List<BusinessValue> bvs = CacheUtil.allBusinessValues;
 	int pid = 0;
 	try{
 		pid = Integer.valueOf(projectId);

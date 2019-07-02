@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.viva.db.util.CacheUtil;
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
 import com.viva.dto.History;
@@ -29,6 +30,7 @@ public class UserStoryDao {
 		}
 		if (addUSerStoryResponse > 0) {
 			response = Constants.SUCCESS;
+			CacheUtil.updateUserStories();
 			history.sethDate(DateUtil.getSqlDate());
 			history.setJobId(addUSerStoryResponse);
 			history.setJobType("us");

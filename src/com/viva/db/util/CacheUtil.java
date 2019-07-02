@@ -1,6 +1,7 @@
 package com.viva.db.util;
 
 import java.util.HashMap;
+import java.util.List;
 import java.util.Map;
 
 import com.viva.dao.BusinessValuesDao;
@@ -21,6 +22,12 @@ public class CacheUtil {
 	private static UserStoryDao userStoryDao = new UserStoryDao();
 	private static BusinessValuesDao businessValuesDao = new BusinessValuesDao();
 
+	public static List<Project> allProjects = projectDao.getProjects();
+	public static List<Epic> allEpics = epicDao.getEpics();
+	public static List<Sprint> allSprints = sprintDao.getAllSprints();
+	public static List<UserStory> allUserStories = userStoryDao.getAllUserStories();
+	public static List<BusinessValue> allBusinessValues = businessValuesDao.getAllBusinessValues();
+
 	public static Map<Integer, Project> allProjectsMap = new HashMap<Integer, Project>();
 	public static Map<Integer, Epic> allEpicsMap = new HashMap<Integer, Epic>();
 	public static Map<Integer, Sprint> allSprintsMap = new HashMap<Integer, Sprint>();
@@ -28,25 +35,40 @@ public class CacheUtil {
 	public static Map<Integer, UserStory> allUserStoriesMap = new HashMap<Integer, UserStory>();
 
 	static {
-		System.out.println(
-				"#######################################################################################################");
-		for (Project project : projectDao.getProjects()) {
+		System.out.println("##################################################################################");
+		updateProjects();
+		updateEpics();
+		updateSprints();
+		updateUserStories();
+		System.out.println("###################################################################################");
+	}
+
+	public static void updateProjects() {
+		allProjects = projectDao.getProjects();
+		for (Project project : allProjects) {
 			allProjectsMap.put(project.getId(), project);
 		}
+	}
 
-		for (Epic epic : epicDao.getEpics()) {
-			allEpicsMap.put(epic.getId(), epic);
-		}
-
-		for (UserStory userStory : userStoryDao.getAllUserStories()) {
-			allUserStoriesMap.put(userStory.getId(), userStory);
-		}
-
-		for(Sprint sprint : sprintDao.getAllSprints()) {
+	public static void updateSprints() {
+		allSprints = sprintDao.getAllSprints();
+		for (Sprint sprint : allSprints) {
 			allSprintsMap.put(sprint.getSprintId(), sprint);
 		}
-		System.out.println(
-				"#######################################################################################################");
+	}
+
+	public static void updateEpics() {
+		allEpics = epicDao.getEpics();
+		for (Epic epic : allEpics) {
+			allEpicsMap.put(epic.getId(), epic);
+		}
+	}
+
+	public static void updateUserStories() {
+		allUserStories = userStoryDao.getAllUserStories();
+		for (UserStory userStory : allUserStories) {
+			allUserStoriesMap.put(userStory.getId(), userStory);
+		}
 	}
 
 }

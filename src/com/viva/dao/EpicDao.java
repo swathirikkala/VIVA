@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.viva.db.util.CacheUtil;
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
 import com.viva.dto.Epic;
@@ -16,7 +17,7 @@ public class EpicDao {
 	public int addEpic(Epic epic) {
 
 		int addEpicResponse = DBConnectionUtil.insert(QueryBuilder.getAddEpicQuery(epic));
-		
+		CacheUtil.updateEpics();
 		return addEpicResponse;
 	}
 

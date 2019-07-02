@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.viva.db.util.CacheUtil;
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
 import com.viva.dto.Sprint;
@@ -15,6 +16,7 @@ public class SprintDao {
 	public String addSprint(Sprint sprint) {
 		int addSprintResponse = DBConnectionUtil.insert(QueryBuilder.getAddSprintQuery(sprint));
 		if (addSprintResponse > 0) {
+			CacheUtil.updateSprints();
 			return "success";
 		}
 		return "fail";

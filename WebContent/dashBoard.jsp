@@ -6,9 +6,9 @@
 		userName = "";
 	}
 	request.getSession().removeAttribute("businessValuesStatusReport");
-	request.getSession().removeAttribute("businessValuesStatusReportProjectId");
-	request.getSession().removeAttribute("businessValuesStatusReportSprintId");
-	request.getSession().removeAttribute("businessValuesStatusReportEpicId");
+// 	request.getSession().removeAttribute("businessValuesStatusReportProjectId");
+// 	request.getSession().removeAttribute("businessValuesStatusReportSprintId");
+// 	request.getSession().removeAttribute("businessValuesStatusReportEpicId");
 %>
 <!DOCTYPE html>
 <html>

@@ -1,3 +1,4 @@
+<%@page import="com.viva.db.util.CacheUtil"%>
 <%@page import="com.viva.dto.Epic"%>
 <%@page import="com.viva.dto.BusinessValue"%>
 <%@page import="com.viva.dao.util.LookUp"%>
@@ -25,7 +26,7 @@
 		epics =new ArrayList<Epic>();
 	}
 	ProjectDao projectDao = new ProjectDao();
-	List<Project> projects = projectDao.getProjects();
+	List<Project> projects = CacheUtil.allProjects;
 	if(projects == null){
 		projects = new ArrayList<Project>();
 	}
