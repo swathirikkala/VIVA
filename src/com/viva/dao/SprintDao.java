@@ -107,6 +107,7 @@ public class SprintDao {
 				"where id = (select sprint from user_story where id = ?);";
 		try {
 			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
+			System.out.println("updateVivaByUs in sprint query : " + ps.toString());
 			ps.setInt(1, usId);
 			ps.setInt(2, usId);
 			int prjUpdateResp = ps.executeUpdate();

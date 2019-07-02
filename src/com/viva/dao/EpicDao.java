@@ -126,6 +126,7 @@ public class EpicDao {
 				"where id = (select epic from user_story where id = ?);";
 		try {
 			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
+			System.out.println("updateVivaByUs in epic query : " + ps.toString());
 			ps.setInt(1, usId);
 			ps.setInt(2, usId);
 			int prjUpdateResp = ps.executeUpdate();

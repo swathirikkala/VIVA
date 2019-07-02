@@ -147,6 +147,7 @@ public class UserStoryDao {
 		String query ="update user_story set viva = (SELECT ceiling(avg(viva)) FROM viva.us_bv where usid = ?)  where id=?";
 		try {
 			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(query);
+			System.out.println("updateVivaByUs in User story query : " + ps.toString());
 			ps.setInt(1, usId);
 			ps.setInt(2, usId);
 			int updateResponse = ps.executeUpdate();
