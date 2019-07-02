@@ -9,6 +9,7 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.viva.db.util.CacheUtil;
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.util.DataUtil;
 
@@ -39,7 +40,7 @@ public class DBServlet extends HttpServlet {
 		DBConnectionUtil connectionUtil =new  DBConnectionUtil(dbURL,driverName,userName, password);
 		connectionUtil.loadDBConfiguration();
 		System.out.println(":::::::::::::::::: DB connection creation completed ::::::::::::::::::::::");
-		
+		new CacheUtil();
 	}
 
 	/**

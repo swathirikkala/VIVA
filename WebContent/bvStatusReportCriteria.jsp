@@ -10,6 +10,7 @@
 	if(projects == null){
 		projects = new ArrayList<Project>();
 	}
+	
 %>
 <html>
 <head>

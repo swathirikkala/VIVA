@@ -1,4 +1,6 @@
-
+<%
+	//request.getSession().removeAttribute("projects");
+%>
 <html>
 	<head>
 	<script src="./js/project.js"></script>

@@ -5,6 +5,7 @@ String userName = String.valueOf(request.getSession().getAttribute("userName"));
 if(userName == null){
 	userName = "";
 }
+//request.getSession().removeAttribute("sprints");
 %>
 <head>
 <style type="text/css">

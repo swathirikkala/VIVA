@@ -44,8 +44,9 @@ public class LoginServlet extends HttpServlet {
 
 		UserDao dao = new UserDao();
 		Response loginResponse = dao.login(user);
-		if (loginResponse.getResponseCode() == 0)
+		if (loginResponse.getResponseCode() == 0) {
 			loginResponse.setResponseMessage("Login fail");
+		}
 		else {
 			request.getSession().setAttribute("response", loginResponse);
 			request.getSession().setAttribute("userId", user.getEmailId());

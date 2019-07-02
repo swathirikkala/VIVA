@@ -1,5 +1,6 @@
 package com.viva.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -79,5 +80,20 @@ public class SprintDao {
 		else if (insertResult < 0)
 			return "exception";
 		return "fail";
+	}
+
+	public List<Sprint> getAllSprints() {
+		List<Sprint> sprints = null;
+		String sql = "select * from sprint";
+
+		try {
+			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
+			System.out.println("getAllSprints query : " + ps.toString());
+			ResultSet rs = ps.executeQuery();
+			sprints = parseSprints(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return sprints;
 	}
 }

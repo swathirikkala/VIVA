@@ -3,6 +3,8 @@
 	if(userName == null){
 		userName = "";
 	}
+
+	//request.getSession().removeAttribute("userStories");
 %>
 <html>
 <head>

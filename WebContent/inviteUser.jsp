@@ -45,7 +45,7 @@
 		      
 		      <label for="teamId"><b>Team Name</b></label><label style="color: red;">&nbsp;*</label>
 		      <select id="teamId" name = "teamId" >
-		       <option value="0" selected="selected">--Select Epic--</option>
+		       <option value="0" selected="selected">--Select Team--</option>
 		      <%for(Team t : teams){%>
 		      		<option value="<%= t.getTeamId()%>"><%= t.getTeamName()%></option>
 		      <%}%>

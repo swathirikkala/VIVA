@@ -83,26 +83,8 @@ function login() {
                 console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
                 console.log(jsonObj.responseCode == 1);
 				if(jsonObj.responseCode == 1){
-					// Check browser support for session storage
-					
-					if (typeof(Storage) !== "undefined") {
-						// Store
-						var responseObject =JSON.parse(JSON.stringify(data.responseObject));
-	                    var deptId = responseObject.department;
-						sessionStorage.setItem("userId", responseObject.emailId);
-						sessionStorage.setItem("deptId", deptId);
-						console.log("User Id stored in session storage. " + sessionStorage.getItem("userId"));
-	                    console.log("Department : " + deptId);
-					} else {
-						console.log("Sorry, your browser does not support Web Storage...");
-					}
                     alert("User Login Success.");
-                    var landingPage = '';
-                    if(deptId == 1){
-                        landingPage = "home.html";
-                    }
-                    
-					
+                    window.location = "home.html";
 				}else{
 					alert("User login Failed.\n please verify credentials");
 				}

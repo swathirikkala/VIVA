@@ -1,3 +1,5 @@
+<%@page import="com.viva.db.util.CacheUtil"%>
+<%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="com.viva.dto.UsBv"%>
 <%@page import="com.viva.dto.BusinessValue"%>
 <%@page import="java.util.ArrayList"%>
@@ -72,7 +74,7 @@
 	<body>
 
 		<!-- User Story Table -->
-			<div class="limiter">
+			<div class="limiter" style="width: 150%;">
 				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:500px; min-height:0px; overflow-x: none;">
 					<table data-vertable="ver2">
 						<thead>
@@ -93,10 +95,10 @@
 									<td class="column100 width100" data-column="column2"><%= i++ %></td>
 									<td class="column100 width75" data-column="column1">BV<%=ub.getBvId() %></td>
 									<td class="column100 width50" data-column="column6"><%=ub.getViva() %></td>
-									<td class="column100 width100" data-column="column2">PRJ<%=projectId %></td>
-									<td class="column100 width75" data-column="column1">SPR<%=sprintId %></td>
-									<td class="column100 width50" data-column="column6">EP<%=epicId %></td>
-									<td class="column100 width50" data-column="column6">US<%=ub.getUsId()%></td>
+									<td class="column100 width100" data-column="column2"><%=CacheUtil.allProjectsMap.get(projectId).getName() %></td>
+									<td class="column100 width75" data-column="column1"><%= CacheUtil.allSprintsMap.get(sprintId).getSprintName() %></td>
+									<td class="column100 width50" data-column="column6">EP<%=CacheUtil.allEpicsMap.get(epicId).getName() %></td>
+									<td class="column100 width50" data-column="column6">US<%=CacheUtil.allUserStoriesMap.get(ub.getUsId()).getName()%></td>
 								</tr>
 							<%} %>
 						</tbody>
