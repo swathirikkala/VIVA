@@ -10,6 +10,7 @@ import com.viva.db.util.CacheUtil;
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
 import com.viva.dto.Sprint;
+import com.viva.util.Constants;
 
 public class SprintDao {
 
@@ -97,5 +98,26 @@ public class SprintDao {
 			e.printStackTrace();
 		}
 		return sprints;
+	}
+	public static String updateVivaByUs(int usId) {
+		String sql = "update sprint set viva = " + 
+				"(select ceiling( avg(viva)) from us_bv where usid in " + 
+				"(select id from user_story where sprint in" + 
+				"(select sprint from user_story where id = ?))) " + 
+				"where id = (select sprint from user_story where id = ?);";
+		try {
+			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
+			ps.setInt(1, usId);
+			ps.setInt(2, usId);
+			int prjUpdateResp = ps.executeUpdate();
+			if(prjUpdateResp>0) {
+				return Constants.SUCCESS;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return Constants.ERROR;
+		}
+		return Constants.FAIL;
 	}
 }

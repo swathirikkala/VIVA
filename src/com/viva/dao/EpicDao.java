@@ -120,7 +120,7 @@ public class EpicDao {
 	}
 	public static String updateVivaByUs(int usId) {
 		String sql = "update epic set viva = " + 
-				"(select ceiling( avg(viva)) from us_bv where usid in " + 
+				"(select ceiling(avg(viva)) from us_bv where usid in " + 
 				"(select id from user_story where epic in" + 
 				"(select epic from user_story where id = ?))) " + 
 				"where id = (select epic from user_story where id = ?);";
