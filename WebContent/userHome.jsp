@@ -28,7 +28,7 @@
 	<!-- User invitation  Div started-->
 	<jsp:include page="inviteUser.jsp"/>
 	<!-- User invitation Div ended -->
-	<label class="w3-xxxlarge w3-text-red"><b>Sprint Home</b></label>
+	<label class="w3-xxxlarge w3-text-red"><b>User Management</b></label>
 	<label class="w3-xxxlarge" style="color: green;margin-left: 55%;">Welcome </label>
 	<label class="w3-xxxlarge" style="color: blue;"><%=userName %></label>	
 	<button type="button" onclick="openUserInvitePopup();" class="signupbtn" 
