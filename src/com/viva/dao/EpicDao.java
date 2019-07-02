@@ -118,4 +118,25 @@ public class EpicDao {
 		}
 		return Constants.FAIL;
 	}
+	public static String updateVivaByUs(int usId) {
+		String sql = "update epic set viva = " + 
+				"(select ceiling( avg(viva)) from us_bv where usid in " + 
+				"(select id from user_story where epic in" + 
+				"(select epic from user_story where id = ?))) " + 
+				"where id = (select epic from user_story where id = ?);";
+		try {
+			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
+			ps.setInt(1, usId);
+			ps.setInt(2, usId);
+			int prjUpdateResp = ps.executeUpdate();
+			if(prjUpdateResp>0) {
+				return Constants.SUCCESS;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return Constants.ERROR;
+		}
+		return Constants.FAIL;
+	}
 }
