@@ -152,9 +152,9 @@ public class ProjectDao {
 				"where id = (select project from user_story where id = ?);";
 		try {
 			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
-			System.out.println("updateVivaByUs in project query : " + ps.toString());
 			ps.setInt(1, usId);
 			ps.setInt(2, usId);
+			System.out.println("updateVivaByUs in project query : " + ps.toString());
 			int prjUpdateResp = ps.executeUpdate();
 			if(prjUpdateResp>0) {
 				return Constants.SUCCESS;
