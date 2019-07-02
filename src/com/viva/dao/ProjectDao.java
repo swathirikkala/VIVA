@@ -1,5 +1,6 @@
 package com.viva.dao;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.text.SimpleDateFormat;
@@ -11,6 +12,7 @@ import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
 import com.viva.dto.History;
 import com.viva.dto.Project;
+import com.viva.util.Constants;
 
 public class ProjectDao {
 
@@ -141,5 +143,26 @@ public class ProjectDao {
 			project = projectById.get(0);
 		}
 		return project;
+	}
+	public static String updateVivaByUs(int usId) {
+		String sql = "update project set viva = " + 
+				"(select ceiling(avg(viva)) from us_bv where usid in " + 
+				"(select id from user_story where project in" + 
+				"(select project from user_story where id = ?))) " + 
+				"where id = (select project from user_story where id = ?);";
+		try {
+			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
+			ps.setInt(1, usId);
+			ps.setInt(2, usId);
+			int prjUpdateResp = ps.executeUpdate();
+			if(prjUpdateResp>0) {
+				return Constants.SUCCESS;
+			}
+			
+		} catch (SQLException e) {
+			e.printStackTrace();
+			return Constants.ERROR;
+		}
+		return Constants.FAIL;
 	}
 }
