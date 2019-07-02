@@ -1,3 +1,4 @@
+<%@page import="com.viva.db.util.CacheUtil"%>
 <%@page import="com.viva.dto.Project"%>
 <%@page import="com.viva.dao.ProjectDao"%>
 <%@page import="java.util.ArrayList"%>
@@ -5,8 +6,7 @@
 <%@page import="java.util.List"%>
 <%
 
-	ProjectDao projectDao = new ProjectDao();
-	List<Project> projects = projectDao.getProjects();
+	List<Project> projects = CacheUtil.allProjects;
 	if(projects == null){
 		projects = new ArrayList<Project>();
 	}
@@ -32,7 +32,7 @@
 					var jsonObj = JSON.parse(respJSONString);
 					console.log(respJSONString);
 					console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
-					var option='<option value="" selected="selected">--Select Epic--</option>';
+					var option='<option value="0" selected="selected">--Select Epic--</option>';
 	                if(jsonObj.responseCode == 1){
 	                	console.log("data found");
 						$("#reportEpicName").empty();
@@ -45,7 +45,7 @@
 						
 	                }else{
 	                	alert("no epics found with this search criteria");
-	                	var option='<option value="" selected="selected">--Select Epic--</option>';
+	                	var option='<option value="0" selected="selected">--Select Epic--</option>';
 						$("#reportEpicName").empty();
 						$("#reportEpicName").append(option);
 	                }
@@ -68,7 +68,7 @@
 				loadEpics();
 				console.log("Project id : " + projectId);
 				$("#reportSprintName").empty();
-				$("#reportSprintName").append('<option value="">Loading ....</option>');
+				$("#reportSprintName").append('<option value="0">Loading ....</option>');
 				try {
 					$.ajax({
 						type : 'post',
@@ -79,7 +79,7 @@
 							var jsonObj = JSON.parse(respJSONString);
 							console.log(respJSONString);
 							console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
-							var option='<option value="" selected="selected">--Select Sprint--</option>';
+							var option='<option value="0" selected="selected">--Select Sprint--</option>';
 							if(jsonObj.responseCode == 1){
 								console.log("data found");
 								$("#reportSprintName").empty();
@@ -92,7 +92,7 @@
 								
 							}else{
 								alert("Sprints not found in this project");
-								var option='<option value="" selected="selected">--Select Sprint--</option>';
+								var option='<option value="0" selected="selected">--Select Sprint--</option>';
 								$("#reportSprintName").empty();
 								$("#reportSprintName").append(option);
 							}
@@ -151,7 +151,7 @@
 		    			</td>
 		    			<td class="cellClass" style="width: 300px;">
 		    				   <select id="reportProjectName" name = "reportProjectName" >
-						       <option value="" selected="selected">--Select Project--</option>
+						       <option value="0" selected="selected">--Select Project--</option>
 						      <%for(Project p : projects){%>
 						      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
 						      <%}%>
@@ -162,7 +162,7 @@
 		    			</td>
 		    			<td class="cellClass"  style="width: 300px;">
 		    				 <select id="reportSprintName" name = "reportSprintName" >
-						       <option value="" selected="selected">--Select Sprint--</option>
+						       <option value="0" selected="selected">--Select Sprint--</option>
 						      
 						      </select>
 		    			</td>
@@ -173,7 +173,7 @@
 		    			</td>
 		    			<td class="cellClass"  style="width: 300px;">
 		    				 <select id="reportEpicName" name = "reportEpicName" >
-						       <option value="" selected="selected">--Select Epic--</option>
+						       <option value="0" selected="selected">--Select Epic--</option>
 						      
 						      </select>
 		    			</td>

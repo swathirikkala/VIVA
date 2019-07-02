@@ -84,7 +84,7 @@ public class LookUp {
 	}
 
 	public static List<Project> getAllProjectByTeam() {
-		List<Project> projects = projectDao.getProjects();
+		List<Project> projects = CacheUtil.allProjects;
 		if (projects == null) {
 			projects = new ArrayList<Project>();
 		}

@@ -50,7 +50,11 @@
 		<link href="./css/fSelect.css" rel="stylesheet">
 		<script src="./js/jquery-3.4.0.min.js"></script>
 		<script src="./js/fSelect.js"></script>
+	<script type="text/javascript">
+	 $(document).ready(function() {
 		
+	 });
+	</script>
 	</head>
 	<body>
 <!-- User story Creation Div start-->
@@ -118,6 +122,11 @@
 function openUSModal(){
 	console.log("openUSModal got called");
 	closeUSPopup();
+	 var epicsCount = '<%=epicsByProjectId.size()%>';
+	 console.log("epicsCount in user story creation : " + epicsCount);
+	 if(epicsCount == 0){
+		 alert("No epics found under this project.");
+	 }
 	document.getElementById('usModalDiv').style.display='block';
 }
 function closeUSPopup(){

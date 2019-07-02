@@ -2,9 +2,7 @@
     pageEncoding="UTF-8"%>
 <%
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
-	if(userName == null){
-		userName = "";
-	}
+	
 	request.getSession().removeAttribute("businessValuesStatusReport");
 // 	request.getSession().removeAttribute("businessValuesStatusReportProjectId");
 // 	request.getSession().removeAttribute("businessValuesStatusReportSprintId");
