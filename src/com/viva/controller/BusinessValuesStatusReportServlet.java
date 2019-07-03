@@ -10,7 +10,7 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.viva.dao.ReportsDao;
-import com.viva.dto.UsBv;
+import com.viva.dto.BvStatusReport;
 import com.viva.util.Constants;
 
 /**
@@ -57,7 +57,7 @@ public class BusinessValuesStatusReportServlet extends HttpServlet {
 		request.getSession().setAttribute("businessValuesStatusReportProjectId", projectId);
 		request.getSession().setAttribute("businessValuesStatusReportSprintId", sprintId);
 		request.getSession().setAttribute("businessValuesStatusReportEpicId", epicId);
-		List<UsBv> businessValuesStatusReport = reportsDao.businessValuesStatusReport(projectId, sprintId,
+		List<BvStatusReport> businessValuesStatusReport = reportsDao.businessValuesStatusReport(projectId, sprintId,
 				epicId);
 		if (businessValuesStatusReport != null && businessValuesStatusReport.isEmpty()) {
 			response.getWriter().write(Constants.NO_DATA_FOUND);

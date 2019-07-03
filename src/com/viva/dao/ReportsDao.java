@@ -6,14 +6,21 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.viva.db.util.CacheUtil;
 import com.viva.db.util.DBConnectionUtil;
-import com.viva.dto.UsBv;
+import com.viva.dto.BusinessValue;
+import com.viva.dto.BvStatusReport;
+import com.viva.dto.Epic;
+import com.viva.dto.Project;
+import com.viva.dto.Sprint;
 
 public class ReportsDao {
 
-	public List<UsBv> businessValuesStatusReport(int projectId, int sprintId, int epicId) {
-		List<UsBv> bvs = null;
-		String query = "select * from us_bv where usid in (select id from user_story where project =? ";
+	public List<BvStatusReport> businessValuesStatusReport(int projectId, int sprintId, int epicId) {
+		List<BvStatusReport> bvs = null;
+		String query = "select us_bv.*, user_story.name, user_story.sprint, user_story. epic, user_story.project from us_bv " + 
+				"left join user_story on us_bv.usid = user_story.id " + 
+				"and usid in (select id from user_story where project =?"; 
 		if(sprintId !=0) {
 			query +=" and sprint = ?";
 		}
@@ -43,22 +50,39 @@ public class ReportsDao {
 	}
 	
 	
-	private List<UsBv> parseUsBvs(ResultSet rs) {
-		List<UsBv> bvs = new ArrayList<UsBv>();
+	private List<BvStatusReport> parseUsBvs(ResultSet rs) {
+		List<BvStatusReport> bvs = new ArrayList<BvStatusReport>();
 		try {
 			while (rs != null && rs.next()) {
-				UsBv bv = new UsBv();
-				bv.setUsId(rs.getInt(1));
-				bv.setBvId(rs.getInt(2));
-				bv.setStatus(rs.getBoolean(3));
-				bv.setViva(rs.getInt(4));
-				bv.setComment(rs.getString(5));
-				bvs.add(bv);
+				BvStatusReport bvr = new BvStatusReport();
+				bvr.setUsId(rs.getInt(1));
+				bvr.setBvId(rs.getInt(2));
+				bvr.setStatus(rs.getBoolean(3));
+				bvr.setViva(rs.getInt(4));
+				bvr.setComment(rs.getString(5));
+				bvr.setUserStoryName(rs.getString(6));
+				int sprintId = rs.getInt(7);
+				Sprint sprint = CacheUtil.allSprintsMap.get(sprintId);
+				String sprintName = (sprint!=null)?sprint.getSprintName():"";
+				bvr.setSprintName(sprintName);
+				int epicId = rs.getInt(8);
+				Epic epic = CacheUtil.allEpicsMap.get(epicId);
+				String epicName = (epic != null)?epic.getName():"";
+				bvr.setEpicName(epicName);
+				int projectId = rs.getInt(9);
+				Project project = CacheUtil.allProjectsMap.get(projectId);
+				String projectName = (project!=null)?project.getName():"";
+				bvr.setProjectName(projectName);
+				BusinessValue businessValue = CacheUtil.allBVMap.get(bvr.getBvId());
+				String bvName = (businessValue != null)?businessValue.getName():bvr.getBvId()+"";
+				bvr.setBvName(bvName);
+				bvs.add(bvr);
 			}
 		} catch (SQLException e) {
 			System.err.println("Exception in bv parsing : " + e.getMessage());
 		}
 		System.out.println("After parse parseUsBvs count : " + bvs.size());
+		System.out.println("After parse parseUsBvs Data : " + bvs);
 		return bvs;
 
 	}

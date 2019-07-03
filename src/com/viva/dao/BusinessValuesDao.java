@@ -97,6 +97,7 @@ public class BusinessValuesDao {
 		} catch (SQLException e) {
 			System.err.println("Exception in bv parsing : " + e.getMessage());
 		}
+		System.out.println("AllBVs ::: " + bvs);
 		return bvs;
 
 	}
@@ -135,7 +136,7 @@ public class BusinessValuesDao {
 			System.out.println("removeUsBv Query : " + ps.toString());
 			int executeUpdateResponse = ps.executeUpdate();
 			if (executeUpdateResponse > 0) {
-				String updateVivaResponse = userStoryDao.updateViva(usId);
+				String updateVivaResponse = UserStoryDao.updateViva(usId);
 				System.out.println("updateVivaResponse : " + updateVivaResponse);
 				return Constants.SUCCESS;
 			} else {
@@ -157,7 +158,7 @@ public class BusinessValuesDao {
 			System.out.println("updateBvComment Query : " + ps.toString());
 			int executeUpdateResponse = ps.executeUpdate();
 			if (executeUpdateResponse > 0) {
-				String updateVivaResponse = userStoryDao.updateViva(usId);
+				String updateVivaResponse = UserStoryDao.updateViva(usId);
 				System.out.println("updateBvCommentResponse : " + updateVivaResponse);
 				return Constants.SUCCESS;
 			} else {

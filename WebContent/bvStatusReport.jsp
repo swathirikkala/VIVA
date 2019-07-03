@@ -1,3 +1,4 @@
+<%@page import="com.viva.dto.BvStatusReport"%>
 <%@page import="com.viva.dto.Sprint"%>
 <%@page import="com.viva.dto.Project"%>
 <%@page import="com.viva.db.util.CacheUtil"%>
@@ -14,13 +15,10 @@
 
 
 <%
-	List<UsBv> businessValuesStatusReport = (List<UsBv>)request.getSession().getAttribute("businessValuesStatusReport");
+	List<BvStatusReport> businessValuesStatusReport = (List<BvStatusReport>)request.getSession().getAttribute("businessValuesStatusReport");
 	if(businessValuesStatusReport == null){
-		businessValuesStatusReport = new ArrayList<UsBv>();
+		businessValuesStatusReport = new ArrayList<BvStatusReport>();
 	}
-	int projectId = (request.getSession().getAttribute("businessValuesStatusReportProjectId")!=null)?(int)request.getSession().getAttribute("businessValuesStatusReportProjectId"):0;
-	int sprintId = (request.getSession().getAttribute("businessValuesStatusReportSprintId")!=null)?(int)request.getSession().getAttribute("businessValuesStatusReportSprintId"):0;
-	int epicId = (request.getSession().getAttribute("businessValuesStatusReportEpicId") != null)?(int)request.getSession().getAttribute("businessValuesStatusReportEpicId"):0;
 %>
 
 
@@ -92,43 +90,15 @@
 						</thead>
 						<tbody id="projectsBody">
 							<% int i=1;
-								for(UsBv ub : businessValuesStatusReport){ %>
+								for(BvStatusReport bvsr : businessValuesStatusReport){ %>
 								<tr class="row100 head">
 									<td class="column100 width100" data-column="column2"><%= i++ %></td>
-									<td class="column100 width75" data-column="column1">BV<%=ub.getBvId() %></td>
-									<td class="column100 width50" data-column="column6"><%=ub.getViva() %></td>
-									<%
-										String projectName = "";
-										Project p = CacheUtil.allProjectsMap.get(projectId);
-										if(p!=null){
-											projectName = p.getName();
-										}
-									%>
-									<td class="column100 width100" data-column="column2"><%=projectName %></td>
-									<%
-										String sprintName = "";
-										Sprint s = CacheUtil.allSprintsMap.get(sprintId);
-										if(s!=null){
-											sprintName = s.getSprintName();
-										}
-									%>
-									<td class="column100 width75" data-column="column1"><%= sprintName %></td>
-									<%
-										String epicName = "";
-										Epic e = CacheUtil.allEpicsMap.get(epicId);
-										if(e != null){
-											epicName = e.getName();
-										}
-									%>
-									<td class="column100 width50" data-column="column6"><%=epicName %></td>
-									<%
-										String userStoryName = "";
-										UserStory userStory = CacheUtil.allUserStoriesMap.get(ub.getUsId());
-										if(userStory != null){
-											userStoryName = userStory.getName();
-										}
-									%>
-									<td class="column100 width50" data-column="column6"><%=userStoryName%></td>
+									<td class="column100 width75" data-column="column1"><%=bvsr.getBvName() %></td>
+									<td class="column100 width50" data-column="column6"><%=bvsr.getViva() %></td>
+									<td class="column100 width100" data-column="column2"><%=bvsr.getProjectName() %></td>
+									<td class="column100 width75" data-column="column1"><%= bvsr.getSprintName() %></td>
+									<td class="column100 width50" data-column="column6"><%=bvsr.getEpicName() %></td>
+									<td class="column100 width50" data-column="column6"><%=bvsr.getUserStoryName()%></td>
 								</tr>
 							<%} %>
 						</tbody>

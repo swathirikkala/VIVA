@@ -97,7 +97,7 @@ $("#usSearchProjectName").change(
 						var jsonObj = JSON.parse(respJSONString);
 						console.log(respJSONString);
 						console.log(jsonObj.responseCode + " : " + jsonObj.responseMessage);
-						var option='<option value="" selected="selected">--Select Sprint--</option>';
+						var option='<option value="" selected="selected">--Select Epic--</option>';
 		                if(jsonObj.responseCode == 1){
 		                	console.log("data found");
 							$("#usSearchEpicName").empty();
@@ -157,8 +157,8 @@ $("#usSearchEpicName").change(
 							});
 							
 		                }else{
-		                	alert("no epics found with this search criteria");
-		                	var option='<option value="" selected="selected">--Select Epic--</option>';
+		                	alert("no User stories found with this search criteria");
+		                	var option='<option value="" selected="selected">--Select User Story--</option>';
 							$("#userStorySearchUss").empty();
 							$("#userStorySearchUss").append(option);
 		                }
