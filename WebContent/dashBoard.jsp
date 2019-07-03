@@ -33,6 +33,13 @@
 		$("#searchCriteriaDiv").load("bvStatusReportCriteria.jsp");
 		$("#reportDisplayDiv").load("bvStatusReport.jsp");
 	}
+	
+	function report2(){
+		$("#searchCriteriaDiv").empty();
+		$("#reportDisplayDiv").empty();
+		$("#searchCriteriaDiv").load("businessValuesAverageReportCriteria.jsp");
+		$("#reportDisplayDiv").load("businessValuesAverageReport.jsp");
+	}
 </script>
 </head>
 <body>
@@ -42,7 +49,11 @@
 	<div style="display: inline-block;">
 	<button type="button" onclick="report1()" class="signupbtn" 
 		style="text-align: centre; width:150px; margin-top: 2px;">Business Values Status Report </button>
+		
+	<button type="button" onclick="report2()" class="signupbtn" 
+		style="text-align: centre; width:150px; margin-top: 2px; margin-left: 15px;">Business Values Report </button>
 	</div>
+	
 	<hr>
 	<div>
 		<div id="searchCriteriaDiv" style="display: inline-block;">

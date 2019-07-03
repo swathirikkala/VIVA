@@ -9,6 +9,7 @@ import java.util.List;
 import com.viva.db.util.CacheUtil;
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.dto.BusinessValue;
+import com.viva.dto.BusinessValuesAverage;
 import com.viva.dto.BvStatusReport;
 import com.viva.dto.Epic;
 import com.viva.dto.Project;
@@ -85,5 +86,59 @@ public class ReportsDao {
 		System.out.println("After parse parseUsBvs Data : " + bvs);
 		return bvs;
 
+	}
+	
+	public List<BusinessValuesAverage> businessValuesAverageReport(int projectId, int sprintId, int epicId) {
+		List<BusinessValuesAverage> bvas= null;
+		String sql = "select us_bv.bvid, ceiling(avg(us_bv.viva)) as vivavg, count(us_bv.viva) bvc from us_bv " + 
+				" inner join  user_story on us_bv.usid = user_story.id " + 
+				" and usid in (select id from user_story where project =?";
+			if(sprintId !=0) {
+				sql +=" and sprint = ?";
+			}
+			if(epicId !=0) {
+				sql+=" and epic= ?";
+			}
+			sql+=") group by bvid";
+			try {
+				PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
+				ps.setInt(1, projectId);
+				if(sprintId != 0) {
+					ps.setInt(2, sprintId);
+				}
+				if(sprintId !=0 &  epicId!=0) {
+					ps.setInt(3, epicId);
+				}else if (sprintId ==0 &  epicId!=0) {
+					ps.setInt(2, epicId);
+				}
+				System.out.println("businessValuesAverageReport PS : " + ps.toString());
+				ResultSet rs = ps.executeQuery();
+				bvas = parseUsBvas(rs);
+				
+			} catch (SQLException e) {
+				System.err.println("Exception in businessValuesAverageReport : " + e.getMessage());
+			}
+			return bvas;
+	}
+
+
+	private List<BusinessValuesAverage> parseUsBvas(ResultSet rs) {
+		List<BusinessValuesAverage> bvas = new ArrayList<BusinessValuesAverage>();
+		try {
+			while (rs != null && rs.next()) {
+				BusinessValuesAverage bva = new BusinessValuesAverage();
+				BusinessValue businessValue = CacheUtil.allBVMap.get(rs.getInt(1));
+				String bvName = (businessValue != null)?businessValue.getName():"";
+				bva.setBusinessValueName(bvName);
+				bva.setBvs(rs.getInt(2));
+				bva.setOccurance(rs.getInt(3));
+				bvas.add(bva);
+			}
+		} catch (SQLException e) {
+			System.err.println("Exception in bvas parsing : " + e.getMessage());
+		}
+		System.out.println("After parse parseUsBvas count : " + bvas.size());
+		System.out.println("After parse parseUsBvas Data : " + bvas);
+		return bvas;
 	}
 }

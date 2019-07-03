@@ -10,32 +10,30 @@ import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
 import com.viva.dao.ReportsDao;
-import com.viva.dto.BvStatusReport;
+import com.viva.dto.BusinessValuesAverage;
 import com.viva.util.Constants;
 
 /**
- * Servlet implementation class BusinessValuesStatusReportServlet
+ * Servlet implementation class BusinessValuesAverageReportServlet
  */
-@WebServlet(name = "businessValuesStatusReport", urlPatterns = { "/businessValuesStatusReport" })
-public class BusinessValuesStatusReportServlet extends HttpServlet {
+@WebServlet(name = "businessValuesAverageReport", urlPatterns = { "/businessValuesAverageReport" })
+public class BusinessValuesAverageReportServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
 	ReportsDao reportsDao = new ReportsDao();
+    /**
+     * @see HttpServlet#HttpServlet()
+     */
+    public BusinessValuesAverageReportServlet() {
+        super();
+        // TODO Auto-generated constructor stub
+    }
 
 	/**
-	 * @see HttpServlet#HttpServlet()
+	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse response)
 	 */
-	public BusinessValuesStatusReportServlet() {
-		super();
-	}
-
-	/**
-	 * @see HttpServlet#doGet(HttpServletRequest request, HttpServletResponse
-	 *      response)
-	 */
-	protected void doGet(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
-		System.out.println("businessValuesStatusReport servlet got called");
+	protected void doGet(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		System.out.println("BusinessValuesAverageReportServlet got called");
 		int projectId = 0;
 		int sprintId = 0;
 		int epicId = 0;
@@ -54,23 +52,22 @@ public class BusinessValuesStatusReportServlet extends HttpServlet {
 		} catch (NumberFormatException e) {
 			System.err.println("epic id parsing error in BusinessValuesStatusReportServlet");
 		}
-		List<BvStatusReport> businessValuesStatusReport = reportsDao.businessValuesStatusReport(projectId, sprintId,
+		List<BusinessValuesAverage> businessValuesAverageReport = reportsDao.businessValuesAverageReport(projectId, sprintId,
 				epicId);
-		if (businessValuesStatusReport != null && businessValuesStatusReport.isEmpty()) {
+		if (businessValuesAverageReport != null && businessValuesAverageReport.isEmpty()) {
 			response.getWriter().write(Constants.NO_DATA_FOUND);
 		} else {
 			response.getWriter().write(Constants.SUCCESS);
 		}
 		response.setContentType("text/html");
-		request.getSession().setAttribute("businessValuesStatusReport", businessValuesStatusReport);
+		request.getSession().setAttribute("businessValuesAverageReport", businessValuesAverageReport);
 	}
 
 	/**
-	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse
-	 *      response)
+	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
-	protected void doPost(HttpServletRequest request, HttpServletResponse response)
-			throws ServletException, IOException {
+	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
+		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 
