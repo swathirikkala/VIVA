@@ -81,7 +81,7 @@
 							<tr class="row100 head">
 								<th class="column100 width50" data-column="column1">S.No</th>
 								<th class="column100 width100" data-column="column2">BV</th>
-								<th class="column100 width100" data-column="column7">VIVA %</th>
+								<th class="column100 width100" data-column="column7">BV Achieved %</th>
 								<th class="column100 width50" data-column="column6">Project</th>
 								<th class="column100 width100" data-column="column2">Sprint</th>
 								<th class="column100 width50" data-column="column6">Epic</th>
@@ -94,7 +94,7 @@
 								<tr class="row100 head">
 									<td class="column100 width100" data-column="column2"><%= i++ %></td>
 									<td class="column100 width75" data-column="column1"><%=bvsr.getBvName() %></td>
-									<td class="column100 width50" data-column="column6"><%=bvsr.getViva() %></td>
+									<td class="column100 width50" data-column="column6"><%=bvsr.getViva() %> %</td>
 									<td class="column100 width100" data-column="column2"><%=bvsr.getProjectName() %></td>
 									<td class="column100 width75" data-column="column1"><%= bvsr.getSprintName() %></td>
 									<td class="column100 width50" data-column="column6"><%=bvsr.getEpicName() %></td>
