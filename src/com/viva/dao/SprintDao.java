@@ -53,6 +53,7 @@ public class SprintDao {
 				sprint.setLastModifiedBy(rs.getString(10));
 				sprint.setLastModifiedDateTime(rs.getTimestamp(11).toString());
 				sprint.setStatus(String.valueOf(rs.getString(12)));
+				sprint.setViva(rs.getInt(13));
 				sprintsList.add(sprint);
 			}
 		} catch (SQLException e) {
@@ -100,11 +101,9 @@ public class SprintDao {
 		return sprints;
 	}
 	public static String updateVivaByUs(int usId) {
-		String sql = "update sprint set viva = " + 
-				"(select ceiling( avg(viva)) from us_bv where usid in " + 
-				"(select id from user_story where sprint in" + 
-				"(select sprint from user_story where id = ?))) " + 
-				"where id = (select sprint from user_story where id = ?);";
+		String sql = "update sprint set viva =  (select ceiling( avg(viva)) from us_bv where usid in " + 
+				"(select id from user_story where sprint =(select sprint from user_story where id = ?)))" + 
+				"where id=(select sprint from user_story where id = ?)";
 		try {
 			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
 			ps.setInt(1, usId);
