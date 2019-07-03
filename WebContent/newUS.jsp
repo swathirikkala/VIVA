@@ -124,13 +124,12 @@ function openUSModal(){
 	closeUSPopup();
 	 var epicsCount = '<%=epicsByProjectId.size()%>';
 	 console.log("epicsCount in user story creation : " + epicsCount);
+	document.getElementById('usModalDiv').style.display='block';
 	 if(epicsCount == 0){
 		 alert("No epics found under this project.");
 	 }
-	document.getElementById('usModalDiv').style.display='block';
 }
 function closeUSPopup(){
-
 	clearUSForm();
 	console.log("closeUSPopup got called");
 	document.getElementById('usModalDiv').style.display='none';

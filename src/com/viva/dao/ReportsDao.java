@@ -19,7 +19,7 @@ public class ReportsDao {
 	public List<BvStatusReport> businessValuesStatusReport(int projectId, int sprintId, int epicId) {
 		List<BvStatusReport> bvs = null;
 		String query = "select us_bv.*, user_story.name, user_story.sprint, user_story. epic, user_story.project from us_bv " + 
-				"left join user_story on us_bv.usid = user_story.id " + 
+				"inner join user_story on us_bv.usid = user_story.id " + 
 				"and usid in (select id from user_story where project =?"; 
 		if(sprintId !=0) {
 			query +=" and sprint = ?";

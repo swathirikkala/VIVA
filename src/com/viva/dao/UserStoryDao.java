@@ -163,4 +163,19 @@ public class UserStoryDao {
 		return Constants.FAIL;
 	}
 
+	public List<UserStory> findUssBySprintIdAndOpen(int sprintId){
+		String sql = "SELECT * FROM viva.user_story where sprint is null or sprint = ?";
+		List<UserStory> uss= null;
+		try {
+			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
+			ps.setInt(1, sprintId);
+			System.out.println("findUssBySprintIdAndOpen Query : " + ps.toString());
+			ResultSet rs = ps.executeQuery();
+			uss = parseUserStories(rs);
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		System.out.println("findUssBySprintIdAndOpen result : " + uss);
+		return uss;
+	}
 }

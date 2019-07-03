@@ -52,7 +52,7 @@ function searchProjects() {
 					if (response !== "success") {
 						console.log("No Data Found with search criteria");
 					}
-					loadPage('commonDiv','projectHome.jsp');
+					loadPage('projectsDiv','projectsResultList.jsp');
 				},
 				error : function(data, status, er) {
 					console.log("Error in search prjects jsm : " + data
