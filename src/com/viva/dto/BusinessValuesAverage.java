@@ -5,6 +5,7 @@ public class BusinessValuesAverage {
 	private String businessValueName;
 	private int bvs;
 	private int occurance;
+	private String project;
 
 	public String getBusinessValueName() {
 		return businessValueName;
@@ -30,10 +31,18 @@ public class BusinessValuesAverage {
 		this.occurance = occurance;
 	}
 
+	public String getProject() {
+		return project;
+	}
+
+	public void setProject(String project) {
+		this.project = project;
+	}
+
 	@Override
 	public String toString() {
 		return "BusinessValuesAverage [businessValueName=" + businessValueName + ", bvs=" + bvs + ", occurance="
-				+ occurance + "]";
+				+ occurance + ", project=" + project + "]";
 	}
 
 }

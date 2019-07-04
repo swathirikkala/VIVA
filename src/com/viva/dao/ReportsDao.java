@@ -90,9 +90,9 @@ public class ReportsDao {
 	
 	public List<BusinessValuesAverage> businessValuesAverageReport(int projectId, int sprintId, int epicId) {
 		List<BusinessValuesAverage> bvas= null;
-		String sql = "select us_bv.bvid, ceiling(avg(us_bv.viva)) as vivavg, count(us_bv.viva) bvc from us_bv " + 
-				" inner join  user_story on us_bv.usid = user_story.id " + 
-				" and usid in (select id from user_story where project =?";
+		String sql = "select us_bv.bvid, ceiling(avg(us_bv.viva)) as vivavg, count(us_bv.viva) as bvc, ceiling(avg(user_story.project)) as project_id from us_bv  " + 
+				"inner join  user_story on us_bv.usid = user_story.id " + 
+				"and usid in (select id from user_story where project  =?";
 			if(sprintId !=0) {
 				sql +=" and sprint = ?";
 			}
@@ -132,6 +132,9 @@ public class ReportsDao {
 				bva.setBusinessValueName(bvName);
 				bva.setBvs(rs.getInt(2));
 				bva.setOccurance(rs.getInt(3));
+				int projectId = rs.getInt(4);
+				Project project = CacheUtil.allProjectsMap.get(projectId);
+				bva.setProject(project!=null?project.getName():"");
 				bvas.add(bva);
 			}
 		} catch (SQLException e) {

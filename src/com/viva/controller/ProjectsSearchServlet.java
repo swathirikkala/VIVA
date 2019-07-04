@@ -49,7 +49,7 @@ public class ProjectsSearchServlet extends HttpServlet {
 		} catch (NumberFormatException e) {
 			System.out.println(e.getMessage());
 		}
-
+		response.setContentType("text/html");
 		project.setCreatedBy(String.valueOf(request.getParameter("createdByName")));
 		try {
 			List<Project> projects = projectDao.searchProjects(project);

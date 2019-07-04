@@ -83,6 +83,7 @@
 								<th class="column100 width100" data-column="column2">BV</th>
 								<th class="column100 width100" data-column="column7">BV Achieved %</th>
 								<th class="column100 width50" data-column="column6">occurrence</th>
+								<th class="column100 width50" data-column="column6">Project</th>
 							</tr>
 						</thead>
 						<tbody id="projectsBody">
@@ -93,6 +94,7 @@
 									<td class="column100 width75" data-column="column1"><%=bvsr.getBusinessValueName() %></td>
 									<td class="column100 width50" data-column="column6"><%=bvsr.getBvs() %> %</td>
 									<td class="column100 width100" data-column="column2"><%=bvsr.getOccurance() %></td>
+									<td class="column100 width100" data-column="column2"><%=bvsr.getProject() %></td>
 								</tr>
 							<%} %>
 						</tbody>

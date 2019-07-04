@@ -33,38 +33,6 @@ function isValidForm() {
 	return isValid;
 }
 
-function searchProjects() {
-	console.log("searchProjects got called");
-	console.log($("form[name=projectSearchForm]").serialize());
-	var isValid = isValidForm();
-	console.log("isValid value in serach projects  : " + isValid);
-	if(isValid == false){
-		alert("Please give serch criteria before search");
-		return;
-	}else{
-		try {
-			$.ajax({
-				type : 'post',
-				url : './searchProjects',
-				data : $("form[name=projectSearchForm]").serialize(),
-				success : function(response) {
-					console.log("Search completed..... " + response);
-					if (response !== "success") {
-						console.log("No Data Found with search criteria");
-					}
-					loadPage('projectsDiv','projectsResultList.jsp');
-				},
-				error : function(data, status, er) {
-					console.log("Error in search prjects jsm : " + data
-							+ " status: " + status + " er:" + er);
-				}
-	
-			});
-		} catch (e) {
-			console.log("Exception in search prjects jsm : " + e);
-		}
-	}
-}
 
 
 
