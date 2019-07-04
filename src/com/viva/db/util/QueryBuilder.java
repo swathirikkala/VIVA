@@ -123,8 +123,9 @@ public class QueryBuilder {
 
 	public static String getSearchProjectsQuery(Project project) {
 		boolean andNeeded = false;
-		String query = "select * from project where";
+		String query = "select * from project where ";
 
+		boolean isConditionAdded = false;
 		if (project.getId() != 0) {
 			if (andNeeded) {
 				query += " AND";
@@ -132,6 +133,7 @@ public class QueryBuilder {
 				andNeeded = true;
 			}
 			query += " id = " + project.getId() + "";
+			isConditionAdded = true;
 		}
 		if (!project.getStatus().equalsIgnoreCase("select")) {
 			if (andNeeded) {
@@ -140,6 +142,7 @@ public class QueryBuilder {
 				andNeeded = true;
 			}
 			query += " status = '" + project.getStatus() + "'";
+			isConditionAdded = true;
 		}
 		if (!project.getStartDate().isEmpty()) {
 			if (andNeeded) {
@@ -148,6 +151,7 @@ public class QueryBuilder {
 				andNeeded = true;
 			}
 			query += " start_date >= '" + project.getStartDate() + "'";
+			isConditionAdded = true;
 		}
 		if (!project.getEndDate().isEmpty()) {
 			if (andNeeded) {
@@ -156,6 +160,7 @@ public class QueryBuilder {
 				andNeeded = true;
 			}
 			query += " end_date <= '" + project.getEndDate() + "'";
+			isConditionAdded = true;
 		}
 
 		if (!project.getViva().equalsIgnoreCase("0")) {
@@ -165,6 +170,7 @@ public class QueryBuilder {
 				andNeeded = true;
 			}
 			query += " viva <= " + project.getViva() + "";
+			isConditionAdded = true;
 		}
 		if (!project.getCreatedBy().equalsIgnoreCase("")) {
 			if (andNeeded) {
@@ -173,6 +179,10 @@ public class QueryBuilder {
 				andNeeded = true;
 			}
 			query += " created_by = '" + project.getCreatedBy() + "'";
+			isConditionAdded = true;
+		}
+		if(isConditionAdded == false) {
+			query +=" id != 0 ";
 		}
 		return query;
 	}

@@ -18,6 +18,21 @@ public class DateUtil {
 		}
 		return date;
 	}
+
+	public static String getDDMMYYYY(String yyyyMMdd) {
+		String date = "";
+		if (yyyyMMdd != null && !yyyyMMdd.isEmpty()) {
+			String[] tokens = yyyyMMdd.split("-");
+			for (int i = tokens.length - 1; i >= 0; i--) {
+				date += tokens[i];
+				if (i > 0) {
+					date += "/";
+				}
+			}
+		}
+		return date;
+	}
+
 	public static void main(String[] args) {
 		System.out.println(getJavaDate("2019-05-13"));
 	}

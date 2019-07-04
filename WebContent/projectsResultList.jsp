@@ -1,3 +1,4 @@
+<%@page import="com.viva.util.DateUtil"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.viva.dao.UserDao"%>
 <%@page import="com.viva.dao.util.LookUp"%>
@@ -121,10 +122,14 @@
 										String sd = p.getStartDate();
 										if("2000-01-01".equals(sd)){
 											sd="Not Selected";
+										}else{
+											sd=DateUtil.getDDMMYYYY(sd);
 										}
 										String ed = p.getEndDate();
 										if("2000-01-01".equals(ed)){
 											ed="Not Selected";
+										}else{
+											ed = DateUtil.getDDMMYYYY(ed);
 										}
 									%>
 									<td class="column100 width75" data-column="column1"><%=sd%></td>

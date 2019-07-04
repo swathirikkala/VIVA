@@ -108,37 +108,7 @@
 			});
 	</script>
 	
-	<script type="text/javascript">
-		function searchSprint(){
-			var sprintId = $("#searchSprintName").val();
-			console.log("searchSprint got called ... " +sprintId);
-			try {
-				$.ajax({
-					type : 'post',
-					url : './loadSprint',
-					data : {sprintId:sprintId},
-					success : function(response) {
-						console.log("searchSprint result : " + response);
-						if(response === "success"){
-							//loadPage('commonDiv','sprintHome.jsp');
-							$("#sprintEditDiv").empty();
-							$("#sprintEditDiv").load('./sprintEdit.jsp');
-							$("#sprintUserStoriesDiv").empty();
-							$("#sprintUserStoriesDiv").load('./usResult.jsp');
-						}else{
-							alert("Sprint not found");
-						}
-					},
-					error : function(data, status, er) {
-						console.log("Error in searchSprint jsm : " + data
-								+ " status: " + status + " er:" + er);
-					}
-				});
-			} catch (e) {
-				console.log("Exception in searchSprint jsm : " + e);
-			}
-		}
-	</script>
+
 </head>
 <body style="margin-top: 5%">
 		

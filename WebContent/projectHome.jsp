@@ -21,18 +21,18 @@
 	
 		
 		<!-- Projects Creation -->
-			<div class="projectsDiv">
+			<div id="newProjectDiv">
 				<jsp:include page="newProject.jsp" /> 
 			</div>
 		<!-- Projects Creation ended -->
 		<!-- Projects Search -->
-			<div class="projectsDiv">
+			<div id="projectSearchDiv">
 				<jsp:include page="projectSearch.jsp" /> 
 			</div>
 		<!-- Projects Search ended -->
 		
 		<!-- Projects Table -->
-			<div class="projectsDiv">
+			<div id="projectsDiv">
 				<jsp:include page="projectsResultList.jsp" /> 
 			</div>
 		<!-- Projects Table ended -->

@@ -42,10 +42,10 @@
 			console.log($("form[name=projectSearchForm]").serialize());
 			var isValid = isValidForm();
 			console.log("isValid value in serach projects  : " + isValid);
-			if(isValid == false){
-				alert("Please give serch criteria before search");
-				return;
-			}else{
+// 			if(isValid == false){
+// 				alert("Please give serch criteria before search");
+// 				return;
+// 			}else{
 				try {
 					$.ajax({
 						type : 'post',
@@ -70,7 +70,7 @@
 				} catch (e) {
 					console.log("Exception in search prjects jsm : " + e);
 				}
-			}
+// 			}
 		}
 	</script>
 </head>

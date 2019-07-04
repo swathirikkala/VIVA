@@ -44,13 +44,15 @@
 		
 	<script type="text/javascript">
 	function displayProjectModalPopup(){
+		  clearProject();
+		  closeProjectModalPopup();
 		  document.getElementById('projectModalDiv').style.display='block';
 		}
 	function closeProjectModalPopup(){
 		  document.getElementById('projectModalDiv').style.display='none';
 		}
 	 $(document).ready(function() {
-		 clearProject();
+		 console.log("New Project page is opening .........");
 	});
 	</script>
 	
@@ -87,11 +89,11 @@
 		               }
 		            }
 		        });
+		        closeProjectModalPopup();
 			}
 		}catch(e){
 			console.log("Exception in new Project : " + e);
 		}
-        closeProjectModalPopup();
 	}
 	</script>
 	</head>
