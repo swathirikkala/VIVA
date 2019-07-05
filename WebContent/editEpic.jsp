@@ -61,7 +61,7 @@
 			    			</td>
 			    			
 		    			<th>
-		    				<label>BV%</label>
+		    				<label>BV Achieved %</label>
 		    			</th>
 		    			<td>
 		    				<input type="text" name="sprintViva" id="sprintViva" readonly="readonly" value="<%=epic.getViva()%>">

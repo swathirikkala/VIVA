@@ -184,7 +184,7 @@
 					     	 </select>
 		    			</td>
 		    			<th>
-		    				<label>BV%</label>
+		    				<label>BV Achieved %</label>
 		    			</th>
 		    			<td>
 		    				<input type="text" name="viva" id="viva" readonly="readonly" value="<%=project.getViva()%>">
