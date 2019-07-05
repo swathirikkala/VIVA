@@ -115,9 +115,12 @@
 		</script>
 	</head>
 	<body>
-<!-- 		<p> -->
-<!-- 			<button onclick="openUSModal()" style="width: auto;">Add User Story</button> -->
-<!-- 		</p> -->
+		
+		<% if(uss.isEmpty()) {%>
+		<label id="projectResultInfo" style="color: red;margin-left: 35%;">No User Stories found with search criteria</label>
+		<%} else{%>
+		<label id="projectResultInfo" style="color: blue;margin-left: 35%;"><%= uss.size()%> User Stories Found</label>
+		<%} %>
 
 		<!-- User Story Table -->
 			<div class="limiter">
@@ -135,7 +138,7 @@
 							<% for(UserStory us : uss){ %>
 								<tr class="row100 head">
 									<td class="column100 width50" data-column="column1">
-									<a href="javascript:void(0)" onclick="loadUserStory('<%=us.getId()%>');">US<%=us.getId()%></a>
+										<a href="javascript:void(0)" onclick="loadUserStory('<%=us.getId()%>');">US<%=us.getId()%></a>
 									</td>
 									<td class="column100 width100" data-column="column2"><%=us.getName()%></td>
 									<td class="column100 width75" data-column="column1"><%= us.getStatus()%></td>

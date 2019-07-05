@@ -191,18 +191,23 @@
 		    				<label>Description</label>
 		    			</th>
 		    			<td colspan="5">
-		    				<textarea rows="4" cols="50" placeholder="Sprint Description" name="editSprintDescription" id="editSprintDescription" style="height: 100px;" required="required">
+		    				<textarea rows="4" cols="50" placeholder="Sprint Description" name="editSprintDescription" id="editSprintDescription" style="height: 50px;" required="required">
 		      				</textarea>
 		    			</td>
 		    		</tr>
 		    	</table>
 		    </div>
-		    
-		    <div style="margin-left: 35%;">
-			    	<button type="button" onclick="editSprint()" class="signupbtn" style="text-align: centre; width:100px;">Save</button>
-			    	&nbsp;
-			    	<button type="button" onclick="clearProjectEditFields();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
-		   	</div>
 		  </form>
+		    
+		    <div>
+			    <div style="display: inline-flex;">
+					<button onclick="addUserStories()" style="width: auto;">Add User Stories</button>
+				</div>
+			    <div style="display: inline-flex;margin-left: 30%;">
+				    <button type="button" onclick="editSprint()" class="signupbtn" style="text-align: centre; width:100px;">Save</button>
+				    	&nbsp;
+				    <button type="button" onclick="clearProjectEditFields();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
+			   	</div>
+		   	</div>
 
 	</body>
