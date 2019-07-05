@@ -38,6 +38,7 @@ public class AddUserStoryServlet extends HttpServlet {
 	 */
 	protected void doGet(HttpServletRequest request, HttpServletResponse response)
 			throws ServletException, IOException {
+		response.setContentType("text/html");
 		UserStory us = new UserStory();
 		us.setDescription(String.valueOf(request.getParameter("usDescription")));
 		try {

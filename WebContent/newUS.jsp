@@ -126,7 +126,7 @@ function openUSModal(){
 	 console.log("epicsCount in user story creation : " + epicsCount);
 	document.getElementById('usModalDiv').style.display='block';
 	 if(epicsCount == 0){
-		 alert("No epics found under this project.");
+		 //alert("No epics found under this project.");
 	 }
 }
 function closeUSPopup(){
@@ -194,14 +194,16 @@ function validateUSForm(){
 	                   }else{
 	                	   alert("US creation Failed");
 	                   }
+		       			closeUSPopup();
 	                },
 					error : function(data, status, er) {
 						console.log("Error in createUS jsm : " + data + " status: " + status + " er:" + er);
-					
+		       			closeUSPopup();
 					}
-	       			closeUSPopup();
 	            });
-			}else{console.log("Form incomplete ......")}
+			}else{
+				console.log("Form incomplete ......");
+			}
 	}
 	</script>
 <script type="text/javascript">

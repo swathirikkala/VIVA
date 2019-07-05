@@ -1,9 +1,6 @@
 <%
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
-	if(userName == null){
-		userName = "";
-	}
-
+	
 	//request.getSession().removeAttribute("userStories");
 %>
 <html>
@@ -18,7 +15,7 @@
 	$(document).ready(function() {
 		var uname = '<%=userName%>';
 		console.log("user name : " + uname);
-		if("null" === uname ){
+		if(null === uname ){
 			alert("Session expired please login again.");
 			window.location="./index.jsp";
 		}
