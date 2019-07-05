@@ -106,9 +106,6 @@
 		</script>
 	</head>
 	<body>
-		<p>
-			<button onclick="openSprintModal()" style="width: auto;">Create New Sprint</button>
-		</p>
 
 		<!-- Projects Table -->
 			<div class="limiter">
