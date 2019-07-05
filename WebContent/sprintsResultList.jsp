@@ -106,8 +106,14 @@
 		</script>
 	</head>
 	<body>
+	
+		<% if(sprints.isEmpty()) {%>
+		<label id="projectResultInfo" style="color: red;margin-left: 35%;">No Sprints found with search criteria</label>
+		<%} else{%>
+		<label id="projectResultInfo" style="color: blue;margin-left: 35%;"><%= sprints.size()%> Sprints Found</label>
+		<%} %>
 
-		<!-- Projects Table -->
+		<!-- Sprints Table -->
 			<div class="limiter">
 				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:500px; min-height:0px; overflow-x: none;">
 					<table data-vertable="ver2">
