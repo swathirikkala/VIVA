@@ -1,5 +1,5 @@
 <%
-	//request.getSession().removeAttribute("projects");
+	request.getSession().removeAttribute("projects");
 %>
 <html>
 	<head>

@@ -101,7 +101,7 @@
 								<th class="column100 width75" data-column="column1">Start Date</th>
 								<th class="column100 width75" data-column="column1">End Date</th>
 								<th class="column100 width50" data-column="column6">Status</th>
-								<th class="column100 width100" data-column="column7">VIVA</th>
+								<th class="column100 width100" data-column="column7">BV%</th>
 							</tr>
 						</thead>
 						<tbody id="projectsBody">

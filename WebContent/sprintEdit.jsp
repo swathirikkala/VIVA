@@ -178,7 +178,7 @@
 		    		</tr>
 		    		<tr>
 		    			<th>
-		    				<label>VIVA%</label>
+		    				<label>BV%</label>
 		    			</th>
 		    			<td>
 		    				<input type="text" name="sprintViva" id="sprintViva" readonly="readonly" value="">

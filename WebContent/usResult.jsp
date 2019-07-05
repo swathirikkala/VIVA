@@ -128,7 +128,7 @@
 								<th class="column100 width50" data-column="column1">User Story ID</th>
 								<th class="column100 width100" data-column="column2">User Story Name</th>
 								<th class="column100 width50" data-column="column6">Status</th>
-								<th class="column100 width100" data-column="column7">VIVA %</th>
+								<th class="column100 width100" data-column="column7">BV%</th>
 							</tr>
 						</thead>
 						<tbody id="projectsBody">

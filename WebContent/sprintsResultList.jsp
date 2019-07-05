@@ -1,3 +1,4 @@
+<%@page import="com.viva.util.DateUtil"%>
 <%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
@@ -115,7 +116,7 @@
 								<th class="column100 width75" data-column="column1">Start Date</th>
 								<th class="column100 width75" data-column="column1">End Date</th>
 								<th class="column100 width50" data-column="column6">Status</th>
-								<th class="column100 width100" data-column="column7">VIVA %</th>
+								<th class="column100 width100" data-column="column7">BV %</th>
 								<th class="column100 width100" data-column="column7">Created By</th>
 							</tr>
 						</thead>
@@ -126,8 +127,22 @@
 									<a href="javascript:void(0)" onclick="loadSprint('<%=s.getSprintId()%>');">SP<%=s.getSprintId()%></a>
 									</td>
 									<td class="column100 width100" data-column="column2"><%=s.getSprintName() %></td>
-									<td class="column100 width50" data-column="column1"><%=s.getStartDate() %></td>
-									<td class="column100 width75" data-column="column1"><%=s.getEndDate() %></td>
+									<%
+										String sd = s.getStartDate();
+										if("2000-01-01".equals(sd)){
+											sd="Not Selected";
+										}else{
+											sd=DateUtil.getDDMMYYYY(sd);
+										}
+										String ed = s.getEndDate();
+										if("2000-01-01".equals(ed)){
+											ed="Not Selected";
+										}else{
+											ed = DateUtil.getDDMMYYYY(ed);
+										}
+									%>
+									<td class="column100 width50" data-column="column1"><%=sd %></td>
+									<td class="column100 width75" data-column="column1"><%=ed %></td>
 									<td class="column100 width75" data-column="column1"><%=s.getStatus() %></td>
 									<td class="column100 width50" data-column="column6"><%=s.getViva() %></td>
 									<td class="column100 width100" data-column="column7"><%=LookUp.getUserName(s.getCreatedBy(),allUsers)%></td>

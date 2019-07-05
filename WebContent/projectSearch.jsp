@@ -113,7 +113,7 @@
 		    		</tr>
 		    		<tr>
 		    			<th class="cellClass">
-		    				<label>Project VIVA%</label>
+		    				<label>Project BV%</label>
 		    			</th>
 		    			<td class="cellClass">
 		    				<select id="projectViva" name = "projectViva" required>

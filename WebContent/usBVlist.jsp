@@ -136,7 +136,7 @@
 							<tr class="row100 head">
 								<th class="column100 width50" data-column="column1">BV ID</th>
 								<th class="column100 width100" data-column="column2">BV Name</th>
-								<th class="column100 width75" data-column="column1">BV VIVA%</th>
+								<th class="column100 width75" data-column="column1">BV%</th>
 								<th class="column100 width75" data-column="column1">Comment</th>
 								<th class="column100 width75" data-column="column1">Action</th>
 							</tr>

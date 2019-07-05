@@ -183,7 +183,7 @@
 					     	 </select>
 		    			</td>
 		    			<th>
-		    				<label>Business Value %</label>
+		    				<label>BV%</label>
 		    			</th>
 		    			<td>
 		    				<input type="text" name="viva" id="viva" readonly="readonly" value="<%=userStoryForEdit.getViva()%>">
