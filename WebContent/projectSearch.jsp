@@ -1,3 +1,4 @@
+<%@page import="com.viva.db.util.CacheUtil"%>
 <%@page import="com.viva.dto.User"%>
 <%@page import="com.viva.dao.UserDao"%>
 <%@page import="com.viva.dao.ProjectDao"%>
@@ -13,7 +14,7 @@
 	    	userName = "";
 	    }
 	    UserDao userDao = new UserDao();
-	    List<User> users = userDao.getAllUsers();
+	    List<User> users = CacheUtil.allUsers;
     %>
 <!DOCTYPE html>
 <html>
@@ -90,7 +91,7 @@
 		    			<td class="cellClass">
 		    				<select id="projectId" name = "projectId" class="">
 						      <option value="0">--Select--</option>
-						      <%for(Project p : LookUp.getAllProjectByTeam()){%>
+						      <%for(Project p : CacheUtil.allProjects){%>
 						      		<option value="<%= p.getId()%>"><%= p.getName()%></option>
 						      <%}%>
 						     </select>

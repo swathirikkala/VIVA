@@ -1,4 +1,5 @@
 
+<%@page import="com.viva.db.util.CacheUtil"%>
 <%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="com.viva.dto.BusinessValue"%>
 <%@page import="com.viva.dto.UsBv"%>
@@ -144,11 +145,13 @@
 						<tbody id="projectsBody">
 							<%	int i=0;
 								for(UsBv ub: bvsByUsId) {
-								i++;
+									i++;
+									BusinessValue bv = CacheUtil .allBVMap.get(ub.getBvId());
+									String bvName = (bv != null)?bv.getName():"";
 							%>
 								<tr class="row100 head">
 									<td class="column100 width50" data-column="column1">BV<%=ub.getBvId()%></td>
-									<td class="column100 width100" data-column="column2"><%= LookUp.bvName(ub.getBvId())%></td>
+									<td class="column100 width100" data-column="column2"><%= bvName%></td>
 									<td class="column100 width75" data-column="column1">
 										<input type="number" id="usBv_<%=i %>" name="usBv_<%=i %>" value="<%= ub.getViva()%>" required="required"
 										min="0" max="100" maxlength="3" onblur="updateBv(<%=ub.getBvId()%>,<%=ub.getUsId()%>,'usBv_<%=i %>')">

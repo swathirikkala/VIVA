@@ -4,20 +4,12 @@ import java.util.ArrayList;
 import java.util.List;
 import java.util.Map;
 
-import com.viva.dao.BusinessValuesDao;
-import com.viva.dao.ProjectDao;
-import com.viva.db.util.CacheUtil;
-import com.viva.dto.BusinessValue;
 import com.viva.dto.Department;
 import com.viva.dto.Project;
 import com.viva.dto.Team;
 import com.viva.dto.User;
 
 public class LookUp {
-
-	private static ProjectDao projectDao = new ProjectDao();
-	private static BusinessValuesDao businessValuesDao = new BusinessValuesDao();
-	private static Map<Integer, BusinessValue> bvMap = null;
 
 	public static String getUserName(String userId, Map<String, User> allUsers) {
 		String userName = "";
@@ -73,29 +65,6 @@ public class LookUp {
 			priorities.add(String.valueOf(i));
 		}
 		return priorities;
-	}
-
-	public static List<BusinessValue> getBusinessValues() {
-		List<BusinessValue> bvs = CacheUtil.allBusinessValues;
-		if (bvs == null) {
-			bvs = new ArrayList<BusinessValue>();
-		}
-		return bvs;
-	}
-
-	public static List<Project> getAllProjectByTeam() {
-		List<Project> projects = CacheUtil.allProjects;
-		if (projects == null) {
-			projects = new ArrayList<Project>();
-		}
-		return projects;
-	}
-
-	public static String bvName(int bvId) {
-		if (bvMap == null) {
-			bvMap = businessValuesDao.getBvMap();
-		}
-		return bvMap.get(bvId).getName();
 	}
 
 	public static String getTeamName(int teamId, List<Team> teams) {

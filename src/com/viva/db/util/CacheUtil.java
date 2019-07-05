@@ -8,11 +8,13 @@ import com.viva.dao.BusinessValuesDao;
 import com.viva.dao.EpicDao;
 import com.viva.dao.ProjectDao;
 import com.viva.dao.SprintDao;
+import com.viva.dao.UserDao;
 import com.viva.dao.UserStoryDao;
 import com.viva.dto.BusinessValue;
 import com.viva.dto.Epic;
 import com.viva.dto.Project;
 import com.viva.dto.Sprint;
+import com.viva.dto.User;
 import com.viva.dto.UserStory;
 
 public class CacheUtil {
@@ -21,18 +23,21 @@ public class CacheUtil {
 	private static EpicDao epicDao = new EpicDao();
 	private static UserStoryDao userStoryDao = new UserStoryDao();
 	private static BusinessValuesDao businessValuesDao = new BusinessValuesDao();
+	private static UserDao userDao = new UserDao();
 
 	public static List<Project> allProjects =null;
 	public static List<Epic> allEpics =null;
 	public static List<Sprint> allSprints =null;
 	public static List<UserStory> allUserStories =null;
 	public static List<BusinessValue> allBusinessValues =null;
-
+	public static List<User> allUsers = null;
+	
 	public static Map<Integer, Project> allProjectsMap = new HashMap<Integer, Project>();
 	public static Map<Integer, Epic> allEpicsMap = new HashMap<Integer, Epic>();
 	public static Map<Integer, Sprint> allSprintsMap = new HashMap<Integer, Sprint>();
 	public static Map<Integer, BusinessValue> allBVMap = new HashMap<Integer, BusinessValue>();
 	public static Map<Integer, UserStory> allUserStoriesMap = new HashMap<Integer, UserStory>();
+	public static Map<String, User> allUsersMap = new HashMap<String, User>();
 
 	static {
 		System.out.println("##################################################################################");
@@ -43,7 +48,14 @@ public class CacheUtil {
 		updateBusinessValues();
 		System.out.println("###################################################################################");
 	}
-
+	
+	public static void updateUsers() {
+		allUsers = userDao.getAllUsers();
+		for(User user : allUsers) {
+			allUsersMap.put(user.getEmailId(), user);
+		}
+	}
+	
 	public static void updateBusinessValues() {
 		allBusinessValues = businessValuesDao.getAllBusinessValues();
 		for(BusinessValue bv : allBusinessValues) {

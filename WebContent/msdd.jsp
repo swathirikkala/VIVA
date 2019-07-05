@@ -1,5 +1,5 @@
+<%@page import="com.viva.db.util.CacheUtil"%>
 <%@page import="com.viva.dto.BusinessValue"%>
-<%@page import="com.viva.dao.util.LookUp"%>
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
 <!DOCTYPE html>
@@ -19,7 +19,7 @@
 	<body>
 	    <select class="test" multiple="multiple">
 			<option value="" disabled="disabled">Option 1</option>
-			<%for(BusinessValue bv : LookUp.getBusinessValues()){%>
+			<%for(BusinessValue bv : CacheUtil.allBusinessValues){%>
 	        <option value="<%=bv.getId()%>"><%=bv.getName()%></option>
 	        <%}%>
 	    </select>

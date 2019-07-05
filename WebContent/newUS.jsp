@@ -98,7 +98,7 @@
 			   
 			   <label for="usBusinessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
 		       <select id="usBusinessValues" name = "usBusinessValues" multiple="multiple"  style="height: 150px;">
-			      <%for(BusinessValue bv : LookUp.getBusinessValues()){%>
+			      <%for(BusinessValue bv : CacheUtil.allBusinessValues){%>
 			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option>
 			      <%}%>
 		      </select>

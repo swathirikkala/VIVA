@@ -71,7 +71,7 @@
 			   
 			   <label for="epicBusinessValues"><b>Business Values</b></label>
 		       <select id="epicBusinessValues" name = "epicBusinessValues" multiple="multiple" style="height: 100px;">
-			      <%for(BusinessValue bv : LookUp.getBusinessValues()){%>
+			      <%for(BusinessValue bv : CacheUtil.allBusinessValues){%>
 			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option>
 			      <%}%>
 		      </select>
