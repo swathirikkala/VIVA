@@ -31,7 +31,7 @@
 <label class="w3-xxxlarge" style="color: green;margin-left: 55%;">Welcome </label>
 <label class="w3-xxxlarge" style="color: blue;"><%=userName %></label>
 <br>
-<form method="post" name="epicSearchForm" id="epicSearchForm">
+<!-- <form method="post" name="epicSearchForm" id="epicSearchForm"> -->
 		    <div class="divClass">
 		    	<table>
 		    		<tr>
@@ -76,7 +76,7 @@
 		    		
 		    	</table>
 		    </div>
-		  </form>
+<!-- 		  </form> -->
 </body>
 <script type="text/javascript">
 

@@ -115,9 +115,9 @@
 		</script>
 	</head>
 	<body>
-		<p>
-			<button onclick="openUSModal()" style="width: auto;">Add User Story</button>
-		</p>
+<!-- 		<p> -->
+<!-- 			<button onclick="openUSModal()" style="width: auto;">Add User Story</button> -->
+<!-- 		</p> -->
 
 		<!-- User Story Table -->
 			<div class="limiter">
@@ -147,7 +147,7 @@
 				</div>
 			</div>
 		<!-- User Story Creation Div started-->
-			<jsp:include page="newUS.jsp"/>
+<%-- 			<jsp:include page="newUS.jsp"/> --%>
 		<!-- User Story Creation Div ended -->
 
 </body>

@@ -206,7 +206,7 @@ public class QueryBuilder {
 		return query;
 	}
 
-	public static String getSpringByIdQuery(String sprintId) {
+	public static String getSpringByIdQuery(int sprintId) {
 		String query = "select * from sprint where id=" + sprintId;
 		return query;
 	}

@@ -22,7 +22,7 @@ public class UserStoryDao {
 	public String addUserStory(UserStory userStory) {
 		String response = Constants.FAIL;
 		PreparedStatement ps = QueryBuilder.getAddUserStoryQuery(userStory);
-		int addUSerStoryResponse =0;
+		int addUSerStoryResponse = 0;
 		try {
 			addUSerStoryResponse = ps.executeUpdate();
 		} catch (SQLException e) {
@@ -64,7 +64,7 @@ public class UserStoryDao {
 
 	private List<UserStory> parseUserStories(ResultSet rs) {
 		List<UserStory> uss = new ArrayList<UserStory>();
-		
+
 		try {
 			while (rs != null && rs.next()) {
 				UserStory u = new UserStory();
@@ -102,8 +102,8 @@ public class UserStoryDao {
 			System.err.println("getUserStoryByUsName : " + e.getMessage());
 		}
 		System.out.println("getUserStoryByUsName : " + uss);
-		
-		return uss!=null? uss.get(0):null;
+
+		return uss != null ? uss.get(0) : null;
 	}
 
 	public UserStory getUserStoryByUsId(int userStoryId) {
@@ -117,14 +117,14 @@ public class UserStoryDao {
 			System.err.println("getUserStoryByUsId : " + e.getMessage());
 		}
 		System.out.println("getUserStoryByUsId : " + uss);
-		
-		return uss!=null? uss.get(0):null;
+
+		return uss != null ? uss.get(0) : null;
 	}
 
 	public String updateUserStory(UserStory us) {
 		String response = Constants.FAIL;
 		PreparedStatement ps = QueryBuilder.getUpdateUserStoryPS(us);
-		int addUSerStoryResponse =0;
+		int addUSerStoryResponse = 0;
 		try {
 			addUSerStoryResponse = ps.executeUpdate();
 		} catch (SQLException e) {
@@ -142,19 +142,19 @@ public class UserStoryDao {
 		}
 		return response;
 	}
-	
+
 	public static String updateViva(int usId) {
-		String query ="update user_story set viva = (SELECT ceiling(avg(viva)) FROM viva.us_bv where usid = ?)  where id=?";
+		String query = "update user_story set viva = (SELECT ceiling(avg(viva)) FROM viva.us_bv where usid = ?)  where id=?";
 		try {
 			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(query);
 			ps.setInt(1, usId);
 			ps.setInt(2, usId);
 			System.out.println("updateVivaByUs in User story query : " + ps.toString());
 			int updateResponse = ps.executeUpdate();
-			if(updateResponse >0) {
-				//EpicDao.updateEpicViva(0);
+			if (updateResponse > 0) {
+				// EpicDao.updateEpicViva(0);
 				return Constants.SUCCESS;
-			}else {
+			} else {
 				return Constants.ERROR;
 			}
 		} catch (SQLException e) {
@@ -163,9 +163,9 @@ public class UserStoryDao {
 		return Constants.FAIL;
 	}
 
-	public List<UserStory> findUssBySprintIdAndOpen(int sprintId){
+	public List<UserStory> findUssBySprintIdAndOpen(int sprintId) {
 		String sql = "SELECT * FROM viva.user_story where sprint is null or sprint = ?";
-		List<UserStory> uss= null;
+		List<UserStory> uss = null;
 		try {
 			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
 			ps.setInt(1, sprintId);
@@ -176,6 +176,22 @@ public class UserStoryDao {
 			e.printStackTrace();
 		}
 		System.out.println("findUssBySprintIdAndOpen result : " + uss);
+		return uss;
+	}
+
+	public List<UserStory> getAllUserStoriesBySprint(int sprintId) {
+		List<UserStory> uss = null;
+		String sql = "select * from user_story where sprint = ?";
+		try {
+			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
+			ps.setInt(1, sprintId);
+			System.out.println("getAllUserStoriesBySprint ps : " + ps.toString());
+			ResultSet rs = ps.executeQuery();
+			uss = parseUserStories(rs);
+		} catch (SQLException e) {
+			System.err.println("getAllUserStoriesBySprint : " + e.getMessage());
+		}
+		System.out.println("getAllUserStoriesBySprint : " + uss);
 		return uss;
 	}
 }

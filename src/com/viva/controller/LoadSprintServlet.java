@@ -10,10 +10,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
-import com.viva.dao.EpicDao;
 import com.viva.dao.SprintDao;
-import com.viva.dto.Epic;
+import com.viva.dao.UserStoryDao;
 import com.viva.dto.Sprint;
+import com.viva.dto.UserStory;
 
 /**
  * Servlet implementation class LoadSprintServlet
@@ -22,7 +22,7 @@ import com.viva.dto.Sprint;
 public class LoadSprintServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
        SprintDao sprintDao =new SprintDao();
-       EpicDao epicDao = new EpicDao();
+       UserStoryDao userStoryDao = new UserStoryDao();
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -38,13 +38,17 @@ public class LoadSprintServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		System.out.println("Load Sprint for edit servlet got called");
 		PrintWriter out = response.getWriter();
-		String sprintId = "0";
-		sprintId = String.valueOf(request.getParameter("sprintId"));
+		int sprintId = 0;
+		try {
+			sprintId = Integer.valueOf(request.getParameter("sprintId"));
+		} catch (NumberFormatException e) {
+			System.err.println("Exception in loadSprint sprint id parse error");
+		}
 		Sprint sprint = sprintDao.getSprintById(sprintId);
 		request.getSession().setAttribute("sprint", sprint);
-		List<Epic> epics = epicDao.getEpicsBySprintId(sprintId);
-		request.getSession().setAttribute("epics", epics);
-		
+		List<UserStory> userStories = userStoryDao.getAllUserStoriesBySprint(sprintId);
+		request.getSession().setAttribute("userStories", userStories);
+		response.setContentType("text/html");
 		if(sprint == null ) {
 			out.write("noData");
 		}else {

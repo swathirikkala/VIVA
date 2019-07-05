@@ -199,9 +199,9 @@ function validateUSForm(){
 						console.log("Error in createUS jsm : " + data + " status: " + status + " er:" + er);
 					
 					}
+	       			closeUSPopup();
 	            });
 			}else{console.log("Form incomplete ......")}
-			closeUSPopup();
 	}
 	</script>
 <script type="text/javascript">

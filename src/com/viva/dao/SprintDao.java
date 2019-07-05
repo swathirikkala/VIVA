@@ -63,7 +63,7 @@ public class SprintDao {
 		return sprintsList;
 	}
 
-	public Sprint getSprintById(String sprintId) {
+	public Sprint getSprintById(int sprintId) {
 		Sprint sprint = null;
 		String query = QueryBuilder.getSpringByIdQuery(sprintId);
 		ResultSet rs = DBConnectionUtil.getData(query);
