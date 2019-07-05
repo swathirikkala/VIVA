@@ -101,9 +101,11 @@ public class SprintDao {
 		return sprints;
 	}
 	public static String updateVivaByUs(int usId) {
-		String sql = "update sprint set viva =  (select ceiling( avg(viva)) from us_bv where usid in " + 
-				"(select id from user_story where sprint =(select sprint from user_story where id = ?)))" + 
-				"where id=(select sprint from user_story where id = ?)";
+		String sql = "update sprint set viva = " + 
+				"(select ceiling(avg(us_bv.viva)) from us_bv " + 
+				"inner join user_story on us_bv.usid = user_story.id " + 
+				"and user_story.sprint = (select sprint from user_story where id = ?)) " + 
+				"where sprint.id = (select sprint from user_story where id = ?)";
 		try {
 			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
 			ps.setInt(1, usId);
