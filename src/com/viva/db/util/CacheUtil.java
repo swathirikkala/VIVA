@@ -41,6 +41,7 @@ public class CacheUtil {
 
 	static {
 		System.out.println("##################################################################################");
+		updateUsers();
 		updateProjects();
 		updateEpics();
 		updateSprints();
