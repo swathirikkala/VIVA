@@ -22,45 +22,7 @@
 	if(epics == null){
 		epics =new ArrayList<Epic>();
 	}
-	ProjectDao projectDao = new ProjectDao();
-	List<Project> projects = projectDao.getProjects();
-	if(projects == null){
-		projects = new ArrayList<Project>();
-	}
-
 %>
-<%
-
-
-	Sprint sprint = (Sprint)request.getSession().getAttribute("sprint");
-	if(sprint == null){
-		sprint = new Sprint();
-	}
-	String userId = String.valueOf(request.getSession().getAttribute("userId"));
-	String userName = String.valueOf(request.getSession().getAttribute("userName"));
-	String projectId = String.valueOf(request.getSession().getAttribute("projectId"));
-	
-	
-	UserDao userDao = new UserDao();
-	SprintDao sprintDao = new SprintDao();
-	
-	List<Project> lastUpdatedProjectsList = projectDao.lastUpdatedProjectsListByManagerId(userId);
-	if(null == lastUpdatedProjectsList){
-		lastUpdatedProjectsList = new ArrayList<>();
-	}
-	
-	List<Project> projectsByManagerId = projectDao.getProjectsByAssignedManager(userId);
-	if(null == projectsByManagerId){
-		projectsByManagerId = new ArrayList<Project>();
-	}
-	
-	List<Sprint> sprintsByProjectId = sprintDao.getSpintsByProject(projectId);
-	if(null == sprintsByProjectId){
-		sprintsByProjectId = new ArrayList<Sprint>();
-	}
-
-%>
-
 <html>
 	<head>
 		<!-- Table css -->
@@ -109,43 +71,10 @@
 
 	<script type="text/javascript">
 		    $(document).ready(function() {
-		    	$("#editSprintProjectName").val("<%=sprint.getProjectId()%>");
-		    	$("#editSprintDescription").val("");
-		    	$("#editSprintDescription").val("<%=sprint.getDescription()%>");
-		    	$("#description").val("<%=sprint.getDescription()%>");
-		    	$("#sprintEditStartDate").val("<%=sprint.getStartDate()%>");
-		    	$("#sprintEditEndDate").val("<%=sprint.getEndDate()%>");
-		    	$("#editSprintPriority").val("<%=sprint.getSeverity()%>");
-		    	$("#editSprintStatus").val("<%=sprint.getStatus()%>");
-		    	$("#sprintViva").val("<%=sprint.getViva()%>");
 		    	
 		      });
 	
 	</script>
-		<script type="text/javascript">
-			function editSprint() {
-				console.log("editSprint got called");
-				console.log($("form[name=newEpicForm]").serialize());
-	          
-					$.ajax({
-		                type: 'post',
-		                url: './editSprint',
-		                data: $("form[name=editSprintForm]").serialize(),
-		                success: function (response) {
-		                   console.log("Epic Sprint call completed..... " + response);
-		                   if(response === "success"){
-		                	   alert("Sprint Update Success");
-		                   }else{
-		                	   alert("Sprint Update Failed");
-		                   }
-		                },
-						error : function(data, status, er) {
-							console.log("Error in Update Sprint jsm : " + data + " status: " + status + " er:" + er);
-						
-						}
-		            });
-			}
-		</script>
 	</head>
 	<body>
 	

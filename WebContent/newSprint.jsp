@@ -10,7 +10,6 @@
 <%@page import="java.util.List"%>
 
 <%
-	ProjectDao prjDao = new ProjectDao();
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
 	List<Project> allProjects = CacheUtil.allProjects;
 	if(allProjects == null){

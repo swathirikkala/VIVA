@@ -1,3 +1,4 @@
+<%@page import="com.viva.db.util.CacheUtil"%>
 <%@page import="com.viva.dto.BusinessValue"%>
 <%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="com.viva.dto.Epic"%>
@@ -22,8 +23,7 @@
 	if(epics == null){
 		epics =new ArrayList<Epic>();
 	}
-	ProjectDao projectDao = new ProjectDao();
-	List<Project> projects = projectDao.getProjects();
+	List<Project> projects = CacheUtil.allProjects;
 	if(projects == null){
 		projects = new ArrayList<Project>();
 	}
@@ -43,16 +43,6 @@
 	
 	UserDao userDao = new UserDao();
 	SprintDao sprintDao = new SprintDao();
-	
-	List<Project> lastUpdatedProjectsList = projectDao.lastUpdatedProjectsListByManagerId(userId);
-	if(null == lastUpdatedProjectsList){
-		lastUpdatedProjectsList = new ArrayList<>();
-	}
-	
-	List<Project> projectsByManagerId = projectDao.getProjectsByAssignedManager(userId);
-	if(null == projectsByManagerId){
-		projectsByManagerId = new ArrayList<Project>();
-	}
 	
 	List<Sprint> sprintsByProjectId = sprintDao.getSpintsByProject(projectId);
 	if(null == sprintsByProjectId){

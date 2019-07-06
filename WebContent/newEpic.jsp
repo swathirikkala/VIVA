@@ -18,13 +18,8 @@
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
 	String projectId = String.valueOf(request.getSession().getAttribute("projectId"));
-	List<Epic> epics = (List<Epic>)request.getSession().getAttribute("epics");
 
 	SprintDao sprintDao = new SprintDao();
-	
-	if(epics == null){
-		epics =new ArrayList<Epic>();
-	}
 	ProjectDao projectDao = new ProjectDao();
 	List<Project> projects = CacheUtil.allProjects;
 	if(projects == null){

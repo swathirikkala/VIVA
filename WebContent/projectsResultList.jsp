@@ -1,3 +1,4 @@
+<%@page import="com.viva.db.util.CacheUtil"%>
 <%@page import="com.viva.util.DateUtil"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.viva.dao.UserDao"%>
@@ -15,7 +16,7 @@
 		projects = new ArrayList<Project>();
 	}
 	UserDao userDao = new UserDao();
-	Map<String, User> allUsers = userDao.getAllUsersMap();
+	Map<String, User> allUsers = CacheUtil.allUsersMap;
 %>
 <!DOCTYPE html>
 <html>

@@ -15,11 +15,8 @@
 
 <%
 	UserStoryDao userStoryDao = new UserStoryDao();
-	
-
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
-	
 	List<UserStory>  uss = userStoryDao.getAllUserStories();
 	if(null == uss){
 		uss = new ArrayList<UserStory>();

@@ -1,3 +1,4 @@
+<%@page import="com.viva.db.util.CacheUtil"%>
 <%@page import="java.util.HashMap"%>
 <%@page import="java.util.Map"%>
 <%@page import="com.viva.dao.ProjectDao"%>
@@ -14,10 +15,7 @@
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
 	
-	UserDao userDao = new UserDao();
-	ProjectDao projectDao = new ProjectDao();
-	
-	Map<String,User> managers = userDao.getManagersMap();
+	Map<String,User> managers = CacheUtil.allUsersMap;
 	if(managers == null){
 		managers = new HashMap<String,User>();
 	}

@@ -91,8 +91,20 @@ function w3_close() {
 }
 function loadPage(diveName,pageName) {
 	console.log("load page method called : " + diveName + " : " + pageName);
-	$("#"+diveName).empty();
-	$("#"+diveName).load(pageName);
+	
+	$.ajax({
+        type: 'post',
+        url: './clearSession',
+        success: function (response) {
+           console.log("clearSession completed..... " + response);
+	       	$("#"+diveName).empty();
+	       	$("#"+diveName).load(pageName);
+        },
+		error : function(data, status, er) {
+			console.log("Error in clearSession jsm : " + data + " status: " + status + " er:" + er);
+		
+		}
+    });
 }
 
  $(document).ready(function() {

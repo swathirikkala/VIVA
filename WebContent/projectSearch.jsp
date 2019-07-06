@@ -13,7 +13,6 @@
 	    if(userName == null){
 	    	userName = "";
 	    }
-	    UserDao userDao = new UserDao();
 	    List<User> users = CacheUtil.allUsers;
     %>
 <!DOCTYPE html>

@@ -1,3 +1,4 @@
+<%@page import="com.viva.db.util.CacheUtil"%>
 <%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="com.viva.dao.ProjectDao"%>
 <%@page import="com.viva.dao.UserDao"%>
@@ -8,8 +9,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
     <%
-		UserDao userDao = new UserDao();
-		ProjectDao projectDao = new ProjectDao();
     	Project project = (Project)request.getSession().getAttribute("project");
     	if(project == null){
     		project = new Project();
@@ -22,11 +21,11 @@
     		project.setEndDate("");
     	}
     	
-    	Map<String,User> managers = userDao.getManagersMap();
+    	Map<String,User> managers = CacheUtil.allUsersMap;
     	if(managers == null){
     		managers = new HashMap<String,User>();
     	}
-    	Map<String, User> allUsers = userDao.getAllUsersMap();
+    	Map<String, User> allUsers = CacheUtil.allUsersMap;
     %>
 <!DOCTYPE html>
 <html>

@@ -22,8 +22,6 @@
 		projectId = "0";
 	}
 	
-	UserDao userDao = new UserDao();
-	ProjectDao projectDao = new ProjectDao();
 	EpicDao epicDao = new EpicDao();
 	BusinessValuesDao businessValuesDao = new BusinessValuesDao();
 	

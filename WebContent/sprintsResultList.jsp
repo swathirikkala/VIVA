@@ -1,3 +1,4 @@
+<%@page import="com.viva.db.util.CacheUtil"%>
 <%@page import="com.viva.util.DateUtil"%>
 <%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="java.util.HashMap"%>
@@ -19,8 +20,7 @@
 	if(sprints == null){
 		sprints = new ArrayList<Sprint>();
 	}
-	UserDao userDao = new UserDao();
-	Map<String, User> allUsers = userDao.getAllUsersMap();
+	Map<String, User> allUsers = CacheUtil.allUsersMap;
 	if(allUsers == null){
 		allUsers = new HashMap<String,User>();
 	}

@@ -1,3 +1,4 @@
+<%@page import="com.viva.db.util.CacheUtil"%>
 <%@page import="java.util.ArrayList"%>
 <%@page import="com.viva.dto.Project"%>
 <%@page import="java.util.List"%>
@@ -9,8 +10,7 @@
 	if(userName == null){
 		userName = "";
 	} 
-	ProjectDao projectDao = new ProjectDao();
-	List<Project> projects = projectDao.getProjects();
+	List<Project> projects = CacheUtil.allProjects;
 	if(projects == null){
 		projects = new ArrayList<Project>();
 	}
@@ -68,7 +68,7 @@
 		    			</td>
 		    		
 		    			<td class="cellClass">
-		    				<button type="button" onclick="loadUSForEdit()" class="signupbtn" 
+		    				<button type="button" onclick="loadUserStory()" class="signupbtn" 
 		    				style="text-align: centre; width:100px; margin-top: -10px;">Search</button>
 		    				
 		    			</td>
@@ -176,8 +176,7 @@ $("#usSearchEpicName").change(
 
 <script type="text/javascript">
 
-$("#userStorySearchUss").change(
-		function() {
+		function loadUserStory()  {
 			console.log("userStorySearchUss change event got called");
 			var userStoryId= $("#userStorySearchUss").val();
 			console.log("userStoryId : " + userStoryId);
@@ -203,6 +202,6 @@ $("#userStorySearchUss").change(
 			} catch (e) {
 				console.log("Exception in user story loading jsm : " + e);
 			}
-		});
+		};
 </script>
 </html>
