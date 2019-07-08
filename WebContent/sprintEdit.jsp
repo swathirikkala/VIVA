@@ -201,3 +201,16 @@
 		   	</div>
 
 	</body>
+	
+		
+		<!-- Projects Creation -->
+			<div id="newProjectDiv">
+				<jsp:include page="assignUssforSprint.jsp" /> 
+			</div>
+		<!-- Projects Creation ended -->
+	<script type="text/javascript">
+		function addUserStories() {
+			openUssAssignmentToSprintModalDiv();
+		}
+	</script>
+	

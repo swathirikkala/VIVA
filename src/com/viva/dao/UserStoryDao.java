@@ -194,4 +194,23 @@ public class UserStoryDao {
 		System.out.println("getAllUserStoriesBySprint : " + uss);
 		return uss;
 	}
+
+
+	public List<UserStory> getAllUserStoriesForSprintAddition(int sprintId) {
+		List<UserStory> uss = null;
+		String sql = "select * from user_story where sprint =?" + 
+				" union " + 
+				" select * from user_story where sprint is null";
+		try {
+			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
+			ps.setInt(1, sprintId);
+			System.out.println("getAllUserStoriesForSprintAddition ps : " + ps.toString());
+			ResultSet rs = ps.executeQuery();
+			uss = parseUserStories(rs);
+		} catch (SQLException e) {
+			System.err.println("getAllUserStoriesForSprintAddition : " + e.getMessage());
+		}
+		System.out.println("getAllUserStoriesForSprintAddition : " + uss);
+		return uss;
+	}
 }
