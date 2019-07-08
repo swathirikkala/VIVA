@@ -119,11 +119,14 @@ public class EpicDao {
 		return Constants.FAIL;
 	}
 	public static String updateVivaByUs(int usId) {
-		String sql = "update epic set viva = " + 
-				"(select ceiling(avg(us_bv.viva)) from us_bv " + 
-				"inner join user_story on us_bv.usid = user_story.id " + 
-				"and user_story.epic = (select epic from user_story where id = ?)) " + 
-				"where epic.id = (select epic from user_story where id = ?)";
+		String sql = "update epic set viva =" + 
+					"	(" + 
+					"		select ceiling(avg(viva)) from user_story where epic = " + 
+					"		(" + 
+					"			select project from user_story where id= ?" + 
+					"		)" + 
+					"	)" + 
+					"where id = (select epic from user_story where id= ?)";
 		try {
 			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
 			ps.setInt(1, usId);

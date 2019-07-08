@@ -44,9 +44,7 @@ public class LoadProjectServlet extends HttpServlet {
 		request.getSession().setAttribute("sprints", sprints);
 		Project project = projectDao.getProjectById(projectId);
 		request.getSession().setAttribute("project", project);
-		List<Project> allProjects = projectDao.getProjects();
-		request.getSession().setAttribute("allProjects", allProjects);
-		
+		response.setContentType("text/html");
 		if(project == null ) {
 			out.write("noData");
 		}else {

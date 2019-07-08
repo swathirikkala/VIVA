@@ -1,3 +1,4 @@
+<%@page import="com.viva.db.util.CacheUtil"%>
 <%@page import="com.viva.dto.Project"%>
 <%@page import="com.viva.dao.ProjectDao"%>
 <%@page import="java.util.ArrayList"%>
@@ -6,14 +7,10 @@
 <%
 
 	ProjectDao projectDao = new ProjectDao();
-	List<Project> projects = projectDao.getProjects();
+	List<Project> projects = CacheUtil.allProjects;
 	if(projects == null){
 		projects = new ArrayList<Project>();
 	}
-	List<Project> allProjects = (List<Project>)request.getSession().getAttribute("allProjects");
-    if(null == allProjects){
-    	allProjects = new ArrayList<>();
-    }
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
     if(userName == null){
     	userName = "";

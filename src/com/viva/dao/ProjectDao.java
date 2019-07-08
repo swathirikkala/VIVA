@@ -145,11 +145,14 @@ public class ProjectDao {
 		return project;
 	}
 	public static String updateVivaByUs(int usId) {
-		String sql = "update project set viva = " + 
-				"(select ceiling(avg(viva)) from us_bv where usid in " + 
-				"(select id from user_story where project in" + 
-				"(select project from user_story where id = ?))) " + 
-				"where id = (select project from user_story where id = ?);";
+		String sql = "update project set viva =" + 
+					"	(" + 
+					"		select ceiling(avg(viva)) from user_story where project = " + 
+					"		(" + 
+					"			select project from user_story where id= ?" + 
+					"		)" + 
+					"	)" + 
+					"where id = (select project from user_story where id= ?)";
 		try {
 			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
 			ps.setInt(1, usId);
