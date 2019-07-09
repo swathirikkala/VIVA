@@ -141,7 +141,7 @@
 		    			</th>
 		    			<td>
 		    				<select id="editSprintPriority" name = "editSprintPriority">
-					      		<option value="0">--Select--</option>
+					      		<option value="0" selected="selected">--Select--</option>
 					      		<% for(String p : LookUp.getPriorities()){ %>
 					      			<option value="<%=p%>"><%=p%></option>
 						      	<%} %>
@@ -173,8 +173,16 @@
 		    			<td>
 		    				<input type="text" name="sprintViva" id="sprintViva" readonly="readonly" value="">
 		    			</td>
-		    			<th></th><td></td>
-		    			<th></th><td></td>
+		    			<th>
+		    			</th>
+		    			<td>
+		    				<select id="sprintUss" name="sprintUss" multiple="multiple" style="display: none;">
+		    				</select>
+		    			</td>
+		    			<th>
+		    			</th>
+		    			<td>
+		    			</td>
 		    		</tr>
 		    		<tr>
 		    			<th>
@@ -191,7 +199,7 @@
 		    
 		    <div>
 			    <div style="display: inline-flex;">
-					<button onclick="addUserStories()" style="width: auto;">Add User Stories</button>
+					<button onclick="addUserStories()" style="width: auto;">Add/View User Stories</button>
 				</div>
 			    <div style="display: inline-flex;margin-left: 30%;">
 				    <button type="button" onclick="editSprint()" class="signupbtn" style="text-align: centre; width:100px;">Save</button>
@@ -205,12 +213,12 @@
 		
 		<!-- Projects Creation -->
 			<div id="newProjectDiv">
-				<jsp:include page="assignUssforSprint.jsp" /> 
+				
 			</div>
 		<!-- Projects Creation ended -->
 	<script type="text/javascript">
 		function addUserStories() {
-			openUssAssignmentToSprintModalDiv();
+			$("#newProjectDiv").load("assignUssforSprint.jsp",function(){openUssAssignmentToSprintModalDiv();})
 		}
 	</script>
 	
