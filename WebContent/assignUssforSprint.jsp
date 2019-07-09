@@ -72,6 +72,9 @@ $(document).ready(function() {
 									<td>
 										<label><%=us.getName() %></label>
 									</td>
+									<td>
+										<input type="text" name="comment" id="comment" placeholder="Add Comment Here">
+									</td>
 								</tr>
 							<% } %>
 						</tbody>

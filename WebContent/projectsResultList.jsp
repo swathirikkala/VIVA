@@ -74,7 +74,9 @@
 	                success: function (response) {
 	                   console.log("Project Loading completed..... " + response);
 	                   if(response === "success"){
-	                	   loadPage('commonDiv','projectEditHome.jsp');
+	           	       	$("#commonDiv").empty();
+	        	       	$("#commonDiv").load('projectEditHome.jsp',function(){console.log("Project Edit PAge Loaded ...")});
+	                	   //loadPage('commonDiv','projectEditHome.jsp');
 	                   }else{
 	                	   console.log("No Data Found with search criteria");
 	                   }

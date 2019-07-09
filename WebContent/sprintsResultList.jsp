@@ -86,13 +86,9 @@
 	                success: function (response) {
 	                   console.log("Sprint load call completed..... " + response);
 	                   if(response === "success"){
-	                	   loadPage('commonDiv','sprintHome.jsp');
-// 	                	   $("#sprintEditDiv").empty();
-// 	                	   $("#sprintEditDiv").load("sprintHome.jsp");
-// 	                	   $("#sprintUserStoriesDiv").empty();
-// 	                	   $("#sprintUserStoriesDiv").load("usResult.jsp");
-	                	   
-	                	   console.log("loadSprint loading Success");
+// 	                	   loadPage('commonDiv','sprintHome.jsp');
+	                		$("#commonDiv").empty();
+		        	       	$("#commonDiv").load('sprintHome.jsp',function(){console.log("Sprint Edit Page Loaded ...")});
 	                	   
 	                   }else{
 	                	   console.log("loadSprint creation Failed");

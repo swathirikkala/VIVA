@@ -100,8 +100,10 @@
 	                   console.log("loadUserStory call completed..... " + response);
 	                   if(response === "success"){
 	                	   
-	                	   console.log("loadUserStory loading Success");
-	                	   loadPage('commonDiv','./usHome.jsp');
+	                	   //console.log("loadUserStory loading Success");
+	                	   //loadPage('commonDiv','./usHome.jsp');
+		           	       	$("#commonDiv").empty();
+		        	       	$("#commonDiv").load('usHome.jsp',function(){console.log("User Story for Edit Page Loaded ...")});
 	                	   
 	                   }else{
 	                	   console.log("loadUserStory creation "+response);

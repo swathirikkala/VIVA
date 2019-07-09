@@ -32,12 +32,15 @@ public class ClearSessionDataServlet extends HttpServlet {
 		request.getSession().removeAttribute("epics");
 		request.getSession().removeAttribute("project");
 		request.getSession().removeAttribute("sprints");
-		request.getSession().removeAttribute("");
-		request.getSession().removeAttribute("");
-		request.getSession().removeAttribute("");
-		request.getSession().removeAttribute("");
+		request.getSession().removeAttribute("sprint");
+		request.getSession().removeAttribute("projectId");
+		request.getSession().removeAttribute("userStories");
+		request.getSession().removeAttribute("userStoryForEdit");
+		request.getSession().removeAttribute("sprintsByProjectUsEdit");
+		request.getSession().removeAttribute("epicsByProjectUsEdit");
+		request.getSession().removeAttribute("bvsByUsId");
 	}
-
+	
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
