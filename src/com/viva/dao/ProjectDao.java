@@ -147,7 +147,7 @@ public class ProjectDao {
 	public static String updateVivaByUs(int usId) {
 		String sql = "update project set viva =" + 
 					"	(" + 
-					"		select ceiling(avg(viva)) from user_story where project = " + 
+					"		select ceiling(avg(viva)) from sprint where project = " + 
 					"		(" + 
 					"			select project from user_story where id= ?" + 
 					"		)" + 
