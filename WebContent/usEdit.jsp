@@ -70,9 +70,6 @@
 			}else if($("#usProject4Edit").val() === "0"){
 				alert("Please Select Project Name");
 				isValidForm = false;
-			}else if($("#usSprint4Edit").val() === "0"){
-				alert("Please Select Sprint Name");
-				isValidForm = false;
 			}else if($("#usEpic4Edit").val() === "0"){
 				alert("Please Select Epic Name");
 				isValidForm = false;
