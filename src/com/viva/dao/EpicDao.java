@@ -123,7 +123,7 @@ public class EpicDao {
 					"	(" + 
 					"		select ceiling(avg(viva)) from user_story where epic = " + 
 					"		(" + 
-					"			select project from user_story where id= ?" + 
+					"			select epic from user_story where id= ?" + 
 					"		)" + 
 					"	)" + 
 					"where id = (select epic from user_story where id= ?)";
