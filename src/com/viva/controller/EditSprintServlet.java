@@ -69,9 +69,13 @@ public class EditSprintServlet extends HttpServlet {
 			sprint.setProjectId(projectId);
 
 		String resp = sprintDao.updateSptint(sprint);
+		String usFlag = String.valueOf(request.getParameter("usFlag"));
+		System.out.println("Sprint US List modified :::::::::::: " + usFlag);
 		if(Constants.SUCCESS.equalsIgnoreCase(resp)) {
-			String addUss4SpResp = userStoryDao.assignUserStoriesForSprint(sprint.getSprintId(), sprintUss);
-			System.out.println("assignUserStoriesForSprint response : " + addUss4SpResp);
+			if("true".equalsIgnoreCase(usFlag)) {
+				String addUss4SpResp = userStoryDao.assignUserStoriesForSprint(sprint.getSprintId(), sprintUss);
+				System.out.println("assignUserStoriesForSprint response : " + addUss4SpResp);
+			}
 		}
 		response.getWriter().write(resp);
 	}

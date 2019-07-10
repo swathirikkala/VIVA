@@ -37,6 +37,7 @@ function ussAssignmentToSprint(){
 	});
 	console.log("Selected uss are : " + assignedUss);
 	closeUssAssignmentToSprintModalDiv();
+	$("#usFlag").val("true");
 }
 
 $(document).ready(function() {

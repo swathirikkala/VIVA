@@ -176,6 +176,7 @@
 		    			<th>
 		    			</th>
 		    			<td>
+		    				<input type="hidden" name="usFlag" id="usFlag" value="false">
 		    			</td>
 		    		</tr>
 		    		<tr>
