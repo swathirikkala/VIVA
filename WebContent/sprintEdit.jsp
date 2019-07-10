@@ -28,10 +28,6 @@
 		projects = new ArrayList<Project>();
 	}
 
-%>
-<%
-
-
 	Sprint sprint = (Sprint)request.getSession().getAttribute("sprint");
 	if(sprint == null){
 		sprint = new Sprint();
@@ -62,9 +58,7 @@
 	<script type="text/javascript">
 		    $(document).ready(function() {
 		    	$("#editSprintProjectName").val("<%=sprint.getProjectId()%>");
-		    	$("#editSprintDescription").val("");
 		    	$("#editSprintDescription").val("<%=sprint.getDescription()%>");
-		    	$("#description").val("<%=sprint.getDescription()%>");
 		    	$("#sprintEditStartDate").val("<%=sprint.getStartDate()%>");
 		    	$("#sprintEditEndDate").val("<%=sprint.getEndDate()%>");
 		    	$("#editSprintPriority").val("<%=sprint.getSeverity()%>");
@@ -202,9 +196,9 @@
 					<button onclick="addUserStories()" style="width: auto;">Add/View User Stories</button>
 				</div>
 			    <div style="display: inline-flex;margin-left: 30%;">
-				    <button type="button" onclick="editSprint()" class="signupbtn" style="text-align: centre; width:100px;">Save</button>
+				    <button type="button" onclick="editSprint()" class="signupbtn" style="text-align: centre; width:150px;">Save</button>
 				    	&nbsp;
-				    <button type="button" onclick="clearProjectEditFields();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
+				    <button type="button" onclick="clearProjectEditFields();" class="cancelbtn" style="text-align: centre; width:150px;margin-left: 5px;">Clear Changes</button>
 			   	</div>
 		   	</div>
 
@@ -218,7 +212,7 @@
 		<!-- Projects Creation ended -->
 	<script type="text/javascript">
 		function addUserStories() {
-			$("#newProjectDiv").load("assignUssforSprint.jsp",function(){openUssAssignmentToSprintModalDiv();})
+			$("#newProjectDiv").load("assignUssforSprint.jsp",function(){openUssAssignmentToSprintModalDiv();});
 		}
 	</script>
 	

@@ -195,12 +195,10 @@ public class UserStoryDao {
 		return uss;
 	}
 
-
 	public List<UserStory> getAllUserStoriesForSprintAddition(int sprintId) {
 		List<UserStory> uss = null;
-		String sql = "select * from user_story where sprint =?" + 
-				" union " + 
-				" select * from user_story where sprint is null";
+		String sql = "select * from user_story where sprint =?" + " union "
+				+ " select * from user_story where sprint is null";
 		try {
 			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
 			ps.setInt(1, sprintId);
@@ -212,5 +210,34 @@ public class UserStoryDao {
 		}
 		System.out.println("getAllUserStoriesForSprintAddition : " + uss);
 		return uss;
+	}
+
+	public String assignUserStoriesForSprint(int sprintId, String[] sprintUss) {
+		String resp = Constants.FAIL;
+		System.out.println("assignUserStoriesForSprint inputs : " + sprintId + " , " + sprintUss.length);
+		String sql = "update user_story set sprint = null where sprint = ?";
+		try {
+			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
+			ps.setInt(1, sprintId);
+			System.out.println("assignUserStoriesForSprint cleaning sprint in us query : " + ps.toString());
+			int executeUpdate = ps.executeUpdate();
+			System.out.println("assignUserStoriesForSprint cleaning sprint in us response : " + executeUpdate);
+			sql = "update user_story set sprint = ? where id = ?";
+			PreparedStatement updatePs = DBConnectionUtil.getconnection().prepareStatement(sql);
+			for (String usid : sprintUss) {
+				int uid = Integer.valueOf(usid);
+				updatePs.setInt(1, sprintId);
+				updatePs.setInt(2, uid);
+				updatePs.addBatch();
+			}
+			int[] usAssignentResponse = updatePs.executeBatch();
+			System.out.println("assignUserStoriesForSprint updated us count : " + usAssignentResponse.length);
+			resp = Constants.SUCCESS;
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+			resp = Constants.FAIL;
+		}
+		return resp;
 	}
 }
