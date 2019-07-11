@@ -57,7 +57,7 @@ public class UserStoryDao {
 		} catch (SQLException e) {
 			System.err.println("getAllUserStoriesByEpic : " + e.getMessage());
 		}
-		System.out.println("getAllUserStoriesByEpic : " + uss);
+		System.out.println("getAllUserStoriesByEpic : " + uss.size());
 		return uss;
 
 	}
@@ -101,7 +101,7 @@ public class UserStoryDao {
 		} catch (SQLException e) {
 			System.err.println("getUserStoryByUsName : " + e.getMessage());
 		}
-		System.out.println("getUserStoryByUsName : " + uss);
+		System.out.println("getUserStoryByUsName : " + uss.size());
 
 		return uss != null ? uss.get(0) : null;
 	}
@@ -116,7 +116,7 @@ public class UserStoryDao {
 		} catch (SQLException e) {
 			System.err.println("getUserStoryByUsId : " + e.getMessage());
 		}
-		System.out.println("getUserStoryByUsId : " + uss);
+		System.out.println("getUserStoryByUsId : " + uss.size());
 
 		return uss != null ? uss.get(0) : null;
 	}
@@ -175,7 +175,7 @@ public class UserStoryDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("findUssBySprintIdAndOpen result : " + uss);
+		System.out.println("findUssBySprintIdAndOpen result : " + uss.size());
 		return uss;
 	}
 
@@ -191,7 +191,7 @@ public class UserStoryDao {
 		} catch (SQLException e) {
 			System.err.println("getAllUserStoriesBySprint : " + e.getMessage());
 		}
-		System.out.println("getAllUserStoriesBySprint : " + uss);
+		System.out.println("getAllUserStoriesBySprint : " + uss.size());
 		return uss;
 	}
 
@@ -208,7 +208,7 @@ public class UserStoryDao {
 		} catch (SQLException e) {
 			System.err.println("getAllUserStoriesForSprintAddition : " + e.getMessage());
 		}
-		System.out.println("getAllUserStoriesForSprintAddition : " + uss);
+		System.out.println("getAllUserStoriesForSprintAddition : " + uss.size());
 		return uss;
 	}
 

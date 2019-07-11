@@ -89,6 +89,8 @@
 // 	                	   loadPage('commonDiv','sprintHome.jsp');
 	                		$("#commonDiv").empty();
 		        	       	$("#commonDiv").load('sprintHome.jsp',function(){console.log("Sprint Edit Page Loaded ...")});
+		                	 
+	                	   console.log("loadSprint loading Success");
 	                	   
 	                   }else{
 	                	   console.log("loadSprint creation Failed");

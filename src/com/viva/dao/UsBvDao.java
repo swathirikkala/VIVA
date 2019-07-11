@@ -34,7 +34,7 @@ public class UsBvDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("getBvsByUsId : " + bvs);
+		System.out.println("getBvsByUsId : " + bvs.size());
 		return bvs;
 	}
 

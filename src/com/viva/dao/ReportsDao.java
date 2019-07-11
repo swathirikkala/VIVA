@@ -83,7 +83,7 @@ public class ReportsDao {
 			System.err.println("Exception in bv parsing : " + e.getMessage());
 		}
 		System.out.println("After parse parseUsBvs count : " + bvs.size());
-		System.out.println("After parse parseUsBvs Data : " + bvs);
+		//System.out.println("After parse parseUsBvs Data : " + bvs);
 		return bvs;
 
 	}
@@ -141,7 +141,7 @@ public class ReportsDao {
 			System.err.println("Exception in bvas parsing : " + e.getMessage());
 		}
 		System.out.println("After parse parseUsBvas count : " + bvas.size());
-		System.out.println("After parse parseUsBvas Data : " + bvas);
+		//System.out.println("After parse parseUsBvas Data : " + bvas);
 		return bvas;
 	}
 }

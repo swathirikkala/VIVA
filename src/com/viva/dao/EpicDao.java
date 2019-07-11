@@ -70,7 +70,7 @@ public class EpicDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("getEpicsByProjectId : " + epics);
+		System.out.println("getEpicsByProjectId : " + epics.size());
 		return epics;
 	}
 
@@ -83,7 +83,7 @@ public class EpicDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("getEpicById : " + epics);
+		System.out.println("getEpicById : " + epics.size());
 		return epics != null ? epics.get(0):null;
 	}
 

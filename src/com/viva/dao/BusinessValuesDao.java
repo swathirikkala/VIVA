@@ -97,7 +97,7 @@ public class BusinessValuesDao {
 		} catch (SQLException e) {
 			System.err.println("Exception in bv parsing : " + e.getMessage());
 		}
-		System.out.println("AllBVs ::: " + bvs);
+		System.out.println("AllBVs ::: " + bvs.size());
 		return bvs;
 
 	}

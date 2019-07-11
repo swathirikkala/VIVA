@@ -117,7 +117,7 @@ public class ProjectDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Projects : " + projects);
+		System.out.println("Projects : " + projects.size());
 		return projects;
 	}
 

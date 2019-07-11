@@ -26,7 +26,7 @@ public class SprintDao {
 	public List<Sprint> getSpintsByProject(String projectId) {
 		ResultSet sprintsRS = DBConnectionUtil.getData(QueryBuilder.getAllSprintsByProjectQuery(projectId));
 		List<Sprint> listOfSprintsByProjectId = parseSprints(sprintsRS);
-		System.out.println("getSpintsByProject : " + listOfSprintsByProjectId);
+		System.out.println("getSpintsByProject : " + listOfSprintsByProjectId.size());
 		return listOfSprintsByProjectId;
 	}
 
@@ -59,7 +59,7 @@ public class SprintDao {
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
-		System.out.println("Sprints by project id : " + sprintsList);
+		System.out.println("Sprints by project id : " + sprintsList.size());
 		return sprintsList;
 	}
 
