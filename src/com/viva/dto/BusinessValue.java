@@ -5,6 +5,7 @@ public class BusinessValue {
 	private String name;
 	private String description;
 	private boolean active;
+	private String isAssigned;
 
 	public BusinessValue() {
 		super();
@@ -50,9 +51,19 @@ public class BusinessValue {
 		this.description = description;
 	}
 
-	@Override
-	public String toString() {
-		return "BusinessValues [id=" + id + ", name=" + name + ", description=" + description + "]";
+	public String getIsAssigned() {
+		return isAssigned;
 	}
 
+	public void setIsAssigned(String isAssigned) {
+		this.isAssigned = isAssigned;
+	}
+
+	@Override
+	public String toString() {
+		return "BusinessValue [id=" + id + ", name=" + name + ", description=" + description + ", active=" + active
+				+ ", isAssigned=" + isAssigned + "]";
+	}
+
+	
 }

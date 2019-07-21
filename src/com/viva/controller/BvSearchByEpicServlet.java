@@ -11,6 +11,7 @@ import javax.servlet.http.HttpServletResponse;
 
 import com.viva.dao.EpicBvDao;
 import com.viva.dao.util.ResponseBuilder;
+import com.viva.dto.BusinessValue;
 import com.viva.dto.EpicBv;
 import com.viva.dto.Response;
 import com.viva.util.JSONUtil;
@@ -41,7 +42,7 @@ public class BvSearchByEpicServlet extends HttpServlet {
 		} catch (NumberFormatException e) {
 			System.err.println("Error in BvSearchByEpicServlet parsing epicId");
 		}
-		 List<EpicBv> bvsByEpicId = epicBvDao.getBvsByEpicId(epicId);
+		 List<BusinessValue> bvsByEpicId = epicBvDao.getBvsByEpicId(epicId);
 		Response resp = null;
 		if(bvsByEpicId != null && !bvsByEpicId.isEmpty()) {
 			resp = ResponseBuilder.getResponse(1, "bvs",bvsByEpicId );

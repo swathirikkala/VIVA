@@ -425,12 +425,13 @@ public class QueryBuilder {
 	}
 
 	public static PreparedStatement getBvsByEpicIdPs(int epicId) {
-		String sql = "select * from epic_bv where eid = ?";
+		String sql = "select * , 'assigned' from bv where id in (select bid from epic_bv where eid = ?) union select  * , 'not assigned'  from bv where id not in (select bid from epic_bv where eid = ?)";
 
 		PreparedStatement ps = null;
 		try {
 			ps = DBConnectionUtil.getconnection().prepareStatement(sql);
 			ps.setInt(1, epicId);
+			ps.setInt(2, epicId);
 
 		} catch (SQLException e) {
 			e.printStackTrace();
