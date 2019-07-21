@@ -95,11 +95,36 @@
 		     	 
 			   
 			   <label for="usBusinessValues"><b>Business Values</b></label><label style="color: red;">&nbsp;*</label>
-		       <select id="usBusinessValues" name = "usBusinessValues" multiple="multiple"  style="height: 150px;">
-			      <%for(BusinessValue bv : CacheUtil.allBusinessValues){%>
-			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option>
-			      <%}%>
-		      </select>
+			<!--  User stories for Sprint Table -->
+			<div class="limiter">
+				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:300px; min-height:300px; overflow-x: none;">
+					<table data-vertable="ver2">
+						<tbody id="usBvsTbody">
+							<%	boolean isSprintAssigned = false;
+								for(BusinessValue bv : CacheUtil.allBusinessValues) {
+							%>
+								<tr class="row100 head">
+									<td class="column100 width50" data-column="column1">
+										<input type="checkbox" name="usBusinessValues" value="<%= bv.getId()%>">
+									</td>
+									<td>
+										<label><%= bv.getName() %></label>
+									</td>
+									<td>
+										<label><%= bv.getDescription() %></label>
+									</td>
+								</tr>
+							<% } %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- User stories for Sprint Table ended -->		       
+<!-- 		       <select id="usBusinessValues" name = "usBusinessValues" multiple="multiple"  style="height: 150px;"> -->
+<%-- 			      <%for(BusinessValue bv : CacheUtil.allBusinessValues){%> --%>
+<%-- 			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option> --%>
+<%-- 			      <%}%> --%>
+<!-- 		      </select> -->
 
 		      <label for="description"><b>User Story Description</b></label><label style="color: red;">&nbsp;*</label>
 		      <textarea rows="4" cols="50" placeholder="Description" name="usDescription" id="usDescription">

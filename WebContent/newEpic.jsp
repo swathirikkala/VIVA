@@ -65,11 +65,36 @@
 		     	 </select>
 			   
 			   <label for="epicBusinessValues"><b>Business Values</b></label>
-		       <select id="epicBusinessValues" name = "epicBusinessValues" multiple="multiple" style="height: 100px;">
-			      <%for(BusinessValue bv : CacheUtil.allBusinessValues){%>
-			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option>
-			      <%}%>
-		      </select>
+			<!--  Epic Business Values Table -->
+			<div class="limiter">
+				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:300px; min-height:300px; overflow-x: none;">
+					<table data-vertable="ver2">
+						<tbody id="usBvsTbody">
+							<%	boolean isSprintAssigned = false;
+								for(BusinessValue bv : CacheUtil.allBusinessValues) {
+							%>
+								<tr class="row100 head">
+									<td class="column100 width50" data-column="column1">
+										<input type="checkbox" name="epicBusinessValues" value="<%= bv.getId()%>">
+									</td>
+									<td>
+										<label><%= bv.getName() %></label>
+									</td>
+									<td>
+										<label><%= bv.getDescription() %></label>
+									</td>
+								</tr>
+							<% } %>
+						</tbody>
+					</table>
+				</div>
+			</div>
+			<!-- Epic Business Values Table ended -->	
+<!-- 		       <select id="epicBusinessValues" name = "epicBusinessValues" multiple="multiple" style="height: 100px;"> -->
+<%-- 			      <%for(BusinessValue bv : CacheUtil.allBusinessValues){%> --%>
+<%-- 			      		<option value="<%= bv.getId()%>"><%= bv.getName()%></option> --%>
+<%-- 			      <%}%> --%>
+<!-- 		      </select> -->
 
 		      <label for="description"><b>Epic Description</b></label><label style="color: red;">&nbsp;*</label>
 		      <textarea rows="4" cols="50" placeholder="Description" name="description" id="description" style="height: 100px;">
