@@ -106,16 +106,35 @@
 		    		</tr>
 		    	</table>
 		    </div>
-		    <div>
-		    			
+		    <div id="selectedEbvs" style="display: none;">
+		    	
 		    </div>
-		    
-		    <div style="margin-left: 35%;">
+		 </form>
+		    <div> 
+		    	<div style="display: inline-flex;">
+		    		<button onclick="javascript:updateBvsForEpic()" style="width:auto;">Update BVs</button>
+		    	</div>
+			    <div style="display: inline-flex;margin-left: 25%;">
 			    	<button type="button" onclick="editSprint()" class="signupbtn" style="text-align: centre; width:100px;">Save</button>
 			    	&nbsp;
 			    	<button type="button" onclick="clearEpicEditFields();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
+		    </div>
 		   	</div>
-		  </form>
+		   	
+		    
+		   	<div id="epicBvsDiv">
+		   	</div>
+<script type="text/javascript">
+	function updateBvsForEpic() {
+		var epicId = $("#epicEditId").val();
+		console.log("Selected epic values is : " + epicId);
+		if( epicId === "0"){
+			alert("Select Epic for update BVs");
+		}else{
+			$("#epicBvsDiv").load("assignBvsforEpic.jsp",function(){openUpdateBvsForEpicModalDiv();});
+		}
+	}
+</script>		    
 <script type="text/javascript">
 
 	function clearEpicEditFields() {

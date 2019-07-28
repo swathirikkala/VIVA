@@ -110,9 +110,7 @@
 									<td>
 										<label><%= bv.getName() %></label>
 									</td>
-									<td>
-										<label><%= bv.getDescription() %></label>
-									</td>
+									
 								</tr>
 							<% } %>
 						</tbody>

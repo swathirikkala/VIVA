@@ -5,11 +5,19 @@ import java.util.List;
 import java.util.Map;
 
 import com.viva.dto.Department;
+import com.viva.dto.EpicBv;
 import com.viva.dto.Project;
 import com.viva.dto.Team;
 import com.viva.dto.User;
 
 public class LookUp {
+	public static EpicBv searchEpicBv(List<EpicBv> ebvs , int bvId) {
+		for(EpicBv ebv : ebvs) {
+			if(ebv.getBvId() == bvId)
+				return ebv;
+		}
+		return null;
+	}
 
 	public static String getUserName(String userId, Map<String, User> allUsers) {
 		String userName = "";

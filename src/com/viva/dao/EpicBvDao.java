@@ -27,6 +27,36 @@ public class EpicBvDao {
 		return Constants.FAIL;
 	}
 
+	public List<EpicBv> getEBvsByEpic(int epicId) {
+		List<EpicBv> epicBvs = new ArrayList<EpicBv>();
+		PreparedStatement ps = QueryBuilder.getEBvsByEpicIdPs(epicId);
+		try {
+			ResultSet rs = ps.executeQuery();
+			epicBvs = parseEbvs(rs);
+		} catch (Exception e) {
+			e.printStackTrace();
+		}
+		return epicBvs;
+	}
+
+	private List<EpicBv> parseEbvs(ResultSet rs) {
+		List<EpicBv> epicBvs = new ArrayList<EpicBv>();
+		try {
+			while (rs != null && rs.next()) {
+				EpicBv ebv = new EpicBv();
+				ebv.setEpicId(rs.getInt(1));
+				ebv.setBvId(rs.getInt(2));
+				ebv.setStatus(rs.getBoolean(3));
+				ebv.setComment(rs.getString(5));
+				ebv.setViva(rs.getInt(4));
+				epicBvs.add(ebv);
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return epicBvs;
+	}
+
 	public List<BusinessValue> getBvsByEpicId(int epicId) {
 		List<BusinessValue> bvsByEpicId = new ArrayList<BusinessValue>();
 		PreparedStatement ps = QueryBuilder.getBvsByEpicIdPs(epicId);

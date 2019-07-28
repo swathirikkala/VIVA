@@ -68,7 +68,7 @@ public class EditEpicServlet extends HttpServlet {
 		epic.setPriority(priority);
 		
 		epic.setStatus(String.valueOf(request.getParameter("editEpicStatus")));
-		
+		String [] epicBvs = request.getParameterValues("epicBvs");
 		String updateResponse = epicDao.updateEpic(epic);
 		System.out.println("Update epic response : " + updateResponse);
 		response.getWriter().write(updateResponse);
