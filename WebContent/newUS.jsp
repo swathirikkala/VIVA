@@ -105,7 +105,7 @@
 							%>
 								<tr class="row100 head">
 									<td class="column100 width50" data-column="column1">
-										<input type="checkbox" name="usBusinessValues" value="<%= bv.getId()%>">
+										<input type="checkbox" name="usBusinessValues" id="usBusinessValues_<%= bv.getId()%>" value="<%= bv.getId()%>">
 									</td>
 									<td>
 										<label><%= bv.getName() %></label>
@@ -195,9 +195,8 @@ function validateUSForm(){
 	return isValid;
 }
 	</script>
-	<script type="text/javascript">
-	
-    	function createUS() {
+<script type="text/javascript">
+ 	function createUS() {
 			console.log("createUS got called ....");
 			var newUSFormData = $("form[name=newUSForm]").serialize();
 			console.log(newUSFormData);
@@ -224,9 +223,9 @@ function validateUSForm(){
 	            });
 			}else{
 				console.log("Form incomplete ......");
-			}
+		}
 	}
-	</script>
+</script>
 <script type="text/javascript">
 
 $("#usProjectName").change(
@@ -300,10 +299,10 @@ $("#usEpicName").change(
 	                if(jsonObj.responseCode == 1){
 	                	console.log("BVs found");
 	                	var bvArray = [];
-						$.each(response.responseObject, function (i, epicBv) {
-							console.log("epicBv.bvId " + epicBv.bvId);
-							bvArray.push(epicBv.bvId);
-							
+						$.each(response.responseObject, function (i, bv) {
+							console.log("bv.id " + bv.id);
+							bvArray.push(bv.id);
+							$("#usBusinessValues_"+bv.id).prop("checked", true);
 						});
 						console.log("bvArray : " + bvArray)
 						$("#usBusinessValues").val(bvArray);

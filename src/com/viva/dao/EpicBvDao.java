@@ -80,7 +80,6 @@ public class EpicBvDao {
 				businessValue.setName(rs.getString(2));
 				businessValue.setDescription(rs.getString(3));
 				businessValue.setActive(rs.getBoolean(4));
-				businessValue.setIsAssigned(rs.getString(5));
 				bvsByEpicId.add(businessValue);
 			}
 		} catch (SQLException e) {
