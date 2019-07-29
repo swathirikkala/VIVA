@@ -1,14 +1,19 @@
 package com.viva.controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
+import java.util.List;
+
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.viva.dao.EpicBvDao;
 import com.viva.dao.EpicDao;
 import com.viva.dto.Epic;
+import com.viva.dto.EpicBv;
 
 /**
  * Servlet implementation class EditEpicServlet
@@ -17,7 +22,7 @@ import com.viva.dto.Epic;
 public class EditEpicServlet extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 	private EpicDao epicDao = new EpicDao();
-       
+    private EpicBvDao epicBvDao = new EpicBvDao();  
     /**
      * @see HttpServlet#HttpServlet()
      */
@@ -68,7 +73,18 @@ public class EditEpicServlet extends HttpServlet {
 		epic.setPriority(priority);
 		
 		epic.setStatus(String.valueOf(request.getParameter("editEpicStatus")));
-		String [] epicBvs = request.getParameterValues("epicBvs");
+		String [] epicBvs = request.getParameterValues("updatedEpicBvs");
+		List<EpicBv> newEpicBvs = new ArrayList<EpicBv>();
+		for(String epicBv : epicBvs) {
+			EpicBv epBv = new EpicBv();
+			String comment = request.getParameter("comment_"+epicBv);
+			epBv.setBvId(Integer.valueOf(epicBv));
+			epBv.setComment(comment);
+			epBv.setEpicId(epicEditId);
+			newEpicBvs.add(epBv);
+		}
+		System.out.println("newEpicBvs : " + newEpicBvs);
+		String resp = epicBvDao.updateBvsOfEpic(newEpicBvs);
 		String updateResponse = epicDao.updateEpic(epic);
 		System.out.println("Update epic response : " + updateResponse);
 		response.getWriter().write(updateResponse);
@@ -78,7 +94,6 @@ public class EditEpicServlet extends HttpServlet {
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
 	protected void doPost(HttpServletRequest request, HttpServletResponse response) throws ServletException, IOException {
-		// TODO Auto-generated method stub
 		doGet(request, response);
 	}
 

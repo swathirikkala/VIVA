@@ -28,14 +28,24 @@ function closeUpdateBvsForEpicModalDiv(){
 }
 function assignBvs(){
 	var bvs = [];
-	var option='';
+	var selectedBvCbs='';
+	var selectedBvComments = '';
+	
 	$("input[name='epicBvs']:checked").each(function () {
 		bvs.push($(this).val());
-		console.log($(this).val());
+		selectedBvCbs += '<input type="checkbox" name="updatedEpicBvs" value="'+$(this).val()+'" checked="checked"></br>';
+		var comment = $("#comment_"+$(this).val()).val();
+		selectedBvComments += '<input type="text" name="comment_'+$(this).val()+'" id="comment_'+$(this).val()+'" value="'+comment+'">';
+		console.log(selectedBvCbs);
+		console.log(selectedBvComments);
 	});
+	
 	console.log("Selected bvs are : " + bvs);
+	$("#selectedEbvs").html(selectedBvCbs);
+	$("#epicCommentsDiv").html(selectedBvComments);
 	closeUpdateBvsForEpicModalDiv();
 }
+
 $(document).ready(function() {
 	
 });

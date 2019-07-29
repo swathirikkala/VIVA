@@ -109,6 +109,9 @@
 		    <div id="selectedEbvs" style="display: none;">
 		    	
 		    </div>
+		    
+		   	<div id="epicCommentsDiv" style="display: none;">
+		   	</div>
 		 </form>
 		    <div> 
 		    	<div style="display: inline-flex;">

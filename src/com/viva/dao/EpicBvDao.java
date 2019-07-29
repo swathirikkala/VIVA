@@ -6,6 +6,7 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.List;
 
+import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
 import com.viva.dto.BusinessValue;
 import com.viva.dto.EpicBv;
@@ -103,6 +104,41 @@ public class EpicBvDao {
 			e.printStackTrace();
 		}
 		return bvsByEpicId;
+	}
+
+	public String updateBvsOfEpic(List<EpicBv> newEpicBvs) {
+		String sql = "delete from epic_bv where eid = ?";
+		String response=Constants.FAIL;
+		try {
+			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
+			ps.setInt(1, newEpicBvs.get(0).getEpicId());
+			System.out.println("Delete epic bvs ps : " + ps.toString() );
+			int deleteResponse = ps.executeUpdate();
+			response = Constants.SUCCESS;
+			String query = "insert into epic_bv(eid,bid,comment) values ";
+			for(int i=0; i< newEpicBvs.size() ; i++) {
+				query += "(?,?,?)";
+				if (i < newEpicBvs.size() - 1) {
+					query += ",";
+				}
+			}
+			ps = DBConnectionUtil.getconnection().prepareStatement(query);
+			int c = 1;
+			for(EpicBv ebv : newEpicBvs) {
+				ps.setInt(c++, ebv.getEpicId());
+				ps.setInt(c++, ebv.getBvId());
+				ps.setString(c++, ebv.getComment());
+			}
+
+			System.out.println("inesert new epic bvs ps : " + ps.toString() );
+			int updateBvResp = ps.executeUpdate();
+			System.out.println("Update epic response : " + updateBvResp);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			response = Constants.ERROR;
+		}
+		
+		return response;
 	}
 
 }
