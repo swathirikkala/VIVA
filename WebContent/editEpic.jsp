@@ -115,7 +115,7 @@
 		 </form>
 		    <div> 
 		    	<div style="display: inline-flex;">
-		    		<button onclick="javascript:updateBvsForEpic()" style="width:auto;">Update BVs</button>
+		    		<button onclick="javascript:updateBvsForEpic()" style="width:auto;">View/update BV</button>
 		    	</div>
 			    <div style="display: inline-flex;margin-left: 25%;">
 			    	<button type="button" onclick="editSprint()" class="signupbtn" style="text-align: centre; width:100px;">Save</button>
