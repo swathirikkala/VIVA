@@ -167,26 +167,43 @@ function clearUSForm(){
 function validateUSForm(){
 	var isValid = true;
 	var errorMessage = "";
+	
+	console.log("usProjectName");
 	if($("#usProjectName").val() == "0"){
 		isValid = false;
 		errorMessage += "\r\nPlease Select Project";
 	}
+	
+	console.log("usEpicName");
 	if($("#usEpicName").val() == "0"){
 		isValid = false;
 		errorMessage += "\r\nPlease Select Epic";
 	}
+	
+	console.log("usName");
 	if($("#usName").val() == ""){
 		isValid = false;
 		errorMessage += "\r\nPlease Give User Story Name";
 	}
-	if($("#usBusinessValues").val().length == 0){
-		isValid = false;
-		errorMessage += "\r\nPlease Select Atleast one Business Value";
-	}
+	
+	console.log("usDescription");
 	if($("#usDescription").val() == ""){
 		isValid = false;
 		errorMessage += "\r\nPlease Give User Description";
 	}
+	
+	console.log("usBusinessValues");
+	var bvs = new Array();
+	$.each($("input[name='usBusinessValues']:checked"), function() {
+		bvs.push($(this).val());
+		});
+
+	console.log("usBusinessValues are : " + bvs);
+	if(bvs.length == 0){
+		isValid = false;
+		errorMessage += "\r\nPlease Select Atleast one Business Value";
+	}
+	console.log("isValid");
 	
 	if(isValid == false){
 		alert(errorMessage);
