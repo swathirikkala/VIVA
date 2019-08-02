@@ -26,6 +26,34 @@
 <html>
 	<head>
 	<script type="text/javascript">
+		
+	$("#sprintStartDate")
+	.change(
+			function() {
+				if ($("#sprintStartDate").val() !== "") {
+					if (Date.parse($("#sprintStartDate").val()) > Date
+							.parse($("#sprintEndDate").val())) {
+						alert('Sprint Start Date should not greater than End Date.');
+						$("#sprintStartDate").val("");
+					}
+				}
+			});
+
+
+	$("#sprintEndDate")
+	.change(
+			function() {
+				if ($("#sprintEndDate").val() !== "") {
+					if (Date.parse($("#sprintStartDate").val()) > Date
+							.parse($("#sprintEndDate").val())) {
+						alert('Sprint End Date should not lesser than Start Date.');
+						$("#sprintEndDate").val("");
+					}
+				}
+			});
+	
+	</script>
+	<script type="text/javascript">
 	    $(document).ready(function() {
 	    	console.log("project id in new sprint creation : " + '<%=project.getId()%>');
 	    	$("#projectName").val("<%=project.getId()%>");
