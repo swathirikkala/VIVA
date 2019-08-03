@@ -453,11 +453,11 @@ public class QueryBuilder {
 		return ps;
 	}
 
-	public static PreparedStatement getAddBvsToUsPs(int usId, String[] bvs) {
-		String query = "insert into us_bv(usid,bvid) values ";
+	public static PreparedStatement getAddBvsToUsPs(int usId, String[] bvs, String[] comments) {
+		String query = "insert into us_bv(usid,bvid, comment) values ";
 
 		for (int i = 0; i < bvs.length; i++) {
-			query += "(?,?)";
+			query += "(?,?,?)";
 			if (i < bvs.length - 1) {
 				query += ",";
 			}
@@ -466,9 +466,11 @@ public class QueryBuilder {
 		try {
 			ps = DBConnectionUtil.getconnection().prepareStatement(query);
 			int i = 0;
-			for (String bv : bvs) {
+			
+			for (int j =0 ; j< bvs.length ; j++) {
 				ps.setInt(++i, usId);
-				ps.setInt(++i, Integer.valueOf(bv));
+				ps.setInt(++i, Integer.valueOf(bvs[j]));
+				ps.setString(++i, comments[j]);
 			}
 
 			System.out.println("getAddBvsToUsPs Query : " + ps.toString());

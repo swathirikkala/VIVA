@@ -70,8 +70,12 @@ public class AddUserStoryServlet extends HttpServlet {
 			request.getSession().setAttribute("userStories",uss);
 			
 			String [] bvs = request.getParameterValues("usBusinessValues");
+			String [] comments = new String[bvs.length];
+			for(int i=0; i< bvs.length ; i++) {
+				comments[i] = request.getParameter("comment_" + bvs[i]);
+			}
 			System.out.println("bvs :::::: " + bvs);
-			String addBvsToUsResponse = usBvDao.addBvsToUs(usbn.getId(), bvs);
+			String addBvsToUsResponse = usBvDao.addBvsToUs(usbn.getId(), bvs,comments);
 			System.out.println("addBvsToUsResponse : " +addBvsToUsResponse);
 		}
 	}

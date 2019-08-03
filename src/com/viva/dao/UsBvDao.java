@@ -11,8 +11,8 @@ import com.viva.dto.UsBv;
 import com.viva.util.Constants;
 
 public class UsBvDao {
-	public String addBvsToUs(int usId, String[] bvs) {
-		PreparedStatement ps = QueryBuilder.getAddBvsToUsPs(usId, bvs);
+	public String addBvsToUs(int usId, String[] bvs, String[] comments) {
+		PreparedStatement ps = QueryBuilder.getAddBvsToUsPs(usId, bvs, comments);
 		try {
 			int executeUpdateResult = ps.executeUpdate();
 			if (executeUpdateResult > 0) {
