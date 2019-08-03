@@ -211,8 +211,17 @@
 		    		</tr>
 		    	</table>
 		    </div>
+		    
+		    <div id="usbvs" style="display: none;">
+		    	
+		    </div>
+		    
+		   	<div id="usCommentsDiv" style="display: none;">
+		   	</div>
 		  </form>
-<!-- 		    <button style="width: auto;">Add Business Value</button> -->
+		   	<div id="usBvsDiv">
+		   	</div>
+		    <button style="width: auto;" onclick="updateUsBvs();">Add Business Value</button>
 		    <div style="margin-left: 25%;display: inline-flex;">
 			    	<button type="button" class="signupbtn" style="text-align: centre; width:100px;" onclick="updateUserStory()">Save</button>
 			    	&nbsp;
@@ -220,7 +229,17 @@
 		   	</div>
 </body>
 <script type="text/javascript">
-	
+	function updateUsBvs() {
+		var epicId = $("#usId4Edit").val();
+		console.log("Selected usId4Edit values is : " + epicId);
+		if( epicId === "0"){
+			alert("Select user story for update BVs");
+		}else{
+			$("#usBvsDiv").load("assignBvsforUs.jsp",function(){openUpdateBvsForUsModalDiv();});
+		}
+	}
+</script>
+<script type="text/javascript">
 
 </script>
 

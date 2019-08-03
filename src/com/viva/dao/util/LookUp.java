@@ -8,12 +8,13 @@ import com.viva.dto.Department;
 import com.viva.dto.EpicBv;
 import com.viva.dto.Project;
 import com.viva.dto.Team;
+import com.viva.dto.UsBv;
 import com.viva.dto.User;
 
 public class LookUp {
-	public static EpicBv searchEpicBv(List<EpicBv> ebvs , int bvId) {
-		for(EpicBv ebv : ebvs) {
-			if(ebv.getBvId() == bvId)
+	public static EpicBv searchEpicBv(List<EpicBv> ebvs, int bvId) {
+		for (EpicBv ebv : ebvs) {
+			if (ebv.getBvId() == bvId)
 				return ebv;
 		}
 		return null;
@@ -94,4 +95,13 @@ public class LookUp {
 		return "";
 	}
 
+	public static UsBv searchUsBv(List<UsBv> epicBvs, int bvId) {
+		UsBv usBv = null;
+		for (UsBv ubv : epicBvs) {
+			if (ubv.getBvId() == bvId)
+				return ubv;
+		}
+		return usBv;
+
+	}
 }
