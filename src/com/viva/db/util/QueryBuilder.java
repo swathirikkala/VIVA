@@ -439,7 +439,7 @@ public class QueryBuilder {
 	}
 	
 	public static PreparedStatement getBvsByEpicIdPs(int epicId) {
-		String sql = "select * from bv where id in (select bid from epic_bv where eid = ?)";
+		String sql = "SELECT * FROM epic_bv where eid = ?";
 
 		PreparedStatement ps = null;
 		try {

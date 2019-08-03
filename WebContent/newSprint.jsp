@@ -133,9 +133,8 @@
 							console.log("Error in create new Sprint jsm : " + data + " status: " + status + " er:" + er);
 						}
 		            });
+					closeSprintModal();
 				}
-
-			closeSprintModal();
 		}
 	</script>
 	</head>

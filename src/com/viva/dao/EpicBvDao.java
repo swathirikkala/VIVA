@@ -58,12 +58,12 @@ public class EpicBvDao {
 		return epicBvs;
 	}
 
-	public List<BusinessValue> getBvsByEpicId(int epicId) {
-		List<BusinessValue> bvsByEpicId = new ArrayList<BusinessValue>();
+	public List<EpicBv> getBvsByEpicId(int epicId) {
+		List<EpicBv> bvsByEpicId = new ArrayList<EpicBv>();
 		PreparedStatement ps = QueryBuilder.getBvsByEpicIdPs(epicId);
 		try {
 			ResultSet rs = ps.executeQuery();
-			bvsByEpicId = parseEpicBvs(rs);
+			bvsByEpicId = parseBvs(rs);
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}

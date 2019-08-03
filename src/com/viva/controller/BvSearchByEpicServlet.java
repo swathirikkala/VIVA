@@ -42,7 +42,7 @@ public class BvSearchByEpicServlet extends HttpServlet {
 		} catch (NumberFormatException e) {
 			System.err.println("Error in BvSearchByEpicServlet parsing epicId");
 		}
-		 List<BusinessValue> bvsByEpicId = epicBvDao.getBvsByEpicId(epicId);
+		 List<EpicBv> bvsByEpicId = epicBvDao.getBvsByEpicId(epicId);
 		Response resp = null;
 		if(bvsByEpicId != null && !bvsByEpicId.isEmpty()) {
 			resp = ResponseBuilder.getResponse(1, "bvs",bvsByEpicId );
