@@ -112,14 +112,19 @@ public class BusinessValuesDao {
 			System.out.println("updateBvValue Query : " + ps.toString());
 			int executeUpdateResponse = ps.executeUpdate();
 			if (executeUpdateResponse > 0) {
+				
 				String userStoryVivaUpdateResponse = UserStoryDao.updateViva(usId);
 				System.out.println("userStoryVivaUpdateResponse : " + userStoryVivaUpdateResponse);
-				String projectVivaUpdateResponse = ProjectDao.updateVivaByUs(usId);
-				System.out.println("projectVivaUpdateResponse : " + projectVivaUpdateResponse);
+				
 				String sprintVivaUpdateResponse = SprintDao.updateVivaByUs(usId);
 				System.out.println("sprintVivaUpdateResponse : " + sprintVivaUpdateResponse);
+
 				String epicVivaUpdateResponse = EpicDao.updateVivaByUs(usId);
 				System.out.println("epicVivaUpdateResponse : " + epicVivaUpdateResponse);
+				
+				String projectVivaUpdateResponse = ProjectDao.updateVivaByUs(usId);
+				System.out.println("projectVivaUpdateResponse : " + projectVivaUpdateResponse);
+				
 				return Constants.SUCCESS;
 			} else {
 				return Constants.ERROR;
