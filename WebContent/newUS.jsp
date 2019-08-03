@@ -110,7 +110,9 @@
 									<td>
 										<label><%= bv.getName() %></label>
 									</td>
-									
+									<td>
+										<input type="text" id="comment_<%= bv.getId()%>" name="comment_<%= bv.getId()%>" value="<%= ""%>"/>
+									</td>
 								</tr>
 							<% } %>
 						</tbody>
@@ -317,9 +319,10 @@ $("#usEpicName").change(
 	                	console.log("BVs found");
 	                	var bvArray = [];
 						$.each(response.responseObject, function (i, bv) {
-							console.log("bv.id " + bv.id);
-							bvArray.push(bv.id);
-							$("#usBusinessValues_"+bv.id).prop("checked", true);
+							console.log("bv.id " + bv.bvId);
+							bvArray.push(bv.bvId);
+							$("#usBusinessValues_"+bv.bvId).prop("checked", true);
+							$("#comment_"+bv.bvId).val(bv.comment);
 						});
 						console.log("bvArray : " + bvArray)
 						$("#usBusinessValues").val(bvArray);

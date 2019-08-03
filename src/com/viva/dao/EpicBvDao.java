@@ -96,7 +96,8 @@ public class EpicBvDao {
 				bv.setEpicId(rs.getInt(1));
 				bv.setBvId(rs.getInt(2));
 				bv.setStatus(rs.getBoolean(3));
-				bv.setComment(rs.getString(4));
+				bv.setViva(rs.getInt(4));
+				bv.setComment(rs.getString(5));
 				bvsByEpicId.add(bv);
 			}
 		} catch (SQLException e) {
