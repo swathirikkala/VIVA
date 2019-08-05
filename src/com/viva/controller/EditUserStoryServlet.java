@@ -9,8 +9,10 @@ import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
 
+import com.viva.dao.UsBvDao;
 import com.viva.dao.UserStoryDao;
 import com.viva.dto.UserStory;
+import com.viva.util.Constants;
 import com.viva.util.DateUtil;
 
 /**
@@ -72,6 +74,18 @@ public class EditUserStoryServlet extends HttpServlet {
 		us.setLmb(String.valueOf(request.getSession().getAttribute("userId")));
 		
 		String resp = userStoryDao.updateUserStory(us);
+		if(Constants.SUCCESS.equals(resp)) {
+			String [] usBvIds = request.getParameterValues("usBvs");
+			System.out.println("selected bvs count : " + usBvIds.length);
+			
+			String [] comments = new String[usBvIds.length];
+			for(int i=0;i<usBvIds.length ; i++) {
+				comments[i] = request.getParameter("comment_"+usBvIds[i]);
+				System.out.println("Comment["+i+"] :: " + comments[i]);
+			}
+			UsBvDao usBvDao = new UsBvDao();
+			usBvDao.updateBvsOfUs(us.getId(), usBvIds, comments );
+		}
 		out.write(resp);
 	}
 

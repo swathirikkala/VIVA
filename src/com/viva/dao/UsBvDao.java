@@ -71,4 +71,49 @@ public class UsBvDao {
 		}
 		return bvs;
 	}
+	public String updateBvsOfUs(int usid, String [] bvids, String [] comments) {
+		String uids = "";
+		for(int a =0 ; a< bvids.length ; a++) {
+			uids += bvids[a];
+			if(a < bvids.length -1) {
+				uids+=" , ";
+			}
+		}
+		String sql = "delete from us_bv where bvid not in ("+uids+") and usid = " + usid;
+		String response=Constants.FAIL;
+		try {
+			int deleteResponse = DBConnectionUtil.insert(sql);
+			System.out.println("Number of bvs deleted from us is : " + deleteResponse);
+			response = Constants.SUCCESS;
+			String query = "insert into us_bv(usid,bvid,comment) values ";
+			for(int i=0; i< bvids.length ; i++) {
+				query += "(?,?,?)";
+				if (i < bvids.length - 1) {
+					query += ",";
+				}
+			}
+			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(query);
+			int c = 1;
+			for(int i = 0 ; i< bvids.length ; i++) {
+				ps.setInt(c++, usid);
+				int bvid= 0;
+				try {
+					bvid = Integer.valueOf(bvids[i]);
+				}catch(Exception e) {
+					System.out.println("Exception in bvid convertion at update us bvs");
+				}
+				ps.setInt(c++, bvid);
+				ps.setString(c++, comments[i]);
+			}
+
+			System.out.println("inesert new us bvs ps : " + ps.toString() );
+			int updateBvResp = ps.executeUpdate();
+			System.out.println("Update us bvs response : " + updateBvResp);
+		} catch (SQLException e) {
+			e.printStackTrace();
+			response = Constants.ERROR;
+		}
+		
+		return response;
+	}
 }
