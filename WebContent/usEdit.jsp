@@ -221,7 +221,7 @@
 		  </form>
 		   	<div id="usBvsDiv">
 		   	</div>
-		    <button style="width: auto;" onclick="updateUsBvs();">Add Business Value</button>
+		    <button style="width: auto;" onclick="updateUsBvs();">Add Additional Business Values</button>
 		    <div style="margin-left: 25%;display: inline-flex;">
 			    	<button type="button" class="signupbtn" style="text-align: centre; width:100px;" onclick="updateUserStory()">Save</button>
 			    	&nbsp;

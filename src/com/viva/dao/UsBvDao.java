@@ -82,8 +82,8 @@ public class UsBvDao {
 		String sql = "delete from us_bv where bvid not in ("+uids+") and usid = " + usid;
 		String response=Constants.FAIL;
 		try {
-			int deleteResponse = DBConnectionUtil.insert(sql);
-			System.out.println("Number of bvs deleted from us is : " + deleteResponse);
+//			int deleteResponse = DBConnectionUtil.insert(sql);
+//			System.out.println("Number of bvs deleted from us is : " + deleteResponse);
 			response = Constants.SUCCESS;
 			String query = "insert into us_bv(usid,bvid,comment) values ";
 			for(int i=0; i< bvids.length ; i++) {

@@ -41,9 +41,9 @@ function assignUsBvs(){
 		var bvId = $(this).val();
 		bvs.push(bvId);
 		selectedBvCbs += '<input type="checkbox" name="updatedusBvs" value="'+bvId+'" checked="checked"></br>';
-		var comment = $("#comment_"+bvId).val();
+		var comment = $("#us_comment_"+bvId).val();
 		console.log("bvId :::::::::::::::::::::: " + bvId+" , comment :: " + comment);
-		selectedBvComments += '<input type="text" name="comment_'+bvId+'" id="comment_'+bvId+'" value="'+comment+'">';
+		selectedBvComments += '<input type="text" name="updatedUsComment_'+bvId+'" id="updatedUsComment_'+bvId+'" value="'+comment+'">';
 		console.log(selectedBvCbs);
 		console.log(selectedBvComments);
 	});
@@ -81,28 +81,21 @@ $(document).ready(function() {
 						<tbody id="projectsBody">
 							<%for(BusinessValue bv: CacheUtil.allBusinessValues) {
 								UsBv usBv =  LookUp.searchUsBv(usBvs, bv.getId());
+								if(usBv == null){
 							%>
 								<tr class="row100 head">
 									<td class="column100 width50" data-column="column1">
-										<% if(usBv != null){ %>
-											<input type="checkbox" name="usBvs" value="<%=bv.getId() %>" checked="checked">
-										<%} else { %>
-											<input type="checkbox" name="usBvs" value="<%=bv.getId() %>">
-										<%} %>
+										<input type="checkbox" name="usBvs" value="<%=bv.getId() %>">
 									</td>
 									<td class="column100 width100" data-column="column2">
-										<%=bv.getName()%>
+										<%=bv.getName() %>
 									</td>
 									<td class="column100 width75" data-column="column1">
-										<% if(usBv != null){ %>
-											<input type="text" name="<%= "comment_" + bv.getId() %>" id="<%= "comment_" + bv.getId() %>" value="<%=usBv.getComment()%>">
-										<%} else { %>
-											<input type="text" name="<%= "comment_" + bv.getId() %>" id="<%= "comment_" + bv.getId() %>">
-										<%} %>
-										
+										<input type="text" name="<%= "us_comment_" + bv.getId() %>" id="<%= "us_comment_" + bv.getId() %>">
 									</td>
 								</tr>
-							<%} %>
+							<%} 
+							}%>
 						</tbody>
 					</table>
 				</div>

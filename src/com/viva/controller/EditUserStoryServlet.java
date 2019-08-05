@@ -75,12 +75,12 @@ public class EditUserStoryServlet extends HttpServlet {
 		
 		String resp = userStoryDao.updateUserStory(us);
 		if(Constants.SUCCESS.equals(resp)) {
-			String [] usBvIds = request.getParameterValues("usBvs");
+			String [] usBvIds = request.getParameterValues("updatedusBvs");
 			System.out.println("selected bvs count : " + usBvIds.length);
 			
 			String [] comments = new String[usBvIds.length];
 			for(int i=0;i<usBvIds.length ; i++) {
-				comments[i] = request.getParameter("comment_"+usBvIds[i]);
+				comments[i] = request.getParameter("updatedUsComment_"+usBvIds[i]);
 				System.out.println("Comment["+i+"] :: " + comments[i]);
 			}
 			UsBvDao usBvDao = new UsBvDao();
