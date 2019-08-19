@@ -52,7 +52,7 @@
                     <a class="hiddenanchor" id="tologin"></a>
                     <div id="wrapper">
                         <div id="login" class="animate form">
-                            <form  action="./userLogin" autocomplete="on" method="post"> 
+                            <form  action="./userLogin" autocomplete="on" method="post" autocomplete="off"> 
                                 <h1>Log in</h1> 
                                 <p> 
                                     <label for="email" class="uname" data-icon="u" > Email Id </label><label style="color: red;">&nbsp;*</label>
