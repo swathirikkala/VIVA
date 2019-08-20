@@ -74,7 +74,7 @@
 				   <label for="businessValueName"><b>Business Value Name</b></label><label style="color: red;">&nbsp;*</label>
 				   <input type="text" id="businessValueName" name = "businessValueName" required placeholder="Business Value Name">
 			      		   
-			      <label for="businessValueDescription"><b>Business Value Description</b></label><label style="color: red;">&nbsp;*</label>
+			      <label for="businessValueDescription"><b>Business Value Description</b></label>
 			      <textarea rows="4" cols="50" placeholder="Business Value Description" name="businessValueDescription" id="businessValueDescription" style="height: 100px;">
 			      </textarea>
 			      
