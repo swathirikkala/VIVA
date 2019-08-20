@@ -73,7 +73,7 @@ $(document).ready(function() {
 							</tr>
 						</thead>
 						<tbody id="projectsBody">
-							<%for(BusinessValue bv: CacheUtil.allBusinessValues) {
+							<%for(BusinessValue bv: CacheUtil.businessValues) {
 								EpicBv ebv =  LookUp.searchEpicBv(epicBvs, bv.getId());
 							%>
 								<tr class="row100 head">

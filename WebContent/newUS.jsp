@@ -29,7 +29,7 @@
 	if(null == projects){
 		projects = new ArrayList<Project>();
 	}
-	List<BusinessValue> bvs = CacheUtil.allBusinessValues;
+	List<BusinessValue> bvs = CacheUtil.businessValues;
 	int pid = 0;
 	try{
 		pid = Integer.valueOf(projectId);
@@ -101,7 +101,7 @@
 					<table data-vertable="ver2">
 						<tbody id="usBvsTbody">
 							<%	boolean isSprintAssigned = false;
-								for(BusinessValue bv : CacheUtil.allBusinessValues) {
+								for(BusinessValue bv : CacheUtil.businessValues) {
 							%>
 								<tr class="row100 head">
 									<td class="column100 width50" data-column="column1">

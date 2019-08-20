@@ -132,6 +132,30 @@
 			$("#businessValueDescription").val("");
 		}
 	</script>
+	<script type="text/javascript">
+		function updateBvStatus(bvId) {
+			 var bvStatus = $("#bv_"+bvId).val();
+			console.log("Selected bv id is : " + bvId);
+			console.log("Changed bv values : " + bvStatus);
+			$.ajax({
+                type: 'post',
+                url: './updateBvStatus',
+                data: {bvId:bvId,bvStatus:bvStatus},
+                success: function (response) {
+                   console.log("updateBvStatus call completed..... " + response);
+                   if(response === "success"){
+                	   alert("Update Success");
+                   }else{
+                	   alert("Update Fail");
+                   }
+                },
+				error : function(data, status, er) {
+					console.log("Error in updateBvStatus jsm : " + data + " status: " + status + " er:" + er);
+				
+				}
+            });
+		}
+	</script>
 	<!-- BV Table -->
 			<div class="limiter">
 				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:630px; min-height:0px; overflow-x: none;">
@@ -154,7 +178,17 @@
 
 									<td class="column100 width50" data-column="column1"><%=bv.getDescription()%></td>
 									
-									<td class="column100 width75" data-column="column1"><%=bv.isActive()%></td>
+									<td class="column100 width75" data-column="column1">
+										<select id="bv_<%=bv.getId()%>" name="bv_<%=bv.getId()%>" onchange="updateBvStatus('<%=bv.getId() %>')">
+											<%if(bv.isActive() == true){ %>
+											<option selected="selected" value="true">Active</option>
+											<option value="false">InActive</option>
+											<%}else{ %>
+											<option value="true">Active</option>
+											<option selected="selected" value="false">InActive</option>
+											<%} %>
+										</select>
+									</td>
 								</tr>
 							<%} %>
 						</tbody>

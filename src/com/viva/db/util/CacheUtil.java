@@ -32,11 +32,13 @@ public class CacheUtil {
 	public static List<Sprint> allSprints = null;
 	public static List<UserStory> allUserStories = null;
 	public static List<BusinessValue> allBusinessValues = null;
+	public static List<BusinessValue> businessValues = null;
 	public static List<User> allUsers = null;
 
 	public static Map<Integer, Project> allProjectsMap = new HashMap<Integer, Project>();
 	public static Map<Integer, Epic> allEpicsMap = new HashMap<Integer, Epic>();
 	public static Map<Integer, Sprint> allSprintsMap = new HashMap<Integer, Sprint>();
+	public static Map<Integer, BusinessValue> bVMap = new HashMap<Integer, BusinessValue>();
 	public static Map<Integer, BusinessValue> allBVMap = new HashMap<Integer, BusinessValue>();
 	public static Map<Integer, UserStory> allUserStoriesMap = new HashMap<Integer, UserStory>();
 	public static Map<String, User> allUsersMap = new HashMap<String, User>();
@@ -49,6 +51,8 @@ public class CacheUtil {
 		updateSprints();
 		updateUserStories();
 		updateBusinessValues();
+		updateAllBusinessValues();
+		
 		System.out.println("###################################################################################");
 	}
 
@@ -60,6 +64,13 @@ public class CacheUtil {
 	}
 
 	public static void updateBusinessValues() {
+		businessValues = businessValuesDao.getBusinessValues();
+		for (BusinessValue bv : businessValues) {
+			bVMap.put(bv.getId(), bv);
+		}
+	}
+
+	public static void updateAllBusinessValues() {
 		allBusinessValues = businessValuesDao.getAllBusinessValues();
 		for (BusinessValue bv : allBusinessValues) {
 			allBVMap.put(bv.getId(), bv);

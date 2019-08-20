@@ -245,18 +245,30 @@ public class QueryBuilder {
 		return query;
 	}
 
-	public static PreparedStatement getAllBusinessValuesPS() {
-		String query = "select * from bv";
+	public static PreparedStatement getBusinessValuesPS() {
+		String query = "select * from bv where status = ?";
 		PreparedStatement prepareStatement = null;
 		try {
 			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
+			prepareStatement.setBoolean(1, true);
 			System.out.println("getAllBusinessValuesPS Query : " + prepareStatement.toString());
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
 		return prepareStatement;
 	}
-
+	public static PreparedStatement getAllBusinessValuesPS() {
+		String query = "select * from bv";
+		PreparedStatement prepareStatement = null;
+		try {
+			prepareStatement = DBConnectionUtil.getconnection().prepareStatement(query);
+			prepareStatement.setBoolean(1, true);
+			System.out.println("getAllBusinessValuesPS Query : " + prepareStatement.toString());
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		return prepareStatement;
+	}
 	public static PreparedStatement getEpicsByProjectIdQuery(Integer projectId) {
 		String query = "select * from epic where project = ?";
 		PreparedStatement prepareStatement = null;

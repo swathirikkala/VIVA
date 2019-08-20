@@ -19,7 +19,7 @@
 	<body>
 	    <select class="test" multiple="multiple">
 			<option value="" disabled="disabled">Option 1</option>
-			<%for(BusinessValue bv : CacheUtil.allBusinessValues){%>
+			<%for(BusinessValue bv : CacheUtil.businessValues){%>
 	        <option value="<%=bv.getId()%>"><%=bv.getName()%></option>
 	        <%}%>
 	    </select>

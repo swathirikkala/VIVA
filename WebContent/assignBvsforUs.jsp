@@ -79,7 +79,7 @@ $(document).ready(function() {
 							</tr>
 						</thead>
 						<tbody id="projectsBody">
-							<%for(BusinessValue bv: CacheUtil.allBusinessValues) {
+							<%for(BusinessValue bv: CacheUtil.businessValues) {
 								UsBv usBv =  LookUp.searchUsBv(usBvs, bv.getId());
 								if(usBv == null){
 							%>

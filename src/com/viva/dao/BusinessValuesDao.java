@@ -8,6 +8,7 @@ import java.util.HashMap;
 import java.util.List;
 import java.util.Map;
 
+import com.viva.db.util.CacheUtil;
 import com.viva.db.util.DBConnectionUtil;
 import com.viva.db.util.QueryBuilder;
 import com.viva.dto.BusinessValue;
@@ -68,6 +69,17 @@ public class BusinessValuesDao {
 		ResultSet rs = null;
 		try {
 			rs = allBusinessValuesPS.executeQuery();
+		} catch (SQLException e) {
+			e.printStackTrace();
+		}
+		List<BusinessValue> bvs = parseBVs(rs);
+		return bvs;
+	}
+	public List<BusinessValue> getBusinessValues() {
+		PreparedStatement businessValuesPS = QueryBuilder.getBusinessValuesPS();
+		ResultSet rs = null;
+		try {
+			rs = businessValuesPS.executeQuery();
 		} catch (SQLException e) {
 			e.printStackTrace();
 		}
@@ -176,5 +188,25 @@ public class BusinessValuesDao {
 			e.printStackTrace();
 		}
 		return Constants.FAIL;
+	}
+
+	public String updateBvStatus(int bvId, boolean bvStatus) {
+		String resp = Constants.FAIL;
+		String sql = "update bv set status = ? where id = ?";
+		try {
+			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(sql);
+			ps.setBoolean(1, bvStatus);
+			ps.setInt(2, bvId);
+			System.out.println("updateBvStatus Query : " + ps.toString());
+			int updateResp = ps.executeUpdate();
+			if(updateResp>0) {
+				resp = Constants.SUCCESS;
+				CacheUtil.updateAllBusinessValues();
+			}
+		} catch (SQLException e) {
+			resp = Constants.ERROR;
+			e.printStackTrace();
+		}
+		return resp;
 	}
 }
