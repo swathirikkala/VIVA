@@ -1,3 +1,4 @@
+<%@page import="com.viva.db.util.CacheUtil"%>
 <%@page import="com.viva.dao.util.LookUp"%>
 <%@page import="com.viva.dto.Department"%>
 <%@page import="com.viva.dao.DepartmentDao"%>
@@ -9,10 +10,9 @@
     pageEncoding="UTF-8"%>
  <%
  	InvitedUser  invitedUser = (InvitedUser)request.getAttribute("invitedUser");
- 	TeamDao teamDao = new TeamDao();
- 	List<Team> teams = teamDao.getAllTeams();
  	DepartmentDao departmentDao = new DepartmentDao();
  	List<Department> departments = departmentDao.getAllDepartments();
+ 	
  %>
 <!DOCTYPE html>
 <html>
@@ -81,16 +81,16 @@
                                      value="<%=invitedUser.getUserMailId()%>"/>
                                 </p>
                                 <p> 
-                                    <label for="team" class="uname" data-icon="u">Team</label><label style="color: red;">&nbsp;*</label>
-                                    <input type="hidden" id="team" name="team" required="required"  value="<%=invitedUser.getTeam()%>"/>
-                                    <input type="text" id="teamName" name="teamName" placeholder="Team Name" required="required"   readonly="readonly"
-                                    value="<%=LookUp.getTeamName(invitedUser.getTeam(), teams)%>"/>
+                                    <label for="team" class="uname" data-icon="u">Project Name</label><label style="color: red;">&nbsp;*</label>
+                                    <input type="hidden" id="projectId" name="projectId" required="required"  value="<%=invitedUser.getProject()%>"/>
+                                    <input type="text" id="projectName" name="projectName" placeholder="Project Name" required="required"   readonly="readonly"
+                                    value="<%=LookUp.getProjectName(invitedUser.getProject(), CacheUtil.allProjects)%>"/>
                                 </p>
                                 <p> 
                                     <label for="departmentName" class="uname" data-icon="u">Department</label><label style="color: red;">&nbsp;*</label>
                                     <input type="hidden" id="department" name="department" placeholder="Department" required="required"  value="<%=invitedUser.getDepartment()%>"/>
                                     <input type="text" id="departmentName" name="departmentName" placeholder="Department" required="required"  readonly="readonly"
-                                    value="<%=LookUp.getDepartmentName(invitedUser.getDepartment(),departments)%>"/>
+                                    value="<%=invitedUser.getDepartment()%>"/>
                                 </p>
                                 <p> 
                                     <label for="designation" class="uname" data-icon="u">Designation</label><label style="color: red;">&nbsp;*</label>
@@ -103,7 +103,19 @@
                                 </p>
                                 <p> 
                                     <label for="securityQuestion" class="uname" data-icon="u">Security Question</label><label style="color: red;">&nbsp;*</label>
-                                    <input type="text" id="securityQuestion" name="securityQuestion" placeholder="Security Question" required="required"/>
+                                    <select id="securityQuestion" name="securityQuestion" required="required" style="height: 50px;width: 103%;">
+                                    	<option value="">--Select Security Question--</option>
+                                    	<option value="What was your childhood nickname?">What was your childhood nickname?</option>
+                                    	<option value="In what city did you meet your spouse/significant other?">In what city did you meet your spouse/significant other?</option>
+                                    	<option value="What is the name of your favorite childhood friend?">What is the name of your favorite childhood friend?</option>
+                                    	<option value="What street did you live on in third grade?">What street did you live on in third grade?</option>
+                                    	<option value="What is your oldest sibling’s birthday month and year? (e.g., January 1900)">What is your oldest sibling’s birthday month and year? (e.g., January 1900)</option>
+                                    	<option value="What is the middle name of your youngest child?">What is the middle name of your youngest child?</option>
+                                    	<option value="What is your oldest sibling's middle name?">What is your oldest sibling's middle name?</option>
+                                    	<option value="What school did you attend for sixth grade?">What school did you attend for sixth grade?</option>
+                                    	<option value="What was your childhood phone number including area code?"></option>
+                                    
+                                    </select>
                                 </p>
                                 <p> 
                                     <label for="securityAnswer" class="uname" data-icon="u">Security Answer</label><label style="color: red;">&nbsp;*</label>

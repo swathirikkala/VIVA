@@ -34,22 +34,22 @@ public class InviteUserServlet extends HttpServlet {
 		// TODO Auto-generated method stub
 		InvitedUser ui = new InvitedUser();
 		ui.setUserMailId(String.valueOf(request.getParameter("userEmailId")));
-		int teamId = 0;
+		int projectId = 0;
 		
 		try {
-			teamId = Integer.valueOf(request.getParameter("teamId"));
+			projectId = Integer.valueOf(request.getParameter("projectName"));
 		} catch (NumberFormatException e) {
 			System.err.println("Error in parsing team id");
 		}
-		int departmentId = 0;
+		String department = "";
 		
 		try {
-			departmentId = Integer.valueOf(request.getParameter("departmentId"));
+			department = request.getParameter("departmentId");
 		} catch (NumberFormatException e) {
 			System.err.println("Error in parsing team id");
 		}
-		ui.setTeam(teamId);
-		ui.setDepartment(departmentId);
+		ui.setProject(projectId);
+		ui.setDepartment(department);
 		ui.setToken(RandomString.getToken());
 		ui.setInvitedBy((String)request.getSession().getAttribute("userId"));
 		ui.setInvitedOn(DateUtil.getSqlDate());

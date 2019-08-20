@@ -18,8 +18,8 @@ public class InvitedUserDao {
 		try {
 			PreparedStatement ps = DBConnectionUtil.getconnection().prepareStatement(query);
 			ps.setString(1, iu.getUserMailId());
-			ps.setInt(2, iu.getTeam());
-			ps.setInt(3, iu.getDepartment());
+			ps.setInt(2, iu.getProject());
+			ps.setString(3, iu.getDepartment());
 			ps.setString(4, "invited");
 			ps.setString(5, iu.getToken());
 			ps.setString(6, iu.getInvitedBy());
@@ -65,8 +65,8 @@ public class InvitedUserDao {
 			while(rs!=null && rs.next()) {
 				InvitedUser iu = new InvitedUser();
 				iu.setUserMailId(rs.getString(1));
-				iu.setTeam(rs.getInt(2));
-				iu.setDepartment(rs.getInt(3));
+				iu.setProject(rs.getInt(2));
+				iu.setDepartment(rs.getString(3));
 				iu.setStatus(rs.getString(4));
 				iu.setToken(rs.getString(5));
 				iu.setInvitedBy(rs.getString(6));

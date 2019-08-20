@@ -27,9 +27,9 @@ public class QueryBuilder {
 
 	public static String getRegisterUserQuery(User user) {
 		String query = "insert into user values ('" + user.getEmailId() + "','" + user.getFirstName() + "','"
-				+ user.getLastName() + "','" + user.getDob() + "'," + user.getDepartment() + ",'"
+				+ user.getLastName() + "','" + user.getDob() + "',5,'"
 				+ user.getDesignation() + "','" + user.getPassword() + "','" + user.getSecurityQuestion() + "','"
-				+ user.getSecurityAnswer() + "',"+user.getTeam()+")";
+				+ user.getSecurityAnswer() + "',"+user.getProject()+")";
 		return query;
 	}
 

@@ -8,7 +8,12 @@
         <meta charset="UTF-8" />
         
 <%
-
+	String regResp  =null;
+	try{
+	 regResp = (String)request.getSession().getAttribute("response");
+	}catch(Exception e){
+		
+	}
 %>
         <title>VIVA</title>
         <meta name="viewport" content="width=device-width, initial-scale=1.0"> 
@@ -25,8 +30,32 @@
 
 <script type="text/javascript">
 	$(document).ready(function() {
-	
+		<% if(regResp != null){%>
+			alert("Registration : <%=regResp%>");
+		<%}%>
 	});
+</script>
+<script type="text/javascript">
+	function forgotPassword() {
+		var emailId = $("#loginEmailId").val();
+		console.log("Forgot Password got called : " + emailId);
+		if($.trim(emailId) == ""){
+			alert("enter email id");
+		}else{
+			alert("Check your mail for password");
+			$.ajax({
+				type: 'post',
+				url: './forgotPassword',
+				data: {emailId:emailId},
+				success: function (response) {
+					console.log("forgot password call completed..... " + response);
+				},
+				error : function(data, status, er) {
+					console.log("Error in forgot password jsm : " + data + " status: " + status + " er:" + er);
+				}
+			});
+		}
+	}
 </script>
 
     </head>
@@ -65,6 +94,9 @@
                                 <p class="login button"> 
                                     <input type="submit" value="Login" /> 
 								</p>
+                                <p class="login button">
+                                	<a href="javascript:void(0)" onclick="forgotPassword();">forgot password</a>
+                                </p>
                             </form>
                         </div>
 						

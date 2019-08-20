@@ -2,6 +2,7 @@ package com.viva.controller;
 
 import java.io.IOException;
 
+import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
 import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
@@ -38,29 +39,28 @@ public class RegistrationServlet extends HttpServlet {
 			user.setLastName(String.valueOf(request.getParameter("lastName")));
 			user.setDob(String.valueOf(request.getParameter("dob")));
 			user.setEmailId(String.valueOf(request.getParameter("emailId")));
-			user.setDepartment(Integer.valueOf(request.getParameter("department")));
+			user.setDepartment(request.getParameter("department"));
 			user.setDesignation(String.valueOf(request.getParameter("designation")));
 			user.setPassword(String.valueOf(request.getParameter("password")));
 			user.setSecurityQuestion(String.valueOf(request.getParameter("securityQuestion")));
 			user.setSecurityAnswer(String.valueOf(request.getParameter("securityAnswer")));
-			int team = 0;
+			int project = 0;
 			try {
-				Integer.valueOf(request.getParameter("teamName"));
+				project = Integer.valueOf(request.getParameter("projectId"));
 			} catch (Exception e) {
-				System.err.println("Team id parsing error");
+				System.err.println("projectId parsing error");
 			}
-			user.setTeam(team); 
+			user.setProject(project); 
+			UserDao dao = new UserDao();
+			String registerUserResponse = dao.registerUser(user);
+			
+			request.getSession().setAttribute("response", registerUserResponse);
+//			
+			RequestDispatcher requestDispatcher = request.getRequestDispatcher("./index.jsp");
+	        requestDispatcher.forward(request, response);
 		} catch (Exception e) {
 			System.err.println("Error in user obejct creation in RegistrationServlet " + e.getMessage());
 		}
-		
-		UserDao dao = new UserDao();
-		String registerUserResponse = dao.registerUser(user);
-		
-		request.getSession().setAttribute("response", registerUserResponse);
-//		
-//		RequestDispatcher requestDispatcher = request.getRequestDispatcher("./index.jsp");
-//        requestDispatcher.forward(request, response);
 
 	}
 

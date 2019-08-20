@@ -81,16 +81,16 @@
                                      value="<%=invitedUser.getUserMailId()%>"/>
                                 </p>
                                 <p> 
-                                    <label for="team" class="uname" data-icon="u">Team</label><label style="color: red;">&nbsp;*</label>
-                                    <input type="hidden" id="team" name="team" required="required"  value="<%=invitedUser.getTeam()%>"/>
-                                    <input type="text" id="teamName" name="teamName" placeholder="Team Name" required="required"   readonly="readonly"
-                                    value="<%=LookUp.getTeamName(invitedUser.getTeam(), teams)%>"/>
+                                    <label for="team" class="uname" data-icon="u">Project</label><label style="color: red;">&nbsp;*</label>
+                                    <input type="hidden" id="projectId" name="projectId" required="required"  value="<%=invitedUser.getProject()%>"/>
+                                    <input type="text" id="projectName" name="projectName" placeholder="Project Name" required="required"   readonly="readonly"
+                                    value="<%=LookUp.getProjectName(invitedUser.getProject(), CacheUtil.allProjects)%>"/>
                                 </p>
                                 <p> 
                                     <label for="departmentName" class="uname" data-icon="u">Department</label><label style="color: red;">&nbsp;*</label>
                                     <input type="hidden" id="department" name="department" placeholder="Department" required="required"  value="<%=invitedUser.getDepartment()%>"/>
                                     <input type="text" id="departmentName" name="departmentName" placeholder="Department" required="required"  readonly="readonly"
-                                    value="<%=LookUp.getDepartmentName(invitedUser.getDepartment(),departments)%>"/>
+                                    value="<%=invitedUser.getDepartment()%>"/>
                                 </p>
                                 <p> 
                                     <label for="designation" class="uname" data-icon="u">Designation</label><label style="color: red;">&nbsp;*</label>

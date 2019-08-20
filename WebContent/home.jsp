@@ -73,7 +73,7 @@ $(document).ready(function() {
 	var uname = '<%=userName%>';
 	console.log("user name : " + uname);
 	if("null" === uname ){
-		alert("Session expired please login again.");
+		alert("Login Failed, please login again.");
 		window.location="./index.jsp";
 	}
 });

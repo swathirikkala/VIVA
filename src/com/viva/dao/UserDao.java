@@ -13,20 +13,21 @@ import com.viva.db.util.QueryBuilder;
 import com.viva.dto.History;
 import com.viva.dto.Response;
 import com.viva.dto.User;
+import com.viva.util.Constants;
 import com.viva.util.DateUtil;
 
 public class UserDao {
 	HistoryDao historyDao = new HistoryDao();
 
 	public String registerUser(User user) {
-		String response = "fail";
+		String response = Constants.FAIL;
 		int saveDBResponse = DBConnectionUtil.insert(QueryBuilder.getRegisterUserQuery(user));
 		if (saveDBResponse > 0) {
 			History history = new History(0, 1, "nu", "Created", DateUtil.getSqlDate(), "admin@mail.com");
-			response = "success";
+			response = Constants.SUCCESS;
 			historyDao.addHistory(history);
 		} else if (saveDBResponse < 0) {
-			response = "exception";
+			response =Constants.ERROR;
 		}
 		return response;
 	}
@@ -55,7 +56,7 @@ public class UserDao {
 				user.setFirstName(rs.getString(2));
 				user.setLastName(rs.getString(3));
 				user.setDob(rs.getString(4));
-				user.setDepartment(rs.getInt(5));
+				user.setDepartment(rs.getString(5));
 				user.setDesignation(rs.getString(6));
 				user.setPassword(rs.getString(7));
 				user.setSecurityQuestion(rs.getString(8));

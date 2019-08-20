@@ -1,4 +1,6 @@
 
+<%@page import="com.viva.db.util.CacheUtil"%>
+<%@page import="com.viva.dto.Project"%>
 <%@page import="com.viva.dto.Department"%>
 <%@page import="com.viva.dto.Team"%>
 <%@page import="com.viva.dao.DepartmentDao"%>
@@ -13,8 +15,12 @@
 	DepartmentDao departmentDao = new DepartmentDao();
 	String userId = String.valueOf(request.getSession().getAttribute("userId"));
 	String userName = String.valueOf(request.getSession().getAttribute("userName"));
-	List<Team> teams = teamDao.getAllTeams();
-	List<Department> departments = departmentDao.getAllDepartments();
+// 	List<Team> teams = teamDao.getAllTeams();
+// 	List<Department> departments = departmentDao.getAllDepartments();
+	List<Project> allProjects = CacheUtil.allProjects;
+	if(allProjects == null){
+		allProjects = new ArrayList<Project>();
+	}
 %>
 <!DOCTYPE html>
 <html>
@@ -43,24 +49,45 @@
 			   <label for="userEmailId"><b>User Email Id</b></label>
 		       <input type="text" id="userEmailId" name="userEmailId" required="required">
 		      
-		      <label for="teamId"><b>Team Name</b></label><label style="color: red;">&nbsp;*</label>
-		      <select id="teamId" name = "teamId" >
-		       <option value="0" selected="selected">--Select Team--</option>
-		      <%for(Team t : teams){%>
-		      		<option value="<%= t.getTeamId()%>"><%= t.getTeamName()%></option>
-		      <%}%>
+<!-- 		      <label for="teamId"><b>Team Name</b></label><label style="color: red;">&nbsp;*</label> -->
+<!-- 		      <select id="teamId" name = "teamId" > -->
+<!-- 		       <option value="0" selected="selected">--Select Team--</option> -->
+<%-- 		      <%for(Team t : teams){%> --%>
+<%-- 		      		<option value="<%= t.getTeamId()%>"><%= t.getTeamName()%></option> --%>
+<%-- 		      <%}%> --%>
+<!-- 		      </select> -->
+		      
+			   <label for="projectName"><b>Project Name</b></label><label style="color: red;">&nbsp;*</label>
+			   <select id="projectName" name = "projectName" required>
+				   <option value="0">--Select Project--</option>
+			      	<%for(Project prj : allProjects){%>
+			      	<option value="<%= prj.getId()%>"><%= prj.getName()%></option>
+			      	<%}%>
 		      </select>
+		      		   
 		     
 		     <label for="departmentId"><b>Department Name</b></label><label style="color: red;">&nbsp;*</label>
 			     <select id="departmentId" name = "departmentId" required>
-		      		<option value="0">--Select--</option>
-		      		<% for(Department d : departments){%>
-		      		<option value="<%=d.getId()%>"><%=d.getName()%></option>
-		      		<%} %>
+		      		<option value="0">--Select Department--</option>
+			   		<option value="Product">Product</option>
+			   		<option value="Development">Development</option>
+			   		<option value="Project manager">Project manager</option>
+			   		<option value="Testing">Testing</option>
+		      		
 		     	 </select>
 		      
 			   <label for="designation"><b>Designation</b></label>
-		       <input type="text" id="designation" name="designation" required="required">
+			   <select id="designation" name="designation">
+			   		<option value="0">--Select Designation--</option>
+			   		<option value="Project Owner">Project Owner</option>
+			   		<option value="Tester">Tester</option>
+			   		<option value="Architect">Architect</option>
+			   		<option value="Business analyst">Business analyst</option>
+			   		<option value="Agile manager">Agile manager</option>
+			   		<option value="Developer">Developer</option>
+			   		<option value="Operations manager">Operations manager</option>
+			   		<option value="Project Manager">Project Manager</option>
+			   </select>
 		      <div class="clearfix">
 		        <button type="button" onclick="javascript:closeUserInvitePopup()" class="cancelbtn">Cancel</button>
 		        <button type="submit" class="signupbtn" onclick="inviteUser()">Invite</button>
@@ -83,6 +110,7 @@
 			console.log("closeUserInvitePopup got called");
 			document.getElementById('userInviteModalDiv').style.display='none';
 		}
+		
 		function clearUserInviteForm(){
 			$("#userEmailId").val("");
 			$("#teamId").val("0");
@@ -98,13 +126,17 @@
 				isValid = false;
 				errorMessage += "\r\n Please fill email id";
 			}
-			if($("#teamId").val() === "0"){
+			if($("#projectName").val() === "0"){
 				isValid = false;
-				errorMessage += "\r\n Please Select team Name";
+				errorMessage += "\r\n Please Select Project Name";
 			}
 			if($("#departmentId").val() === "0"){
 				isValid = false;
 				errorMessage += "\r\n Please Select Department Name";
+			}
+			if($("#designation").val() == "0"){
+				isValid = false;
+				errorMessage += "\r\n Please Select Designation Name";
 			}
 			if(isValid == false){
 				alert(errorMessage);
@@ -136,10 +168,11 @@
 					
 					}
 	            });
+
+				closeUserInvitePopup();
 			}else{
 				console.log("Invalid form");
 			}
-			closeUserInvitePopup();
 	}
 	</script>
 
