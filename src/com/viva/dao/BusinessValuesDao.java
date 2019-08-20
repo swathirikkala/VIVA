@@ -201,7 +201,7 @@ public class BusinessValuesDao {
 			int updateResp = ps.executeUpdate();
 			if(updateResp>0) {
 				resp = Constants.SUCCESS;
-				CacheUtil.updateAllBusinessValues();
+				CacheUtil.updateBusinessValues();
 			}
 		} catch (SQLException e) {
 			resp = Constants.ERROR;
