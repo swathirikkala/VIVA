@@ -123,11 +123,12 @@
 					data: $("form[name=newSprintForm]").serialize(),
 					success: function (response) {
 							console.log("Sprint creation call completed..... " + response);
-							if(response === "success"){
-			                	   alert("Sprint creation Success");
+							if(response == "exist") {
+								alert("Sprint name duplicate in this project");
 							}else{
-			                	   alert("Sprint creation Failed");
+								alert("Sprint Creation " + response);
 							}
+							closeSprintModal();
 		                },
 						error : function(data, status, er) {
 							console.log("Error in create new Sprint jsm : " + data + " status: " + status + " er:" + er);

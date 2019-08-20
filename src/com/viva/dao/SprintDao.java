@@ -15,12 +15,23 @@ import com.viva.util.Constants;
 public class SprintDao {
 
 	public String addSprint(Sprint sprint) {
-		int addSprintResponse = DBConnectionUtil.insert(QueryBuilder.getAddSprintQuery(sprint));
-		if (addSprintResponse > 0) {
-			CacheUtil.updateSprints();
-			return "success";
+		String sql = "select * from sprint where name = '"+ sprint.getSprintName()+"' and project = " + sprint.getProjectId();
+		ResultSet data = DBConnectionUtil.getData(sql);
+		try {
+			if(data != null && data.next()) {
+				return Constants.RECORD_EXIST;
+			}else {
+				int addSprintResponse = DBConnectionUtil.insert(QueryBuilder.getAddSprintQuery(sprint));
+				if (addSprintResponse > 0) {
+					CacheUtil.updateSprints();
+					return Constants.SUCCESS;
+				}
+			}
+		} catch (SQLException e) {
+			e.printStackTrace();
 		}
-		return "fail";
+		
+		return Constants.FAIL;
 	}
 
 	public List<Sprint> getSpintsByProject(String projectId) {
