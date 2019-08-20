@@ -134,7 +134,7 @@
 		if( epicId === "0"){
 			alert("Select Epic for update BVs");
 		}else{
-			$("#epicBvsDiv").load("assignBvsforEpic.jsp",function(){openUpdateBvsForUsModalDiv();});
+			$("#epicBvsDiv").load("assignBvsforEpic.jsp",function(){openUpdateBvsForEpicModalDiv();});
 		}
 	}
 </script>		    

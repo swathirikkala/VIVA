@@ -19,10 +19,12 @@
 <meta charset="UTF-8">
 <script type="text/javascript">
 function openUpdateBvsForEpicModalDiv(){
+	console.log("openUpdateBvsForEpicModalDiv got called");
 	closeUpdateBvsForEpicModalDiv();
 	document.getElementById('updateBvsForEpicModalDiv').style.display='block';
 }
 function closeUpdateBvsForEpicModalDiv(){
+	console.log("closeUpdateBvsForEpicModalDiv got called");
 	document.getElementById('updateBvsForEpicModalDiv').style.display='none';
 	
 }
@@ -47,7 +49,7 @@ function assignBvs(){
 }
 
 $(document).ready(function() {
-	
+	console.log("assignBvsforEpic.jsp loaded ....");
 });
 </script>
 </head>
