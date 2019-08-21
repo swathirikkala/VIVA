@@ -99,7 +99,7 @@ function loadPage(diveName,pageName) {
         success: function (response) {
            console.log("clearSession completed..... " + response);
 	       	$("#"+diveName).empty();
-	       	$("#"+diveName).load(pageName);
+	       	$("#"+diveName).load(pageName,function(){console.log(pageName+" loaded ..");});
         },
 		error : function(data, status, er) {
 			console.log("Error in clearSession jsm : " + data + " status: " + status + " er:" + er);

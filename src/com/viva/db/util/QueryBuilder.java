@@ -391,11 +391,11 @@ public class QueryBuilder {
 		return ps;
 	}
 
-	public static PreparedStatement getAddBvsToEpicPs(int epicId, String[] bvs) {
-		String query = "insert into epic_bv(eid,bid) values ";
+	public static PreparedStatement getAddBvsToEpicPs(int epicId, String[] bvs, String[] comments) {
+		String query = "insert into epic_bv(eid,bid,comment) values ";
 
 		for (int i = 0; i < bvs.length; i++) {
-			query += "(?,?)";
+			query += "(?,?,?)";
 			if (i < bvs.length - 1) {
 				query += ",";
 			}
@@ -404,9 +404,11 @@ public class QueryBuilder {
 		try {
 			ps = DBConnectionUtil.getconnection().prepareStatement(query);
 			int i = 0;
-			for (String bv : bvs) {
+			
+			for (int j =0 ; j< bvs.length ; j++) {
 				ps.setInt(++i, epicId);
-				ps.setInt(++i, Integer.valueOf(bv));
+				ps.setInt(++i, Integer.valueOf(bvs[j]));
+				ps.setString(++i, comments[j]);
 			}
 
 			System.out.println("getAddBvsToEpicPs Query : " + ps.toString());

@@ -14,8 +14,8 @@ import com.viva.util.Constants;
 
 public class EpicBvDao {
 
-	public String addBvsToEpic(int epicId, String[] bvs) {
-		PreparedStatement ps = QueryBuilder.getAddBvsToEpicPs(epicId, bvs);
+	public String addBvsToEpic(int epicId, String[] bvs, String[] comments) {
+		PreparedStatement ps = QueryBuilder.getAddBvsToEpicPs(epicId, bvs, comments);
 		try {
 			int executeUpdateResult = ps.executeUpdate();
 			if (executeUpdateResult > 0) {

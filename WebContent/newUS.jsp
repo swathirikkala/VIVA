@@ -111,7 +111,7 @@
 										<label><%= bv.getName() %></label>
 									</td>
 									<td>
-										<input type="text" id="comment_<%= bv.getId()%>" name="comment_<%= bv.getId()%>" value="<%= ""%>"/>
+										<input type="text" id="comment_<%= bv.getId()%>" name="comment_<%= bv.getId()%>" value="<%=""%>" placeholder="add Comment here"/>
 									</td>
 								</tr>
 							<% } %>
