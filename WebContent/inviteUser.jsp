@@ -67,14 +67,15 @@
 		      		   
 		     
 		     <label for="departmentId"><b>Department Name</b></label><label style="color: red;">&nbsp;*</label>
-			     <select id="departmentId" name = "departmentId" required>
-		      		<option value="0">--Select Department--</option>
-			   		<option value="Product">Product</option>
-			   		<option value="Development">Development</option>
-			   		<option value="Project manager">Project manager</option>
-			   		<option value="Testing">Testing</option>
+<!-- 			     <select id="departmentId" name = "departmentId" required> -->
+<!-- 		      		<option value="0">--Select Department--</option> -->
+<!-- 			   		<option value="Product">Product</option> -->
+<!-- 			   		<option value="Development">Development</option> -->
+<!-- 			   		<option value="Project manager">Project manager</option> -->
+<!-- 			   		<option value="Testing">Testing</option> -->
 		      		
-		     	 </select>
+<!-- 		     	 </select> -->
+				<input type="text" id="departmentId" name = "departmentId" placeholder="department name" required/>
 		      
 			   <label for="designation"><b>Designation</b></label>
 			   <select id="designation" name="designation">

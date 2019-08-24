@@ -73,6 +73,41 @@
 // 			}
 		}
 	</script>
+	<script type="text/javascript">
+	function clearProjectSearchValues() {
+		console.log("clear Project Search Values got called ..........");
+		$("#projectId").val("0");
+		$("#projectStatus").val("select");
+		$("#projectViva").val("0");
+		$("#projectSearchStartDate").val("");
+		$("#projectSearchEndDate").val("");
+		$("#createdByName").val("");
+	}
+	$("#projectSearchStartDate")
+	.change(
+			function() {
+				if ($("#projectSearchStartDate").val() !== "") {
+					if (Date.parse($("#projectSearchStartDate").val()) > Date
+							.parse($("#projectSearchEndDate").val())) {
+						alert('Project Start Date should not greater than End Date.');
+						$("#projectSearchStartDate").val("");
+					}
+				}
+			});
+
+
+	$("#projectSearchEndDate")
+	.change(
+			function() {
+				if ($("#projectSearchEndDate").val() !== "") {
+					if (Date.parse($("#projectSearchStartDate").val()) > Date
+							.parse($("#projectSearchEndDate").val())) {
+						alert('Project End Date should not lesser than Start Date.');
+						$("#projectSearchEndDate").val("");
+					}
+				}
+			});
+	</script>
 </head>
 <body style="margin-top: 5%">
 		<label class="w3-xxxlarge w3-text-red"><b>Project</b></label>
@@ -134,7 +169,7 @@
 		    				<label>Project start date</label>
 		    			</th>
 		    			<td class="cellClass">
-					    	<input type="date" placeholder="DD/MM/YYYY" name="projectStartDate" id="projectStartDate"  class="">
+					    	<input type="date" placeholder="DD/MM/YYYY" name="projectSearchStartDate" id="projectSearchStartDate"  class="">
 		    			</td>
 		    		</tr>
 		    		<tr>
@@ -153,7 +188,7 @@
 		    				<label>Project End date</label>
 		    			</th>
 		    			<td class="cellClass">
-					    	<input type="date" placeholder="DD/MM/YYYY" name="projectEndDate" id="projectEndDate"  class="">
+					    	<input type="date" placeholder="DD/MM/YYYY" name="projectSearchEndDate" id="projectSearchEndDate"  class="">
 		    			</td>
 		    		</tr>
 		    	</table>

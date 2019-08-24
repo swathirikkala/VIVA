@@ -106,7 +106,13 @@
 		}
 		
 	</script>
-
+<script type="text/javascript">
+	function clearEditProjectChanges() {
+		console.log("clearEditProjectChanges got called ....... ");
+		$("#commonDiv").empty();
+       	$("#commonDiv").load('projectEditHome.jsp',function(){console.log("Project Edit PAge Loaded ...")});
+	}
+</script>
 </head>
 <body>
 <h1 class="w3-xxxlarge w3-text-red"><b>Project View/Edit</b></h1>
@@ -220,7 +226,7 @@
 			    <div style="display: inline-flex;margin-left: 30%;">
 			    <button type="button" class="signupbtn" style="text-align: centre; width:100px;" onclick="updateProject()">Save</button>
 			    	&nbsp;
-			    <button type="button" onclick="clearProjectEditFields();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
+			    <button type="button" onclick="clearEditProjectChanges();" class="cancelbtn" style="text-align: centre; width:155px;margin-left: 5px;">Cancel Changes</button>
 		   	</div>
 		   	</div>
 </body>

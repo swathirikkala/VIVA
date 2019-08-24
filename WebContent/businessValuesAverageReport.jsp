@@ -74,6 +74,7 @@
 	<body>
 
 		<!-- User Story Table -->
+		<label class="w3-xxxlarge" style="color: green;">Business Values Average Report</label>
 			<div class="limiter" style="width: 150%;">
 				<div class="table100 ver2 m-b-110" style="overflow:scroll; max-height:500px; min-height:0px; overflow-x: none;">
 					<table data-vertable="ver2">

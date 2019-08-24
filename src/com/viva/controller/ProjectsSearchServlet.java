@@ -42,8 +42,8 @@ public class ProjectsSearchServlet extends HttpServlet {
 			System.out.println(e.getMessage());
 		}
 		project.setStatus(String.valueOf(request.getParameter("projectStatus")));
-		project.setStartDate(String.valueOf(request.getParameter("projectStartDate")));
-		project.setEndDate(String.valueOf(request.getParameter("projectEndDate")));
+		project.setStartDate(String.valueOf(request.getParameter("projectSearchStartDate")));
+		project.setEndDate(String.valueOf(request.getParameter("projectSearchEndDate")));
 		try {
 			project.setViva(String.valueOf(request.getParameter("projectViva")));
 		} catch (NumberFormatException e) {

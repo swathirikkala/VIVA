@@ -70,6 +70,7 @@
 	
 	</script>
 		<script type="text/javascript">
+		
 			function editSprint() {
 				console.log("editSprint got called");
 				console.log($("form[name=newEpicForm]").serialize());
@@ -91,6 +92,18 @@
 						
 						}
 		            });
+			}
+		</script>
+		<script type="text/javascript">
+			function clearSprintEditChanges() {
+				console.log("clearSprintEditChanges() got called .......");
+			}
+		</script>
+		<script type="text/javascript">
+			function cancelSprintChanges() {
+				console.log("cancelSprintChanges()");
+				$("#sprintEditDiv").empty();
+				$("#sprintEditDiv").load('./sprintEdit.jsp');
 			}
 		</script>
 	</head>
@@ -199,7 +212,7 @@
 			    <div style="display: inline-flex;margin-left: 30%;">
 				    <button type="button" onclick="editSprint()" class="signupbtn" style="text-align: centre; width:150px;">Save</button>
 				    	&nbsp;
-				    <button type="button" onclick="clearProjectEditFields();" class="cancelbtn" style="text-align: centre; width:150px;margin-left: 5px;">Clear Changes</button>
+				    <button type="button" onclick="cancelSprintChanges();" class="cancelbtn" style="text-align: centre; width:155px;margin-left: 5px;">Cancel Changes</button>
 			   	</div>
 		   	</div>
 

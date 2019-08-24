@@ -1,12 +1,4 @@
-function clearProjectSearchValues() {
-	console.log("clearProjectSearchValues got called");
-	$("#projectId").val("0");
-	$("#projectStatus").val("select");
-	$("#projectViva").val("0");
-	$("#projectStartDate").val("");
-	$("#projectEndDate").val("");
-	$("#createdByName").val("");
-}
+
 
 function isValidForm() {
 	var isValid = false;
@@ -32,8 +24,6 @@ function isValidForm() {
 	console.log("isValidForm() : " + isValid);
 	return isValid;
 }
-
-
 
 
 $("#projectStartDate")

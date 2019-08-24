@@ -22,7 +22,13 @@
 	}
 %>
 <meta charset="UTF-8">
-
+<script>
+function clearEpicUpdateChanges(){
+	console.log("clearEpicUpdateChanges got called ............");
+	$("#epicEditDiv").empty();
+	$("#epicEditDiv").load('./editEpic.jsp');
+}
+</script>
 <h1 class="w3-xxxlarge w3-text-red"><b>Epic Edit Form </b></h1>
 		
 		<form method="post" name="epicEditForm" id="epicEditForm">
@@ -120,11 +126,9 @@
 			    <div style="display: inline-flex;margin-left: 25%;">
 			    	<button type="button" onclick="editSprint()" class="signupbtn" style="text-align: centre; width:100px;">Save</button>
 			    	&nbsp;
-			    	<button type="button" onclick="clearEpicEditFields();" class="cancelbtn" style="text-align: centre; width:100px;margin-left: 5px;">Clear</button>
+			    	<button type="button" onclick="clearEpicUpdateChanges();" class="cancelbtn" style="text-align: centre; width:155px;margin-left: 5px;">Cancel Changes</button>
 		    </div>
 		   	</div>
-		   	
-		    
 		   	<div id="epicBvsDiv">
 		   	</div>
 <script type="text/javascript">
