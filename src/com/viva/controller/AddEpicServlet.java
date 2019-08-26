@@ -58,11 +58,14 @@ public class AddEpicServlet extends HttpServlet {
 		if(addEpicResponse>0) {
 			String [] bvs = request.getParameterValues("epicBusinessValues");
 			System.out.println("bvs :::::: " + bvs);
+			if(bvs!=null) {
 			String [] comments = new String[bvs.length];
 			for(int i=0; i< bvs.length ; i++) {
-				comments[i] = request.getParameter("comment_" + bvs[i]);
+				 String comment = request.getParameter("comment_" + bvs[i]);
+				 comments[i] = comment != null ? comment : "";
 			}
 			epicBvDao.addBvsToEpic(addEpicResponse, bvs,comments);
+			}
 		}
 		if(addEpicResponse > 0) {
 			response.getWriter().write(Constants.SUCCESS);
