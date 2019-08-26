@@ -72,51 +72,55 @@
 		}
 	</script>
 	<script type="text/javascript">
-		function validateSprintForm() {
-			console.log("Sprint Validation got called .....");
-			var errorMessage = "";
-			var isValid = true;
-			
-			if($("#projectName").val() == "0"){
-				errorMessage += "\r\n Please Select Project Name";
-				isValid = false;
-			}
-			if($("#sprintName").val() == ""){
-				errorMessage += "\r\n Please Give Sprint Name";
-				isValid = false;
-			}
-			if($("#sprintStartDate").val() == ""){
-				errorMessage += "\r\n Please Select Sprint Start Date";
-				isValid = false;
-			}
-			if($("#sprintEndDate").val() == ""){
-				errorMessage += "\r\n Please Select Sprint End Name";
-				isValid = false;
-			}
-			if($("#sprintDescription").val() == ""){
-				errorMessage += "\r\n Please Give Sprint Description";
-				isValid = false;
-			}
-			console.log("validateSprintForm error message : " + errorMessage);
-			if(isValid == false){
-				alert(errorMessage);
-			}
-			return isValid;
-		}
+		
 	</script>
 
 	<script type="text/javascript">
+	function validateSprintForm() {
+		
+		console.log("Sprint Validation got called .....");
+		var errorMessage = "";
+		var isValidateSprintForm = true;
+		
+		if($("#projectName").val() == "0"){
+			errorMessage += "\r\n Please Select Project Name";
+			isValidateSprintForm = false;
+		}
+		if($("#sprintName").val() == ""){
+			errorMessage += "\r\n Please Give Sprint Name";
+			isValidateSprintForm = false;
+		}
+		if($("#sprintStartDate").val() == ""){
+			errorMessage += "\r\n Please Select Sprint Start Date";
+			isValidateSprintForm = false;
+		}
+		if($("#sprintEndDate").val() == ""){
+			errorMessage += "\r\n Please Select Sprint End Name";
+			isValidateSprintForm = false;
+		}
+		if($("#sprintDescription").val() == ""){
+			errorMessage += "\r\n Please Give Sprint Description";
+			isValidateSprintForm = false;
+		}
+		console.log("validateSprintForm error message : " + errorMessage);
+		
+		if(isValidateSprintForm == false){
+			alert(errorMessage);
+		}
+		return isValidateSprintForm;
+	}
+	
 		function createSprint() {
-			console.log("createSprint got called");
-			//console.log($("form[name=newSprintForm]").serialize());
-			console.log("Sprint Validation got called .....");
+			
+			console.log("............ Sprint Validation got called .....");
 			
 			var isValidSprintForm = validateSprintForm();
 			console.log("isValidSprintForm : " + isValidSprintForm);
 			
 			if(isValidSprintForm == false){
-				console.log("Form validation : ");
-			}else{
+				console.log("Form validation : " +isValidSprintForm);
+				return;
+			}
 				$.ajax({
 					type: 'post',
 					url: './addSprint',
@@ -134,7 +138,6 @@
 							console.log("Error in create new Sprint jsm : " + data + " status: " + status + " er:" + er);
 						}
 		            });
-				}
 		}
 	</script>
 	</head>

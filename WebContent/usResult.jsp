@@ -65,29 +65,29 @@
 			}
 		</style>
 		<script type="text/javascript">
-			function createSprint() {
-				console.log("createSprint got called");
-				console.log($("form[name=newSprintForm]").serialize());
+// 			function createSprint() {
+// 				console.log("createSprint got called");
+// 				console.log($("form[name=newSprintForm]").serialize());
 	          
-					$.ajax({
-		                type: 'post',
-		                url: './addSprint',
-		                data: $("form[name=newSprintForm]").serialize(),
-		                success: function (response) {
-		                   console.log("Sprint creation call completed..... " + response);
-							if(response == "exist") {
-								alert("Sprint name duplicate in this project");
-							}else{
-								alert("Sprint Creation " + response);
-							}
-		                },
-						error : function(data, status, er) {
-							console.log("Error in create new Sprint jsm : " + data + " status: " + status + " er:" + er);
+// 					$.ajax({
+// 		                type: 'post',
+// 		                url: './addSprint',
+// 		                data: $("form[name=newSprintForm]").serialize(),
+// 		                success: function (response) {
+// 		                   console.log("Sprint creation call completed..... " + response);
+// 							if(response == "exist") {
+// 								alert("Sprint name duplicate in this project");
+// 							}else{
+// 								alert("Sprint Creation " + response);
+// 							}
+// 		                },
+// 						error : function(data, status, er) {
+// 							console.log("Error in create new Sprint jsm : " + data + " status: " + status + " er:" + er);
 						
-						}
-		            });
-					 closePopup();
-			}
+// 						}
+// 		            });
+// 					 closePopup();
+// 			}
 		</script>
 		<script type="text/javascript">
 		function loadUserStory(userStoryId) {
