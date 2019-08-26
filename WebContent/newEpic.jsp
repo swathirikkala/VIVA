@@ -134,9 +134,38 @@ $(document).ready(function() {
 });
 </script>
 <script type="text/javascript">
+function validateEpicForm(){
+	var isValidEpicForm = true;
+	var erroMessage = "";
+	if($("#projectName").val() == "0"){
+		isValidEpicForm = false;
+		erroMessage +="\nPlease Select Project";
+	}
+	if($.trim($("#epicName").val()) == ""){
+		isValidEpicForm = false;
+		erroMessage +="\nPlease Give Epic Name";
+		
+	}
+	if($.trim($("#description").val()) == ""){
+		isValidEpicForm = false;
+		erroMessage +="\nPlease Give Epic Description";
+		
+	}
+	console.log("Epic validation message :: " + erroMessage);
+	console.log("isValidEpicForm ::::::::::: " + isValidEpicForm);
+	if(isValidEpicForm == false){
+		alert(erroMessage);
+	}
+	return isValidEpicForm;
+}
 function createEpic(){
 	console.log("createEpic got called");
 	console.log($("form[name=newEpicForm]").serialize());
+	var isValidEpicForm = validateEpicForm();
+	console.log("isValidEpicForm value in createEpic : " + isValidEpicForm);
+	if(isValidEpicForm == false){
+		return;
+	}
 	$.ajax({
 		type: 'post',
 		url: './addEpic',
@@ -148,13 +177,13 @@ function createEpic(){
 			}else{
 				alert("Epic creation Failed");
 			}
+
+			closeNewEpicModal();
 		},
 		error : function(data, status, er) {
 			console.log("Error in create new Epic jsm : " + data + " status: " + status + " er:" + er);
-						
 		}
 	});
-	closeNewEpicModal();
 }
 </script>
 <script type="text/javascript">

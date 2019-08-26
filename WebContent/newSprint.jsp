@@ -108,7 +108,7 @@
 	<script type="text/javascript">
 		function createSprint() {
 			console.log("createSprint got called");
-			console.log($("form[name=newSprintForm]").serialize());
+			//console.log($("form[name=newSprintForm]").serialize());
 			console.log("Sprint Validation got called .....");
 			
 			var isValidSprintForm = validateSprintForm();
@@ -134,7 +134,6 @@
 							console.log("Error in create new Sprint jsm : " + data + " status: " + status + " er:" + er);
 						}
 		            });
-					closeSprintModal();
 				}
 		}
 	</script>

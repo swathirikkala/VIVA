@@ -26,6 +26,7 @@
 <html>
 	<head>
 	<script type="text/javascript">
+	var isValidEmailId = false;
 		$(document).ready(function() {
 			var uname = '<%=userName%>';
 			console.log("user name : " + uname);
@@ -34,6 +35,21 @@
 				window.location="index.jsp";
 			}
 		});
+		function validateEmail($email) {
+			console.log("Email Validator got called : " + $email);
+			  var emailReg = /^([\w-\.]+@([\w-]+\.)+[\w-]{2,4})?$/;
+			  return emailReg.test( $email );
+		}
+		$("#userEmailId").blur(function(){
+			if(validateEmail($("#userEmailId").val())){
+				isValidEmailId = true;
+				console.log("proper email id");
+			}else{
+				isValidEmailId = false;
+				alert("Please enter proper formated emailid.");
+			}
+		});
+
 	</script>
 	</head>
 	<body>
@@ -115,7 +131,7 @@
 		function clearUserInviteForm(){
 			$("#userEmailId").val("");
 			$("#teamId").val("0");
-			$("#departmentId").val("0");
+			$("#departmentId").val("");
 		}
 	</script>
 	<script type="text/javascript">
@@ -123,15 +139,15 @@
 			console.log("validateUserInviteForm got called .....");
 			var errorMessage = "";
 			var isValid = true;
-			if($("#userEmailId").val() === ""){
+			if(validateEmail($("#userEmailId").val()) == false){
 				isValid = false;
-				errorMessage += "\r\n Please fill email id";
+				errorMessage += "\r\n Please fill proper formatted email id";
 			}
 			if($("#projectName").val() === "0"){
 				isValid = false;
 				errorMessage += "\r\n Please Select Project Name";
 			}
-			if($("#departmentId").val() === "0"){
+			if($("#departmentId").val() === ""){
 				isValid = false;
 				errorMessage += "\r\n Please Select Department Name";
 			}
